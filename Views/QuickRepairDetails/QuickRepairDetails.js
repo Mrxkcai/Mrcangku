@@ -310,6 +310,8 @@ var quickRepairDetails = function () {
                     carList_ul.fadeOut(200);
 
 
+
+                    
 //                  app.layerAlert("您的订单已发送至维修厂，请耐心等待");
                     localStorage.removeItem('status');
 					localStorage.removeItem('num');
