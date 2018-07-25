@@ -228,8 +228,7 @@ var quickRepairDetails = function () {
 
     //预约
     body.on("click", ".btn_reservation", function () {
-//  	alert()
-    	
+
         app.verificationUserInfo();
         if (!app.getItem("merchant_id")) {
             alert("维修厂信息有变，请重新进入页面");
@@ -267,7 +266,7 @@ var quickRepairDetails = function () {
             app.alert('请选择预约地址');
             return;
         }
-        app.loading();
+
         
         var data = {
                 car_id: carList_carInfo_Id,
@@ -282,7 +281,7 @@ var quickRepairDetails = function () {
                 addressCounty: addressCounty
             }
 		app.setItem('info',JSON.stringify(data))
-		console.log(localStorage.getItem('info'))
+		// console.log(localStorage.getItem('info'))
         $.ajax({
             url: api.NWBDApiOrderAdd + "?r=" + Math.random(),
             type: "POST",
@@ -310,7 +309,7 @@ var quickRepairDetails = function () {
                     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
                     carList_ul.fadeOut(200);
 
-                    app.closeLoading();
+
 //                  app.layerAlert("您的订单已发送至维修厂，请耐心等待");
                     localStorage.removeItem('status');
 					localStorage.removeItem('num');
