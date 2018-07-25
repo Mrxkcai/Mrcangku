@@ -1,0 +1,236 @@
+body {
+  background: #f0efed;
+}
+body header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  background: #fff;
+}
+body header ul {
+  display: -webkit-flex;
+  display: flex;
+}
+body header ul li {
+  flex: 1;
+  border-bottom: 0.01rem solid #e5e5e5;
+  float: left;
+  height: 0.9rem;
+  line-height: 0.9rem;
+  position: relative;
+}
+body header ul li p {
+  font-size: 0.26rem;
+  color: #b3b3b3;
+  height: 0.89rem;
+  line-height: 0.89rem;
+  width: 1.44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+body header ul li .active {
+  border-bottom: 0.06rem solid #f87b19;
+  color: #f87b19;
+}
+body header ul li span {
+  position: absolute;
+  top: 0.18rem;
+  right: 0;
+  height: 0.55rem;
+  width: 0.01rem;
+  border: 0.01rem solid #e5e5e5;
+}
+body .container {
+  margin-top: 0.89rem;
+}
+body .container .current_order ul,
+body .container .completed_order ul,
+body .container .cancelled_order ul {
+  margin-bottom: 0.4rem;
+}
+body .container .current_order ul li,
+body .container .completed_order ul li,
+body .container .cancelled_order ul li {
+  width: 6.9rem;
+  height: 3.5rem;
+  background: #fff;
+  border-radius: 0.1rem;
+  margin: 0.2rem auto 0 auto;
+  position: relative;
+}
+body .container .current_order ul li h3,
+body .container .completed_order ul li h3,
+body .container .cancelled_order ul li h3 {
+  height: 0.76rem;
+  background: #fff;
+  border-top-left-radius: 0.1rem;
+  border-top-right-radius: 0.1rem;
+  color: #666;
+  font-weight: normal;
+}
+body .container .current_order ul li h3 .order_li_h3_left,
+body .container .completed_order ul li h3 .order_li_h3_left,
+body .container .cancelled_order ul li h3 .order_li_h3_left {
+  float: left;
+  font-size: 0.28rem;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  margin-left: 0.41rem;
+  color: #fb9120;
+}
+body .container .current_order ul li h3 .order_li_h3_center,
+body .container .completed_order ul li h3 .order_li_h3_center,
+body .container .cancelled_order ul li h3 .order_li_h3_center {
+  float: left;
+  font-size: 0.24rem;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  margin-left: 0.2rem;
+}
+body .container .current_order ul li h3 .order_li_h3_right,
+body .container .completed_order ul li h3 .order_li_h3_right,
+body .container .cancelled_order ul li h3 .order_li_h3_right {
+  width: 2.03rem;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  border-radius: 0.1rem;
+  float: right;
+  font-size: 0.22rem;
+  text-align: center;
+  margin-top: 0.2rem;
+  margin-right: 0.41rem;
+  color: #fb9120;
+  border: 0.01rem solid #fb9120;
+}
+body .container .current_order ul li .head_bottom,
+body .container .completed_order ul li .head_bottom,
+body .container .cancelled_order ul li .head_bottom {
+  display: block;
+  height: 0.01rem;
+  border-bottom: 0.01rem solid #e5e5e5;
+  margin-right: 0.38rem;
+  margin-left: 0.38rem;
+}
+body .container .current_order ul li .middle_content,
+body .container .completed_order ul li .middle_content,
+body .container .cancelled_order ul li .middle_content {
+  height: 1.92rem;
+  border-bottom: 0.01rem solid #e5e5e5;
+  position: relative;
+}
+body .container .current_order ul li .middle_content .order_li_brands,
+body .container .completed_order ul li .middle_content .order_li_brands,
+body .container .cancelled_order ul li .middle_content .order_li_brands {
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  margin-top: 0.25rem;
+  margin-left: 0.2rem;
+  height: 0.43rem;
+  line-height: 0.43rem;
+  background: #babab9;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.3rem;
+  float: left;
+}
+body .container .current_order ul li .middle_content .order_li_carNo,
+body .container .completed_order ul li .middle_content .order_li_carNo,
+body .container .cancelled_order ul li .middle_content .order_li_carNo {
+  display: block;
+  color: #6a6c6e;
+  float: left;
+  margin-top: 0.3rem;
+  margin-left: 0.2rem;
+}
+body .container .current_order ul li .middle_content .order_li_maintenanceType,
+body .container .completed_order ul li .middle_content .order_li_maintenanceType,
+body .container .cancelled_order ul li .middle_content .order_li_maintenanceType,
+body .container .current_order ul li .middle_content .order_li_repairer,
+body .container .completed_order ul li .middle_content .order_li_repairer,
+body .container .cancelled_order ul li .middle_content .order_li_repairer {
+  position: absolute;
+  top: 0.88rem;
+  width: 4.7rem;
+  left: 0.4rem;
+  font-size: 0.24rem;
+}
+body .container .current_order ul li .middle_content .order_li_maintenanceType,
+body .container .completed_order ul li .middle_content .order_li_maintenanceType,
+body .container .cancelled_order ul li .middle_content .order_li_maintenanceType {
+  color: #6a6c6e;
+}
+body .container .current_order ul li .middle_content .order_li_repairer,
+body .container .completed_order ul li .middle_content .order_li_repairer,
+body .container .cancelled_order ul li .middle_content .order_li_repairer {
+  top: 1.34rem;
+  color: #a4a6aa;
+}
+body .container .current_order ul li .bottom_btn,
+body .container .completed_order ul li .bottom_btn,
+body .container .cancelled_order ul li .bottom_btn {
+  display: -webkit-flex;
+  display: flex;
+}
+body .container .current_order ul li .bottom_btn .bottom_btn_left,
+body .container .completed_order ul li .bottom_btn .bottom_btn_left,
+body .container .cancelled_order ul li .bottom_btn .bottom_btn_left,
+body .container .current_order ul li .bottom_btn .bottom_btn_right,
+body .container .completed_order ul li .bottom_btn .bottom_btn_right,
+body .container .cancelled_order ul li .bottom_btn .bottom_btn_right {
+  display: block;
+  text-align: center;
+  height: 0.82rem;
+  line-height: 0.82rem;
+  flex: 1;
+  color: #aba9a7;
+  font-size: 0.24rem;
+}
+body .container .current_order ul li .bottom_btn .bottom_btn_left,
+body .container .completed_order ul li .bottom_btn .bottom_btn_left,
+body .container .cancelled_order ul li .bottom_btn .bottom_btn_left {
+  border-right: 0.01rem solid #e4e4e5;
+}
+body .container .current_order ul li .order_operating,
+body .container .completed_order ul li .order_operating,
+body .container .cancelled_order ul li .order_operating {
+  position: absolute;
+  right: 0.24rem;
+  top: 0.92rem;
+  width: 1.46rem;
+  height: 1.37rem;
+  text-align: right;
+}
+body .container .current_order ul li .order_operating p:first-child,
+body .container .completed_order ul li .order_operating p:first-child,
+body .container .cancelled_order ul li .order_operating p:first-child {
+  font-size: 0.24rem;
+  color: #a4a6aa;
+}
+body .container .current_order ul li .order_operating .money,
+body .container .completed_order ul li .order_operating .money,
+body .container .cancelled_order ul li .order_operating .money {
+  font-size: 0.3rem;
+  color: #ff5252;
+  margin-top: 0.1rem;
+}
+body .container .current_order ul li .order_operating button,
+body .container .completed_order ul li .order_operating button,
+body .container .cancelled_order ul li .order_operating button {
+  width: 1.46rem;
+  height: 0.47rem;
+  border-radius: 0.1rem;
+  background: #ff5252;
+  font-size: 0.24rem;
+  color: #fff;
+  margin-top: 0.15rem;
+}
+body .container .completed_order ul li .order_operating .money,
+body .container .cancelled_order ul li .order_operating .money {
+  color: #666;
+}
+body .container .completed_order ul li .order_operating button,
+body .container .cancelled_order ul li .order_operating button {
+  background: #fb9120;
+}

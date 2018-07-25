@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=yes,email=no"/>
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="x5-page-mode" content="app"/>
+    <title>常见问题</title>
+    <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+    <link rel="stylesheet" type="text/css" href="CommonProblem.min.css?v=1.0.1"/>
+</head>
+
+<body>
+<header>您是否有以下问题要咨询：</header>
+<div class="container">
+    <ul>
+        <li><span class="li_before_icon"></span>
+            <p>如何一键保险？</p><span class="li_behind_icon"></span></li>
+        <li><span class="li_before_icon"></span>
+            <p>如何一键救援？</p><span class="li_behind_icon"></span></li>
+    </ul>
+</div>
+<a class="customer_service" href="tel:4000-016-369"><span></span>
+    <p>在线客服</p>
+    <p>4000-016-369</p>
+</a>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script src="CommonProblem.js?v=1.0.1" charset='utf-8'></script>
+<script>
+    $(function () {
+//      app.loading();
+        if (api.isDebug) {
+//          CommonProblem();
+        } else {
+            $.ajax({
+                url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
+                type: "POST",
+                async: false,
+                data: {
+                    wxUrl: window.location.href
+                },
+                success: function (result) {
+                	
+                    if (result.status === "success" && result.code === 0) {
+                    	
+                        wx.config({
+                            debug: api.isDebug,
+                            appId: result.data.AppID,
+                            timestamp: result.data.timestamp,
+                            nonceStr: result.data.noncestr,
+                            signature: result.data.signature,
+                            jsApiList: [
+                            'chooseWXPay',
+                            'hideAllNonBaseMenuItem',
+                            'hideOptionMenu',		//	隐藏分享菜单
+		        			'checkJsApi',			//	
+		        			'onMenuShareTimeline',	//	分享到朋友圈
+		        			'onMenuShareAppMessage'	//	分享给朋友
+                            ]
+                        });
+                        wx.ready(function () {
+//                          wx.hideAllNonBaseMenuItem();		//	hide menu
+//                          CommonProblem();
+                            
+                            //新增分享
+                            wx.checkJsApi({
+			        			jsApiList:['chooseImage'],	//	需要检测的JS接口列表
+			        			success:function(res){
+			        				console.log(res)
+			        			}
+			        		});
+	                        var shareUrl = 'https://wxcs.nuoweibd.com/Views/shareList/share.html?customerId=' + app.getItem('userInfo').id;
+	                        var obj = {
+			        			//	朋友圈
+			        			title:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	标题
+			        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
+			        			link:shareUrl,	//	分享链接
+			        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图标
+			        			fail:function(res){
+			        				console.log(JSON.stringify(res))
+			        			},
+			        			success:function(){
+			      					alert('分享成功')
+			        			},
+			        			cancel:function(){
+			        			//	alert('分享取消')
+			        			}
+			        		};
+			        		
+			        		var obj1 = {
+								//	微信朋友
+			        			title:'汽车维修不用愁，保宝车服解您愁。',	//	标题
+			        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
+			        			link:shareUrl,	//	分享链接
+			        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图片
+			        			fail:function(res){
+			        				console.log(JSON.stringify(res))
+			        			},
+			        			success:function(){
+			      				//	alert('分享成功')
+			        			},
+			        			cancel:function(){
+			        			//	alert('分享取消')
+			        			}
+							};
+			        		
+			        		if(!app.getItem('userInfo').id){
+//			        			alert(app.getItem('userInfo').id)
+			        			wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
+			        		}else{
+//			        			wx.showAllNonBaseMenuItem();
+			        			wx.onMenuShareTimeline(obj)	//	分享到朋友圈
+			        			wx.onMenuShareAppMessage(obj1)	//	分享给朋友
+			        		}
+			//      		wx.hideOptionMenu()	//	隐藏分享
+                        });
+                        wx.error(function () {
+                            alert("公众号页面授权失败");
+                            app.f_close();
+                        });
+                    } else {
+                        alert("获取授权失败：" + result.message);
+                        app.f_close();
+                    }
+                },
+                error: function () {
+                    alert("网络异常，请检查网络");
+                    app.f_close();
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

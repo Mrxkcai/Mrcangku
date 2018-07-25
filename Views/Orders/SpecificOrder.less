@@ -1,0 +1,172 @@
+body {
+  background: #f0efed;
+
+  .container {
+    .payment_order, .evaluation_order,.current_order {
+      overflow: hidden;
+      display: none;
+      ul {
+        margin-bottom: 0.4rem;
+        li {
+          width: 6.9rem;
+          height: 3.5rem;
+          background: #fff;
+          border-radius: 0.1rem;
+          margin: 0.2rem auto 0 auto;
+          position: relative;
+          h3 {
+            height: 0.76rem;
+            //background: #fb9120;
+            border-top-left-radius: 0.1rem;
+            border-top-right-radius: 0.1rem;
+            //color: #fff;
+            color: #666;
+            font-weight: normal;
+            .order_li_h3_left {
+              float: left;
+              font-size: 0.28rem;
+              height: 0.76rem;
+              line-height: 0.76rem;
+              margin-left: 0.41rem;
+              color: #fb9120;
+            }
+            .order_li_h3_center {
+              float: left;
+              font-size: 0.24rem;
+              height: 0.76rem;
+              line-height: 0.76rem;
+              margin-left: 0.2rem;
+            }
+            .order_li_h3_right {
+              width: 2.03rem;
+              height: 0.35rem;
+              line-height: 0.35rem;
+              border-radius: 0.1rem;
+              //border: 0.01rem solid #fff;
+              float: right;
+              font-size: 0.22rem;
+              text-align: center;
+              margin-top: 0.2rem;
+              margin-right: 0.41rem;
+              color: #fb9120;
+              border: 0.01rem solid #fb9120;
+            }
+          }
+          .head_bottom {
+            display: block;
+            height: 0.01rem;
+            border-bottom: 0.01rem solid #e5e5e5;
+            margin-right: 0.38rem;
+            margin-left: 0.38rem;
+          }
+          .middle_content {
+            height: 1.92rem;
+            border-bottom: 0.01rem solid #e5e5e5;
+            position: relative;
+            .order_li_brands {
+              padding-left: 0.2rem;
+              padding-right: 0.2rem;
+              margin-top: 0.25rem;
+              margin-left: 0.2rem;
+              height: 0.43rem;
+              line-height: 0.43rem;
+              background: #babab9;
+              color: #fff;
+              text-align: center;
+              border-radius: 0.3rem;
+              float: left;
+            }
+            .order_li_carNo {
+              display: block;
+              color: #6a6c6e;
+              float: left;
+              margin-top: 0.3rem;
+              margin-left: 0.2rem;
+            }
+            .order_li_maintenanceType, .order_li_repairer {
+              position: absolute;
+              top: 0.88rem;
+              width: 4.7rem;
+              left: 0.4rem;
+              font-size: 0.24rem;
+            }
+            .order_li_maintenanceType {
+              color: #6a6c6e;
+            }
+            .order_li_repairer {
+              top: 1.34rem;
+              color: #a4a6aa;
+            }
+          }
+          .bottom_btn {
+            display: -webkit-flex;
+            display: flex;
+            .bottom_btn_left, .bottom_btn_right {
+              display: block;
+              text-align: center;
+              height: 0.82rem;
+              line-height: 0.82rem;
+              flex: 1;
+              color: #aba9a7;
+              font-size: 0.24rem;
+            }
+            .bottom_btn_left {
+              border-right: 0.01rem solid #e4e4e5;
+            }
+          }
+          .order_operating {
+            position: absolute;
+            right: 0.24rem;
+            top: 0.92rem;
+            width: 1.46rem;
+            height: 1.37rem;
+            text-align: right;
+            p:first-child {
+              font-size: 0.24rem;
+              color: #a4a6aa;
+            }
+            .money {
+              font-size: 0.3rem;
+              color: #ff5252;
+              margin-top: 0.1rem;
+            }
+            button {
+              width: 1.46rem;
+              height: 0.47rem;
+              border-radius: 0.1rem;
+              background: #ff5252;
+              font-size: 0.24rem;
+              color: #fff;
+              margin-top: 0.15rem;
+            }
+          }
+        }
+      }
+    }
+    .evaluation_order {
+      ul {
+        li {
+          //h3 {
+            //background: #fff;
+            //color: #666;
+            //.order_li_h3_left {
+            //  color: #fb9120;
+            //}
+            //.order_li_h3_right {
+            //  color: #fb9120;
+            //  border: 0.01rem solid #fb9120;
+            //}
+          //}
+          .order_operating {
+            .money {
+              color: #666;
+            }
+            button {
+              background: #fb9120;
+            }
+          }
+        }
+      }
+    }
+  }
+}

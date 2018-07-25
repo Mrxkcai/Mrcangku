@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="x5-page-mode" content="app"/>
+    <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.8"/>
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <!--<ul class="search_select">-->
+        <!--<li>-->
+        <!--<span class="area ellipsis">默认▼</span>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<span class="sorting ellipsis">默认排序▼</span>-->
+        <!--<select class="sorting_select">-->
+        <!--<option value="0">默认排序</option>-->
+        <!--<option value="1">评分最高</option>-->
+        <!--<option value="2">距离最近</option>-->
+        <!--</select>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<span class="kind ellipsis">默认▼</span>-->
+        <!--<select class="kind_select">-->
+        <!--<option value="0">默认</option>-->
+        <!--<option value="1">一类</option>-->
+        <!--<option value="2">二类</option>-->
+        <!--<option value="3">三类</option>-->
+        <!--<option value="4">保宝车服认证店</option>-->
+        <!--</select>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <div class="search_div">
+            <span class="icon_search"></span>
+            <form id="search_from">
+                <input maxlength="48" type="text" class="search_bar" placeholder="请输入您要找的汽修厂"/>
+            </form>
+            <span class="delete_search">×</span>
+        </div>
+        <div class="userInfo_prompt">
+            完善车型和个人信息，为您推荐更合适的服务<span></span>
+        </div>
+    </header>
+    <div class="repairer_list">
+        <ul class="repairer_list_ul"></ul>
+    </div>
+    <div class="positioning"></div>
+</div>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="http://webapi.amap.com/maps?v=1.4.3&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
+<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script src="QuickRepair.js?v=1.0.11" charset='utf-8'></script>
+<script>
+    $(function () {
+        app.loading();
+        if (api.isDebug) {
+            quickRepair();
+        } else {
+            $.ajax({
+                url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
+                type: "POST",
+                async: false,
+                data: {
+                    wxUrl: window.location.href
+                },
+                success: function (result) {
+                    if (result.status === "success" && result.code === 0) {
+                        wx.config({
+                            debug: api.isDebug,
+                            appId: result.data.AppID,
+                            timestamp: result.data.timestamp,
+                            nonceStr: result.data.noncestr,
+                            signature: result.data.signature,
+                            jsApiList: ['getLocation', 'hideAllNonBaseMenuItem']
+                        });
+                        wx.ready(function () {
+                            wx.hideAllNonBaseMenuItem();
+                            quickRepair();
+                        });
+                        wx.error(function (err) {
+                            alert("公众号页面授权失败");
+                            app.f_close();
+                        });
+                    } else {
+                        alert("获取授权失败：" + result.message);
+                        app.f_close();
+                    }
+                },
+                error: function () {
+                    alert("网络异常，请检查网络");
+                    app.f_close();
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>
