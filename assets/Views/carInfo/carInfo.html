@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="x5-page-mode" content="app"/>
+    <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+    <link rel="stylesheet" type="text/css" href="carInfo.css"/>
+    <!--公共组件-->
+    <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+    <title>个人及车辆信息</title>
+</head>
+<body>
+<div id="app" v-cloak>	
+	<div class="personalInfo">
+		<div class="list">
+			个人信息
+		</div>
+		
+		<!--图像-->
+		<div class="people">
+			<img src=""/>
+		</div>
+		
+		<div class="line">
+			<span>姓名</span>
+			<input type="" name="" id="" value="" v-model="" placeholder="请输入您的姓名"/>
+		</div>
+		
+		<div class="line">
+			<span>联系电话</span>
+			<input type="" name="" id="" value="" v-model="" placeholder="1**********"/>
+		</div>
+	</div>
+	
+	<div class="personalInfo">
+		<div class="list list2">
+			车辆信息
+		</div>
+		
+		<div class="line">
+			<span>车牌号 <span class="xing">*</span></span>
+			<input type="" name="" id="" value="" v-model="value1" placeholder="请输入车牌号"/>
+			<img src="../../images/jinat.png"/>
+		</div>
+		
+		<div class="line">
+			<span>品牌型号<span class="xing">*</span></span>
+			<input type="" name="" id="" value="" v-model="value1" placeholder="请选择车辆品牌型号"/>
+			<img src="../../images/jinat.png"/>
+		</div>
+		
+		<div class="line line3">
+			<span>保险公司</span>
+			<input type="" name="" id="" value="" v-model="value1" placeholder="请选择保险公司"/>
+			<img src="../../images/jinat.png"/>
+		</div>
+	</div>
+	
+<footer>确定</footer>
+<!--倒计时组件-->
+<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+</div>
+</body>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+<script src="../Component/js/count.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script src="carInfo.js"></script>
+
+
+</html>

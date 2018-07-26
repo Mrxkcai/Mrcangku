@@ -1,0 +1,83 @@
+html {
+  overflow: hidden;
+  body {
+    background: #F5F5F5;
+    position: relative;
+    overflow: hidden;
+    .container {
+      overflow: hidden;
+      width: 6.9rem;
+      height: 5.46rem;
+      background: #fff;
+      margin: 0.19rem 0.3rem 0 0.3rem;
+      position: relative;
+      .title_div {
+        width: 0.06rem;
+        height: 0.32rem;
+        background: #f28928;
+        margin-top: 0.44rem;
+        float: left;
+      }
+      .title_span {
+        margin-top: 0.4rem;
+        margin-left: 0.3rem;
+        color: #333;
+        font-size: 0.3rem;
+        float: left;
+        font-weight: bold;
+      }
+      img {
+        position: absolute;
+        width: 1.8rem;
+        height: 1.8rem;
+        top: 1.2rem;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+      }
+      .user_name, .user_phone {
+        height: 0.94rem;
+        width: 6.6rem;
+        border-top: 0.01rem solid #e8e8e8;
+        position: absolute;
+        margin-left: 0.3rem;
+        span {
+          color: #333;
+          font-size: 0.3rem;
+          height: 0.93rem;
+          line-height: 0.93rem;
+        }
+        input {
+          float: right;
+          height: 0.9rem;
+          line-height: 0.9rem;
+          text-align: right;
+          font-size: 0.28rem;
+          margin-right: 0.6rem;
+          color: #ccc;
+          transform: translateY(0.01rem);
+        }
+        input::-webkit-input-placeholder {
+          color: #ccc;
+        }
+      }
+      .user_name {
+        bottom: 0.94rem;
+      }
+      .user_phone {
+        bottom: 0;
+      }
+    }
+    button {
+      position: absolute;
+      bottom: 0;
+      background: #f28928;
+      height: 0.98rem;
+      line-height: 0.98rem;
+      width: 100%;
+      color: #fff;
+      font-size: 0.34rem;
+      font-weight: bold;
+    }
+  }
+}

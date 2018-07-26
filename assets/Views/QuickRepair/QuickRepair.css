@@ -1,0 +1,338 @@
+body{
+	-webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+.container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.container header {
+  height: 1rem;
+  overflow: hidden;
+  padding: 0 0.3rem;
+  background: #ffffff;
+  -webkit-box-shadow: 0 -0.02rem 0.04rem 0 #eeeeee;
+  box-shadow: 0 0.02rem 0.04rem 0 #eeeeee;
+}
+.container header .search_div {
+  margin-top: 0.18rem;
+  position: relative;
+  width: 100%;
+}
+.container header .search_div .icon_search {
+  background: url("../../images/index_jlt.png") no-repeat;
+  -webkit-background-size: 1.5rem;
+  background-size: 1.5rem;
+  background-position: 0 -13.48rem;
+  position: absolute;
+  top: 0.14rem;
+  left: 0.18rem;
+  width: 0.37rem;
+  height: 0.37rem;
+}
+.container header .search_div .search_bar {
+  background: #F5F5F5;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 0.7rem;
+  height: 0.58rem;
+  width: 100%;
+  border-radius: 0.42rem;
+  font-size: 0.26rem;
+  margin-top: 0.04rem;
+}
+.container header .search_div ::-webkit-input-placeholder {
+  color: #bbb;
+}
+.container header .search_div .delete_search {
+  display: none;
+  width: 0.37rem;
+  height: 0.37rem;
+  text-align: center;
+  line-height: 0.37rem;
+  background: #ddd;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.1rem;
+  right: 0.18rem;
+  color: #fff;
+}
+.container header .userInfo_prompt {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1rem;
+  line-height: 0.8rem;
+  background: #FFFCDA;
+  width: 100%;
+  font-size: 0.24rem;
+  color: #F84C4C;
+  padding-left: 0.32rem;
+}
+.container header .userInfo_prompt span {
+  font-family: icomoon;
+  font-size: 0.34rem;
+  color: #F84C4C;
+  display: inline-block;
+  transform: translateY(0.06rem);
+}
+.container .repairer_list {
+  overflow: hidden;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li {
+  height: 2.74rem;
+  border-bottom: 0.01rem solid #e4e4e5;
+  margin-left: 0.3rem;
+  overflow: hidden;
+  position: relative;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info {
+  margin: 0.33rem 0;
+  position: relative;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_img,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text {
+  float: left;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_img img {
+  width: 100%;
+  height: 100%;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text {
+  position: relative;
+  padding-left: 0.24rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .h3_name {
+  width: 4.16rem;
+  font-size: 0.32rem;
+  color: #333;
+  -webkit-transform: translateY(-0.06rem);
+  transform: translateY(-0.06rem);
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .repairer_info_grade,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .zxcx_span,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .wxnr_span {
+  width: 3.78rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .repairer_info_grade ul {
+  float: left;
+  margin-top: 0.02rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .repairer_info_grade ul li {
+  font-family: 'icomoon';
+  float: left;
+  margin-left: 0.02rem;
+  color: #f28928;
+  font-size: 0.22rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .repairer_info_grade .p_grade {
+  margin-top: 0.01rem;
+  float: left;
+  color: #999;
+  font-size: 0.22rem;
+  -webkit-transform: translate(0.14rem, -0.03rem);
+  transform: translate(0.14rem, -0.03rem);
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .zxcx_span {
+  margin-top: 0.18rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .zxcx_span .zhu {
+  display: block;
+  color: #fff;
+  background: #4a4a4a;
+  font-size: 0.22rem;
+  width: 0.26rem;
+  text-align: center;
+  height: 0.26rem;
+  line-height: 0.26rem;
+  border-radius: 0.04rem;
+  float: left;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .zxcx_span .zxcx_name {
+  margin-left: 0.14rem;
+  width: 3.38rem;
+  float: left;
+  color: #666;
+  font-size: 0.24rem;
+  -webkit-transform: translateY(-0.03rem);
+  transform: translateY(-0.03rem);
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .zxcx_span .zxcx_name span {
+  color: #ddd;
+  display: inline-block;
+  font-size: 0.18rem;
+  -webkit-transform: translateY(-0.03rem);
+  transform: translateY(-0.03rem);
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .wxnr_span {
+  margin-top: 0.06rem;
+  height: 0.24rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .wxnr_span li {
+  color: #F28928;
+  float: left;
+  border: 0.01rem solid #F28928;
+  margin-left: 0.08rem;
+  padding: 0 0.02rem;
+  border-radius: 0.04rem;
+  text-align: center;
+  height: 0.24rem;
+  line-height: 0.24rem;
+  font-size: 0.18rem;
+  opacity: 0.6;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .wxnr_span li:first-child {
+  margin: 0;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .address_detail,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .juli {
+  margin-top: 0.2rem;
+  font-size: 0.24rem;
+  color: #666;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .address_detail {
+  width: 3.8rem;
+  float: left;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .juli {
+  width: 0.8rem;
+  margin-right: -1rem;
+  float: right;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.42rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .lei,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .jiameng,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .renzheng,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .shehezhong {
+  width: 0.48rem;
+  height: 0.26rem;
+  line-height: 0.26rem;
+  border-radius: 0.04rem;
+  float: left;
+  font-size: 0.18rem;
+  margin-left: 0.08rem;
+  text-align: center;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .lei {
+  border: 0.01rem solid #44b54c;
+  color: #44B54C;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .jiameng {
+  border: 0.01rem solid #518eee;
+  color: #518eee;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .renzheng {
+  width: 0.64rem;
+  line-height: 0.3rem;
+  color: #fff;
+  background: #f84c4c;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type .shehezhong {
+  width: 0.64rem;
+  color: #fff;
+  background: #ccc;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .notReservation {
+  position: absolute;
+  right: 0;
+  top: 1.02rem;
+  width: 1.58rem;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+  font-size: 0.22rem;
+  color: #518eee;
+  padding-left: 0.3rem;
+  text-align: center;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation span,
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .notReservation span {
+  position: absolute;
+  top: 0.18rem;
+  left: 0.18rem;
+  display: block;
+  width: 0.28rem;
+  height: 0.28rem;
+  background: url("../../images/index_jlt.png") no-repeat;
+  -webkit-background-size: 1.5rem;
+  background-size: 1.5rem;
+  background-position: 0 -14.15rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation {
+  border: 0.02rem solid #F28928;
+  border-right: 0;
+  color: #F28928;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation span {
+  background-position: 0 -14.15rem;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .notReservation {
+  border: 0.02rem solid #ccc;
+  border-right: 0;
+  color: #ccc;
+}
+.container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .notReservation span {
+  background-position: 0 -14.75rem;
+}
+.container .positioning {
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+  position: fixed;
+  left: 0.1rem;
+  bottom: 10%;
+  width: 0.8rem;
+  height: 0.8rem;
+  background: url("../../images/index_jlt.png") no-repeat;
+  -webkit-background-size: 1.5rem;
+  background-size: 1.5rem;
+  background-position: 0 -15.57rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0.01rem 0.18rem 0.04rem rgba(242, 137, 40, 0.5);
+  box-shadow: 0 0.01rem 0.18rem 0.04rem rgba(242, 137, 40, 0.5);
+}
+@-webkit-keyframes positioningGo {
+  0% {
+    left: 0.2rem;
+    -webkit-transform: translateX(50%) rotate(0deg);
+    transform: translateX(50%) rotate(0deg);
+  }
+  50% {
+    right: 50%;
+    -webkit-transform: translateX(50%) rotate(180deg);
+    transform: translateX(50%) rotate(180deg);
+  }
+  100% {
+    left: 0.2rem;
+    -webkit-transform: translateX(50%) rotate(360deg);
+    transform: translateX(50%) rotate(360deg);
+  }
+}
+@keyframes positioningGo {
+  0% {
+    left: 0.2rem;
+    -webkit-transform: translateX(50%) rotate(0deg);
+    transform: translateX(50%) rotate(0deg);
+  }
+  50% {
+    left: 50%;
+    -webkit-transform: translateX(50%) rotate(180deg);
+    transform: translateX(50%) rotate(180deg);
+  }
+  100% {
+    left: 0.2rem;
+    -webkit-transform: translateX(50%) rotate(360deg);
+    transform: translateX(50%) rotate(360deg);
+  }
+}

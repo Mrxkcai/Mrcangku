@@ -1,0 +1,48 @@
+var api = (function () {
+    var apiAddress = "wxcsht.nuoweibd.com:8443";
+    var api = {
+        isDebug: true,
+        debugProjectName: "wxcs.nuoweibd.com",
+        callbackUrl: "wxcs.nuoweibd.com",
+        appid: "wxe6766bc37f2769b2",
+        getLocalhostPaht: function () {
+            var curWwwPath = window.document.location.href;
+            var pathName = window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathName);
+            return curWwwPath.substring(0, pos);
+        },
+        Merchant_default_Icon: "/images/default_151_151.png",
+        Merchant_default_Banner: "/images/default_1125_633.png",
+        NWBDApiImproveCustomer: "https://" + apiAddress + "/customer/improveCustomer",
+        NWBDApiCarIsExist: "https://" + apiAddress + "/customer/carIsExist",
+        NWBDApiOrderQuery: "https://" + apiAddress + "/WeiXinPay/orderQuery",
+        NWBDApiGetWxOpenId: "https://" + apiAddress + "/user/getWxOpenId",
+        NWBDApiUniformorder: "https://" + apiAddress + "/WeiXinPay/uniformorder",
+        NWBDApiPayAndCommentCount: "https://" + apiAddress + "/WeiXinPay/payAndCommentCount",
+        NWBDApiVerifysend: "https://" + apiAddress + "/customer/sms/verify/send",
+        NWBDApiLogin: "https://" + apiAddress + "/customer/Login",
+        NWBDApiGetBrandAll: "https://" + apiAddress + "/customer/car/brand/all",
+        NWBDApiGetBrandSub: "https://" + apiAddress + "/customer/car/brand/sub",
+        NWBDApiGetInsuranceCompanyList: "https://" + apiAddress + "/insurance/getInsuranceCompanyList",
+        NWBDApiCarAdd: "https://" + apiAddress + "/car/carAdd",
+        NWBDApiGetCarListByCustomer: "https://" + apiAddress + "/car/getCarListByCustomer",
+        NWBDApiGetCarInfoByID: "https://" + apiAddress + "/car/getCarInfoByID",
+        NWBDApiSetCommonCar: "https://" + apiAddress + "/car/setCommonCar",
+        NWBDApiGetWxTicket: "https://" + apiAddress + "/user/getWxTicket",
+        NWBDApiPositionGetMerchantList: "https://" + apiAddress + "/merchant/positionGetMerchantList",
+        NWBDApiSearchMerchantList: "https://" + apiAddress + "/merchant/searchMerchantList",
+        NWBDApiGetOrderList: "https://" + apiAddress + "/WeiXinPay/getOrderList",
+        NWBDApiGetMerchantDetailInfo: "https://" + apiAddress + "/merchant/merchantDetailInfo",
+        NWBDApiOrderAdd: "https://" + apiAddress + "/WeiXinPay/orderAdd",
+        NWBDApiWeiXinPay: "https://" + apiAddress + "/WeiXinPay/pay"
+    };
+
+    if (api.isDebug) {
+        document.write("<script src='" + api.getLocalhostPaht() + "/" + api.debugProjectName + "/js/app.js?v=1.0.17' charset='utf-8'></script>");
+        document.close();
+    } else {
+        document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=1.0.17' charset='utf-8'></script>");
+        document.close();
+    }
+    return api;
+})();

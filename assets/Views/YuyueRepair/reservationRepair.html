@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+<meta name="format-detection" content="telephone=yes,email=no"/>
+<meta name="x5-orientation" content="portrait"/>
+<meta name="x5-fullscreen" content="true"/>
+<meta name="x5-page-mode" content="app"/>
+<title>预约维修等待界面</title>
+<script>
+    if (window.screen.availWidth <= 750) {
+        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+    } else {
+        document.documentElement.style.fontSize = '100px';
+    }
+</script>
+<link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+<link rel="stylesheet" type="text/css" href="reservationRepair.css"/>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<div class="container">
+			<div class="trail_down" @click="goQuickRepairDetail()">
+				<img src="../../images/icon_descend.png" alt="图片">
+			</div>
+		</div>
+		<div class="content">
+			
+			<div style="overflow: ;">
+				<p class="companyName">{{companyName}}</p>
+				
+				<div class="centerName">
+					<span></span>
+					<p>联系人：{{userName}}</p>
+					<span></span>
+				</div>
+				
+				<div class="center_phone">
+					<span class="phone_icon"></span>
+					<span class="phone_number" @click="tellphone(userMobile)">	{{userMobile}}</span>
+				</div>
+				
+				<div class="timer-box">
+					<p class="title_p">
+						<span>M</span>
+						<span>S</span>
+					</p>
+					
+					<!--灰色timer_gray-->
+					<div class="timer_left timer_div ">
+						<div>
+							{{min}}
+						</div>
+						<!--灰色横线timer_line2-->
+						<p class="timer_line "></p>
+					</div>
+					
+					<div class="timer_right timer_div">
+						<div>{{sec}}</div>
+						<p class="timer_line"></p>
+					</div>
+					<p style="clear: both;"></p>
+				</div>
+				
+				<div class="btn_qx" @click="cancle_order">取消订单</div>
+				<p class="words">订单不取消，生活更美好</p>
+				
+				<div class="contiue_order" v-show="isBtn" @click="continue_order">继续下单</div>
+				
+			<p class="five_min" v-show="!isBtn">15分钟内若商家未接单，系统将自动取消订单</p>
+			</div>
+		</div>
+		
+		<!--头像-->
+		<div class="nameBox">
+			<img :src="image_url"/>
+		</div>
+	</div>
+	
+	
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+	
+<!-- 引入组件 -->
+<script src="../../js/vue.min.js"></script>
+<script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script src="reservationRepair.js"></script>
+<script>
+$(function () {
+    app.loading();
+    if (api.isDebug) {
+    	
+        reservationRepair();
+    } else {
+        $.ajax({
+            url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
+            type: "POST",
+            async: false,
+            data: {
+                wxUrl: window.location.href
+            },
+            success: function (result) {
+            	console.log(result)
+                if (result.status === "success" && result.code === 0) {
+                    wx.config({
+                        debug: api.isDebug,
+                        appId: result.data.AppID,
+                        timestamp: result.data.timestamp,
+                        nonceStr: result.data.noncestr,
+                        signature: result.data.signature,
+                        jsApiList: [
+                        'hideOptionMenu',		//	隐藏分享菜单
+	        			'checkJsApi',			//	
+	        			'onMenuShareTimeline',	//	分享到朋友圈
+	        			'onMenuShareAppMessage',	//	分享给朋友
+                        'chooseWXPay', 
+                        'hideAllNonBaseMenuItem']
+                    });
+                    wx.ready(function () {
+//                      wx.hideAllNonBaseMenuItem();	//	hide menu
+                        reservationRepair();
+                        
+                        //新增分享
+                        wx.checkJsApi({
+		        			jsApiList:['chooseImage'],	//	需要检测的JS接口列表
+		        			success:function(res){
+		        				console.log(res)
+		        			}
+		        		});
+                        var shareUrl = 'https://wxcs.nuoweibd.com/Views/shareList/share.html?customerId=' + app.getItem('userInfo').id;
+                        var obj = {
+		        			//	朋友圈
+		        			title:'汽车维修不用愁，保宝车服解您愁。',	//	标题
+		        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
+		        			link:shareUrl,	//	分享链接
+		        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图标
+		        			fail:function(res){
+		        				console.log(JSON.stringify(res))
+		        			},
+		        			success:function(){
+		      					alert('分享成功')
+		        			},
+		        			cancel:function(){
+		        			//	alert('分享取消')
+		        			}
+		        		};
+		        		var obj1 = {
+							//	微信朋友
+		        			title:'汽车维修不用愁，保宝车服解您愁。',	//	标题
+		        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
+		        			link:shareUrl,	//	分享链接
+		        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图片
+		        			fail:function(res){
+		        				console.log(JSON.stringify(res))
+		        			},
+		        			success:function(){
+		      				//	alert('分享成功')
+		        			},
+		        			cancel:function(){
+		        			//	alert('分享取消')
+		        			}
+						};
+		        		
+		        		if(!app.getItem('userInfo').id){
+//		        			alert(app.getItem('userInfo').id)
+		        			wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
+		        		}else{
+//		        			wx.showAllNonBaseMenuItem();
+		        			wx.onMenuShareTimeline(obj)	//	分享到朋友圈
+		        			wx.onMenuShareAppMessage(obj1)	//	分享给朋友
+		        		}
+                    });
+                    wx.error(function () { 
+                        alert("公众号页面授权失败");
+                        app.f_close();
+                    });
+                } else {
+                    alert("获取授权失败：" + result.message);
+                    app.f_close();
+                }
+            },
+            error: function () {
+                alert("网络异常，请检查网络");
+                app.f_close();
+            }
+        });
+    }
+});
+</script>
+<script>
+var vm = new Vue({
+		el:'#app',
+		data:{
+			user_id:app.getItem('userInfo').id,
+			pageNum:1,
+			pageSize:1,
+			seconds:api.pzTime,
+			min:'00',
+			sec:'00',
+			countDown:'',
+			isBtn:false,
+			list:[],
+			companyName: '',
+			image_url:'',
+			userName:'',
+			userMobile:'',
+			orderId:''
+		},
+		methods:{
+			cancle_order(){
+				//	取消订单接口
+				var data = {
+					order_id:localStorage.getItem("orderId"),
+					user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+				}
+				console.log(data)
+				var that = this;
+				that.$dialog.confirm({
+	      			message: '确认取消订单？'
+	    		}).then(function(){
+	    			$.ajax({
+						type:"POST",
+						url:api.NWBDApiWeiXincancelOrder,
+						data:data,
+						dataType: 'json',
+						success:function(result){
+							console.log(result)
+							if(result.code == 0){
+//								app.alert(result.data)
+								localStorage.removeItem('status');
+								localStorage.removeItem('num');
+								setTimeout(function(){
+									window.history.back()
+								},1000)
+							}
+						},
+						error:function(){
+							alert('操作失败，请检查网络！');
+			                app.closeLoading();
+						}
+					});
+	    		}).catch(function(){
+	    			
+	    		});
+				
+			},
+			init(){
+				// 页面加载时，调用查看是否有派单中未接受订单
+				app.loading();	//	加载样式
+				var data = {
+					user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
+					pageNum:1,
+					pageSize:1,
+					seconds:api.pzTime
+				};
+				$.ajax({
+					url: api.NWBDApiWeiXinpushOrder,
+					type: "POST",
+					data:data,
+					dataType: 'json',
+					success:function(result){
+						console.log(result)
+						if(result.status == 'success' && result.code == 0){
+							app.closeLoading();
+							vm.list = result.data;
+							if(vm.list.length <= 0){
+								vm.ajaxfun();
+								return
+							}
+							
+							if(vm.list[0].companyName){
+								vm.companyName = vm.list[0].companyName
+							}
+							if(vm.list[0].image){
+								if(vm.list[0].image.image_type){
+									if(vm.list[0].image.image_type == 1){
+										vm.image_url = vm.list[0].image.image_url
+									}else{
+										vm.image_url = vm.list[0].image.image_url
+									}
+								}else{
+									vm.image_url = vm.list[0].image
+								}
+							}
+							if(vm.list[0].userName){
+								vm.userName = vm.list[0].userName
+							}
+							if(vm.list[0].userMobile){
+								vm.userMobile = vm.list[0].userMobile
+							}
+							if(vm.list.length > 0){
+								//	调用计时器
+								var countd = result.data[0].orderInfo.countdown;
+								console.log(countd)
+								this.orderId = result.data[0].orderInfo.id;
+								var oid = result.data[0].orderInfo.id;
+								localStorage.setItem('status',1);
+								localStorage.setItem('orderId',oid)
+								vm.timer(api.pzTime - countd,this.orderId);
+								vm.countDown = api.pzTime - countd;
+							}else{
+								localStorage.removeItem('status');
+								localStorage.removeItem('num');
+								alert('暂无订单');
+								window.history.back();
+							}
+							
+						}else{
+							window.history.back();
+						}
+						app.closeLoading();
+					},
+					error: function () {
+		                alert('操作失败，请检查网络！');
+		                app.closeLoading();
+		          }
+					
+				});
+				
+					
+			},
+			formatDuring(value) {
+				//	返回分钟
+		       	var secondTime = parseInt(value);// 秒
+		        var minuteTime = 0;// 分
+		        var hourTime = 0;// 小时
+		        if(secondTime > 59) {//如果秒数大于60，将秒数转换成整数
+		            //获取分钟，除以60取整数，得到整数分钟
+		            minuteTime = parseInt(secondTime / 60);
+		            //获取秒数，秒数取佘，得到整数秒数
+		            secondTime = parseInt(secondTime % 60);
+		            //如果分钟大于60，将分钟转换成小时
+		            if(minuteTime > 60) {
+		                //获取小时，获取分钟除以60，得到整数小时
+		                hourTime = parseInt(minuteTime / 60);
+		                //获取小时后取佘的分，获取分钟除以60取佘的分
+		                minuteTime = parseInt(minuteTime % 60);
+		            }
+		        }
+		        var result = "" + parseInt(secondTime);
+		        	this.countDown = result;
+		        if(result<10){
+		        	result = '0' + parseInt(secondTime);
+		        }
+				
+		        if(minuteTime < 10) {
+		            minuteTime = "0" + parseInt(minuteTime);
+		        }
+		        
+		       this.min = minuteTime;
+		       this.sec = result;
+				return  result;
+		  },
+		    timer(m,orderId){
+		   	// 定时器
+		   	$('.timer_div').removeClass('timer_gray')
+			$('.timer_line').removeClass('timer_line2')
+			
+		   	var tt = setInterval(function(){
+		   		if(m > 0 && m % 1 == 0){
+			    	localStorage.setItem("orderId",orderId);
+				   	
+				   	if(orderId){
+				   		var data = {
+							order_id:orderId,
+							user_id:app.getItem('userInfo').id		//	app.getItem('open_id')
+						}
+				   		
+				   		//	查询接口
+				   		$.ajax({
+			   				type:"POST",
+			   				url:api.NWBDApiWeiXincheckOrderStatus,
+			   				data:data,
+							dataType: 'json',
+							success:function(result){
+								console.log(result)
+								if(result.code == 0){
+									if(result.data == 1){
+	//									app.alert('商家已接单')
+										localStorage.removeItem('status');
+										localStorage.removeItem('num');
+										vm.list = [];
+										clearInterval(tt)
+										//	待确认跳转
+										window.location.href="../QuickRepair/QuickRepair.html"
+									}else if(result.data == 0){
+										//	未接单存1
+										localStorage.setItem('status',1)
+									}else if(result.data == 2){
+										app.alert('维修完成')
+										clearInterval(tt);
+										localStorage.removeItem('status');
+										localStorage.removeItem('num');
+										window.location.href="../QuickRepair/QuickRepair.html"
+									}else if(result.data == 3){
+										app.alert('订单已取消')
+										clearInterval(tt);
+										localStorage.removeItem('status');
+										localStorage.removeItem('num');
+										window.location.href="../QuickRepair/QuickRepair.html"
+									}else if(result.data == 4){
+										app.alert('订单超时未接收')
+										clearInterval(tt);
+										localStorage.removeItem('status');
+										localStorage.removeItem('num');
+										window.location.href="../QuickRepair/QuickRepair.html"
+									}else if(result.data == 5){
+										app.alert('维修完成')
+										clearInterval(tt);
+										localStorage.removeItem('status');
+										localStorage.removeItem('num');
+										window.location.href="../QuickRepair/QuickRepair.html"
+									}else{
+										
+									}
+									
+								}
+							},
+							error:function(){
+								alert('操作失败，请检查网络！');
+				                app.closeLoading();
+							}
+			   			});
+				   	}
+				}
+		   		m++;
+		   		this.countDown = m;
+		   		localStorage.setItem('num',m)
+		   		vm.formatDuring(m)
+		   		if(this.countDown == api.pzTime){
+		   			vm.isBtn = true;
+		   			clearInterval(tt);
+		   			vm.countDown = 0;
+		   			localStorage.removeItem('status');
+					localStorage.removeItem('num');
+					
+					var data = {
+						order_id:vm.orderId,
+						user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+					}
+					$.ajax({
+						type:"POST",
+						url:api.NWBDApiWeiXincancelOrder,
+						data:data,
+						dataType: 'json',
+						success:function(result){
+							console.log(result)
+							if(result.code == 0){
+								localStorage.removeItem('status');
+								localStorage.removeItem('num');
+							}
+						},
+						error:function(){
+							alert('操作失败，请检查网络！');
+			                app.closeLoading();
+						}
+					});
+   					
+				// 	指定时间后定时器变灰色
+					$('.timer_div').addClass('timer_gray')
+					$('.timer_line').addClass('timer_line2')
+		   		}
+		   		
+		   	},1000)
+		   	
+		   },
+		    continue_order(){
+		   	//	继续下单
+		   		var data = app.getItem('info')
+		   		console.log(data)
+		   		$.ajax({
+		            url: api.NWBDApiOrderAdd,
+		            type: "POST",
+		            data: JSON.parse(data),
+		            dataType: 'json',
+		            success: function (result) {
+		                if (result.status === "success" && result.code === 0) {
+		                	vm.isBtn = false;
+		                	vm.init()
+		                } else {
+		                    alert(result.message);
+		                    window.location.href="../QuickRepairDetails/QuickRepairDetails.html"
+		                    app.closeLoading();
+		                }
+		            },
+		            error: function () {
+		                alert('操作失败，请检查网络！');
+		                app.closeLoading();
+		            }
+		        });
+		   },
+		    goQuickRepairDetail(){
+		   	 window.history.back();
+		    },
+		    
+		    ajaxfun(){
+		    	//	查询接口
+		    	var data = {
+						order_id:localStorage.getItem("orderId"),
+						user_id:app.getItem('userInfo').id		//	app.getItem('open_id')
+					}
+		    	
+		   		$.ajax({
+	   				type:"POST",
+	   				url:api.NWBDApiWeiXincheckOrderStatus,
+	   				data:data,
+					dataType: 'json',
+					success:function(result){
+						console.log(result)
+						if(result.code == 0){
+							if(result.data == 1){
+								app.alert('商家已接单')
+								//	待确认跳转
+								setTimeout(function(){
+									window.location.href="../QuickRepair/QuickRepair.html"
+								},2000)
+								
+							}else if(result.data == 3){
+								app.alert('订单已取消')
+								setTimeout(function(){
+									window.location.href="../QuickRepair/QuickRepair.html"
+								},2000)
+								
+							}else if(result.data == 4){
+								app.alert('订单超时未接收')
+								setTimeout(function(){
+									window.location.href="../QuickRepair/QuickRepair.html"
+								},2000)
+								
+							}
+							
+						}
+					},
+					error:function(){
+						alert('操作失败，请检查网络！');
+		                app.closeLoading();
+					}
+	   			});
+		    },
+		    
+		    tellphone(tellphone){
+		    	window.location.href = 'tel:' + tellphone
+		    }
+		 
+		},
+		mounted(){
+			
+			this.init();
+			var that = this;
+			
+			app.verificationUserInfo();
+		}
+	})
+</script>
+	</body>
+</html>
