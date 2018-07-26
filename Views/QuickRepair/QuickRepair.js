@@ -235,7 +235,7 @@ var quickRepair = function () {
                     geocoder = new AMap.Geocoder({city: "010"});
                     geocoder.getAddress([lng, lat], function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
-                          
+                          	$('.position_text span').animate({width:5+"rem"},500)
                             $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress)
                       
 

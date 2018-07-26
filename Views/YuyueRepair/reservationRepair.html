@@ -42,7 +42,7 @@
 				
 				<div class="center_phone">
 					<span class="phone_icon"></span>
-					<span class="phone_number">{{userMobile}}</span>
+					<span class="phone_number" @click="tellphone(userMobile)">	{{userMobile}}</span>
 				</div>
 				
 				<div class="timer-box">
@@ -72,7 +72,7 @@
 				
 				<div class="contiue_order" v-show="isBtn" @click="continue_order">继续下单</div>
 				
-			<p class="five_min" v-show="!isBtn">5分钟内若商家未接单，系统将自动取消订单</p>
+			<p class="five_min" v-show="!isBtn">15分钟内若商家未接单，系统将自动取消订单</p>
 			</div>
 		</div>
 		
@@ -207,7 +207,7 @@ var vm = new Vue({
 			user_id:app.getItem('userInfo').id,
 			pageNum:1,
 			pageSize:1,
-			seconds:300,
+			seconds:api.pzTime,
 			min:'00',
 			sec:'00',
 			countDown:'',
@@ -264,7 +264,7 @@ var vm = new Vue({
 					user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
 					pageNum:1,
 					pageSize:1,
-					seconds:300
+					seconds:api.pzTime
 				};
 				$.ajax({
 					url: api.NWBDApiWeiXinpushOrder,
@@ -309,8 +309,8 @@ var vm = new Vue({
 								var oid = result.data[0].orderInfo.id;
 								localStorage.setItem('status',1);
 								localStorage.setItem('orderId',oid)
-								vm.timer(300 - countd,this.orderId);
-								vm.countDown = 300 - countd;
+								vm.timer(api.pzTime - countd,this.orderId);
+								vm.countDown = api.pzTime - countd;
 							}else{
 								localStorage.removeItem('status');
 								localStorage.removeItem('num');
@@ -370,7 +370,7 @@ var vm = new Vue({
 			$('.timer_line').removeClass('timer_line2')
 			
 		   	var tt = setInterval(function(){
-		   		if(m > 0 && m % 5 == 0){
+		   		if(m > 0 && m % 1 == 0){
 			    	localStorage.setItem("orderId",orderId);
 				   	
 				   	if(orderId){
@@ -440,7 +440,7 @@ var vm = new Vue({
 		   		this.countDown = m;
 		   		localStorage.setItem('num',m)
 		   		vm.formatDuring(m)
-		   		if(this.countDown == 300){
+		   		if(this.countDown == api.pzTime){
 		   			vm.isBtn = true;
 		   			clearInterval(tt);
 		   			vm.countDown = 0;
@@ -526,19 +526,19 @@ var vm = new Vue({
 								//	待确认跳转
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},1000)
+								},2000)
 								
 							}else if(result.data == 3){
 								app.alert('订单已取消')
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},1000)
+								},2000)
 								
 							}else if(result.data == 4){
 								app.alert('订单超时未接收')
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},1000)
+								},2000)
 								
 							}
 							
@@ -549,10 +549,15 @@ var vm = new Vue({
 		                app.closeLoading();
 					}
 	   			});
+		    },
+		    
+		    tellphone(tellphone){
+		    	window.location.href = 'tel:' + tellphone
 		    }
 		 
 		},
 		mounted(){
+			
 			this.init();
 			var that = this;
 			

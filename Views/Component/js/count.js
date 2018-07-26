@@ -29,8 +29,9 @@ Vue.component('count-block',{
 					user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
 					pageNum:1,
 					pageSize:1,
-					seconds:300
+					seconds:api.pzTime
 				};
+				
 				$.ajax({
 					url: api.NWBDApiWeiXinpushOrder,			//	因为检查订单状态没有返回剩余时间，所以再次请求此接口
 					type: "POST",
@@ -43,8 +44,8 @@ Vue.component('count-block',{
 							if(result.data.length > 0){
 								localStorage.setItem('status',1)
 								var countdown = result.data[0].orderInfo.countdown;
-								console.log(300 - countdown+"计时器")
-								localStorage.setItem('num',300 - countdown)
+								console.log(api.pzTime - countdown+"计时器")
+								localStorage.setItem('num',api.pzTime - countdown)
 								localStorage.setItem('orderId',result.data[0].orderInfo.id)
 								
 								//	查询订单状态
@@ -52,7 +53,6 @@ Vue.component('count-block',{
 									order_id:result.data[0].orderInfo.id,
 									user_id:app.getItem('userInfo').id		//	app.getItem('open_id')
 								}
-//								console.log(data.order_id)
 						   		if(data.order_id){
 							   		var status = setInterval(function(){
 							   			 console.log('调用成功')
@@ -63,7 +63,7 @@ Vue.component('count-block',{
 								   				data:data,
 												dataType: 'json',
 												success:function(result){
-//													 console.log(result)
+													 console.log(result)
 													if(result.code == 0){
 														if(result.data == 1){
 															app.alert('商家已接单')
@@ -179,7 +179,7 @@ Vue.component('count-block',{
 	    		查看
 	    	</div>
 	    	
-	    	<p class="count_seconds">5分钟内若商家未接单，系统将自动取消订单</p>
+	    	<p class="count_seconds">15分钟内若商家未接单，系统将自动取消订单</p>
     </div>
 	`
 });

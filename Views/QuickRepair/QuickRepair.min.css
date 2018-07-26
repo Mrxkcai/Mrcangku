@@ -406,7 +406,7 @@
 }
 .position_text span{
 	display: inline-block;
-	width: 5rem;
+	/*width: 5rem;*/
 	margin-left: .8rem;
 	line-height: .8rem;
 	white-space: nowrap;

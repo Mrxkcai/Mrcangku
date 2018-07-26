@@ -88,7 +88,7 @@
 				user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
 				pageNum:1,
 				pageSize:1,
-				seconds:300
+				seconds:api.pzTime
 			};
 			var tt;
 			$.ajax({
@@ -103,7 +103,7 @@
 						
 						if(result.data.length > 0){
 							var countd = result.data[0].orderInfo.countdown;
-							tt = 300 - countd;
+							tt = api.pzTime - countd;
 							localStorage.setItem('status',1);
 						}else{
 							localStorage.removeItem('status');
@@ -140,7 +140,7 @@
 		//	时间戳中个位数转化十位数
 		app.tranformTow = function (number){
 			return number < 10 ? '0'+number:number
-		}
+		};
 		
 		app.layerAlert = function (str) {
 	        layer.open({
