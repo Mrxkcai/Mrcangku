@@ -57,7 +57,7 @@ $(function () {
                 return;
             }
         }
-        //      console.log(window.location.href)
+        
         //      console.log(app.getQueryString("code"))
         $.ajax({
             url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),
