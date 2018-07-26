@@ -58,6 +58,7 @@ $(function () {
             }
         }
         
+        
         //      console.log(app.getQueryString("code"))
         $.ajax({
             url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),

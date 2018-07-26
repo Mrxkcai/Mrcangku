@@ -120,6 +120,7 @@
         //点击索引查询
         body.on('click', '.select_list_letter li a', function () {
             var scrollToStr = $(this).html();
+           
             $("#select_list_showLetter span").html(scrollToStr);
             $("#select_list_showLetter").show().delay(500).hide(0);
             //定位
@@ -181,6 +182,8 @@
 
         //选择普通品牌（一级）
         body.on('click', '.select_list_ul ul li p', function () {
+            
+            
             var data_brandId = $(this).attr("data-brandId");
             var data_brandName = $(this).attr("data-brandName");
             if (!data_brandId || !data_brandName) {
@@ -194,6 +197,11 @@
             $("#car_seriesName").val('');
             $("#car_modelId").val('');
             $("#car_modelName").val('');
+
+            element.text($(this).text());       //      车辆品牌型号选择一级即可不继续选择；
+            closeAllSelectList();               //      选择一级完成后关闭选择列表
+            return                              //      阻止往下执行写的return，注意修改
+
             element.text('请您选择');
             app.loading();
             $.ajax({
@@ -248,10 +256,15 @@
             }
             $("#car_brandId").val(data_brandId);
             $("#car_brandName").val(data_brandName);
-            $("#car_seriesId").val('');
+            $("#car_seriesId").val('');         //          车系列
             $("#car_seriesName").val('');
-            $("#car_modelId").val('');
+            $("#car_modelId").val('');          //          车型号
             $("#car_modelName").val('');
+
+            element.text(data_brandName);       //      车辆品牌型号选择一级即可不继续选择；
+            closeAllSelectList();               //      选择一级完成后关闭选择列表
+            return                              //      阻止往下执行写的return，注意修改
+
             element.text('请您选择');
             app.loading();
             $.ajax({

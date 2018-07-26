@@ -223,10 +223,19 @@ $(function () {
         //     app.alert('车牌号填写有误');
         //     return;
         // }
-        if (!car_brandId || !car_brandName || !car_seriesId || !car_seriesName || !car_modelId || !car_modelName) {
+
+
+        //      修改的车辆型号只选一级
+        // if (!car_brandId || !car_brandName || !car_seriesId || !car_seriesName || !car_modelId || !car_modelName) {
+        //     app.alert("请选择车辆品牌型号");
+        //     return;
+        // }
+
+        if (!car_brandId || !car_brandName) {
             app.alert("请选择车辆品牌型号");
             return;
         }
+
         // if (!car_insuranceId || !car_insuranceName) {
         //     app.alert("请选择保险公司");
         //     return;

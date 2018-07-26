@@ -89,7 +89,7 @@
 				pageNum:1,
 				pageSize:1,
 				seconds:api.pzTime
-			};
+            };
 			var tt;
 			$.ajax({
 				url: api.NWBDApiWeiXinpushOrder,
@@ -98,7 +98,7 @@
 				dataType: 'json',
 				async:false,			//	同步的使用
 				success:function(result){
-//					console.log(result)
+					// console.log(result)
 					if(result.status == 'success' && result.code == 0){
 						
 						if(result.data.length > 0){
@@ -106,14 +106,16 @@
 							tt = api.pzTime - countd;
 							localStorage.setItem('status',1);
 						}else{
-							localStorage.removeItem('status');
+                            localStorage.removeItem('status');
+                            return
 						}
 					}
 				},
 				error:function(){
 					
 				}
-			});
+            });
+            
 			return tt;
 		};
 		
