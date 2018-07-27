@@ -179,7 +179,7 @@ Vue.component('count-block',{
 	    		查看
 	    	</div>
 	    	
-	    	<p class="count_seconds">15分钟内若商家未接单，系统将自动取消订单</p>
+	    	<p class="count_seconds">{{api.pzTime/60}}分钟内若商家未接单，系统将自动取消订单</p>
     </div>
 	`
 });

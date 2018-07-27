@@ -184,47 +184,11 @@
                 min:minuteTime,
                 sec:result
            }
+
             return  objtime;
      };
 
-     app.timer = function(m){
-        // 定时器
-            var tt = setInterval(function(){
-                m++;
-
-            
-                localStorage.setItem('num',m)
-                app.formatDuring(m)
-                if(m == api.pzTime){
-                    // 	指定时间后定时器消失
-                    $('.countDown_box').hide();
-                    clearInterval(tt);
-                    localStorage.removeItem('status');
-                    localStorage.removeItem('num');
-                    var data = {
-                        order_id:localStorage.getItem('orderId'),
-                        user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
-                    }
-                    $.ajax({
-                        type:"POST",
-                        url:api.NWBDApiWeiXincancelOrder,
-                        data:data,
-                        dataType: 'json',
-                        success:function(result){
-                            if(result.code == 0){
-                                app.alert(result.data)
-                                localStorage.removeItem('status');
-                                localStorage.removeItem('num');
-                            }
-                        },
-                        error:function(){
-                            alert('操作失败，请检查网络！');
-                            app.closeLoading();
-                        }
-                    });
-                    }
-                },1000)
-        }
+     
 
 	}
 )($, window.app = {});
