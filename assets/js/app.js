@@ -151,7 +151,80 @@
 	            time: 2,
 	            skin: 'msg'
 	        });
-	    };
+        };
+        
+        app.formatDuring = function(value) {
+            //	返回分钟
+            var secondTime = parseInt(value);// 秒
+            var minuteTime = 0;// 分
+            var hourTime = 0;// 小时
+            if(secondTime > 59) {//如果秒数大于60，将秒数转换成整数
+                //获取分钟，除以60取整数，得到整数分钟
+                minuteTime = parseInt(secondTime / 60);
+                //获取秒数，秒数取佘，得到整数秒数
+                secondTime = parseInt(secondTime % 60);
+                //如果分钟大于60，将分钟转换成小时
+                if(minuteTime > 60) {
+                    //获取小时，获取分钟除以60，得到整数小时
+                    hourTime = parseInt(minuteTime / 60);
+                    //获取小时后取佘的分，获取分钟除以60取佘的分
+                    minuteTime = parseInt(minuteTime % 60);
+                }
+            }
+            var result = "" + parseInt(secondTime);
+            if(result<10){
+                result = '0' + parseInt(secondTime);
+            }
+            
+            if(minuteTime < 10) {
+                minuteTime = "0" + parseInt(minuteTime);
+            }
+            
+           var objtime = {
+                min:minuteTime,
+                sec:result
+           }
+            return  objtime;
+     };
+
+     app.timer = function(m){
+        // 定时器
+            var tt = setInterval(function(){
+                m++;
+
+            
+                localStorage.setItem('num',m)
+                app.formatDuring(m)
+                if(m == api.pzTime){
+                    // 	指定时间后定时器消失
+                    $('.countDown_box').hide();
+                    clearInterval(tt);
+                    localStorage.removeItem('status');
+                    localStorage.removeItem('num');
+                    var data = {
+                        order_id:localStorage.getItem('orderId'),
+                        user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+                    }
+                    $.ajax({
+                        type:"POST",
+                        url:api.NWBDApiWeiXincancelOrder,
+                        data:data,
+                        dataType: 'json',
+                        success:function(result){
+                            if(result.code == 0){
+                                app.alert(result.data)
+                                localStorage.removeItem('status');
+                                localStorage.removeItem('num');
+                            }
+                        },
+                        error:function(){
+                            alert('操作失败，请检查网络！');
+                            app.closeLoading();
+                        }
+                    });
+                    }
+                },1000)
+        }
 
 	}
 )($, window.app = {});

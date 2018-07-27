@@ -256,16 +256,14 @@
 		   	// 定时器
 		   	var tt = setInterval(function(){
 		   		m++;
-		   		this.countDown = m;
 
 				
 		   		localStorage.setItem('num',m)
 		   		vm.formatDuring(m)
-		   		if(this.countDown == api.pzTime){
+		   		if(m == api.pzTime){
 		   			// 	指定时间后定时器消失
 		   			vm.isBox = false;
 		   			clearInterval(tt);
-		   			vm.countDown = 0;
    					localStorage.removeItem('status');
 					localStorage.removeItem('num');
 					var data = {
