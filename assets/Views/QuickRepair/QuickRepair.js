@@ -149,7 +149,7 @@ var quickRepair = function () {
                     <div class="kind_type">
                         ${checkStatus}
                     </div>
-                    <div data-id="${repairer_list_data[i].id}" data-working="${repairer_list_data[i].working}" class="${repairer_list_data[i].working === "1" ? "reservation" : "notReservation"}"><span></span>${repairer_list_data[i].working === "1" ? "立即预约" : "休息中"}</div>
+                    <div data-id="${repairer_list_data[i].id}" data-working="${repairer_list_data[i].working}" class="${repairer_list_data[i].working !== "" ? "reservation" : "notReservation"}"><span></span>${repairer_list_data[i].working !== "" ? "立即预约" : "休息中"}</div>
                 </div>
             </li>`;
         }

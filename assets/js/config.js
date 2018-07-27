@@ -44,7 +44,7 @@ var api = (function () {
         NWBDApiWeiXincancelOrder: "https://" + apiAddress + "/weixin/order/cancelOrder",		//	取消订单
         NWBDApiWeiXincheckOrderStatus: "https://" + apiAddress + "/weixin/order/checkOrderStatus",		//	查询订单当前状态
         NWBDApiWeiXincreateShareCode: "https://" + apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
-        pzTime:'900'	//		计时器时间״̬
+        pzTime:'3600'	//		计时器时间״̬
     };
 
     if (api.isDebug) {

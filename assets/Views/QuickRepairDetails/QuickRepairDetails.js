@@ -226,9 +226,9 @@ var quickRepairDetails = function () {
         }
     });
 
-    //预约
+    //我要维修
     body.on("click", ".btn_reservation", function () {
-//  	alert()
+
     	
         app.verificationUserInfo();
         if (!app.getItem("merchant_id")) {
