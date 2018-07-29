@@ -7,7 +7,7 @@
 		<meta name="x5-orientation" content="portrait"/>
 		<meta name="x5-fullscreen" content="true"/>
 		<meta name="x5-page-mode" content="app"/>
-		<title>操作指南</title>
+		<title></title>
 		<script>
 		    if (window.screen.availWidth <= 750) {
 		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
@@ -15,17 +15,21 @@
 		        document.documentElement.style.fontSize = '100px';
 		    }
 		</script>
-		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+        <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+        <link rel="stylesheet" href="../Component/css/notices.css">
 		<style type="text/css">
 			#imgBox{width: 100%;}
-			#imgBox img{width:100%}
+            #imgBox img{width:100%}
+            #app{position: relative;}
 		</style>
 	</head>
 	<body>
 		<div id="app">
 			<div id="imgBox">
 				<img src="../../images/guide.jpg" alt="">
-			</div>
+            </div>
+            
+            <adve-block :arr = "arr" ref="adverblock"></adve-block>
 		</div>
 	</body>
 	<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -35,12 +39,13 @@
 	<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
 	<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
 	<script src="../../js/vue.min.js"></script>
-	<script src="../../js/common.js"></script>
-	<script>
+    <script src="../../js/common.js"></script>
+    <script src="../Component/js/notives.js"></script>
+	<!-- <script>
 	    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
 	    document.close();
-	</script>
-	<script>
+	</script> -->
+	<!-- <script>
 	    $(function () {
 	        if (api.isDebug) {
 
@@ -155,5 +160,20 @@
 	            });
 	        }
 	    });
-	</script>
+    </script> -->
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                arr:{}
+            },
+            methods:{
+
+            },
+            mounted(){
+                var that = this;
+                that.$refs.adverblock.init();
+            }
+        })
+    </script>
 </html>

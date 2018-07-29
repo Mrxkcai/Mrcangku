@@ -1,0 +1,27 @@
+.barrage {
+    position: fixed;
+    display: block;
+    top: 40%;
+    left: .3rem;
+}
+
+.barrage_name {
+    width: .9rem;
+    height: .9rem;
+    background: -webkit-gradient(linear, 0 0, 100% 100%, from(#f00), to(#0f0));
+    border-radius: 50%;
+}
+
+.barrage_name_hover {
+    width: .9rem;
+    height: .9rem;
+    background: -webkit-gradient(linear, 0 0, 100% 100%, from(#ff0), to(#00f));
+    border-radius: 50%;
+}
+
+.col1 {
+    color: #fff;
+    display: block;
+    padding: .17rem;
+    text-align: center;
+}
