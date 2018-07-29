@@ -22,6 +22,7 @@
 .col1 {
     color: #fff;
     display: block;
-    padding: .17rem;
+    /* padding: .17rem; */
     text-align: center;
+    line-height: .9rem;
 }

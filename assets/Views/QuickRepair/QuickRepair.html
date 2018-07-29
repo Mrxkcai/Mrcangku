@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.8"/>
     <!--公共组件-->
     <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+	<link rel="stylesheet" href="../Component/css/notices.css">
     <style type="text/css">
     	.positioning{
     		z-index: 3;
@@ -84,6 +85,8 @@
     </div>
 	<!--倒计时组件-->
 	<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+	<!-- 悬浮组件 -->
+	<adve-block :arr = "arr" ref="adverblock"></adve-block>
     
 </div>
 
@@ -96,6 +99,8 @@
 <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../Component/js/count.js"></script>
+<!-- 组件 -->
+<script src="../Component/js/notives.js"></script>
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -219,7 +224,8 @@
 				numAll:'',
 				orderId:localStorage.getItem('orderId')
 			},
-			countDown:''
+			countDown:'',
+			arr:{}
 		},
 		methods:{
 			//	转化时间并赋值
@@ -288,6 +294,10 @@
 				//	暂时隐藏
 				// $('.dwopa').show();
 			}
+
+
+			// 调用组件
+			this.$refs.adverblock.init();
 			
 		}
 	})

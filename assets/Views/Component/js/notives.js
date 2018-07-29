@@ -61,6 +61,10 @@ Vue.component("adve-block",{
 						"top": moveY + sY - startY,
 					})
                 },
+                touchend:function(e){
+                    // e.preventDefault();
+                    e.stopPropagation();
+                },
                 click:function(){
                     layer.open({
                         title:'敬请期待',
