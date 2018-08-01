@@ -77,7 +77,7 @@ Vue.component('count-block',{
 															//	未接单存1
 															localStorage.setItem('status',1)
 														}else if(result.data == 2){
-															app.alert('维修完成')
+															app.alert('订单完成')
 															clearInterval(status)
 															localStorage.removeItem('status');
 															localStorage.removeItem('num');
@@ -95,7 +95,7 @@ Vue.component('count-block',{
 															//	定位出现
 															$('.dwopa').show();
 														}else if(result.data == 4){
-															app.alert('订单超时未接收')
+															app.alert('您选择的企业未接单，请重新下单')
 															clearInterval(status)
 															localStorage.removeItem('status');
 															localStorage.removeItem('num');

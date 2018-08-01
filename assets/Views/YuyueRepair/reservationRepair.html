@@ -33,7 +33,7 @@
 		</div>
 		<div class="content">
 			
-			<div style="">
+			<div>
 				<p class="companyName">{{companyName}}</p>
 				
 				<div class="centerName">
@@ -286,7 +286,7 @@ var vm = new Vue({
 					data:data,
 					dataType: 'json',
 					success:function(result){
-						console.log(result)
+						
 						if(result.status == 'success' && result.code == 0){
 							app.closeLoading();
 							vm.list = result.data;
@@ -306,7 +306,9 @@ var vm = new Vue({
 										vm.image_url = vm.list[0].image.image_url
 									}
 								}else{
+									vm.image_url = '';
 									vm.image_url = vm.list[0].image
+									console.log(vm.image_url)
 								}
 							}
 							if(vm.list[0].userName){
@@ -403,40 +405,50 @@ var vm = new Vue({
 								console.log(result)
 								if(result.code == 0){
 									if(result.data == 1){
-	//									app.alert('商家已接单')
+										app.alert('商家已接单')
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
 										vm.list = [];
 										clearInterval(tt)
 										//	待确认跳转
-										window.location.href="../QuickRepair/QuickRepair.html"
+										setTimeout(function(){
+											window.location.href="../QuickRepair/QuickRepair.html"
+										},3000)
 									}else if(result.data == 0){
 										//	未接单存1
 										localStorage.setItem('status',1)
 									}else if(result.data == 2){
-										app.alert('维修完成')
+										app.alert('订单完成')
 										clearInterval(tt);
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
-										window.location.href="../QuickRepair/QuickRepair.html"
+										setTimeout(function(){
+											window.location.href="../QuickRepair/QuickRepair.html"
+										},3000)
 									}else if(result.data == 3){
 										app.alert('订单已取消')
 										clearInterval(tt);
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
-										window.location.href="../QuickRepair/QuickRepair.html"
+										setTimeout(function(){
+											window.location.href="../QuickRepair/QuickRepair.html"
+										},3000)
 									}else if(result.data == 4){
-										app.alert('订单超时未接收')
+										app.alert('您选择的企业未接单，请重新下单')
 										clearInterval(tt);
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
-										window.location.href="../QuickRepair/QuickRepair.html"
+										setTimeout(function(){
+											window.location.href="../QuickRepair/QuickRepair.html"
+										},2000)
 									}else if(result.data == 5){
 										app.alert('维修完成')
 										clearInterval(tt);
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
-										window.location.href="../QuickRepair/QuickRepair.html"
+										setTimeout(function(){
+											window.location.href="../QuickRepair/QuickRepair.html"
+										},3000)
 									}else{
 										
 									}
@@ -540,19 +552,19 @@ var vm = new Vue({
 								//	待确认跳转
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},2000)
+								},3000)
 								
 							}else if(result.data == 3){
 								app.alert('订单已取消')
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},2000)
+								},3000)
 								
 							}else if(result.data == 4){
-								app.alert('订单超时未接收')
+								app.alert('您选择的企业未接单，请重新下单')
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
-								},2000)
+								},3000)
 								
 							}
 							

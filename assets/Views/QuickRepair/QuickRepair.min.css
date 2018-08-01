@@ -57,8 +57,9 @@
 	border-radius: 50%;
 	position: absolute;
 	top: .1rem;
-	right: .1rem;
-	color: #fff
+	right: .06rem;
+	color: #fff;
+	font-size:.3rem;
 }
 
 .container header .userInfo_prompt {

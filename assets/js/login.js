@@ -61,7 +61,7 @@
 
     body.on("click", ".btn_login", function () {
         var mobile = $.trim($('#mobile').val());
-        if (!mobile || !/^[1][0-9]{10}$/.test(mobile)) {
+        if (!mobile || !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
             app.alert("手机号填写有误");
             return;
         }
