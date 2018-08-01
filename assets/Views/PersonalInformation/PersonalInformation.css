@@ -29,7 +29,7 @@ html body .container .title_span {
   float: left;
   font-weight: bold;
 }
-html body .container img {
+html body .container img.keng {
   position: absolute;
   width: 1.8rem;
   height: 1.8rem;

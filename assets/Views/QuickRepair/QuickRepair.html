@@ -25,7 +25,8 @@
     <style type="text/css">
     	.positioning{
     		z-index: 3;
-    	}
+		}
+		
     </style>
 </head>
 
@@ -87,7 +88,8 @@
 	<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
 	<!-- 悬浮组件 -->
 	<adve-block :arr = "arr" ref="adverblock"></adve-block>
-    
+	<!-- 操作指南 -->
+	<adve-block1 :arr = "arr" ref="adverblock1"></adve-block1>
 </div>
 
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -99,8 +101,10 @@
 <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../Component/js/count.js"></script>
-<!-- 组件 -->
+<!-- 活动组件 -->
 <script src="../Component/js/notives.js"></script>
+<!-- 操作指南 -->
+<script src="../Component/js/guide.js"></script>	
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -109,7 +113,7 @@
 <script>
     $(function () {
 
-        app.loading();
+        // app.loading();
         if (api.isDebug) {
             quickRepair();
         } else {
@@ -267,7 +271,6 @@
 						},
 						error:function(){
 							alert('操作失败，请检查网络！');
-			                app.closeLoading();
 						}
 					});
 		   		}
@@ -295,10 +298,11 @@
 				// $('.dwopa').show();
 			}
 
-
+			
 			// 调用组件
 			this.$refs.adverblock.init();
-			
+			//	操作指南
+			this.$refs.adverblock1.init1();
 		}
 	})
 </script>

@@ -21,6 +21,8 @@
 <!-- 引入样式 -->
 <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
 <link rel="stylesheet" type="text/css" href="reservationRepair.css"/>
+<link rel="stylesheet" href="../Component/css/notices.css">
+
 </head>
 <body>
 	<div id="app" v-cloak>
@@ -31,7 +33,7 @@
 		</div>
 		<div class="content">
 			
-			<div style="overflow: ;">
+			<div style="">
 				<p class="companyName">{{companyName}}</p>
 				
 				<div class="centerName">
@@ -80,6 +82,12 @@
 		<div class="nameBox">
 			<img :src="image_url"/>
 		</div>
+
+		<!-- 悬浮组件 -->
+		<!-- <adve-block ref="adverblock"></adve-block> -->
+		<!-- 操作指南 -->
+		<!-- <adve-block1 ref="adverblock1"></adve-block1> -->
+
 	</div>
 	
 	
@@ -93,6 +101,11 @@
 <!-- 引入组件 -->
 <script src="../../js/vue.min.js"></script>
 <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+
+<!-- 活动组件 -->
+<!-- <script src="../Component/js/notives.js"></script> -->
+<!-- 操作指南 -->
+<!-- <script src="../Component/js/guide.js"></script>	 -->
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -249,7 +262,7 @@ var vm = new Vue({
 							}
 						},
 						error:function(){
-							alert('操作失败，请检查网络！');
+							alert('操作失败，请检查网络！!');
 			                app.closeLoading();
 						}
 					});
@@ -564,6 +577,12 @@ var vm = new Vue({
 			var that = this;
 			
 			app.verificationUserInfo();
+
+
+			// 调用组件
+			// this.$refs.adverblock.init();
+			//	操作指南
+			// this.$refs.adverblock1.init1();
 		}
 	})
 </script>

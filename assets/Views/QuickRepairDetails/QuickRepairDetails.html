@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="QuickRepairDetails.min.css?v=1.0.5"/>
     <!--公共组件-->
     <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+    <link rel="stylesheet" href="../Component/css/notices.css">
+    
 </head>
 
 <body>
@@ -48,11 +50,11 @@
             <span class="icon_corporate_information"></span>企业信息
         </h3>
         <ul class="clearfix">
-            <li class="clearfix">
+            <!-- <li class="clearfix">
                 <span class="service_hotline"></span>
                 <p class="service_hotline_key">联系电话</p>
                 <P class="service_hotline_value ellipsis"></P>
-            </li>
+            </li> -->
             <li class="clearfix">
                 <span class="businessHours"></span>
                 <p class="businessHours_key">营业时间</p>
@@ -114,7 +116,10 @@
     <div style="height: 0.4rem"></div>
     <!--倒计时组件-->
     <count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
-    
+    <!-- 悬浮组件 -->
+    <!-- <adve-block ref="adverblock"></adve-block> -->
+    <!-- 操作指南 -->
+    <!-- <adve-block1 ref="adverblock1"></adve-block1> -->
     
 </div>
 <button class="btn_reservation">我要维修</button>
@@ -138,6 +143,10 @@
 <script src="../../lib/swiper-4.2.6/dist/js/swiper.animate1.0.3.min.js" charset='utf-8'></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../Component/js/count.js"></script>
+<!-- 活动组件 -->
+<!-- <script src="../Component/js/notives.js"></script> -->
+<!-- 操作指南 -->
+<!-- <script src="../Component/js/guide.js"></script> -->
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -475,7 +484,10 @@
 				this.isBox = false;
 			}
 			
-			
+			// 调用组件
+			// this.$refs.adverblock.init();
+			//	操作指南
+			// this.$refs.adverblock1.init1();
 		}
 	})
 </script>

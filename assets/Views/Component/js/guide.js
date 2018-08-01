@@ -1,4 +1,4 @@
-Vue.component("adve-block",{
+Vue.component("adve-block1",{
     props:{
         arr:{
             type:Object,
@@ -14,42 +14,17 @@ Vue.component("adve-block",{
         
     },
     methods:{
-        init:function(){
-            var cont = $("#barrage");
-			var contW = $("#barrage").width();
-			var contH = $("#barrage").height();
+        init1:function(){
+            var cont = $("#barrage1");
+			var contW = $("#barrage1").width();
+			var contH = $("#barrage1").height();
 			var startX, startY, sX, sY, moveX, moveY;
 			var winW = $(window).width();
 			var winH = $(window).height();
-			var barrage_name = $("#barrage_name");
-			var barrage_frame = $("#barrage_frame");
+			var barrage_name = $("#barrage_name1");
+			var barrage_frame = $("#barrage_frame1");
             var body = $("body");
-            //	首次进来直接展示公告
-			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo")){
-				
-				layer.open({
-					title:'',
-					style:'padding: 0!important;background: none!important;box-shadow:none;',
-					content:`<div class='img_box'>
-								<img src='../../images/img_gonggao.png'/>
-							</div>
-							<div class="line_shu"></div>
-							<img src='../../images/icon_close.png' class="close_img" />
-							`
-                })
-                
-                //  关闭叉号
-                $('.close_img').on('click',function(){
-                    $('.layui-m-layer').hide();
-                    //  出发蒙版的点击事件
-                    $('.layui-m-layershade').trigger('click');
-                    sessionStorage.setItem("g",1);
-                })
-				
-			}else{
-				$('.layui-m-layer').hide();
-			}
-
+            
             cont.on({ //绑定事件
 				touchstart: function(e) {
 					startX = e.originalEvent.targetTouches[0].pageX; //获取点击点的X坐标    
@@ -83,7 +58,7 @@ Vue.component("adve-block",{
 					}
 					$(this).css({
 						"left": moveX + sX - startX + 10,
-						"top": moveY + sY - startY,
+                        "top": moveY + sY - startY,
                         "height":".96rem"
 					})
                 },
@@ -92,22 +67,12 @@ Vue.component("adve-block",{
                     e.stopPropagation();
                 },
                 click:function(){
-                    layer.open({
-                        title:'',
-                        style:'padding: 0!important;background: none!important;box-shadow:none;',
-                        content:`<div class='img_box'>
-                                    <img src='../../images/img_gonggao.png'/>
-                                </div>
-                                <div class="line_shu"></div>
-                                <img src='../../images/icon_close.png' class="close_img" />
-                                `
-                    })
-                    //  关闭叉号
-                    $('.close_img').on('click',function(){
-                        $('.layui-m-layer').hide();
-                        //  出发蒙版的点击事件
-                        $('.layui-m-layershade').trigger('click');
-                    })
+                    var urll = window.location.href;
+                    if(urll.indexOf('index') == -1){
+                        window.location.href = "../Notices/notices.html";
+                    }else{
+                        window.location.href = "Views/Notices/notices.html";
+                    }
                 }
                 
 
@@ -116,10 +81,10 @@ Vue.component("adve-block",{
     },
     template:
     `
-    <div class="barrage" id="barrage">
-        <div class="barrage_name" id="barrage_name">
+    <div class="barrage1" id="barrage1">
+        <div class="barrage_name1" id="barrage_name1">
             
-                <img src="../../images/icon_huodong.gif" />
+                <img src="../../images/icon_czzn_orange.png" />
             
         </div>
     </div>

@@ -80,7 +80,7 @@
                 code: code,
                 openid:app.getItem('open_id')
             },
-            
+            async:false,
             success: function (result) {
                    console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {

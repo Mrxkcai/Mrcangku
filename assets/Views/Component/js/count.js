@@ -40,7 +40,6 @@ Vue.component('count-block',{
 					success:function(result){
 //						console.log(result)
 						if(result.status == 'success' && result.code == 0){
-							app.closeLoading();
 							if(result.data.length > 0){
 								localStorage.setItem('status',1)
 								var countdown = result.data[0].orderInfo.countdown;
@@ -130,7 +129,6 @@ Vue.component('count-block',{
 												},
 												error:function(){
 													alert('操作失败，请检查网络！');
-									                app.closeLoading();
 									                clearInterval(status)
 												}
 								   			});
@@ -147,11 +145,9 @@ Vue.component('count-block',{
 							}
 							
 						}
-						app.closeLoading();
 					},
 					error: function () {
 //		                alert('操作失败，请检查网络！');
-		                app.closeLoading();
 		          }
 					
 				});

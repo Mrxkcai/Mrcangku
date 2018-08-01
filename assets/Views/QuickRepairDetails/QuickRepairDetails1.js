@@ -226,9 +226,10 @@ var quickRepairDetails = function () {
         }
     });
 
-    //我要维修
+    //预约
     body.on("click", ".btn_reservation", function () {
-        // alert(22)
+ 	alert()
+    	
         app.verificationUserInfo();
         if (!app.getItem("merchant_id")) {
             alert("维修厂信息有变，请重新进入页面");
@@ -248,7 +249,7 @@ var quickRepairDetails = function () {
             app.alert("手机号不能为空");
             return;
         }
-        if (/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(phone) == false) {
+        if (!/^[1][0-9]{10}$/.test(phone)) {
             app.alert("手机号填写有误");
             return;
         }
@@ -299,8 +300,8 @@ var quickRepairDetails = function () {
             },
             dataType: 'json',
             success: function (result) {
-            	console.log(result)
-                if (result.status === "success" && result.code === 0 && result.code!== 2) {
+            	
+                if (result.status === "success" && result.code === 0) {
                 	//	存储订单id；
                 	localStorage.setItem("orderId",result.data.order_id)
                     $("#carList_carInfo_Id").val("0");
@@ -308,13 +309,13 @@ var quickRepairDetails = function () {
                     $(".carList_ul_li").removeClass("active");
                     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
                     carList_ul.fadeOut(200);
- 					//	新增预约维修界面
-                    window.location.href = "../YuyueRepair/reservationRepair.html";
+
                     app.closeLoading();
 //                  app.layerAlert("您的订单已发送至维修厂，请耐心等待");
                     localStorage.removeItem('status');
 					localStorage.removeItem('num');
-                   
+                    //	新增预约维修界面
+                    window.location.href = "../YuyueRepair/reservationRepair.html";
                     
                     
                 } else {

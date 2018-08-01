@@ -7,7 +7,8 @@
     <meta name="format-detection" content="telephone=no,email=no"/>
     <meta name="x5-orientation" content="portrait"/>
     <meta name="x5-fullscreen" content="true"/>
-    <meta name="x5-page-mode" content="app"/>
+	<meta name="x5-page-mode" content="app"/>
+	<title>添加车辆</title>
     <script>
         if (window.screen.availWidth <= 750) {
             document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
@@ -22,10 +23,11 @@
     <link rel="stylesheet" type="text/css" href="UpdateCar.min.css?v=1.0.6"/>
     <!--公共组件-->
     <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+	<link rel="stylesheet" href="../Component/css/notices.css">
     <style type="text/css">
     	.bottomP{
     		padding-bottom: 2.2rem!important;
-    	}
+		}
     </style>
 </head>
 
@@ -67,6 +69,10 @@
 
 	<!--倒计时组件-->
 	<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+	<!-- 悬浮组件 -->
+	<!-- <adve-block ref="adverblock"></adve-block> -->
+	<!-- 操作指南 -->
+	<!-- <adve-block1 ref="adverblock1"></adve-block1> -->
 </div>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
@@ -75,6 +81,10 @@
 <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../Component/js/count.js"></script>
+<!-- 活动组件 -->
+<!-- <script src="../Component/js/notives.js"></script> -->
+<!-- 操作指南 -->
+<!-- <script src="../Component/js/guide.js"></script> -->
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -198,7 +208,7 @@
 				orderId:localStorage.getItem('orderId')
 			},
 			countDown:''
-					},
+		},
 		methods:{
 			//	转化时间并赋值
 			formaFun(a){
@@ -266,6 +276,10 @@
 				$('#app').removeClass('bottomP')
 			}
 			
+			// 调用组件
+			// this.$refs.adverblock.init();
+			//	操作指南
+			// this.$refs.adverblock1.init1();
 		}
 	})
 </script>

@@ -19,9 +19,18 @@
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
     <link rel="stylesheet" type="text/css" href="CommonProblem.min.css?v=1.0.1"/>
+    <!--公共组件-->
+    <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+    <link rel="stylesheet" href="../Component/css/notices.css">
+    <style type="text/css">
+    	.bottomP{
+    		padding-bottom: 2.2rem!important;
+		}
+    </style>
 </head>
 
 <body>
+<div id="app">
 <header>您是否有以下问题要咨询：</header>
 <div class="container">
     <ul>
@@ -35,10 +44,24 @@
     <p>在线客服</p>
     <p>4000-016-369</p>
 </a>
+<!--倒计时组件-->
+<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+<!-- 悬浮组件 -->
+<!-- <adve-block ref="adverblock"></adve-block> -->
+<!-- 操作指南 -->
+<!-- <adve-block1 ref="adverblock1"></adve-block1> -->
+
+</div>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
 <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../Component/js/count.js"></script>
+<!-- 活动组件 -->
+<!-- <script src="../Component/js/notives.js"></script> -->
+<!-- 操作指南 -->
+<!-- <script src="../Component/js/guide.js"></script> -->
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -148,6 +171,94 @@
             });
         }
     });
+</script>
+<script type="text/javascript">
+	//	新增倒计时
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			isBox:false,
+			countBlock:{
+				min:'00',
+				sec:'00',
+				numAll:'',
+				orderId:localStorage.getItem('orderId')
+			},
+			countDown:''
+					},
+		methods:{
+			//	转化时间并赋值
+			formaFun(a){
+				var obj = app.formatDuring(a);
+					this.countBlock.min = obj.min;
+					this.countBlock.sec = obj.sec;
+			},
+		 timer(m){
+		   	// 定时器
+		   	var tt = setInterval(function(){
+		   		m++;
+		   		this.countDown = m;
+				
+		   		localStorage.setItem('num',m)
+		   		vm.formaFun(m)
+		   		if(this.countDown == api.pzTime){
+		   			// 	指定时间后定时器消失
+		   			vm.isBox = false;
+		   			clearInterval(tt);
+		   			vm.countDown = 0;
+   					localStorage.removeItem('status');
+					localStorage.removeItem('num');
+					$('#app').removeClass('bottomP')
+					var data = {
+						order_id:vm.countBlock.orderId,
+						user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+					}
+					$.ajax({
+						type:"POST",
+						url:api.NWBDApiWeiXincancelOrder,
+						data:data,
+						dataType: 'json',
+						success:function(result){
+							console.log(result)
+							if(result.code == 0){
+								app.alert(result.data)
+								localStorage.removeItem('status');
+								localStorage.removeItem('num');
+							}
+						},
+						error:function(){
+							alert('操作失败，请检查网络！');
+			                app.closeLoading();
+						}
+					});
+		   		}
+		   	},1000)
+		}
+		
+		},
+		mounted(){
+			var number1 = app.checkTime()	
+			if(number1 != ''){
+				this.timer(number1);
+			}
+			
+			//	有未接订单的情况
+			var status = localStorage["status"];
+			if(status == 1){
+				this.isBox = true;
+				$('#app').addClass('bottomP')
+				this.$refs.countblock.childs();
+			}else{
+				this.isBox = false;
+				$('#app').removeClass('bottomP')
+			}
+			
+			// 调用组件
+			// this.$refs.adverblock.init();
+			//	操作指南
+			// this.$refs.adverblock1.init1();
+		}
+	})
 </script>
 </body>
 

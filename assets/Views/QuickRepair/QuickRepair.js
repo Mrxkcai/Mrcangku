@@ -167,7 +167,7 @@ var quickRepair = function () {
             return;
         }
         
-        app.loading();
+        // app.loading();
         app.verificationUserInfo();
         //	修改搜索下拉查值
     	if(!searchCont){
@@ -206,14 +206,14 @@ var quickRepair = function () {
 	                    else{
 	                    	app.alert(result.message);
 	                    }
-	                    app.closeLoading();
+	                    // app.closeLoading();
 	                } else {
-	                    app.closeLoading();
+	                    // app.closeLoading();
 	                    app.alert(result.message);
 	                }
 	            },
 	            error: function () {
-	                app.closeLoading();
+	                // app.closeLoading();
 	                app.alert('操作失败，请检查网络！');
 	            }
 	        });
@@ -365,7 +365,7 @@ var quickRepair = function () {
             alert('未打开定位功能，无法正常获取汽修厂！');
             return;
         }
-        app.loading();
+        // app.loading();
         $.ajax({
             url: api.NWBDApiSearchMerchantList + "?keyValue=" + search_bar + "&lng=" + lng + "&lat=" + lat + "&r=" + Math.random(),
             type: "POST",
@@ -385,13 +385,13 @@ var quickRepair = function () {
                     
                     //	实例化滚动盒子
                     ijroll.refresh();
-                    app.closeLoading();
+                    // app.closeLoading();
                 } else {
-                    app.closeLoading();
+                    // app.closeLoading();
                     app.alert(result.message);
                 }
             }, error: function () {
-                app.closeLoading();
+                // app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }
         });

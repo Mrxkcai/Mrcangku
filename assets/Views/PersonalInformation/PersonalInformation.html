@@ -18,13 +18,14 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
-    <link rel="stylesheet" type="text/css" href="PersonalInformation.min.css?v=1.0.0"/>
+    <link rel="stylesheet" type="text/css" href="PersonalInformation.min.css?v=1.0.1"/>
     <!--公共组件-->
     <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
+    <link rel="stylesheet" href="../Component/css/notices.css">
     <style type="text/css">
     	.bottomP{
     		padding-bottom: 2.2rem!important;
-    	}
+		}
     </style>
 </head>
 
@@ -33,7 +34,7 @@
 	<div class="container">
 	    <div class="title_div"></div>
 	    <span class="title_span">个人信息</span>
-	    <img src="../../images/head_portrait.png"/>
+	    <img src="../../images/head_portrait.png" class="keng"/>
 	    <div class="user_name">
 	        <span>姓名</span>
 	        <input type="text" maxlength="10" id="name" placeholder="请输入您的姓名"/>
@@ -45,6 +46,10 @@
 	    
 		<!--倒计时组件-->
 		<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+		<!-- 悬浮组件 -->
+		<!-- <adve-block ref="adverblock"></adve-block> -->
+		<!-- 操作指南 -->
+		<!-- <adve-block1 ref="adverblock1"></adve-block1> -->
 	</div>
 <button>确定</button>
 </div>
@@ -54,6 +59,10 @@
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../Component/js/count.js"></script>
+<!-- 活动组件 -->
+<!-- <script src="../Component/js/notives.js"></script> -->
+<!-- 操作指南 -->
+<!-- <script src="../Component/js/guide.js"></script> -->
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -243,6 +252,11 @@
 				this.isBox = false;
 				$('#app').removeClass('bottomP')
 			}
+
+			// 调用组件
+			// this.$refs.adverblock.init();
+			//	操作指南
+			// this.$refs.adverblock1.init1();
 			
 		}
 	})

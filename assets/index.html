@@ -22,13 +22,14 @@
     <link rel="stylesheet" type="text/css" href="index.min.css?v=1.0.4"/>
     <!--公共组件-->
     <link rel="stylesheet" type="text/css" href="Views/Component/css/count.css"/>
+	<link rel="stylesheet" href="Views/Component/css/notices.css">
     <style type="text/css">
     	.countDown_box{
     		bottom: .95rem;
     	}
     	.bottomP{
     		bottom: 3.4rem!important;
-    	}
+		}
     </style>
 </head>
 
@@ -81,8 +82,11 @@
 </ul>
 <a class="consumer_hotline" href="tel:4000-016-369">客服电话：4000-016-369</a>
 
-<!--倒计时组件-->
-    <count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+	<!--倒计时组件-->
+    <count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block><!-- 悬浮组件 -->
+	<adve-block ref="adverblock"></adve-block>
+	<!-- 操作指南 -->
+	<adve-block1 ref="adverblock1"></adve-block1>
 </div>
 
 <footer>
@@ -97,6 +101,10 @@
 <script src="lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="js/vue.min.js"></script>
 <script src="Views/Component/js/count.js"></script>
+<!-- 活动组件 -->
+<script src="Views/Component/js/notives.js"></script>
+<!-- 操作指南 -->
+<script src="Views/Component/js/guide.js"></script>	
 <script>
     document.write("<script src='js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -283,6 +291,13 @@ $(function () {
 				this.isBox = false;
 				$('.consumer_hotline').removeClass('bottomP')
 			}
+
+
+
+			// 调用组件
+			this.$refs.adverblock.init();
+			//	操作指南
+			this.$refs.adverblock1.init1();
 		}
 	})
 </script>
