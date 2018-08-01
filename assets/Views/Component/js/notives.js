@@ -37,10 +37,11 @@ Vue.component("adve-block",{
 							<img src='../../images/icon_close.png' class="close_img" />
 							`
                 })
-                
+                $('.layui-m-layercont').addClass('new');
                 //  关闭叉号
                 $('.close_img').on('click',function(){
                     $('.layui-m-layer').hide();
+                    $('.layui-m-layercont').removeClass('new');
                     //  出发蒙版的点击事件
                     $('.layui-m-layershade').trigger('click');
                     sessionStorage.setItem("g",1);
@@ -101,10 +102,13 @@ Vue.component("adve-block",{
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
                                 `
-                    })
+                    });
+
+                    $('.layui-m-layercont').addClass('new');
                     //  关闭叉号
                     $('.close_img').on('click',function(){
                         $('.layui-m-layer').hide();
+                        $('.layui-m-layercont').removeClass('new');
                         //  出发蒙版的点击事件
                         $('.layui-m-layershade').trigger('click');
                     })

@@ -1,5 +1,5 @@
 var api = (function () {
-//	var apiAddress = "47.94.192.200:18083";
+//	var apiAddress = "47.94.192.200:18083";         //  正式地址
 	var apiAddress1 = "wxcs.nuoweibd.com";
 	var apiAddress = "wxcsht.nuoweibd.com:8443";
     var api = {

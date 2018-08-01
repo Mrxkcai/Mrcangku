@@ -157,7 +157,7 @@ var quickRepairDetails = function () {
     var carList_ul = $("#carList_ul");
     var carData = [];
     var carDataLength = 0;
-
+    carList_ul.html('');
     //更新车辆列表
     var update_carList_ul = function () {
         app.verificationUserInfo();
@@ -166,14 +166,14 @@ var quickRepairDetails = function () {
             type: "GET",
             dataType: 'json',
             success: function (result) {
-                // console.log(JSON.stringify(result));
+                console.log(result.data[0].brand);
                 if (result.status === "success" && result.code === 0) {
                     carData = result.data;
                     carDataLength = carData.length;
                     var str = '';
                     for (var car = 0; car < carDataLength; car++) {
-                        str += `<li class="carList_ul_li ${result.data[car].isCommon ? "active" : ""}" data-carId="${result.data[car].carId}"><span class="car_logo"><img src="${result.data[car].logo}" style="width: 0.5rem;height: 0.5rem;"/></span><h3 class="ellipsis">${result.data[car].brand}</h3><p class="ellipsis">${result.data[car].car_no}</p></li>`;
-                        if (result.data[car].isCommon) {
+                        str += `<li class="carList_ul_li ${result.data[car].isCommon == true ? "active" : ""}" data-carId="${result.data[car].carId}"><span class="car_logo"><img src="${result.data[car].logo}" style="width: 0.5rem;height: 0.5rem;"/></span><h3 class="ellipsis">${result.data[car].brand}</h3><p class="ellipsis">${result.data[car].car_no}</p></li>`;
+                        if (result.data[car].isCommon == true) {
                             carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkedCar"><p>' + result.data[car].brand + '</p><p>' + result.data[car].car_no + '</p></div>');
                             $("#carList_carInfo_Id").val(result.data[car].carId);
                         }
@@ -228,7 +228,7 @@ var quickRepairDetails = function () {
 
     //我要维修
     body.on("click", ".btn_reservation", function () {
-        // alert(22)
+        // alert($("#carList_carInfo_Id").val())
         app.verificationUserInfo();
         if (!app.getItem("merchant_id")) {
             alert("维修厂信息有变，请重新进入页面");
