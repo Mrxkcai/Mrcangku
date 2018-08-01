@@ -111,7 +111,7 @@ $(function () {
         app.removeItem("open_id");
         app.removeItem("userInfo");
         //  删除公告弹窗
-        sessionStorage.removeItem("g");
+        localStorage.removeItem("g");
         if (api.isDebug) {
             app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
             window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";

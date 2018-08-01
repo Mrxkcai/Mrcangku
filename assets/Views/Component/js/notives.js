@@ -24,8 +24,10 @@ Vue.component("adve-block",{
 			var barrage_name = $("#barrage_name");
 			var barrage_frame = $("#barrage_frame");
             var body = $("body");
+            var windowUrl = window.location.href;
+            console.log(windowUrl)
             //	首次进来直接展示公告
-			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo")){
+			if(!localStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('index') >= 0){
 				
 				layer.open({
 					title:'',
@@ -44,7 +46,7 @@ Vue.component("adve-block",{
                     $('.layui-m-layercont').removeClass('new');
                     //  出发蒙版的点击事件
                     $('.layui-m-layershade').trigger('click');
-                    sessionStorage.setItem("g",1);
+                    localStorage.setItem("g",1);
                 })
 				
 			}else{
@@ -111,6 +113,7 @@ Vue.component("adve-block",{
                         $('.layui-m-layercont').removeClass('new');
                         //  出发蒙版的点击事件
                         $('.layui-m-layershade').trigger('click');
+                        
                     })
                 }
                 

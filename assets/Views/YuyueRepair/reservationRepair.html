@@ -84,9 +84,9 @@
 		</div>
 
 		<!-- 悬浮组件 -->
-		<!-- <adve-block ref="adverblock"></adve-block> -->
+		<adve-block ref="adverblock"></adve-block>
 		<!-- 操作指南 -->
-		<!-- <adve-block1 ref="adverblock1"></adve-block1> -->
+		<adve-block1 ref="adverblock1"></adve-block1>
 
 	</div>
 	
@@ -103,9 +103,9 @@
 <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
 
 <!-- 活动组件 -->
-<!-- <script src="../Component/js/notives.js"></script> -->
+<script src="../Component/js/notives.js"></script>
 <!-- 操作指南 -->
-<!-- <script src="../Component/js/guide.js"></script>	 -->
+<script src="../Component/js/guide.js"></script>	
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -592,9 +592,9 @@ var vm = new Vue({
 
 
 			// 调用组件
-			// this.$refs.adverblock.init();
+			this.$refs.adverblock.init();
 			//	操作指南
-			// this.$refs.adverblock1.init1();
+			this.$refs.adverblock1.init1();
 		}
 	})
 </script>
