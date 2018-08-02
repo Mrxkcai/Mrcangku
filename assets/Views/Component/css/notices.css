@@ -4,6 +4,8 @@
     bottom: 1.3rem;
     right: .4rem;
     z-index: 2;
+    width: .96rem;
+    height: .96rem;
 }
 
 .barrage_name {
@@ -53,6 +55,8 @@
     bottom: 2.45rem;
     right: .4rem;
     z-index: 2;
+    width: .96rem;
+    height: .96rem;
 }
 
 .barrage_name1 {
