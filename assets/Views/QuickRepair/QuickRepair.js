@@ -282,7 +282,7 @@ var quickRepair = function () {
         if (api.isDebug) {
             window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
         } else {
-            window.location.href = "https://" + api.callbackUrl + "/index.html";
+            window.location.href = "http://" + api.callbackUrl + "/index.html";
         }
     });
 

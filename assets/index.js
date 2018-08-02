@@ -3,7 +3,6 @@
 $(function () {
     var body = $("body");
     var sil;
-
     var getCount = function getCount() {
         app.verificationUserInfo();
         $.ajax({
@@ -110,8 +109,6 @@ $(function () {
     body.on("click", ".sign_out", function () {
         app.removeItem("open_id");
         app.removeItem("userInfo");
-        //  删除公告弹窗
-        localStorage.removeItem("g");
         if (api.isDebug) {
             app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
             window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";

@@ -27,7 +27,7 @@ Vue.component("adve-block",{
             var windowUrl = window.location.href;
             console.log(windowUrl)
             //	首次进来直接展示公告
-			if(!localStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('index') >= 0){
+			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
 				
 				layer.open({
 					title:'',
@@ -46,7 +46,7 @@ Vue.component("adve-block",{
                     $('.layui-m-layercont').removeClass('new');
                     //  出发蒙版的点击事件
                     $('.layui-m-layershade').trigger('click');
-                    localStorage.setItem("g",1);
+                    sessionStorage.setItem("g",1);
                 })
 				
 			}else{

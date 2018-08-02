@@ -9,7 +9,6 @@ var vm = new Vue({
 		timeStatus:"休息中",
 		shopName:"西安利玛汽车维修服务有限公司",
 		commonNum:"298",
-		showBtn:true,
 		up:false
 	},
 	methods:{

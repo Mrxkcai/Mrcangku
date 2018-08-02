@@ -84,7 +84,6 @@
     
 		//	查询订单剩余时间
 		app.checkTime = function () {
-			
 			var data = {
 				user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
 				pageNum:1,
