@@ -19,9 +19,6 @@
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
     <link rel="stylesheet" type="text/css" href="PersonalInformation.min.css?v=1.0.1"/>
-    <!--公共组件-->
-    <link rel="stylesheet" type="text/css" href="../Component/css/count.css"/>
-    <link rel="stylesheet" href="../Component/css/notices.css">
     <style type="text/css">
     	.bottomP{
     		padding-bottom: 2.2rem!important;
@@ -58,11 +55,6 @@
 <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="../../js/vue.min.js"></script>
-<script src="../Component/js/count.js"></script>
-<!-- 活动组件 -->
-<script src="../Component/js/notives.js"></script>
-<!-- 操作指南 -->
-<script src="../Component/js/guide.js"></script>
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -72,7 +64,7 @@
 	$(function () {
 
         if (api.isDebug) {
-//          Personal();
+        //  Personal();
         } else {
             $.ajax({
                 url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
@@ -99,9 +91,8 @@
                             ]
                         });
                         wx.ready(function () {
-//                          wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
-//                          Personal();
-                            
+							// Personal();
+
                             //新增分享
                             wx.checkJsApi({
 			        			jsApiList:['chooseImage'],	//	需要检测的JS接口列表
@@ -120,39 +111,17 @@
 			        				console.log(JSON.stringify(res))
 			        			},
 			        			success:function(){
-			      					alert('分享成功')
 			        			},
 			        			cancel:function(){
-			        			//	alert('分享取消')
 			        			}
 			        		};
 			        		
-			        		var obj1 = {
-								//	微信朋友
-			        			title:'汽车维修不用愁，保宝车服解您愁。',	//	标题
-			        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
-			        			link:shareUrl,	//	分享链接
-			        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图片
-			        			fail:function(res){
-			        				console.log(JSON.stringify(res))
-			        			},
-			        			success:function(){
-			      				//	alert('分享成功')
-			        			},
-			        			cancel:function(){
-			        			//	alert('分享取消')
-			        			}
-							};
-			        		
 			        		if(!app.getItem('userInfo').id){
-//			        			alert(app.getItem('userInfo').id)
 			        			wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
 			        		}else{
-//			        			wx.showAllNonBaseMenuItem();
 			        			wx.onMenuShareTimeline(obj)	//	分享到朋友圈
-			        			wx.onMenuShareAppMessage(obj1)	//	分享给朋友
+			        			wx.onMenuShareAppMessage(obj)	//	分享给朋友
 			        		}
-			//      		wx.hideOptionMenu()	//	隐藏分享
                         });
                         wx.error(function (err) {
                             alert("公众号页面授权失败");

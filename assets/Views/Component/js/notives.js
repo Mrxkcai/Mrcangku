@@ -25,18 +25,17 @@ Vue.component("adve-block",{
 			var barrage_frame = $("#barrage_frame");
             var body = $("body");
             var windowUrl = window.location.href;
-            console.log(windowUrl)
             //	首次进来直接展示公告
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
 				
 				layer.open({
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
-					content:`<div class='img_box'>
+					content:`<div class='img_box' style="display:block;">
 								<img src='../../images/img_gonggao.png'/>
+                                <div class="line_shu"></div>
+                                <img src='../../images/icon_close.png' class="close_img" />
 							</div>
-							<div class="line_shu"></div>
-							<img src='../../images/icon_close.png' class="close_img" />
 							`
                 })
                 $('.layui-m-layercont').addClass('new');
@@ -67,6 +66,7 @@ Vue.component("adve-block",{
 					bottomY = winH - contH + topY; //鼠标所能移动最下端是当前窗口距离减去鼠标距div最下端位置                
 				},
 				touchmove: function(e) {
+                    console.log(33)
                     e.preventDefault();
                     e.stopPropagation();
 					moveX = e.originalEvent.targetTouches[0].pageX; //移动过程中X轴的坐标
@@ -100,9 +100,9 @@ Vue.component("adve-block",{
                         style:'padding: 0!important;background: none!important;box-shadow:none;',
                         content:`<div class='img_box'>
                                     <img src='../../images/img_gonggao.png'/>
+                                    <div class="line_shu"></div>
+                                    <img src='../../images/icon_close.png' class="close_img" />
                                 </div>
-                                <div class="line_shu"></div>
-                                <img src='../../images/icon_close.png' class="close_img" />
                                 `
                     });
 

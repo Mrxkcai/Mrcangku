@@ -21,7 +21,6 @@
 <!-- 引入样式 -->
 <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
 <link rel="stylesheet" type="text/css" href="reservationRepair.css"/>
-<link rel="stylesheet" href="../Component/css/notices.css">
 
 </head>
 <body>
@@ -101,11 +100,7 @@
 <!-- 引入组件 -->
 <script src="../../js/vue.min.js"></script>
 <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
-
-<!-- 活动组件 -->
-<script src="../Component/js/notives.js"></script>
-<!-- 操作指南 -->
-<script src="../Component/js/guide.js"></script>	
+	
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -167,26 +162,12 @@ $(function () {
 		        		// 	cancel:function(){
 		        		// 	}
 		        		// };
-		        		// var obj1 = {
-						// 	//	微信朋友
-		        		// 	title:'汽车维修不用愁，保宝车服解您愁。',	//	标题
-		        		// 	desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
-		        		// 	link:shareUrl,	//	分享链接
-		        		// 	imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图片
-		        		// 	fail:function(res){
-		        		// 		console.log(JSON.stringify(res))
-		        		// 	},
-		        		// 	success:function(){
-		        		// 	},
-		        		// 	cancel:function(){
-		        		// 	}
-						// };
 		        		
 		        		// if(!app.getItem('userInfo').id){
 		        		// 	wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
 		        		// }else{
 		        		// 	wx.onMenuShareTimeline(obj)	//	分享到朋友圈
-		        		// 	wx.onMenuShareAppMessage(obj1)	//	分享给朋友
+		        		// 	wx.onMenuShareAppMessage(obj)	//	分享给朋友
 		        		// }
                     });
                     wx.error(function () { 

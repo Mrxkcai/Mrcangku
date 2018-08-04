@@ -29,7 +29,9 @@ Vue.component("adve-block1",{
 				touchstart: function(e) {
 					startX = e.originalEvent.targetTouches[0].pageX; //获取点击点的X坐标    
 					startY = e.originalEvent.targetTouches[0].pageY; //获取点击点的Y坐标
-					//console.log("startX="+startX+"************startY="+startY);
+                    console.log("startX="+startX+"************startY="+startY);
+                    console.log($(window).height())
+                    console.log($(this).offset().top)
 					sX = $(this).offset().left; //相对于当前窗口X轴的偏移量
 					sY = $(this).offset().top; //相对于当前窗口Y轴的偏移量
 					//console.log("sX="+sX+"***************sY="+sY);

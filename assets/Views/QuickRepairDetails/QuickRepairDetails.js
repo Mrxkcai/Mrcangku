@@ -2,8 +2,36 @@ var quickRepairDetails = function () {
     "use strict";
 
     var body = $('body');
-    $(".container").css({'min-height': $(window).height() + 'px'});
-//  alert(1)
+    $(".container").css({'height': $(window).height() + 'px'});
+    
+
+    //  阻止微信拉动出现背景
+    document.querySelector('body').addEventListener('touchmove', function(e) {
+        if (!document.querySelector('.container').contains(e.target)) {
+            e.preventDefault();
+        }
+    });
+    // var h = $('.container').height();
+    // $('.bg').css({
+    //     'width':'100%',
+    //     'height':h,
+    //     'position':'absolute',
+    //     'z-index':'-1',
+    //     'background':'#fff',
+    // });
+
+    $('.container').on('touchmove',function(e){
+        e.stopPropagation();
+    });
+
+    // $('.bg').on('touchmove',function(e){
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    // });
+
+
+
+
     //当前页面保存维修厂信息
     var merchantData;
 
@@ -266,8 +294,8 @@ var quickRepairDetails = function () {
             app.alert('请选择预约地址');
             return;
         }
-        app.loading();
         
+
         var data = {
                 car_id: carList_carInfo_Id,
                 customerJson: JSON.stringify(customerJson),
@@ -280,8 +308,10 @@ var quickRepairDetails = function () {
                 addressCity: addressCity,
                 addressCounty: addressCounty
             }
-		app.setItem('info',JSON.stringify(data))
-		console.log(localStorage.getItem('info'))
+        app.setItem('info',JSON.stringify(data));
+        
+        
+        app.loading();
         $.ajax({
             url: api.NWBDApiOrderAdd + "?r=" + Math.random(),
             type: "POST",
@@ -301,6 +331,7 @@ var quickRepairDetails = function () {
             success: function (result) {
             	console.log(result)
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
+                    app.closeLoading();
                 	//	存储订单id；
                 	localStorage.setItem("orderId",result.data.order_id)
                     $("#carList_carInfo_Id").val("0");
@@ -308,10 +339,13 @@ var quickRepairDetails = function () {
                     $(".carList_ul_li").removeClass("active");
                     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
                     carList_ul.fadeOut(200);
- 					//	新增预约维修界面
-                    window.location.href = "../YuyueRepair/reservationRepair.html";
-                    app.closeLoading();
-//                  app.layerAlert("您的订单已发送至维修厂，请耐心等待");
+                     
+                     //  弹出优惠券界面
+                    if(!red_bag()){
+                        return
+                    }
+
+                    
                     localStorage.removeItem('status');
 					localStorage.removeItem('num');
                    
@@ -338,6 +372,42 @@ var quickRepairDetails = function () {
 //          $(".btn_reservation").show();
 //      }
 //  });
+
+
+    //  新增优惠券方法
+    var red_bag = function(){
+        var kg = false;
+        
+        var index = layer.open({
+                    content:
+                    `<div class="d-voucher">
+                        <div class="img_div">
+                            <img src="../../images/default_1125_633.png" alt="图片"/>
+                        </div>
+                        <p class="get-voucher">恭喜您获得代金券</p>
+                        <p>50元</p>
+                        <p>有效期：2018.05.04-2018.05.06</p>
+                        <p>代金券已帮您保存至个人中心-优惠券列表中，可前往查看。</p>
+                        <p>仅支持通过公众号付款时使用。</p>
+
+                        <button class="btn-get">我知道了</button>
+                    </div>
+                    `,
+                    style:"padding:none!important;background:none;box-shadow:none;",
+                    shadeClose: false,
+                });
+
+        $('.layui-m-layercont').addClass('new');
+
+        $('.btn-get').on('click',function(){
+            $('.layui-m-layercont').removeClass('new');
+            layer.close(index);
+            //	新增预约维修界面
+            window.location.href = "../YuyueRepair/reservationRepair.html";
+        });
+
+        return  kg;    //     测试阻止--------------------
+    };
 
     app.closeLoading();
 };

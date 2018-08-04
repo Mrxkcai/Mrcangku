@@ -134,6 +134,10 @@ $(function () {
     body.on("click", ".all_orders", function () {
         window.location.href = "Views/Orders/Order.html";
     });
+     //优惠券
+    body.on("click", ".car_voucher", function () {
+        //window.location.href = "Views/Voucher/voucher.html";
+    });
     //车辆管理
     body.on("click", ".car_management", function () {
         window.location.href = "Views/CarManagement/ListCar.html";
