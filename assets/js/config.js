@@ -43,9 +43,13 @@ var api = (function () {
         NWBDApiWeiXinpushOrder: apiAddress + "/weixin/order/pushOrder",		//	查看是否有派单中未接受订单
         NWBDApiWeiXincancelOrder: apiAddress + "/weixin/order/cancelOrder",		//	取消订单
         NWBDApiWeiXincheckOrderStatus: apiAddress + "/weixin/order/checkOrderStatus",		//	查询订单当前状态
+       
+       //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
-        testPhone:'/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/'
+        testPhone:'/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
+        shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址
+        imgUrl:apiAddress1 + '/images/qrhtml.png'                               //  分享图片地址
     };
 
     if (api.isDebug) {

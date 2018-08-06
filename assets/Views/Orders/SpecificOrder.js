@@ -1,11 +1,11 @@
 var specificOrder = function () {
     "use strict";
-
     var body = $('body');
-
     $(".payment_order").css("height", $(window).height() + "px");
     $(".evaluation_order").css("height", $(window).height() + "px");
     $(".current_order").css("height", $(window).height() + "px");
+    $(".voucher_block").css("height", $(window).height() + "px");       //  优惠券模块
+    
 
     var type = app.getQueryString("type");
     if (!type) {
@@ -216,6 +216,9 @@ var specificOrder = function () {
     };
     body.on("click", "#btn_pay", function () {
         app.verificationUserInfo();
+        if(!chooseVoucher()){
+            return;
+        };
         app.loading();
         var self = $(this);
         $.ajax({
@@ -228,6 +231,7 @@ var specificOrder = function () {
             },
             dataType: 'json',
             success: function (result) {
+                console.log(result)
                 if (result.status === "success" && result.code === 0) {
                     wx.chooseWXPay({
                         nonceStr: result.data.nonceStr,
@@ -279,4 +283,12 @@ var specificOrder = function () {
     body.on("click", "#btn_evaluation", function () {
         app.alert("coming soon");
     });
+
+
+    //  优惠券部分
+    var chooseVoucher = function (){
+        var kg = false;
+        $('.voucher_block').animate({'right':'0','top':'0'},250);
+        return kg;
+    };
 };

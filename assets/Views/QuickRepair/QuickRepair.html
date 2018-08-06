@@ -139,35 +139,36 @@
                             quickRepair();
                             
                             //新增分享
-                            wx.checkJsApi({
-			        			jsApiList:['chooseImage'],	//	需要检测的JS接口列表
-			        			success:function(res){
-			        				console.log(res)
-			        			}
-			        		});
-			        		
-	                        var shareUrl = 'https://wxcs.nuoweibd.com/Views/shareList/share.html?customerId=' + app.getItem('userInfo').id;
-	                        var obj = {
-			        			//	朋友圈
-			        			title:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	标题
-			        			desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
-			        			link:shareUrl,	//	分享链接
-			        			imgUrl:'https://wxcs.nuoweibd.com/images/qrhtml.png',	//	分享图标
-			        			fail:function(res){
-			        				console.log(JSON.stringify(res))
-			        			},
-			        			success:function(){
-			        			},
-			        			cancel:function(){
-			        			}
-			        		};
-							
-			        		if(!app.getItem('userInfo').id){
-			        			wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
-			        		}else{
-			        			wx.onMenuShareTimeline(obj)	//	分享到朋友圈
-			        			wx.onMenuShareAppMessage(obj)	//	分享给朋友
-			        		}
+                            // wx.checkJsApi({
+                            // 	jsApiList:['chooseImage'],	//	需要检测的JS接口列表
+                            // 	success:function(res){
+                            // 		console.log(res)
+                            // 	}
+                            // });
+                            // var id = getUrlParam('customerId');
+                            // var shareUrl = api.shareAdd + id;
+                            // var obj = {
+                            // 	//	朋友圈
+                            // 	title:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	标题
+                            // 	desc:'保宝车服——中国最好的维修地图，赶紧了解一下吧！',	//	描述
+                            // 	link:shareUrl,	//	分享链接
+                            // 	imgUrl:api.imgUrl,	//	分享图标
+                            // 	fail:function(res){
+                            // 		console.log(JSON.stringify(res))
+                            // 	},
+                            // 	success:function(){
+                            // 	},
+                            // 	cancel:function(){
+                            // 	}
+                            // };
+                            
+                            
+                            // if(!app.getItem('userInfo').id){
+                            // 	wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
+                            // }else{
+                            // 	wx.onMenuShareTimeline(obj)	//	分享到朋友圈
+                            // 	wx.onMenuShareAppMessage(obj)	//	分享给朋友
+                            // }
 			        		
                         });
                         wx.error(function (err) {
