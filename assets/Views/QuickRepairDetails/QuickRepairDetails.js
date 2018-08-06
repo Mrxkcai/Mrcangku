@@ -2,7 +2,7 @@ var quickRepairDetails = function () {
     "use strict";
 
     var body = $('body');
-    $(".container").css({'height': $(window).height() + 'px'});
+    $(".container").css({'min-height': $(window).height() + 'px'});
     
 
     //  阻止微信拉动出现背景
@@ -11,23 +11,10 @@ var quickRepairDetails = function () {
             e.preventDefault();
         }
     });
-    // var h = $('.container').height();
-    // $('.bg').css({
-    //     'width':'100%',
-    //     'height':h,
-    //     'position':'absolute',
-    //     'z-index':'-1',
-    //     'background':'#fff',
-    // });
 
     $('.container').on('touchmove',function(e){
         e.stopPropagation();
     });
-
-    // $('.bg').on('touchmove',function(e){
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    // });
 
 
 

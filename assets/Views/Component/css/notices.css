@@ -64,7 +64,7 @@
     display: inline-block;
     bottom: 2.45rem;
     right: .45rem;
-    z-index: 0;
+    z-index: 1;
     width: 1.45rem;
     height: 1.2rem;
 }

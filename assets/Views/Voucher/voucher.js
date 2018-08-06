@@ -62,11 +62,9 @@ var voucher = function voucher() {
                         });
                     }
                 }, 1000);
-            },
+            }
 
-            // get: function get() {
-            //     console.log(223);
-            // }
+            
 
         },
         mounted: function mounted() {
@@ -92,22 +90,16 @@ var voucher = function voucher() {
             this.$refs.adverblock1.init1();
         },
         created: function created() {
-            // var self = this;
-            // $(window).scroll(function () {
-            //     var scrollTop = $(this).scrollTop();
-            //     var scrollHeight = $(document).height();
-            //     var windowHeight = $(this).height();
-
-            //     if (scrollTop + windowHeight === scrollHeight) {
-            //         self.get();
-            //     }
-            // });
+             var self = this;
+            
         }
     });
 
 
     var body = $('body');
+    //  必须给这个样式，防止下拉的时候出现bug;
     $(".voucher_list").css("height", $(window).height() + "px");
+
     var voucher_list_num = 1;
     var pagesize = 10;
     var ijroll;
@@ -116,10 +108,11 @@ var voucher = function voucher() {
     ijroll = new JRoll($('.voucher_list')[0]);
     ijroll.pulldown({
         refresh: function (complete) {
-            payment_order_pageNum = 1;
+            voucher_list_num = 1;
             ijroll_y = 0;
             complete();
-            getPageData(type, "update");
+            //  更新列表方法
+            getPageData("update");
         }
     });
 
@@ -127,12 +120,43 @@ var voucher = function voucher() {
     ijroll.on('touchEnd', function () {
         if (ijroll.maxScrollY >= ijroll.y) {
             ijroll_y = ijroll.maxScrollY;
-            getPageData(type, "add");
+            //  加载列表方法
+            getPageData("add");
         }
     });
 
-    var createData = function (data,dataLength,type) {
+    //  输出html结构
+    var createData = function (data,datatype) {
+        var str = '';
+        for(var i = 0;i < data.length; i ++ ){
+            str += `
+                <li>    
+                <p class="line_red"></p>
+                <div class="d_money">
+                    ¥ 
+                    <span>5000</span>
+                    <span>满500可用</span>
+                </div>
 
+                <div class="w_text">
+                    <p>代金券</p>
+                    <p>适用范围：在保宝车服任意已认证下单商家消费即可使用</p>
+                </div>
+
+                <div class="cut-off">
+                    <div class="d-tringle d-tringle1"></div>
+                    <div class="d-tringle d-tringle2"></div>
+                    <div class="d-tringle3"></div>
+                </div>
+
+                <div class="d-date">
+                    有效期：2018.05.12 ~ 2018.09.20
+                </div>
+            </li>
+            `
+        }
+            
+        return str;
     };
 
     var getPageData = function (datatype) {
@@ -141,20 +165,76 @@ var voucher = function voucher() {
 
         var type = 1;
         var pageNum = 1;
+        console.log(voucher_list_num)
+        pageNum = voucher_list_num;
 
         if(pageNum == -1){
+            if($('.voucher_list ul .no_more').length == 0 && $('.voucher_list ul li').length >= 10){
+                $('.voucher_list ul').append('<p class="no_more">没有更多了~</p>')
+            };
+           
             return;
         };
 
         app.loading();      //  数据加载样式；
 
         $.ajax({
-            type:'',
-            url:'' + '?v=' + Math.random(),
-            
+            type:'post',
+            url:api.NWBDApiGetOrderList + '?v=' + Math.random(),
+            data:{
+                open_id: app.getItem("userInfo").id,
+                type: type,
+                pageNum: pageNum,
+                pageSize: pagesize,
+            },
+            async:true,
+            success:function(res){
+                console.log(res)
+                if(res.code == 0 && res.status === "success"){
+
+                    if(res.data.length > 0){
+                        //  输出html结构
+                        var str = createData(res.data,datatype);
+                        if(datatype == 'update'){
+                            $('.voucher_list ul').html(str);
+                        }else if(datatype == 'add'){
+                            $('.voucher_list ul').append(str);
+                        };
+
+                        
+                        //  请求成功后对分页进行一次更新
+                        if(res.data.length >= pagesize){
+                            voucher_list_num++;
+                        }else if(res.data.length < pagesize){
+                            voucher_list_num = -1;
+                        };
+
+                    }else{
+                        if (ijroll_y === 0 && pageNum === 1) {
+                            $('.voucher_list ul').html("<div style='position: fixed;top:15%;left: 50%;transform: translateX(-50%);'><img src='../../images/no_data.png' style='width: 2.75rem;height: 2.8rem;' /><div style='color: #555;margin-top: 0.1rem;text-align: center;'>当前没有代金券哦~</div></div>");
+                        };
+                    };
+                    // 高度变化后对ijroll对象进行刷新
+                    ijroll.refresh();
+                    app.closeLoading();
+
+
+                }else{
+                    app.closeLoading();
+                    app.alert(res.message);
+                };
+                
+            },
+            error:function(res){
+                app.closeLoading();
+                app.alert(res.message);
+            }
         });
 
     };
+
+
+    getPageData("add");
 
 
 };

@@ -136,7 +136,7 @@ $(function () {
     });
      //优惠券
     body.on("click", ".car_voucher", function () {
-        //window.location.href = "Views/Voucher/voucher.html";
+        window.location.href = "Views/Voucher/voucher.html";
     });
     //车辆管理
     body.on("click", ".car_management", function () {

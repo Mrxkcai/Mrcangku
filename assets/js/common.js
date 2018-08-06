@@ -1,10 +1,4 @@
-var apiUrl = '59.110.230.122';
-var api = {
-	showPromotion:"http://" + apiUrl + "/app/promotion/partake/showPromotion",	//	获取活动信息
-	partakePromotion:"http://" + apiUrl + "/app/promotion/partake/partakePromotion",	//	参与互动（领取红包）
-	register:"http://" + apiUrl + "/app/company/employee/register",	//	员工注册接口
-	send:"http://" + apiUrl + "/app/company/employee/send",	//	员工注册发送短信接口
-}
+
 
 //	时间戳转化
 function getTime(createTime,a){
