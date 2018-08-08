@@ -136,7 +136,9 @@
 		        return Y + M + D + h + m 
 		    }else if(a == 3){
 		        return Y + M + D + h + m  + ':' + s
-		    }
+		    }else if(a == 4){
+                return date.getFullYear() + '.' + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '.' + app.tranformTow(date.getDate())
+            }
 		};
 		
 		//	时间戳中个位数转化十位数

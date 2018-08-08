@@ -1,6 +1,7 @@
 "use strict";
 
 $(function () {
+    $("#app").css("min-height", $(window).height() + "px");
     var body = $("body");
     var sil;
     var getCount = function getCount() {

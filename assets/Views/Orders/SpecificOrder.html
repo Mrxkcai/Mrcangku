@@ -42,23 +42,60 @@
 
 	<!-- 点击支付弹出优惠券 -->
 	<div class="voucher_block">
-		<span class="back_span"></span>
-		<div class="order_details">
-			<div>
-				<span>订单号：</span>
-				<span>111111</span>
+		<div class="parent_relative">
+			<span class="back_span" style="display: none"></span>
+			<div class="big_box">
+				<div class="order_details">
+					
+				</div>
+
+				<div class="order_price">
+					<span>
+						<span class="sp icon1"></span>
+						订单价格
+					</span>
+					<span>¥ <span class="order_price_self"></span></span>
+				</div>
+
+				<div class="order_price order_price2">
+					<span>
+						<span class="sp icon2"></span>
+						订单优惠
+					</span>
+					<span class="selectVoucher">- ¥ <span>233</span></span>
+				</div>
 			</div>
-			<div>
-				<span>维修车辆：</span>
-				<span>gt</span>
+			<div class="btn_two">
+				<div>合计：¥ <span class="price_num"> </span></div>
+				<button class="layui-btn layui-btn-primary self_pay_btn">
+						确认支付
+				</button>
 			</div>
-			<div>
-				<span>维修内容：</span>
-				<span>喷漆</span>
-			</div>
-			<div>
-				<span>维修厂：</span>
-				<span>保宝车服</span>
+			
+		</div>
+	</div>
+
+
+	<!-- 点击选择优惠券蒙版 -->
+	<div class="chooseShade" style="display: none;">
+		<div>
+			<div class="prevent_div"></div>
+			<div class="voucher_list container" style="display: none;">
+				<div class="nouser_cash">
+					<span>
+							不使用优惠券
+					</span>
+
+					<span class="select_span">
+
+					</span>
+				</div>
+				<div class="test_div">
+					
+					<ul class="items">
+					</ul>
+				</div>
+				<button class="layui-btn layui-btn-primary self_btn">关 闭</button>
 			</div>
 		</div>
 	</div>

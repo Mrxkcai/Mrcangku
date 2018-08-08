@@ -319,6 +319,16 @@ var quickRepairDetails = function () {
             	console.log(result)
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
                     app.closeLoading();
+
+                    //  判断是否有优惠券
+                    if(result.data.coupon){
+                        //  弹出优惠券界面
+                        if(!red_bag(result.data.coupon)){
+                            return
+                        }
+                    }else{
+
+                    }
                 	//	存储订单id；
                 	localStorage.setItem("orderId",result.data.order_id)
                     $("#carList_carInfo_Id").val("0");
@@ -327,10 +337,7 @@ var quickRepairDetails = function () {
                     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
                     carList_ul.fadeOut(200);
                      
-                     //  弹出优惠券界面
-                    if(!red_bag()){
-                        return
-                    }
+                     
 
                     
                     localStorage.removeItem('status');
@@ -362,7 +369,10 @@ var quickRepairDetails = function () {
 
 
     //  新增优惠券方法
-    var red_bag = function(){
+    var red_bag = function(res){
+        console.log(res)
+        var ct = app.getTime(res.beginDate,4);
+        var et = app.getTime(res.endDate,4);
         var kg = false;
         
         var index = layer.open({
@@ -371,11 +381,11 @@ var quickRepairDetails = function () {
                         <div class="img_div">
                             <img src="../../images/default_1125_633.png" alt="图片"/>
                         </div>
-                        <p class="get-voucher">恭喜您获得代金券</p>
-                        <p>50元</p>
-                        <p>有效期：2018.05.04-2018.05.06</p>
+                        <p class="get-voucher">恭喜您获得${res.typeName}</p>
+                        <p>${res.price}元</p>
+                        <p>有效期：${ct}-${et}</p>
                         <p>代金券已帮您保存至个人中心-优惠券列表中，可前往查看。</p>
-                        <p>仅支持通过公众号付款时使用。</p>
+                        <p>${res.introduction}</p>
 
                         <button class="btn-get">我知道了</button>
                     </div>

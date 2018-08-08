@@ -25,7 +25,7 @@
     		bottom: .95rem;
     	}
     	.bottomP{
-    		bottom: 3.4rem!important;
+			bottom: 1rem!important;
 		}
     </style>
 </head>
@@ -69,10 +69,10 @@
         <p>全部订单</p>
 	</li>
 	<!-- 新增优惠券 -->
-	<!-- <li class="car_voucher">
+	<li class="car_voucher">
 		<span></span>
 		<p>优惠券</p>
-	</li> -->
+	</li>
 
     <li class="car_management">
         <span></span>
@@ -265,10 +265,12 @@ $(function () {
 			if(status == 1){
 				this.isBox = true;
 				$('.consumer_hotline').addClass('bottomP')
+				$('body').css({'margin-bottom':'1rem'})
 				this.$refs.countblock.childs();
 			}else{
 				this.isBox = false;
-				$('.consumer_hotline').removeClass('bottomP')
+				// $('.consumer_hotline').removeClass('bottomP')
+				$('body').css({'margin-bottom':'0'})
 			}
 
 

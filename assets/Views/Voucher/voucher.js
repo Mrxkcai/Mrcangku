@@ -118,7 +118,7 @@ var voucher = function voucher() {
 
     ijroll.scrollTo(0, ijroll_y);
     ijroll.on('touchEnd', function () {
-        if (ijroll.maxScrollY >= ijroll.y) {
+        if (ijroll.maxScrollY >= ijroll.y + 5) {
             ijroll_y = ijroll.maxScrollY;
             //  加载列表方法
             getPageData("add");
@@ -134,13 +134,13 @@ var voucher = function voucher() {
                 <p class="line_red"></p>
                 <div class="d_money">
                     ¥ 
-                    <span>5000</span>
-                    <span>满500可用</span>
+                    <span>${data[i].price}</span>
+                    <span>${data[i].name}</span>
                 </div>
 
                 <div class="w_text">
-                    <p>代金券</p>
-                    <p>适用范围：在保宝车服任意已认证下单商家消费即可使用</p>
+                    <p>${data[i].typeName}</p>
+                    <p>适用范围：${data[i].introduction}</p>
                 </div>
 
                 <div class="cut-off">
@@ -150,7 +150,7 @@ var voucher = function voucher() {
                 </div>
 
                 <div class="d-date">
-                    有效期：2018.05.12 ~ 2018.09.20
+                    有效期：${app.getTime(data[i].beginDate,4)} ~ ${app.getTime(data[i].endDate,4)}
                 </div>
             </li>
             `
@@ -165,7 +165,6 @@ var voucher = function voucher() {
 
         var type = 1;
         var pageNum = 1;
-        console.log(voucher_list_num)
         pageNum = voucher_list_num;
 
         if(pageNum == -1){
@@ -179,10 +178,10 @@ var voucher = function voucher() {
         app.loading();      //  数据加载样式；
 
         $.ajax({
-            type:'post',
-            url:api.NWBDApiGetOrderList + '?v=' + Math.random(),
+            type:'GET',
+            url:api.NWBDApiWeiXincouponList + '?v=' + Math.random(),
             data:{
-                open_id: app.getItem("userInfo").id,
+                userId: app.getItem("userInfo").id,
                 type: type,
                 pageNum: pageNum,
                 pageSize: pagesize,

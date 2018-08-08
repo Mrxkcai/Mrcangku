@@ -43,7 +43,10 @@ var api = (function () {
         NWBDApiWeiXinpushOrder: apiAddress + "/weixin/order/pushOrder",		//	查看是否有派单中未接受订单
         NWBDApiWeiXincancelOrder: apiAddress + "/weixin/order/cancelOrder",		//	取消订单
         NWBDApiWeiXincheckOrderStatus: apiAddress + "/weixin/order/checkOrderStatus",		//	查询订单当前状态
-       
+        NWBDApiWeiXincouponList: apiAddress + "/weixin/coupon/list",                    //  优惠券列表
+        NWBDApiWeiXincouponListUse: apiAddress + "/weixin/coupon/list/use",             //  可使用优惠券列表
+        NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse",             //  不可使用优惠券列表
+        
        //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
@@ -53,7 +56,7 @@ var api = (function () {
     };
 
     if (api.isDebug) {
-        document.write("<script src='" + api.getLocalhostPaht() + "/" + api.debugProjectName + "/js/app.js?v=1.0.17' charset='utf-8'></script>");
+        document.write("<script src='" + api.getLocalhostPaht() + "/" + api.debugProjectName + "/js/app.js?v=1.0.18' charset='utf-8'></script>");
         document.close();
     } else {
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=1.0.18' charset='utf-8'></script>");

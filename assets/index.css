@@ -131,7 +131,8 @@ body .floor2 {
   overflow: hidden;
   display: -webkit-flex;
   display: flex;
-  height: 2.27rem;
+  /* height: 2.27rem; */
+  padding: .3rem 0;
 }
 body .floor2 li {
   flex: 1;

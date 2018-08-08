@@ -5,7 +5,17 @@ var specificOrder = function () {
     $(".evaluation_order").css("height", $(window).height() + "px");
     $(".current_order").css("height", $(window).height() + "px");
     $(".voucher_block").css("height", $(window).height() + "px");       //  优惠券模块
+
+    $('.voucher_block').on('touchmove',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    $('.self_btn').on('touchmove',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+    });
     
+
 
     var type = app.getQueryString("type");
     if (!type) {
@@ -28,6 +38,14 @@ var specificOrder = function () {
     var pageSize = 10;
     var ijroll;
     var ijroll_y = 0;
+    var order_id;       //  存储订单id；
+    var wxcar;          //  维修车辆;
+    var wxn;            //  车牌号；
+    var wxcontent;      //  维修内容；
+    var wxm;            //  维修厂；
+    var order_price;    //  订单价格；  
+
+
     ijroll = new JRoll($("." + type)[0]);
     ijroll.pulldown({
         refresh: function (complete) {
@@ -43,6 +61,7 @@ var specificOrder = function () {
     ijroll.on('touchEnd', function () {
         if (ijroll.maxScrollY >= ijroll.y) {
             ijroll_y = ijroll.maxScrollY;
+            console.log(ijroll.maxScrollY)
             getPageData(type, "add");
         }
     });
@@ -77,8 +96,8 @@ var specificOrder = function () {
                 <div class="middle_content">
                     <p class="order_li_brands">${data[i].brand_name}</p>
                     <span class="order_li_carNo">${data[i].car_number}</span>
-                    <span class="order_li_maintenanceType ellipsis">维修类型 : ${data[i].repair_content}</span>
-                    <span class="order_li_repairer ellipsis">维修厂 : ${data[i].companyName}</span>
+                    <span class="order_li_maintenanceType ellipsis">维修类型 : <span class="order_li_maintenanceType2">${data[i].repair_content}</span></span>
+                    <span class="order_li_repairer ellipsis">维修厂 : <span class="order_li_repairer2">${data[i].companyName}</span></span>
                 </div>
                 <div class="bottom_btn">
                     <a class="bottom_btn_left" href="tel:4000-016-369">联系客服</a>
@@ -214,13 +233,28 @@ var specificOrder = function () {
             }
         });
     };
+
+    //  支付信息方法；
+    
+
+
     body.on("click", "#btn_pay", function () {
+        var self = $(this);
+        order_id = self.attr("data-id");        //  订单id
+        order_price = self.attr("data-price");  //  订单价格
+        wxcar = $(this).parents('li').find('.order_li_brands').text();  //  车型；
+        wxn = $(this).parents('li').find('.order_li_carNo').text();      //  车号码；
+        wxcontent = $(this).parents('li').find('.order_li_maintenanceType2').text(); //维修内容；
+        wxm = $(this).parents('li').find('.order_li_repairer2').text();   //   维修厂；
+        
+        
         app.verificationUserInfo();
+
+        //  弹出优惠券;
         if(!chooseVoucher()){
             return;
         };
         app.loading();
-        var self = $(this);
         $.ajax({
             url: api.NWBDApiUniformorder + "?r=" + Math.random(),
             type: "POST",
@@ -285,10 +319,224 @@ var specificOrder = function () {
     });
 
 
-    //  优惠券部分
+    //  优惠券部分*************************;
+
     var chooseVoucher = function (){
         var kg = false;
         $('.voucher_block').animate({'right':'0','top':'0'},250);
+
+        var str = '';
+            str +=`
+            <div>
+                <span>订单编号：</span>
+                <span>${order_id}</span>
+            </div>
+            <div class="three_block">
+                <div>
+                    <span>维修车辆：</span>
+                    <span>${wxcar} ${wxn}</span>
+                </div>
+                <div>
+                    <span>维修内容：</span>
+                    <span>${wxcontent}</span>
+                </div>
+                <div>
+                    <span>维修厂：</span>
+                    <span>${wxm}</span>
+                </div>
+            </div>
+            `
+        $('.order_details').html(str);
+        $('.order_price_self').html(Number(order_price));  //  输入价格；
+        var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
+        $('.price_num').html(truePrice);
+
+        $('.back_span').show();
+        //  加载优惠券
+        get_voucher_list('update');
+        
+        //  输出优惠值;
         return kg;
     };
+
+    //  优惠券返回
+    $('.back_span').on('click',function (){
+        $('.back_span').hide();
+        $('.voucher_block').animate({'right':'-100%','top':'0'},250);
+
+        //  清空值；
+        order_id = '';        //  订单id
+        order_price = '';  //  订单价格
+        wxcar = '';  //  车型；
+        wxn = '';      //  车号码；
+        wxcontent = ''; //维修内容；
+        wxm = '';   //   维修厂；
+    });
+
+    //  点击选择优惠券；
+    $('.selectVoucher').on('click',function(){
+        
+        //  支付按钮消失；
+        $('.btn_two').hide();
+
+        var shadeDiv = $('.chooseShade');
+            shadeDiv.css({
+                'width':'100%',
+                'height':$(window).height() + "px",
+                'position':'absolute',
+                'left':'0',
+                'top':'0',
+                'background':'rgba(0,0,0,.4)',
+                'z-index':'3'
+            });
+            shadeDiv.fadeIn();
+            $('.voucher_list').show();
+            $('.voucher_list').animate({'bottom':'0'},300);
+            $('.prevent_div').css({
+                'width':'100%',
+                'height':shadeDiv.height() - $('.voucher_list').height(),
+                'bottom':'6.4rem'
+            });
+            //  禁止滑动背景;
+            $('.prevent_div').on('touchmove',function(e){
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            //  点击关闭按钮;
+            $('.self_btn').on('click',function(){
+                $('.voucher_list').animate({'bottom':'-6.4rem'},300);
+                shadeDiv.fadeOut();
+                $('.btn_two').show();
+            });
+            
+
+            
+            
+    });
+
+    //  第二个滑动加载；
+    var pageSize2 = 5;
+    var voucher_pageNum = 1;
+    var ijroll2;
+    var ijroll_y2 = 0;
+    $(".test_div").height('4rem');
+    ijroll2 = new JRoll($(".test_div")[0]);
+    
+    ijroll2.scrollTo(0, ijroll_y2);
+    ijroll2.on('touchEnd', function () {
+        if (ijroll2.maxScrollY >= ijroll2.y + 5) {
+            ijroll_y2 = ijroll2.maxScrollY;
+            
+            
+            //  调用加载数据方法
+            get_voucher_list('add');
+        }
+    });
+
+
+    //  加载数据方法;
+
+    
+
+    var get_voucher_list = function (type){
+        
+        var pageNum2 = 1;
+        pageNum2 = voucher_pageNum;
+        app.verificationUserInfo();
+
+        if(voucher_pageNum == -1){
+            return;
+        };
+        var str = "";
+        $.ajax({
+            url: api.NWBDApiWeiXincouponListUse + "?r=" + Math.random(),
+            type: "get",
+            dataType: 'json',
+            data: {
+                userId: app.getItem("userInfo").id,
+                orderId: order_id,
+                pageNum: pageNum2,
+                pageSize: pageSize2,
+            },
+            success:function(res){
+                console.log(res)
+                if(res.code == 0 && res.status == 'success'){
+                    if(res.data.length > 0){
+                        for(var i = 0; i < res.data.length;i ++){
+                            str += `
+                            <li>
+                                <img src="" alt="图片" />
+                                <span>省 <span class="sheng">${res.data[i].price}</span></span>
+                                <span class="data_range"> ( ${res.data[i].name} )</span>
+                                <span class="select_span"></span>
+                            </li>
+                            `
+                        };
+                        $('.data_none').remove();
+                        if(type == 'update'){
+                            $('.items').html(str);
+                            $('.items li:nth-child(1) .select_span').addClass('icon_active');
+                        }else if(type == 'add'){
+                            $('.items').append(str);
+                        };
+                        
+                        //  刷新滑动加载;
+                        ijroll2.refresh();
+
+                        if(res.data.length >= pageSize2){
+                            voucher_pageNum++;
+                        }else if(res.data.length < pageSize2){
+                            voucher_pageNum = -1;
+                            if($('.items .data_list_none').length == 0 && $('.items li').length >= pageSize2){
+                                $('.items').append('<p class="no_more">没有更多了~</p>')
+                            }
+                        };
+                    } else {
+                        if (pageNum2 === 1) {
+                            $('.items').html("<p class='data_none'>暂无优惠券</p>");
+                        };
+                    };
+
+                    
+                    
+                }else{
+                    //  不需要提示；
+                    if (pageNum2 === 1) {
+                        $('.items').html("<p class='data_none'>暂无优惠券</p>");
+                    };
+                };
+            },
+            error:function(){
+                app.alert('操作失败，请检查网络！');
+            },
+        });
+
+    };
+
+
+    //  选择优惠券点击事件；
+    $('.items').on('click','li',function(){
+        $(this).find('.select_span').addClass('icon_active');
+        $(this).siblings('li').find('.select_span').removeClass('icon_active');
+        $('.nouser_cash').find('.select_span').removeClass('icon_active');
+        // $('.voucher_list').animate({'bottom':'-6.4rem'},300);
+        // shadeDiv.fadeOut();
+        // $('.btn_two').show();
+        $('.selectVoucher span').text(Number($(this).find('.sheng').text()));
+        var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
+        $('.price_num').html(truePrice);
+        $('.self_btn').trigger('click');
+        
+    });
+
+    //  不适用优惠券；
+    $('.nouser_cash').find('.select_span').on('click',function(){
+        $(this).addClass('icon_active');
+        $('.items li').find('.select_span').removeClass('icon_active');
+        $('.selectVoucher span').text(0);
+        var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
+        $('.price_num').html(truePrice);
+        $('.self_btn').trigger('click');
+    });
 };
