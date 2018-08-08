@@ -46,7 +46,8 @@ var api = (function () {
         NWBDApiWeiXincouponList: apiAddress + "/weixin/coupon/list",                    //  优惠券列表
         NWBDApiWeiXincouponListUse: apiAddress + "/weixin/coupon/list/use",             //  可使用优惠券列表
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse",             //  不可使用优惠券列表
-        
+        NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder",             //  微信预订单
+
        //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬

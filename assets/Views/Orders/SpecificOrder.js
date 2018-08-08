@@ -44,6 +44,7 @@ var specificOrder = function () {
     var wxcontent;      //  维修内容；
     var wxm;            //  维修厂；
     var order_price;    //  订单价格；  
+    var coucher_id;     //  优惠券id;
 
 
     ijroll = new JRoll($("." + type)[0]);
@@ -438,7 +439,6 @@ var specificOrder = function () {
     //  加载数据方法;
 
     
-
     var get_voucher_list = function (type){
         
         var pageNum2 = 1;
@@ -465,7 +465,7 @@ var specificOrder = function () {
                     if(res.data.length > 0){
                         for(var i = 0; i < res.data.length;i ++){
                             str += `
-                            <li>
+                            <li data-vid="${res.data[i].id}">
                                 <img src="" alt="图片" />
                                 <span>省 <span class="sheng">${res.data[i].price}</span></span>
                                 <span class="data_range"> ( ${res.data[i].name} )</span>
@@ -477,6 +477,10 @@ var specificOrder = function () {
                         if(type == 'update'){
                             $('.items').html(str);
                             $('.items li:nth-child(1) .select_span').addClass('icon_active');
+                            var firsr_num = Number($('.items li:nth-child(1) .sheng').text());
+                            $('.selectVoucher span').text(firsr_num);
+                            var first_truePrice = Number(order_price) - Number(firsr_num);
+                            $('.price_num').html(first_truePrice);
                         }else if(type == 'add'){
                             $('.items').append(str);
                         };
@@ -520,6 +524,7 @@ var specificOrder = function () {
         $(this).find('.select_span').addClass('icon_active');
         $(this).siblings('li').find('.select_span').removeClass('icon_active');
         $('.nouser_cash').find('.select_span').removeClass('icon_active');
+        //  ****************写成这样也可以；*************
         // $('.voucher_list').animate({'bottom':'-6.4rem'},300);
         // shadeDiv.fadeOut();
         // $('.btn_two').show();
@@ -532,11 +537,18 @@ var specificOrder = function () {
 
     //  不适用优惠券；
     $('.nouser_cash').find('.select_span').on('click',function(){
+        coucher_id = $(this).attr('data-vid');
         $(this).addClass('icon_active');
         $('.items li').find('.select_span').removeClass('icon_active');
         $('.selectVoucher span').text(0);
         var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
         $('.price_num').html(truePrice);
         $('.self_btn').trigger('click');
+    });
+
+
+    //  确认支付；
+    $('.self_pay_btn').on('click',function(){
+        
     });
 };
