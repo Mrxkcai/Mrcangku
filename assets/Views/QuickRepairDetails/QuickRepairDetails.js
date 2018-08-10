@@ -297,7 +297,11 @@ var quickRepairDetails = function () {
             }
         app.setItem('info',JSON.stringify(data));
         
-        
+        //  测试公告
+        // red_bag(result.data.coupon)
+        // return;
+
+
         app.loading();
         $.ajax({
             url: api.NWBDApiOrderAdd + "?r=" + Math.random(),
@@ -399,6 +403,7 @@ var quickRepairDetails = function () {
         $('.btn-get').on('click',function(){
             $('.layui-m-layercont').removeClass('new');
             layer.close(index);
+
             //	新增预约维修界面
             window.location.href = "../YuyueRepair/reservationRepair.html";
         });

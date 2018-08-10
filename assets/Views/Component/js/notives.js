@@ -49,7 +49,8 @@ Vue.component("adve-block",{
                 })
 				
 			}else{
-				$('.layui-m-layer').hide();
+                $('.layui-m-layer').hide();
+                $('.img_box').hide();
 			}
 
             cont.on({ //绑定事件

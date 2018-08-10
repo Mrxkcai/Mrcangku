@@ -255,63 +255,6 @@ var specificOrder = function () {
         if(!chooseVoucher()){
             return;
         };
-        app.loading();
-        $.ajax({
-            url: api.NWBDApiUniformorder + "?r=" + Math.random(),
-            type: "POST",
-            data: {
-                open_id: app.getItem("open_id"),
-                order_id: self.attr("data-id"),
-                money: self.attr("data-price")
-            },
-            dataType: 'json',
-            success: function (result) {
-                console.log(result)
-                if (result.status === "success" && result.code === 0) {
-                    wx.chooseWXPay({
-                        nonceStr: result.data.nonceStr,
-                        package: "prepay_id=" + result.data.prepayId,
-                        signType: 'MD5',
-                        paySign: result.data.sign,
-                        timestamp: result.data.timeStamp,
-                        success: function (result) {
-                            app.closeLoading();
-                            if (result.errMsg === "chooseWXPay:ok") {
-                                layer.open({
-                                    content: '支付结果？',
-                                    btn: ['支付成功', '支付遇到问题'],
-                                    yes: function (index) {
-                                        layer.close(index);
-                                        detectPay(self.attr("data-id"));
-                                    },
-                                    no: function () {
-                                        detectPay(self.attr("data-id"));
-                                    }
-                                });
-                            } else {
-                                alert("支付失败，如已付款，请联系客服");
-                                app.closeLoading();
-                            }
-                        },
-                        cancel: function () {
-                            alert("支付已取消");
-                            app.closeLoading();
-                        },
-                        fail: function () {
-                            alert("支付失败，如已付款，请联系客服");
-                            app.closeLoading();
-                        }
-                    });
-                } else {
-                    alert(result.message);
-                    app.closeLoading();
-                }
-            },
-            error: function () {
-                alert('操作失败，请检查网络！');
-                app.closeLoading();
-            }
-        });
     });
 
     //评价
@@ -320,10 +263,15 @@ var specificOrder = function () {
     });
 
 
+
+
+
+    
+
     //  优惠券部分*************************;
 
     var chooseVoucher = function (){
-        var kg = false;
+        // var kg = false;
         $('.voucher_block').animate({'right':'0','top':'0'},250);
 
         var str = '';
@@ -357,7 +305,7 @@ var specificOrder = function () {
         get_voucher_list('update');
         
         //  输出优惠值;
-        return kg;
+        // return kg;
     };
 
     //  优惠券返回
@@ -462,7 +410,7 @@ var specificOrder = function () {
             success:function(res){
                 console.log(res)
                 if(res.code == 0 && res.status == 'success'){
-                    if(res.data.length > 0){
+                    if(res.data.length >= 0){
                         for(var i = 0; i < res.data.length;i ++){
                             str += `
                             <li data-vid="${res.data[i].id}">
@@ -476,7 +424,11 @@ var specificOrder = function () {
                         $('.data_none').remove();
                         if(type == 'update'){
                             $('.items').html(str);
+
+                            //  首次进来默认选中优惠券；
                             $('.items li:nth-child(1) .select_span').addClass('icon_active');
+                            coucher_id = $('.items li:nth-child(1)').attr('data-vid');  //  默认优惠券id;
+
                             var firsr_num = Number($('.items li:nth-child(1) .sheng').text());
                             $('.selectVoucher span').text(firsr_num);
                             var first_truePrice = Number(order_price) - Number(firsr_num);
@@ -493,12 +445,12 @@ var specificOrder = function () {
                         }else if(res.data.length < pageSize2){
                             voucher_pageNum = -1;
                             if($('.items .data_list_none').length == 0 && $('.items li').length >= pageSize2){
-                                $('.items').append('<p class="no_more">没有更多了~</p>')
+                                $('.items').append('<li class="no_more">没有更多了~</li>')
                             }
                         };
                     } else {
                         if (pageNum2 === 1) {
-                            $('.items').html("<p class='data_none'>暂无优惠券</p>");
+                            $('.items').html("<li class='data_none'>暂无优惠券</li>");
                         };
                     };
 
@@ -521,6 +473,7 @@ var specificOrder = function () {
 
     //  选择优惠券点击事件；
     $('.items').on('click','li',function(){
+        coucher_id = $(this).attr('data-vid');
         $(this).find('.select_span').addClass('icon_active');
         $(this).siblings('li').find('.select_span').removeClass('icon_active');
         $('.nouser_cash').find('.select_span').removeClass('icon_active');
@@ -535,9 +488,9 @@ var specificOrder = function () {
         
     });
 
-    //  不适用优惠券；
+    //  不使用优惠券；
     $('.nouser_cash').find('.select_span').on('click',function(){
-        coucher_id = $(this).attr('data-vid');
+        coucher_id = '';
         $(this).addClass('icon_active');
         $('.items li').find('.select_span').removeClass('icon_active');
         $('.selectVoucher span').text(0);
@@ -549,6 +502,74 @@ var specificOrder = function () {
 
     //  确认支付；
     $('.self_pay_btn').on('click',function(){
+        var data;
+        if(coucher_id == ''){
+            data = {
+                open_id:app.getItem("open_id"),
+                order_id:order_id
+            };
+        }else{
+            data = {
+                open_id:app.getItem("open_id"),
+                order_id:order_id,
+                couponId:coucher_id
+            };
+        };
         
+
+        app.loading();
+        $.ajax({
+            type:'post',
+            url:api.NWBDApiWeiXinUniformorder + "?r=" + Math.random(),
+            data:data,
+            dataType: 'json',
+            success:function(res){
+                console.log(res)
+                if(res.code == 0 && res.status == 'success'){
+                    wx.chooseWXPay({
+                        nonceStr: res.data.nonceStr,
+                        package: "prepay_id=" + res.data.prepayId,
+                        signType: 'MD5',
+                        paySign: res.data.sign,
+                        timestamp: res.data.timeStamp,
+                        success: function (result) {
+                            app.closeLoading();
+                            if (result.errMsg === "chooseWXPay:ok") {
+                                layer.open({
+                                    content: '支付结果？',
+                                    btn: ['支付成功', '支付遇到问题'],
+                                    yes: function (index) {
+                                        layer.close(index);
+                                        detectPay(order_id);
+                                    },
+                                    no: function () {
+                                        detectPay(order_id);
+                                    }
+                                });
+                            } else {
+                                alert("支付失败，如已付款，请联系客服");
+                                app.closeLoading();
+                            }
+                        },
+                        cancel: function () {
+                            alert("支付已取消");
+                            app.closeLoading();
+                        },
+                        fail: function () {
+                            alert("支付失败，如已付款，请联系客服");
+                            app.closeLoading();
+                        }
+                    });
+
+                }else{
+                    alert(res.message);
+                    app.closeLoading();
+                };
+            },
+            error:function(res){
+                alert(res.message);
+                app.closeLoading();
+            },
+        });
     });
 };
