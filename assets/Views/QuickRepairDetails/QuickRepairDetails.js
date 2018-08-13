@@ -297,9 +297,7 @@ var quickRepairDetails = function () {
             }
         app.setItem('info',JSON.stringify(data));
         
-        //  测试公告
-        // red_bag(result.data.coupon)
-        // return;
+       
 
 
         app.loading();
@@ -331,21 +329,21 @@ var quickRepairDetails = function () {
                             return
                         }
                     }else{
+                        //	新增预约维修界面
+                        window.location.href = "../YuyueRepair/reservationRepair.html";
+                        //	存储订单id；
+                        localStorage.setItem("orderId",result.data.order_id)
+                        $("#carList_carInfo_Id").val("0");
+                        carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
+                        $(".carList_ul_li").removeClass("active");
+                        carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
+                        carList_ul.fadeOut(200);
 
-                    }
-                	//	存储订单id；
-                	localStorage.setItem("orderId",result.data.order_id)
-                    $("#carList_carInfo_Id").val("0");
-                    carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
-                    $(".carList_ul_li").removeClass("active");
-                    carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
-                    carList_ul.fadeOut(200);
-                     
-                     
-
+                        localStorage.removeItem('status');
+                        localStorage.removeItem('num');
                     
-                    localStorage.removeItem('status');
-					localStorage.removeItem('num');
+                    }
+                    
                    
                     
                     
@@ -380,32 +378,45 @@ var quickRepairDetails = function () {
         var kg = false;
         
         var index = layer.open({
-                    content:
-                    `<div class="d-voucher">
-                        <div class="img_div">
-                            <img src="../../images/default_1125_633.png" alt="图片"/>
-                        </div>
-                        <p class="get-voucher">恭喜您获得${res.typeName}</p>
-                        <p>${res.price}元</p>
-                        <p>有效期：${ct}-${et}</p>
-                        <p>代金券已帮您保存至个人中心-优惠券列表中，可前往查看。</p>
-                        <p>${res.introduction}</p>
+                content:
+                `<div class="d-voucher">
+                    <p class="get-voucher"><span>¥</span>${res.price}</p>
+                    <p>恭喜您获得${res.typeName}</p>
+                    <p>有效期：<br /> ${ct}-${et}</p>
+                    <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
+                    <p>* ${res.introduction}</p>
 
-                        <button class="btn-get">我知道了</button>
-                    </div>
-                    `,
-                    style:"padding:none!important;background:none;box-shadow:none;",
-                    shadeClose: false,
-                });
+                    <button class="btn-get"></button>
+                </div>
+                `,
+                style:"padding:none!important;background:none;box-shadow:none;width:6.94rem",
+                shadeClose: false,
+        });
 
         $('.layui-m-layercont').addClass('new');
+        $('.layui-m-layercont').addClass('layui-m-layercont_self'); //  调整layer样式；
+
+
 
         $('.btn-get').on('click',function(){
             $('.layui-m-layercont').removeClass('new');
+            $('.layui-m-layercont').removeClass('layui-m-layercont_self');
             layer.close(index);
+
 
             //	新增预约维修界面
             window.location.href = "../YuyueRepair/reservationRepair.html";
+            //	存储订单id；
+            localStorage.setItem("orderId",result.data.order_id)
+            $("#carList_carInfo_Id").val("0");
+            carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
+            $(".carList_ul_li").removeClass("active");
+            carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
+            carList_ul.fadeOut(200);
+             
+            
+            localStorage.removeItem('status');
+            localStorage.removeItem('num');
         });
 
         return  kg;    //     测试阻止--------------------

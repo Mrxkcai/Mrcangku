@@ -414,7 +414,7 @@ var specificOrder = function () {
                         for(var i = 0; i < res.data.length;i ++){
                             str += `
                             <li data-vid="${res.data[i].id}">
-                                <img src="" alt="图片" />
+                                <span>${res.data[i].typeName}</span>
                                 <span>省 <span class="sheng">${res.data[i].price}</span></span>
                                 <span class="data_range"> ( ${res.data[i].name} )</span>
                                 <span class="select_span"></span>

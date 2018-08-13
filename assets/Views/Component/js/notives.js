@@ -25,10 +25,13 @@ Vue.component("adve-block",{
 			var barrage_frame = $("#barrage_frame");
             var body = $("body");
             var windowUrl = window.location.href;
+            $('.img_box').css({'display':'none'});
             //	首次进来直接展示公告
+            console.log(1)
+            var index_;
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
-				
-				layer.open({
+				console.log(2)
+				index_ = layer.open({
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
 					content:`<div class='img_box' style="display:block;opacity:1;">
@@ -49,8 +52,8 @@ Vue.component("adve-block",{
                 })
 				
 			}else{
-                $('.layui-m-layer').hide();
-                $('.img_box').hide();
+                console.log(3)
+                layer.close(index_);
 			}
 
             cont.on({ //绑定事件
