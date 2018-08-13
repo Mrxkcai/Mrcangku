@@ -492,6 +492,7 @@ var vm = new Vue({
     },
         
     },
+    
     mounted(){
         app.verificationUserInfo();
         var number1 = app.checkTime()
