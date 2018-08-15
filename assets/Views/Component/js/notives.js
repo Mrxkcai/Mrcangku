@@ -34,7 +34,7 @@ Vue.component("adve-block",{
 				index_ = layer.open({
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
-					content:`<div class='img_box' style="display:block;opacity:1;">
+					content:`<div class='img_box' style="display:none;opacity:1;">
 								<img src='../../images/img_gonggao.png'/>
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
@@ -42,13 +42,15 @@ Vue.component("adve-block",{
 							`
                 })
                 $('.layui-m-layercont').addClass('new');
+                $('.img_box').show();
+                sessionStorage.setItem("g",1);
                 //  关闭叉号
                 $('.close_img').on('click',function(){
                     $('.layui-m-layer').hide();
                     $('.layui-m-layercont').removeClass('new');
                     //  出发蒙版的点击事件
                     $('.layui-m-layershade').trigger('click');
-                    sessionStorage.setItem("g",1);
+                    
                 })
 				
 			}else{
