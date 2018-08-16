@@ -246,7 +246,7 @@ var quickRepair = function () {
                         if (status === 'complete' && result.info === 'OK') {
                           	$('.position_text span').animate({width:5+"rem"},500)
                             $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress)
-                      
+                            setPosition(result.regeocode.addressComponent.city,result.regeocode.addressComponent.district)
 
 							//	2m后缩回
 							setTimeout(function(){
@@ -264,7 +264,44 @@ var quickRepair = function () {
             }
         });
     };
+    var setPosition = function (city,district) {
+        $('.area-text').html(city);
+        var html = '<p><label>'+city+'</label> <span class="tab-city">切换城市</span></p>';
+        html+='<p><label>长安区</label> <i></i></p>'
+        html+='<p><label>'+district+'</label> <strong>我的位置</strong></p>'
+        $('.area-list').append(html)
+    };
+    //加载城市事件
+    initCities()
+    function initCities() {
+        var lists = '';
+        var en = '<ul>';
+        cityData.forEach(function (group) {
+            var name = group.name;
+            lists += '<div class="city-letter" id="'+name+'">'+name+'</div>';
+            lists += '<ul>';
+            group.cities.forEach(function(g) {
+                lists += '<li class="city-item" data-name="'+ g.name +'" data-id="'+ g.cityid +'">'+g.name+'</li>';
+            });
+            lists += '</ul>';
 
+            var name = group.name.substr(0, 1);
+            en += '<li data-anchor="'+name+'" class="item">'+name+'</li>';
+        });
+        en += '</ul>';
+
+        $('.city').html(lists);
+
+        $('.letter').html(en) ;
+        var letter = $('.letter');
+        var windowHeight = $(window).height();
+        var InitHeight = windowHeight-45;
+        letter.height(InitHeight);
+        var LiHeight = InitHeight/24;
+        letter.find('li').height(LiHeight);
+        letter.find('li').css("line-height",LiHeight+"px");
+
+    };
     app.verificationUserInfo();
     $.ajax({
         url: api.NWBDApiCarIsExist + "?r=" + Math.random(),
@@ -434,7 +471,7 @@ var quickRepair = function () {
         window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
     });
 
-    //选择
+    //tab切换
     body.on("click", ".search_select li", function () {
         var i = $('.search_select li').index($(this));
         var choiceBox = $('.choice-box');
@@ -462,9 +499,56 @@ var quickRepair = function () {
     //筛选
     body.on("click", ".screen-type-list p", function () {
         $(this).addClass('active').siblings().removeClass('active');
+    });
+    body.on("click", ".reset-btn", function () {
+        $('.screen-type-list p').removeClass('active');
+    });
+    body.on("click", ".confirm-btn", function () {
         $('.search_select li').removeClass('active');
         $('.choice-box').hide();
         $('.mask-all').hide();
+    });
+    //地区
+    body.on("click", ".area-list label", function () {
+        $(this).parent().addClass('active').siblings().removeClass('active');
+        $('.area-text').html($(this).text());
+        $('.search_select li').removeClass('active');
+        $('.choice-box').hide();
+        $('.mask-all').hide();
+    });
+    //选择城市
+    body.on("click", ".tab-city", function () {
+        $('#city-content').animate({
+            'left':'0%'
+        },200,function () {
+            $('.letter').show();
+        })
+    });
+    $('.search-input').focus(function () {
+        $('.search-list').show();
+        $('#city-content').css("overflow","hidden")
+    });
+    $('.search-input').blur(function () {
+
+        $('#city-content').css("overflow","auto")
+    })
+    //键盘按键弹起时执行
+    $('.search-input').keyup(function(){
+        var index = $.trim($('.search-input').val().toString()); // 去掉两头空格
+        if(index == ''){
+            $('.search-list').empty();
+            return false;
+        }
+        var searchCity = $(".city li:contains('"+index+"')");
+        console.log()
+        if(searchCity.length>=1){
+            var htmls = ''
+            for(var i=0;i<searchCity.length;i++){
+                htmls += '<p>'+searchCity[i].dataset.name+'</p>'
+            }
+            $('.search-list').empty();
+            $('.search-list').append(htmls)
+        }
 
     });
 

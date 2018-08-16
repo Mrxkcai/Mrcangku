@@ -18,7 +18,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
-    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9fbbvb2v"/>
     <!--公共组件-->
     <style type="text/css">
     	.positioning{
@@ -32,22 +32,22 @@
 <div class="container" id="app">
     <div class="mask-all"></div>
     <div class="area-list choice-box">
-        <p class="active">
-            <label>西安市</label>
-            <span><i class="cross"></i>切换城市</span>
-        </p>
-        <p>
-            <label>雁塔区</label>
-            <i class="cross"></i>
-        </p>
-        <p>
-            <label>未央区</label>
-            <i class="cross"></i>
-        </p>
-        <p>
-            <label>长安区</label>
-            <i class="cross"></i>
-        </p>
+        <!--<p class="active">-->
+            <!--<label>西安市</label>-->
+            <!--<span>切换城市</span>-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<label>雁塔区</label>-->
+            <!--<i></i>-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<label>未央区</label>-->
+            <!--<strong>我的位置</strong>-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<label>长安区</label>-->
+            <!--<i></i>-->
+        <!--</p>-->
     </div>
     <div class="sorting-list choice-box">
         <p class="active">
@@ -66,6 +66,10 @@
                 <p>维修厂</p>
                 <p>快修点</p>
                 <p>4S店</p>
+            </div>
+            <div class="screen-type-btn">
+                <button class="reset-btn">重置</button>
+                <button class="confirm-btn">确定</button>
             </div>
         </div>
     </div>
@@ -121,7 +125,33 @@
 	<!-- 操作指南 -->
 	<adve-block1 :arr = "arr" ref="adverblock1"></adve-block1>
 </div>
+<div id="city-content">
+    <div class="city-top">
+        <div id="city-search">
+            <span class="icon_search"></span>
+            <form class="city-search-form" action="javascript:return true;">
+                <input maxlength="20" type="search" class="search-input" placeholder="请输入城市名称查询"/>
+            </form>
+        </div>
+        <div class="city-position">
+            <h6>定位城市</h6>
+            <span class="city-position-text">西安市</span>
+        </div>
+    </div>
+    <div class="search-list"></div>
+    <div class="city-main">
+        <!--显示点击的是哪一个字母-->
+        <div id="showLetter" class="showLetter"><span>A</span></div>
+        <!--城市索引查询-->
+        <div class="letter">
 
+        </div>
+        <!--城市列表-->
+        <div class="city-container">
+            <div class="city"></div>
+        </div>
+    </div>
+</div>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
 <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
@@ -134,7 +164,8 @@
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="QuickRepair.js?v=1.0.11" charset='utf-8'></script>
+<script src="city.js" charset='utf-8'></script>
+<script src="QuickRepair.js?v=1.0.11ffkfvfgcffg" charset='utf-8'></script>
 <script>
     $(function () {
 
