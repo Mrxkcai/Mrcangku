@@ -263,7 +263,7 @@ var vm = new Vue({
 					data:data,
 					dataType: 'json',
 					success:function(result){
-						
+						console.log(result)
 						if(result.status == 'success' && result.code == 0){
 							app.closeLoading();
 							vm.list = result.data;
@@ -283,8 +283,7 @@ var vm = new Vue({
 										vm.image_url = vm.list[0].image.image_url
 									}
 								}else{
-									vm.image_url = '';
-									vm.image_url = vm.list[0].image
+									vm.image_url = vm.list[0].image.image_url
 									console.log(vm.image_url)
 								}
 							}
@@ -379,7 +378,7 @@ var vm = new Vue({
 			   				data:data,
 							dataType: 'json',
 							success:function(result){
-								console.log(result)
+								// console.log(result)
 								if(result.code == 0){
 									if(result.data == 1){
 										app.alert('商家已接单')

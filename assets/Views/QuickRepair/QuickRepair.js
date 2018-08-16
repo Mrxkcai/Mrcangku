@@ -53,17 +53,22 @@ var quickRepair = function () {
     	
         var repairer_list_str = "";
         for (var i = 0; i < repairer_list_data_length; i++) {
+            
             //列表图片
-            var strIcon = "../.." + api.Merchant_default_Icon;
-            for (var m = 0; m < repairer_list_data[i].image.length; m++) {
-                if (repairer_list_data[i].image[m].image_type === 1) {
-                    strIcon = repairer_list_data[i].image[m].image_url;
-                    break;
-                }else{
-                	strIcon = repairer_list_data[i].image[0].image_url;
-                    break;
+            var strIcon;
+            if(repairer_list_data[i].image.length > 0){
+                for (var m = 0; m < repairer_list_data[i].image.length; m++) {
+                    if (repairer_list_data[i].image[m].image_type == 1) {
+                        strIcon = repairer_list_data[i].image[m].image_url;
+                        break;
+                    }else if(repairer_list_data[i].image[m].image_type != 1){
+                        strIcon = repairer_list_data[i].image[0].image_url;
+                        // break;
+                    }
                 }
-            }
+            }else{
+                strIcon = "../.." + api.Merchant_default_Icon;
+            };
 
             //评分
             var strGrade;
@@ -189,7 +194,7 @@ var quickRepair = function () {
 	            },
 	            dataType: 'json',
 	            success: function (result) {
-	                 console.log(JSON.stringify(result));
+	                //  console.log(JSON.stringify(result));
 	                if (result.status === "success" && result.code === 0) {
 	                    var repairer_list_data = result.data;
 	                    var repairer_list_data_length = repairer_list_data.length;
@@ -375,7 +380,7 @@ var quickRepair = function () {
             type: "POST",
             dataType: 'json',
             success: function (result) {
-                   console.log(JSON.stringify(result));
+                //    console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     var repairer_list_data = result.data;
                     var repairer_list_data_length = repairer_list_data.length;
