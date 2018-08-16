@@ -428,6 +428,41 @@ var quickRepair = function () {
         sessionStorage.setItem("sv",$('.search_bar').val())
         window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
     });
+
+    //选择
+    body.on("click", ".search_select li", function () {
+        var i = $('.search_select li').index($(this));
+        var choiceBox = $('.choice-box');
+        if(!$(this).hasClass('active')){
+            choiceBox.hide();
+            $('.mask-all').show();
+            choiceBox.eq(i).show();
+            $(this).siblings().removeClass('active')
+            $(this).addClass('active')
+        }else {
+            choiceBox.hide();
+            $('.mask-all').hide();
+            $(this).removeClass('active')
+        }
+
+    });
+    //选择排序
+    body.on("click", ".sorting-list p", function () {
+        $(this).addClass('active').siblings().removeClass('active')
+        $('.sorting-text').html($(this).text());
+        $('.search_select li').removeClass('active');
+        $('.choice-box').hide();
+        $('.mask-all').hide();
+    });
+    //筛选
+    body.on("click", ".screen-type-list p", function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        $('.search_select li').removeClass('active');
+        $('.choice-box').hide();
+        $('.mask-all').hide();
+
+    });
+
 };
 
 

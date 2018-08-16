@@ -29,32 +29,64 @@
 </head>
 
 <body>
-
 <div class="container" id="app">
+    <div class="mask-all"></div>
+    <div class="area-list choice-box">
+        <p class="active">
+            <label>西安市</label>
+            <span><i class="cross"></i>切换城市</span>
+        </p>
+        <p>
+            <label>雁塔区</label>
+            <i class="cross"></i>
+        </p>
+        <p>
+            <label>未央区</label>
+            <i class="cross"></i>
+        </p>
+        <p>
+            <label>长安区</label>
+            <i class="cross"></i>
+        </p>
+    </div>
+    <div class="sorting-list choice-box">
+        <p class="active">
+            <label>默认排序</label>
+            <i></i>
+        </p>
+        <p>
+            <label>距离最近</label>
+            <i></i>
+        </p>
+    </div>
+    <div class="screen choice-box">
+        <div class="screen-type">
+            <h6>维修厂类型</h6>
+            <div class="screen-type-list">
+                <p>维修厂</p>
+                <p>快修点</p>
+                <p>4S店</p>
+            </div>
+        </div>
+    </div>
     <header>
-        <!--<ul class="search_select">-->
-        <!--<li>-->
-        <!--<span class="area ellipsis">默认▼</span>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<span class="sorting ellipsis">默认排序▼</span>-->
-        <!--<select class="sorting_select">-->
-        <!--<option value="0">默认排序</option>-->
-        <!--<option value="1">评分最高</option>-->
-        <!--<option value="2">距离最近</option>-->
-        <!--</select>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<span class="kind ellipsis">默认▼</span>-->
-        <!--<select class="kind_select">-->
-        <!--<option value="0">默认</option>-->
-        <!--<option value="1">一类</option>-->
-        <!--<option value="2">二类</option>-->
-        <!--<option value="3">三类</option>-->
-        <!--<option value="4">保宝车服认证店</option>-->
-        <!--</select>-->
-        <!--</li>-->
-        <!--</ul>-->
+        <ul class="search_select">
+            <li>
+                <span class="area ellipsis">
+                    <a class="area-text" href="javascript:;">西安市</a><i></i>
+                </span>
+            </li>
+            <li>
+                <span class="sorting ellipsis">
+                    <a class="sorting-text" href="javascript:;">默认排序</a><i></i>
+                </span>
+            </li>
+            <li>
+                <span class="kind ellipsis">
+                    <a href="javascript:;">筛选</a><i></i>
+                </span>
+            </li>
+        </ul>
         <div class="search_div">
             <span class="icon_search"></span>
             <form id="search_from">
