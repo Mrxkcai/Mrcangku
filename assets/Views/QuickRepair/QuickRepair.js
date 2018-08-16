@@ -380,7 +380,7 @@ var quickRepair = function () {
             type: "POST",
             dataType: 'json',
             success: function (result) {
-                   console.log(JSON.stringify(result));
+                //    console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     var repairer_list_data = result.data;
                     var repairer_list_data_length = repairer_list_data.length;
