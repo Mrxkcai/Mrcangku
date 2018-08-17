@@ -186,7 +186,7 @@ var quickRepair = function () {
 	            url: api.NWBDApiPositionGetMerchantList + "?r=" + Math.random(),
 	            type: "POST",
 	            data: {
-	                // open_id: app.getItem("userInfo").id,
+	                open_id: app.getItem("userInfo").id,
 	                lng: lng,
 	                lat: lat,
 	                pageNum: pageNum,
