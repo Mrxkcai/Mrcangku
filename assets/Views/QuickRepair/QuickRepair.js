@@ -245,9 +245,10 @@ var quickRepair = function () {
                     geocoder.getAddress([lng, lat], function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
                           	$('.position_text span').animate({width:5+"rem"},500)
-                            $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress)
-                            setPosition(result.regeocode.addressComponent.city,result.regeocode.addressComponent.district)
-
+                            $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress);
+                          	var addressComponent = result.regeocode.addressComponent;
+                            setPosition(addressComponent.province,addressComponent.city,addressComponent.district)
+                            console.log(addressComponent)
 							//	2m后缩回
 							setTimeout(function(){
 								$('.position_text span').animate({width:0},500)
@@ -264,12 +265,13 @@ var quickRepair = function () {
             }
         });
     };
-    var setPosition = function (city,district) {
+    var setPosition = function (province,city,district) {
         $('.area-text').html(city);
         var html = '<p><label>'+city+'</label> <span class="tab-city">切换城市</span></p>';
         html+='<p><label>长安区</label> <i></i></p>'
         html+='<p><label>'+district+'</label> <strong>我的位置</strong></p>'
         $('.area-list').append(html)
+        $('.city-position-text').text(city)
     };
     //加载城市事件
     initCities()
@@ -460,6 +462,32 @@ var quickRepair = function () {
         $(".delete_search").hide();
     });
 
+    body.on("input", ".search-input", function () {
+        if ($(".search-input").val().length > 0) {
+            $(".city_delete_search").show();
+        } else {
+            $(".city_delete_search").hide();
+        }
+    });
+    body.on("click", ".city_delete_search", function () {
+        $(".search-input").val("");
+        $(".city_delete_search").hide();
+        $('.search-list').empty();
+    });
+    body.on('click', '.city_page_close', function () {
+        $('.letter').hide();
+        $("#city-content").stop().animate({"left": "100%"}, 200, "linear");
+        $('.city_page_close').hide();
+        $('.search-list').empty();
+    });
+
+    body.on("click", ".city-cancel", function () {
+        $(this).hide();
+        $(".search-list").hide();
+        $('.city_page_close').show();
+        $('.search-list').empty();
+        $('.search-input').val("")
+    });
     //查看维修厂详情
     body.on("click", ".reservation,.notReservation,.repairer_list_ul_li", function () {
         // if ($(this).attr("data-working") !== "1") {
@@ -518,14 +546,18 @@ var quickRepair = function () {
     });
     //选择城市
     body.on("click", ".tab-city", function () {
+        $('.confirm-btn').click();
         $('#city-content').animate({
             'left':'0%'
         },200,function () {
             $('.letter').show();
+            $('.city_page_close').show();
         })
     });
     $('.search-input').focus(function () {
         $('.search-list').show();
+        $('.city-cancel').show();
+        $('.city_page_close').hide();
         $('#city-content').css("overflow","hidden")
     });
     $('.search-input').blur(function () {

@@ -18,7 +18,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
-    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9fbbvb2v"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9fbbkgigfgfgffggvb2v"/>
     <!--公共组件-->
     <style type="text/css">
     	.positioning{
@@ -64,7 +64,7 @@
             <h6>维修厂类型</h6>
             <div class="screen-type-list">
                 <p>维修厂</p>
-                <p>快修点</p>
+                <p>快修店</p>
                 <p>4S店</p>
             </div>
             <div class="screen-type-btn">
@@ -130,13 +130,16 @@
         <div id="city-search">
             <span class="icon_search"></span>
             <form class="city-search-form" action="javascript:return true;">
-                <input maxlength="20" type="search" class="search-input" placeholder="请输入城市名称查询"/>
+                <input maxlength="20" type="text" class="search-input" placeholder="请输入城市名称查询"/>
             </form>
+            <span class="city_delete_search">×</span>
         </div>
-        <div class="city-position">
-            <h6>定位城市</h6>
-            <span class="city-position-text">西安市</span>
-        </div>
+    </div>
+    <div class="city_page_close">×</div>
+    <div class="city-cancel">取消</div>
+    <div class="city-position">
+        <h6>定位城市</h6>
+        <span class="city-position-text"></span>
     </div>
     <div class="search-list"></div>
     <div class="city-main">
@@ -165,7 +168,7 @@
     document.close();
 </script>
 <script src="city.js" charset='utf-8'></script>
-<script src="QuickRepair.js?v=1.0.11ffkfvfgcffg" charset='utf-8'></script>
+<script src="QuickRepair.js?v=1.0.11ghgbfchgffg" charset='utf-8'></script>
 <script>
     $(function () {
 
