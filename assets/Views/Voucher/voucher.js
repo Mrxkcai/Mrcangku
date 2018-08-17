@@ -210,7 +210,7 @@ var voucher = function voucher() {
 
                     }else{
                         if (ijroll_y === 0 && pageNum === 1) {
-                            $('.voucher_list ul').html("<div style='position: fixed;top:15%;left: 50%;transform: translateX(-50%);'><img src='../../images/no_data.png' style='width: 2.75rem;height: 2.8rem;' /><div style='color: #555;margin-top: 0.1rem;text-align: center;'>当前没有代金券哦~</div></div>");
+                            $('.voucher_list ul').html("<div style='position: fixed;top:15%;left: 50%;transform: translateX(-50%);'><img src='../../images/no_data.png' style='width: 2.75rem;height: 2.8rem;' /><div style='color: #555;margin-top: 0.1rem;text-align: center;'>当前没有优惠券哦~</div></div>");
                         };
                     };
                     // 高度变化后对ijroll对象进行刷新

@@ -20,7 +20,7 @@ $(function () {
             type: "GET",
             dataType: 'json',
             success: function (result) {
-                // console.log(JSON.stringify(result));
+                // console.log(result);
                 if (result.status === "success" && result.code === 0) {
                     var str = '';
                     for (var car = 0; car < result.data.length; car++) {

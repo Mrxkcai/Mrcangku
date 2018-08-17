@@ -495,6 +495,7 @@ var quickRepair = function () {
         //     return;
         // }
         app.setItem("merchant_id", $(this).attr("data-id"));
+        app.setItem("send_position", $('.position_text span').text());
         sessionStorage.setItem("sv",$('.search_bar').val())
         window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
     });
