@@ -177,7 +177,7 @@ var quickRepair = function () {
         }
         
         // app.loading();
-        app.verificationUserInfo();
+         app.verificationUserInfo();      //  判断登录去掉；
         //	修改搜索下拉查值
     	if(!searchCont){
     		//	下拉时没值则请求所有数据
@@ -186,7 +186,7 @@ var quickRepair = function () {
 	            url: api.NWBDApiPositionGetMerchantList + "?r=" + Math.random(),
 	            type: "POST",
 	            data: {
-	                open_id: app.getItem("userInfo").id,
+	                // open_id: app.getItem("userInfo").id,
 	                lng: lng,
 	                lat: lat,
 	                pageNum: pageNum,
@@ -304,7 +304,8 @@ var quickRepair = function () {
         letter.find('li').css("line-height",LiHeight+"px");
 
     };
-    app.verificationUserInfo();
+    app.verificationUserInfo();      //  判断登录去掉；
+    //  进入车服门店界面查询用户是否有车辆，若无则提示用户完善车辆信息；现在修改为用户可以无需登录查看维修厂列表；
     $.ajax({
         url: api.NWBDApiCarIsExist + "?r=" + Math.random(),
         type: "POST",
@@ -651,7 +652,10 @@ var vm = new Vue({
     },
     
     mounted(){
-        app.verificationUserInfo();
+         app.verificationUserInfo();      //  判断登录去掉；
+        if(!app.getItem('userInfo')){
+            return;
+        }
         var number1 = app.checkTime()
         if(number1 != ''){
             this.timer(number1);

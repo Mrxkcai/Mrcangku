@@ -452,6 +452,9 @@
 		
 		},
 		mounted(){
+            if(!app.getItem('userInfo')){
+                return;
+            }
 			var number1 = app.checkTime()	
 			
 			if(number1 != ''){

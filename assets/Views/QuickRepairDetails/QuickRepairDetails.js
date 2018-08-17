@@ -23,9 +23,9 @@ var quickRepairDetails = function () {
     var merchantData;
 
     //进页面之前获取姓名手机号在界面展示
-    app.verificationUserInfo();
-    $("#name").val(app.getItem("userInfo").name);
-    $("#phone").val(app.getItem("userInfo").mobile);
+    //app.verificationUserInfo();
+    // $("#name").val(app.getItem("userInfo").name);
+    // $("#phone").val(app.getItem("userInfo").mobile);
 
     //首次进入页面获取维修厂信息
     if (!app.getItem("merchant_id")) {
