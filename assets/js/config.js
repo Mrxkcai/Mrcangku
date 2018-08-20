@@ -1,17 +1,17 @@
 var api = (function () {
 //	var apiAddress = "share.baobaochefu.net/car";         //  正式地址
-	var apiAddress1 = "https://wxcs.nuoweibd.com";      //  正式需注释；
+	// var apiAddress1 = "https://wxcs.nuoweibd.com";      //  正式需注释；
     var apiAddress = "https://wxcsht.nuoweibd.com:8443";    //  正式需注释；
+   
     var api = {
         isDebug: false,
         debugProjectName: "wxcs.nuoweibd.com",		//	正式地址:wx.nuoweibd.com
         callbackUrl: "wxcs.nuoweibd.com",
         appid: "wxe6766bc37f2769b2",                //  正式appid   wxe934a7df8d628f3c；
+        selfHttp:"https://",                        //  自定义配置；
         getLocalhostPaht: function () {
             var curWwwPath = window.document.location.href;		//	完整的路径
-
             var pathName = window.document.location.pathname;	//	域名下面的某一页面
-
             var pos = curWwwPath.indexOf(pathName);				//	域名下面的某一页面下标的起始位置
 																//	如：	http://127.0.0.1:8020								
             return curWwwPath.substring(0, pos);
@@ -49,11 +49,12 @@ var api = (function () {
         NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder",             //  微信预订单
 
        //****************************** */
-        NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
+        // NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
         testPhone:'/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
         // shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址(正式记得注释掉)
         // imgUrl:apiAddress1 + '/images/qrhtml.png'                               //  分享图片地址
+        
     };
 
     if (api.isDebug) {

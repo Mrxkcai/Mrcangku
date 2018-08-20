@@ -68,7 +68,7 @@
                     app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
                     window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
                 } else {
-                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=https://" + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.selfHttp + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
                 }
             }
         };
