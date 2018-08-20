@@ -27,7 +27,6 @@ Vue.component("adve-block",{
             var windowUrl = window.location.href;
             $('.img_box').css({'display':'none'});
             //	首次进来直接展示公告
-            console.log(1)
             var index_;
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
 				console.log(2)
@@ -54,7 +53,6 @@ Vue.component("adve-block",{
                 })
 				
 			}else{
-                console.log(3)
                 layer.close(index_);
 			}
 
@@ -72,7 +70,6 @@ Vue.component("adve-block",{
 					bottomY = winH - contH + topY; //鼠标所能移动最下端是当前窗口距离减去鼠标距div最下端位置                
 				},
 				touchmove: function(e) {
-                    console.log(33)
                     e.preventDefault();
                     e.stopPropagation();
 					moveX = e.originalEvent.targetTouches[0].clientX; //移动过程中X轴的坐标
