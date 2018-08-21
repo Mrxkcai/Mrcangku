@@ -244,40 +244,40 @@
             var get_position = app.getItem("send_position");
                 // $(".showAddress").text(get_position);
                 // $("#address").val(get_position);
-            var mapObj;
-            var geolocation;
-            mapObj = new AMap.Map('iCenter');
+            // var mapObj;
+            // var geolocation;
+            // mapObj = new AMap.Map('iCenter');
             
-            mapObj.plugin('AMap.Geolocation', function () {
-                geolocation = new AMap.Geolocation({timeout: 10000, zoomToAccuracy: true,enableHighAccuracy: true});
-                mapObj.addControl(geolocation);
-                geolocation.getCurrentPosition();
+            // mapObj.plugin('AMap.Geolocation', function () {
+            //     geolocation = new AMap.Geolocation({timeout: 10000, zoomToAccuracy: true,enableHighAccuracy: true});
+            //     mapObj.addControl(geolocation);
+            //     geolocation.getCurrentPosition();
 
-                AMap.event.addListener(geolocation, 'complete', function (e) {
-             	// alert(JSON.stringify(e))
+            //     AMap.event.addListener(geolocation, 'complete', function (e) {
+            //  	// alert(JSON.stringify(e))
 
-                    // console.log(e)
-                    $(".showAddress").text(e.formattedAddress);     //  初次定位故障发生地;
-                    $("#address").val(e.formattedAddress);
-                    lat = e.position.lat;
-                    lng = e.position.lng;
-                    addressProvince = e.addressComponent.province;
-                    addressCity = e.addressComponent.city;
-                    //防止高德地图，直辖市的时候，城市返回空
-                    if (!addressCity) {
-                        addressCity = addressProvince;
-                    }
-                    addressCounty = e.addressComponent.district;
-                    $("#ssq").val(addressProvince + " " + addressCity + " " + addressCounty);
-                    marker.setPosition([e.position.lng, e.position.lat]);
-                    map.setZoomAndCenter(17, [e.position.lng, e.position.lat]);
-                });
+            //         // console.log(e)
+            //         $(".showAddress").text(e.formattedAddress);     //  初次定位故障发生地;
+            //         $("#address").val(e.formattedAddress);
+            //         lat = e.position.lat;
+            //         lng = e.position.lng;
+            //         addressProvince = e.addressComponent.province;
+            //         addressCity = e.addressComponent.city;
+            //         //防止高德地图，直辖市的时候，城市返回空
+            //         if (!addressCity) {
+            //             addressCity = addressProvince;
+            //         }
+            //         addressCounty = e.addressComponent.district;
+            //         $("#ssq").val(addressProvince + " " + addressCity + " " + addressCounty);
+            //         marker.setPosition([e.position.lng, e.position.lat]);
+            //         map.setZoomAndCenter(17, [e.position.lng, e.position.lat]);
+            //     });
                 
-                //返回定位出错信息
-                AMap.event.addListener(geolocation, 'error', function(){
-                	console.log('定位出错')
-                });      
-            });
+            //     //返回定位出错信息
+            //     AMap.event.addListener(geolocation, 'error', function(){
+            //     	console.log('定位出错')
+            //     });      
+            // });
         } catch (e) {
             alert("加载高德地图失败，请检查网络后重试");
             window.location.href = "../QuickRepair/QuickRepair.html";

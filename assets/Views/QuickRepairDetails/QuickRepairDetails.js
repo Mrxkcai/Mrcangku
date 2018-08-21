@@ -134,6 +134,15 @@ var quickRepairDetails = function () {
                 $(".service_hotline_value").html('<a style="color:#6e6b6a;" href="tel:' + merchantData.service_hotline + '">' + merchantData.service_hotline + '</a>');
                 $(".businessHours_value").text(merchantData.businessHours);
                 $(".address_detail_value").html(merchantData.address_detail);
+                
+                //  取消定位后输出故障发生地地址;
+                $(".showAddress").text(merchantData.address_detail);
+                $("#address").val(merchantData.address_detail);
+                lat = merchantData.lat;
+                lng = merchantData.lng;
+                addressProvince = merchantData.address_province;
+                addressCity = merchantData.address_city;
+                addressCounty = merchantData.address_county;
 
                 //主修车型
                 var mainBrandStr = "";
