@@ -449,6 +449,7 @@ var quickRepair = function () {
         //     app.alert("该汽修厂休息中");
         //     return;
         // }
+        
         app.setItem("merchant_id", $(this).attr("data-id"));
         app.setItem("send_position", $('.position_text span').text());
         app.setItem("send_juli", $(this).find('.juli').text());
