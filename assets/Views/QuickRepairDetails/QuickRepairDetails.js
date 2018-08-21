@@ -156,7 +156,6 @@ var quickRepairDetails = function () {
     //返回维修厂列表页面
     body.on("click", ".back_span", function () {
         window.location.href = "../QuickRepair/QuickRepair.html?sv=" +app.getQueryString("sv");
-
     });
 
     var openLocation = function () {
@@ -364,6 +363,7 @@ var quickRepairDetails = function () {
 
                     //  判断是否有优惠券
                     if(result.data.coupon){
+                        console.log(result.data.coupon)
                         //  弹出优惠券界面
                         if(!red_bag(result.data.coupon)){
                             return
@@ -427,6 +427,7 @@ var quickRepairDetails = function () {
                     <p>* ${res.introduction}</p>
 
                     <button class="btn-get"></button>
+                    <div class="btn_see">查看详情 >></div>
                 </div>
                 `,
                 style:"padding:none!important;background:none;box-shadow:none;width:6.94rem",
@@ -436,6 +437,10 @@ var quickRepairDetails = function () {
         $('.layui-m-layercont').addClass('new');
         $('.layui-m-layercont').addClass('layui-m-layercont_self'); //  调整layer样式；
 
+        //  查看详情按钮；
+        $('.btn_see').on('click',function(){
+            window.location.href = '../Voucher/voucher.html'
+        });
 
 
         $('.btn-get').on('click',function(){
