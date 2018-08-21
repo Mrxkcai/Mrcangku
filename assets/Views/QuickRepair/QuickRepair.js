@@ -2,6 +2,7 @@ var quickRepair = function () {
     "use strict";
 
     var body = $('body');
+
     $(".container").css({'height': $(window).height() + 'px'});
     $(".repairer_list").css({'height': ($(window).height() - $("header").outerHeight(true)) + 'px'});
     
@@ -20,7 +21,7 @@ var quickRepair = function () {
     var pageSize = 10;
     var ijroll;
     var ijroll_y = 0;
-    
+
     ijroll = new JRoll($(".repairer_list")[0]);
     ijroll.pulldown({
         refresh: function (complete) {
@@ -56,20 +57,20 @@ var quickRepair = function () {
             
             //列表图片
             var strIcon;
-            if(repairer_list_data[i].image.length > 0){
-                for (var m = 0; m < repairer_list_data[i].image.length; m++) {
-                    if (repairer_list_data[i].image[m].image_type == 1) {
-                        strIcon = repairer_list_data[i].image[m].image_url;
-                        break;
-                    }else if(repairer_list_data[i].image[m].image_type != 1){
-                        strIcon = repairer_list_data[i].image[0].image_url;
-                        // break;
-                    }
-                }
-            }else{
-                strIcon = "../.." + api.Merchant_default_Icon;
-            };
-
+            // if(repairer_list_data[i].image.length > 0){
+            //     for (var m = 0; m < repairer_list_data[i].image.length; m++) {
+            //         if (repairer_list_data[i].image[m].image_type == 1) {
+            //             strIcon = repairer_list_data[i].image[m].image_url;
+            //             break;
+            //         }else if(repairer_list_data[i].image[m].image_type != 1){
+            //             strIcon = repairer_list_data[i].image[0].image_url;
+            //             // break;
+            //         }
+            //     }
+            // }else{
+            //     strIcon = "../.." + api.Merchant_default_Icon;
+            // };
+            strIcon = "../.." + api.Merchant_default_Icon;
             //评分
             var strGrade;
             switch (repairer_list_data[i].grade) {
@@ -164,7 +165,7 @@ var quickRepair = function () {
         }
         return repairer_list_str;
     };
-    var positionGetMerchantList = function (datatype) {
+    var positionGetMerchantList = function (datatype,province,city,country,companyTypeId) {
     
     	var searchCont = $('.search_bar').val();
     	
@@ -186,7 +187,10 @@ var quickRepair = function () {
 	            url: api.NWBDApiPositionGetMerchantList + "?r=" + Math.random(),
 	            type: "POST",
 	            data: {
-	                open_id: app.getItem("userInfo").id,
+                    // province:province,
+                    // city:city,
+                    // country:country,
+                    // companyTypeId:companyTypeId,
 	                lng: lng,
 	                lat: lat,
 	                pageNum: pageNum,
@@ -195,6 +199,7 @@ var quickRepair = function () {
 	            dataType: 'json',
 	            success: function (result) {
 	                //  console.log(JSON.stringify(result));
+	                  console.log(result);
 	                if (result.status === "success" && result.code === 0) {
 	                    var repairer_list_data = result.data;
 	                    var repairer_list_data_length = repairer_list_data.length;
@@ -246,9 +251,8 @@ var quickRepair = function () {
                         if (status === 'complete' && result.info === 'OK') {
                           	$('.position_text span').animate({width:5+"rem"},500)
                             $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress);
-                          	var addressComponent = result.regeocode.addressComponent;
-                            setPosition(addressComponent.province,addressComponent.city,addressComponent.district)
-                            console.log(addressComponent)
+                            var addressComponents = result.regeocode.addressComponent;
+                            getPositioning(addressComponents.province,addressComponents.city)
 							//	2m后缩回
 							setTimeout(function(){
 								$('.position_text span').animate({width:0},500)
@@ -265,44 +269,19 @@ var quickRepair = function () {
             }
         });
     };
-    var setPosition = function (province,city,district) {
+    var getPositioning = function(province,city){
+        var positionText = $('.city-position-text')
         $('.area-text').html(city);
-        var html = '<p><label>'+city+'</label> <span class="tab-city">切换城市</span></p>';
-        html+='<p><label>长安区</label> <i></i></p>'
-        html+='<p><label>'+district+'</label> <strong>我的位置</strong></p>'
-        $('.area-list').append(html)
-        $('.city-position-text').text(city)
-    };
-    //加载城市事件
-    initCities()
-    function initCities() {
-        var lists = '';
-        var en = '<ul>';
-        cityData.forEach(function (group) {
-            var name = group.name;
-            lists += '<div class="city-letter" id="'+name+'">'+name+'</div>';
-            lists += '<ul>';
-            group.cities.forEach(function(g) {
-                lists += '<li class="city-item" data-name="'+ g.name +'" data-id="'+ g.cityid +'">'+g.name+'</li>';
-            });
-            lists += '</ul>';
-
-            var name = group.name.substr(0, 1);
-            en += '<li data-anchor="'+name+'" class="item">'+name+'</li>';
-        });
-        en += '</ul>';
-
-        $('.city').html(lists);
-
-        $('.letter').html(en) ;
-        var letter = $('.letter');
-        var windowHeight = $(window).height();
-        var InitHeight = windowHeight-45;
-        letter.height(InitHeight);
-        var LiHeight = InitHeight/24;
-        letter.find('li').height(LiHeight);
-        letter.find('li').css("line-height",LiHeight+"px");
-
+        positionText.html(city);
+        positionText.attr('data-province',province)
+        var provinces = $('.province').find('li'),
+            provincesIndex;
+        for(var i=0;i<provinces.length;i++){
+            if(provinces.eq(i).html() == province){
+                provincesIndex = i;
+            }
+        };
+        //vm.classActive(provincesIndex,city)
     };
     app.verificationUserInfo();      //  判断登录去掉；
     //  进入车服门店界面查询用户是否有车辆，若无则提示用户完善车辆信息；现在修改为用户可以无需登录查看维修厂列表；
@@ -463,32 +442,7 @@ var quickRepair = function () {
         $(".delete_search").hide();
     });
 
-    body.on("input", ".search-input", function () {
-        if ($(".search-input").val().length > 0) {
-            $(".city_delete_search").show();
-        } else {
-            $(".city_delete_search").hide();
-        }
-    });
-    body.on("click", ".city_delete_search", function () {
-        $(".search-input").val("");
-        $(".city_delete_search").hide();
-        $('.search-list').empty();
-    });
-    body.on('click', '.city_page_close', function () {
-        $('.letter').hide();
-        $("#city-content").stop().animate({"left": "100%"}, 200, "linear");
-        $('.city_page_close').hide();
-        $('.search-list').empty();
-    });
 
-    body.on("click", ".city-cancel", function () {
-        $(this).hide();
-        $(".search-list").hide();
-        $('.city_page_close').show();
-        $('.search-list').empty();
-        $('.search-input').val("")
-    });
     //查看维修厂详情
     body.on("click", ".reservation,.notReservation,.repairer_list_ul_li", function () {
         // if ($(this).attr("data-working") !== "1") {
@@ -506,6 +460,12 @@ var quickRepair = function () {
     body.on("click", ".search_select li", function () {
         var i = $('.search_select li').index($(this));
         var choiceBox = $('.choice-box');
+        if(i == 0){
+            setTimeout(function () {
+                vm.ijroll('.province');
+            },1);
+
+        };
         if(!$(this).hasClass('active')){
             choiceBox.hide();
             $('.mask-all').show();
@@ -517,15 +477,19 @@ var quickRepair = function () {
             $('.mask-all').hide();
             $(this).removeClass('active')
         }
-
+        // var y = $('.province_active').height()
+        // console.log(y)
     });
+    function maskHidex(){
+        $('.search_select li').removeClass('active');
+        $('.choice-box').hide();
+        $('.mask-all').hide();
+    }
     //选择排序
     body.on("click", ".sorting-list p", function () {
         $(this).addClass('active').siblings().removeClass('active')
         $('.sorting-text').html($(this).text());
-        $('.search_select li').removeClass('active');
-        $('.choice-box').hide();
-        $('.mask-all').hide();
+        maskHidex();
     });
     //筛选
     body.on("click", ".screen-type-list p", function () {
@@ -535,17 +499,13 @@ var quickRepair = function () {
         $('.screen-type-list p').removeClass('active');
     });
     body.on("click", ".confirm-btn", function () {
-        $('.search_select li').removeClass('active');
-        $('.choice-box').hide();
-        $('.mask-all').hide();
+        maskHidex();
     });
     //地区
     body.on("click", ".area-list label", function () {
         $(this).parent().addClass('active').siblings().removeClass('active');
         $('.area-text').html($(this).text());
-        $('.search_select li').removeClass('active');
-        $('.choice-box').hide();
-        $('.mask-all').hide();
+        maskHidex();
     });
     //选择城市
     body.on("click", ".tab-city", function () {
@@ -557,39 +517,82 @@ var quickRepair = function () {
             $('.city_page_close').show();
         })
     });
-    $('.search-input').focus(function () {
-        $('.search-list').show();
-        $('.city-cancel').show();
-        $('.city_page_close').hide();
-        $('#city-content').css("overflow","hidden")
+    body.on("click", ".city-position-text", function () {
+        var dataProvince = $(this).attr('data-province');
+        //getCar(dataProvince,$(this).text());
+        positionGetMerchantList('update',dataProvince,$(this).text())
+        maskHidex();
     });
-    $('.search-input').blur(function () {
-
-        $('#city-content').css("overflow","auto")
-    })
-    //键盘按键弹起时执行
-    $('.search-input').keyup(function(){
-        var index = $.trim($('.search-input').val().toString()); // 去掉两头空格
-        if(index == ''){
-            $('.search-list').empty();
+    body.on("click", ".city li", function () {
+        var i =$('.city li').index($(this));
+        var district = vm.city[i].childCity
+        if(district.length<=1){
+            positionGetMerchantList('update',provinces,citys)
+            maskHidex();
             return false;
         }
-        var searchCity = $(".city li:contains('"+index+"')");
-        console.log()
-        if(searchCity.length>=1){
-            var htmls = ''
-            for(var i=0;i<searchCity.length;i++){
-                htmls += '<p>'+searchCity[i].dataset.name+'</p>'
-            }
-            $('.search-list').empty();
-            $('.search-list').append(htmls)
-        }
 
     });
+    body.on("click", ".district li", function () {
+        var i =$('.district li').index($(this));
+        if(vm.district[i].id){
+            positionGetMerchantList('update',provinces,citys,countries);
+        }else {
+            positionGetMerchantList('update',provinces,citys)
+        }
+        maskHidex();
+    });
+    function getCar(province,city,country,companyTypeId) {
+        if (!lng || !lat) {
+            alert('未打开定位功能，无法正常获取汽修厂！');
+            return;
+        }
+        $.ajax({
+            type:"POST",
+            url:'https://wxcsht.nuoweibd.com:8443/merchant/getMerchantListByArea',
+            data:{
+                province:province,
+                city:city,
+                country:country,
+                pageNo:1,
+                pageSize:10,
+                companyTypeId:companyTypeId,
+                lat:lat,
+                lng:lng
+            },
+            dataType: 'json',
+            success:function(result){
+                if (result.status === "success" && result.code === 0) {
+                    var repairer_list_data = result.data;
+                    var repairer_list_data_length = repairer_list_data.length;
+                    if (repairer_list_data_length > 0) {
+                        var repairer_list_str = createData(repairer_list_data, repairer_list_data_length);
+                        $(".repairer_list_ul").html(repairer_list_str);
+                    } else {
+                        alert('当前地区暂无维修厂，请切换地区~')
+                        $(".repairer_list_ul").html("<li class='text'>当前地区暂无维修厂，请切换地区~</li>");
+
+                    }
+
+                    	//实例化滚动盒子
+                    ijroll.refresh();
+                    //app.closeLoading();
+                } else {
+                    // app.closeLoading();
+                    app.alert(result.message);
+                }
+            },
+            error:function(){
+                alert('操作失败，请检查网络！');
+            }
+        });
+    }
 
 };
 
-
+var provinces='',
+    citys='',
+    countries='';
 //	新增倒计时
 var vm = new Vue({
     el:'#app',
@@ -601,8 +604,40 @@ var vm = new Vue({
             numAll:'',
             orderId:localStorage.getItem('orderId')
         },
+        lat:'',
+        lng:'',
         countDown:'',
-        arr:{}
+        arr:{},
+        citiesArr:[],
+        city:[],
+        district:[],
+        current: -1,
+        cityAtive:-1,
+        districtAtive:-1
+    },
+    created:function(){
+        $.ajax({
+            type:"POST",
+            url:'https://wxcsht.nuoweibd.com:8443/repairArea/getList' ,
+            data:{
+                cityLevel:'PROVINCE'
+            },
+            dataType: 'json',
+            success:function(res){
+                var citiesArrs = [];
+                var res = res.data;
+                for(var i=0;i<res.length;i++){
+                    for(var j=0;j<res[i].cities.length;j++){
+                        // console.log(res[i].cities[j])
+                        citiesArrs.push(res[i].cities[j])
+                    }
+                }
+                vm.inits(citiesArrs)
+            },
+            error:function(){
+                alert('操作失败，请检查网络！');
+            }
+        });
     },
     methods:{
         //	转化时间并赋值
@@ -612,44 +647,108 @@ var vm = new Vue({
                 this.countBlock.sec = obj.sec;
         },
         timer(m){
-        // 定时器
-        var tt = setInterval(function(){
-            m++;
-
-            
-            localStorage.setItem('num',m)
+            // 定时器
+            var tt = setInterval(function(){
+                m++;
+                localStorage.setItem('num',m)
                 // vm.formatDuring(m)
                 vm.formaFun(m);
-            if(m == api.pzTime){
-                // 	指定时间后定时器消失
-                vm.isBox = false;
-                clearInterval(tt);
-                localStorage.removeItem('status');
-                localStorage.removeItem('num');
-                var data = {
-                    order_id:vm.countBlock.orderId,
-                    user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
-                }
-                $.ajax({
-                    type:"POST",
-                    url:api.NWBDApiWeiXincancelOrder,
-                    data:data,
-                    dataType: 'json',
-                    success:function(result){
-                        if(result.code == 0){
-                            app.alert(result.data)
-                            localStorage.removeItem('status');
-                            localStorage.removeItem('num');
-                        }
-                    },
-                    error:function(){
-                        alert('操作失败，请检查网络！');
+                if(m == api.pzTime){
+                    // 	指定时间后定时器消失
+                    vm.isBox = false;
+                    clearInterval(tt);
+                    localStorage.removeItem('status');
+                    localStorage.removeItem('num');
+                    var data = {
+                        order_id:vm.countBlock.orderId,
+                        user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'
                     }
-                });
+                    $.ajax({
+                        type:"POST",
+                        url:api.NWBDApiWeiXincancelOrder,
+                        data:data,
+                        dataType: 'json',
+                        success:function(result){
+                            if(result.code == 0){
+                                app.alert(result.data)
+                                localStorage.removeItem('status');
+                                localStorage.removeItem('num');
+                            }
+                        },
+                        error:function(){
+                            alert('操作失败，请检查网络！');
+                        }
+                    });
+                }
+            },1000)
+        },
+        inits:function(data){
+            this.citiesArr = data;
+
+        },
+        classActive:function(province,city){
+            this.provinceClick(province);
+            for(var i=0;i<this.city.length;i++){
+                if(this.city[i].name == city){
+                    this.cityClick(i);
+                }
+            };
+
+        },
+        provinceClick:function (index) {
+            var cityData = this.citiesArr[index].childCity;
+            // if(cityData.length>1 && cityData[0].id){
+            //     cityData.unshift({'name':'全'+this.citiesArr[index].name});
+            // }
+            provinces = this.citiesArr[index].name;
+            this.city = cityData;
+            setTimeout(function () {
+                vm.ijroll('.city')
+            },100);
+            this.current = index;
+            this.cityAtive = -1;
+            $('.province').css({'width':'30%'});
+            $('.city').animate({
+                'left':'30%'
+            },200);
+            $('.city').css({'width':'65%'});
+            $('.district').css({'left':'100%'});
+        },
+        cityClick:function (index) {
+            var district = this.city[index].childCity;
+
+            citys = this.city[index].name;
+
+            if(district.length>1 && district[0].id){
+                district.unshift({'name':'全'+this.city[index].name});
+            };
+            this.district = district;
+            this.cityAtive = index;
+            if(district.length<=1){
+                $('.city').css({'width':'65%'});
+                $('.district').css({'left':'100%'});
+                return false;
             }
-        },1000)
-    },
-        
+            setTimeout(function () {
+                vm.ijroll('.district')
+            },100);
+            $('.city').css({'width':'30%'})
+            $('.district').animate({
+                'left':'70%'
+            },200);
+        },
+        districtClick:function(index){
+            if(this.district[index].id){
+                countries = this.district[index].name;
+            }
+            this.districtAtive = index;
+        },
+        ijroll:function (id) {
+            var ijrolls;
+            ijrolls = new JRoll($(id)[0]);
+            ijrolls.scrollTo(0, 0, 0);
+            ijrolls.refresh();
+        }
     },
     
     mounted(){
