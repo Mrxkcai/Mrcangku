@@ -227,7 +227,7 @@ html{
 	box-sizing: border-box;
 	border: 1px solid #F28928;
 	color: #F77B19;
-	background: #1AF28928;
+	background: rgba(242, 137, 40, 0.1);
 }
 .choice-box{
 	display: none;

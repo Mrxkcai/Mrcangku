@@ -235,7 +235,8 @@ var quickRepair = function () {
 	                } else {
                         pageNum = -1;
 	                    // app.closeLoading();
-	                    app.alert(result.message);
+                        $(".repairer_list_ul").html("<li class='text'>没有匹配的商户列表</li>");
+	                    app.alert('没有匹配的商户列表');
 	                }
 	            },
 	            error: function () {
@@ -499,7 +500,12 @@ var quickRepair = function () {
         }else {
             choiceBox.hide();
             $('.mask-all').hide();
-            $(this).removeClass('active')
+            $(this).removeClass('active');
+            if(!companyTypeId){
+                $('.screen-type-list p').removeClass('active');
+            }else {
+                $('.screen-type-list p').eq(companyTypeId).addClass('active')
+            }
         }
         // var y = $('.province_active').height()
         // console.log(y)
@@ -517,7 +523,11 @@ var quickRepair = function () {
     });
     //筛选
     body.on("click", ".screen-type-list p", function () {
-        $(this).addClass('active').siblings().removeClass('active');
+        if(!$(this).hasClass('active')){
+            $(this).addClass('active').siblings().removeClass('active');
+        }else {
+            $(this).removeClass('active');
+        }
     });
     body.on("click", ".reset-btn", function () {
         $('.screen-type-list p').removeClass('active');
@@ -525,13 +535,20 @@ var quickRepair = function () {
     body.on("click", ".mask-all", function (e) {
         e.stopPropagation();
         maskHidex();
+        if(!companyTypeId){
+            $('.screen-type-list p').removeClass('active');
+        }else {
+            $('.screen-type-list p').eq(companyTypeId).addClass('active')
+        }
     });
     body.on("click", ".confirm-btn", function () {
         var companyType = $('.screen-type-list p');
         companyTypeId = '';
+        $('.kind a').text('筛选')
         for (var i=0;i<companyType.length;i++){
             if(companyType.eq(i).hasClass('active')){
                 companyTypeId = companyType.eq(i).attr("data-type");
+                $('.kind a').text(companyType.eq(i).text())
             };
         };
         pageNum = 1;
