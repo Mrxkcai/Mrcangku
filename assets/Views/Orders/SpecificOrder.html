@@ -41,7 +41,7 @@
 	</div>
 
 	<!-- 点击支付弹出优惠券 -->
-	<div class="voucher_block">
+	<div class="voucher_block" style="display: none;">
 		<div class="parent_relative">
 			<span class="back_span" style="display: none"></span>
 			<div class="big_box">
@@ -269,6 +269,9 @@
 		
 		},
 		mounted(){
+			if(!app.getItem('userInfo')){
+                return;
+            }
 			var number1 = app.checkTime()	
 			if(number1 != ''){
 				this.timer(number1);

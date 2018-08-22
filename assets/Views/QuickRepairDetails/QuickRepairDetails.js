@@ -134,6 +134,15 @@ var quickRepairDetails = function () {
                 $(".service_hotline_value").html('<a style="color:#6e6b6a;" href="tel:' + merchantData.service_hotline + '">' + merchantData.service_hotline + '</a>');
                 $(".businessHours_value").text(merchantData.businessHours);
                 $(".address_detail_value").html(merchantData.address_detail);
+                
+                //  取消定位后输出故障发生地地址;
+                $(".showAddress").text(merchantData.address_detail);
+                $("#address").val(merchantData.address_detail);
+                lat = merchantData.lat;
+                lng = merchantData.lng;
+                addressProvince = merchantData.address_province;
+                addressCity = merchantData.address_city;
+                addressCounty = merchantData.address_county;
 
                 //主修车型
                 var mainBrandStr = "";
@@ -363,7 +372,6 @@ var quickRepairDetails = function () {
 
                     //  判断是否有优惠券
                     if(result.data.coupon){
-                        console.log(result.data.coupon)
                         //  弹出优惠券界面
                         if(!red_bag(result.data.coupon)){
                             return
@@ -412,19 +420,23 @@ var quickRepairDetails = function () {
 
     //  新增优惠券方法
     var red_bag = function(res){
-        console.log(res)
-        var ct = app.getTime(res.beginDate,4);
-        var et = app.getTime(res.endDate,4);
+        var priceAll;
+        for(var i = 0; i < res.length;i ++){
+            priceAll += Number(res[i].price)
+        }
+        
+        var ct = app.getTime(res[0].beginDate,4);
+        var et = app.getTime(res[0].endDate,4);
         var kg = false;
         
         var index = layer.open({
                 content:
                 `<div class="d-voucher">
-                    <p class="get-voucher"><span>¥</span>${res.price}</p>
-                    <p>恭喜您获得${res.typeName}</p>
+                    <p class="get-voucher"><span>¥</span>${priceAll}</p>
+                    <p>恭喜您获得${res[0].typeName}</p>
                     <p>有效期：<br /> ${ct}-${et}</p>
                     <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
-                    <p>* ${res.introduction}</p>
+                    <p>* ${res[0].introduction}</p>
 
                     <button class="btn-get"></button>
                     <div class="btn_see">查看详情 >></div>

@@ -272,6 +272,7 @@ var specificOrder = function () {
 
     var chooseVoucher = function (){
         // var kg = false;
+        $('.voucher_block').show();
         $('.voucher_block').animate({'right':'0','top':'0'},250);
 
         var str = '';
@@ -311,6 +312,7 @@ var specificOrder = function () {
     //  优惠券返回
     $('.back_span').on('click',function (){
         $('.back_span').hide();
+        $('.voucher_block').hide();
         $('.voucher_block').animate({'right':'-100%','top':'0'},250);
 
         //  清空值；
@@ -528,11 +530,12 @@ var specificOrder = function () {
                 if(res.code == 0 && res.status == 'success'){
                     wx.chooseWXPay({
                         nonceStr: res.data.nonceStr,
-                        package: "prepay_id=" + res.data.prepayId,
+                        package: res.data.package,
                         signType: 'MD5',
-                        paySign: res.data.sign,
+                        paySign: res.data.paySign,
                         timestamp: res.data.timeStamp,
                         success: function (result) {
+                            console.log(result)
                             app.closeLoading();
                             if (result.errMsg === "chooseWXPay:ok") {
                                 layer.open({
