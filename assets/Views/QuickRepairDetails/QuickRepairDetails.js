@@ -400,7 +400,8 @@ var quickRepairDetails = function () {
                     app.closeLoading();
                 }
             },
-            error: function () {
+            error: function (res) {
+                console.log(res)
                 alert('操作失败，请检查网络！');
                 app.closeLoading();
             }
@@ -420,11 +421,11 @@ var quickRepairDetails = function () {
 
     //  新增优惠券方法
     var red_bag = function(res){
-        var priceAll;
+        //console.log(res)
+        var priceAll = 0;
         for(var i = 0; i < res.length;i ++){
             priceAll += Number(res[i].price)
         }
-        
         var ct = app.getTime(res[0].beginDate,4);
         var et = app.getTime(res[0].endDate,4);
         var kg = false;

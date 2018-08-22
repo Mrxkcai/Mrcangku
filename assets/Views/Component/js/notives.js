@@ -26,6 +26,7 @@ Vue.component("adve-block",{
             var body = $("body");
             var windowUrl = window.location.href;
             $('.img_box').css({'display':'none'});
+            $('.icon_none').show();
             //	首次进来直接展示公告
             var index_;
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
@@ -129,7 +130,7 @@ Vue.component("adve-block",{
     <div class="barrage" id="barrage">
         <div class="barrage_name" id="barrage_name">
             
-                <img src="../../images/icon_huodong.gif" />
+                <img src="../../images/icon_huodong.gif" class="icon_none" style="display:none" />
             
         </div>
     </div>
