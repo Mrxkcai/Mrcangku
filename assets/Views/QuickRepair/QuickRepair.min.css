@@ -152,10 +152,10 @@ html{
 }
 .province ul li.province_active{
 	background: #fff;
-	color: #fe7070;
+	color: #F77B19;
 }
 .area-list-box ul li.city_active,.area-list-box ul li.district_active{
-	color: #fe7070;
+	color: #F77B19;
 }
 .sorting-list p{
     width: 100%;
@@ -345,11 +345,21 @@ html{
 .repair_type{
 	position: absolute;
 	width: 1.6rem;
-	color: #666;
-	font-size: .24rem;
+    height: .3rem;
+    line-height: .3rem;
+    border-radius: .04rem;
+	color: #fff;
+	font-size: .2rem;
 	left: 0rem;
 	text-align: center;
-	bottom: 0rem;
+    background: #518EEE;
+    top: 1.68rem;
+}
+.repair_type1{
+    background: #F84C4C;
+}
+.repair_type2{
+    background: #44B54C;
 }
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li {
 	height: 2.74rem;

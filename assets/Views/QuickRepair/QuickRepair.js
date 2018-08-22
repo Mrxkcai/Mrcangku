@@ -75,11 +75,11 @@ var quickRepair = function () {
             //维修店类型
             var repairType ='';
             if(repairer_list_data[i].repair_type == 0){
-                repairType = '维修店';
+                repairType = '<div class="repair_type">维修店</div>';
             }else if(repairer_list_data[i].repair_type == 1){
-                repairType = '4S店';
+                repairType = '<div class="repair_type repair_type1">4S店</div>';
             }else {
-                repairType = '快修店';
+                repairType = '<div class="repair_type repair_type2">快修店</div>';
             }
             //评分
             var strGrade;
@@ -148,7 +148,7 @@ var quickRepair = function () {
                     <div class="repairer_img">
                         <img src="${strIcon}"/>
                     </div>
-                    <div class="repair_type">${repairType}</div>
+                    ${repairType}
                     <div class="repairer_info_text">
                         <h3 class="h3_name ellipsis">${repairer_list_data[i].name}</h3>
                         <div class="repairer_info_grade clearfix">
