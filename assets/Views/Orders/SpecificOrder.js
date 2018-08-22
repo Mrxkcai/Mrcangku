@@ -526,7 +526,7 @@ var specificOrder = function () {
             data:data,
             dataType: 'json',
             success:function(res){
-                console.log(res)
+                // console.log(res)
                 if(res.code == 0 && res.status == 'success'){
                     wx.chooseWXPay({
                         nonceStr: res.data.nonceStr,
