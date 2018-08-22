@@ -24,7 +24,8 @@ Vue.component("adve-block1",{
 			var barrage_name = $("#barrage_name1");
 			var barrage_frame = $("#barrage_frame1");
             var body = $("body");
-            
+            $('.icon_none').show();
+
             cont.on({ //绑定事件
 				touchstart: function(e) {
 					startX = e.originalEvent.targetTouches[0].clientX; //获取点击点的X坐标    
@@ -84,7 +85,7 @@ Vue.component("adve-block1",{
     <div class="barrage1" id="barrage1">
         <div class="barrage_name1" id="barrage_name1">
             
-                <img src="../../images/icon_czzn_orange.png" />
+                <img src="../../images/icon_czzn_orange.png" class="icon_none" style="display:none" />
             
         </div>
     </div>

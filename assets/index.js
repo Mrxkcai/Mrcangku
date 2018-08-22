@@ -77,8 +77,9 @@ $(function () {
                     app.f_close();
                 }
             },
-            error: function error() {
-                alert("网络异常，请检查网络");
+            error: function error(res) {
+                console.log(res)
+                // alert("网络异常，请检查网络");
                 app.f_close();
             }
         });

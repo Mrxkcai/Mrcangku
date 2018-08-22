@@ -27,7 +27,8 @@
 .barrage_name img{
     width: 100%;
     /* height: 100%; */
-    transform: scale(1.2)
+    transform: scale(1.2);
+    display: block;
 }
 .img_box{
     width: 100%;
@@ -83,6 +84,7 @@
 .barrage_name1 img{
     width: 100%;
     /* height: 100%; */
+    display: block;
 }
 
 .layui-m-layerchild .new{
