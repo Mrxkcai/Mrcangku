@@ -35,7 +35,7 @@ Vue.component("adve-block",{
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
 					content:`<div class='img_box' style="display:none;opacity:1;">
-								<img src='../../images/img_gonggao.png'/>
+								<img src='../../images/img_gonggao.png' style="min-width:2rem;min-height:3rem;"/>
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
 							</div>

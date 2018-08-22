@@ -412,7 +412,7 @@ var specificOrder = function () {
             success:function(res){
                 console.log(res)
                 if(res.code == 0 && res.status == 'success'){
-                    if(res.data.length >= 0){
+                    if(res.data.length > 0){
                         for(var i = 0; i < res.data.length;i ++){
                             str += `
                             <li data-vid="${res.data[i].id}">
@@ -451,6 +451,8 @@ var specificOrder = function () {
                             }
                         };
                     } else {
+                        //console.log(pageNum2)
+                        $('.selectVoucher span').text(0);
                         if (pageNum2 === 1) {
                             $('.items').html("<li class='data_none'>暂无优惠券</li>");
                         };
@@ -538,28 +540,30 @@ var specificOrder = function () {
                             console.log(result)
                             app.closeLoading();
                             if (result.errMsg === "chooseWXPay:ok") {
-                                layer.open({
-                                    content: '支付结果？',
-                                    btn: ['支付成功', '支付遇到问题'],
-                                    yes: function (index) {
-                                        layer.close(index);
-                                        detectPay(order_id);
-                                    },
-                                    no: function () {
-                                        detectPay(order_id);
-                                    }
-                                });
+                                window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                                // layer.open({
+                                //     content: '支付结果？',
+                                //     btn: ['支付成功', '支付遇到问题'],
+                                //     yes: function (index) {
+                                //         layer.close(index);
+                                        
+                                //         // detectPay(order_id);
+                                //     },
+                                //     no: function () {
+                                //         // detectPay(order_id);
+                                //     }
+                                // });
                             } else {
-                                alert("支付失败，如已付款，请联系客服");
+                                // alert("支付失败，如已付款，请联系客服");
                                 app.closeLoading();
                             }
                         },
                         cancel: function () {
-                            alert("支付已取消");
+                            // alert("支付已取消");
                             app.closeLoading();
                         },
                         fail: function () {
-                            alert("支付失败，如已付款，请联系客服");
+                            // alert("支付失败，如已付款，请联系客服");
                             app.closeLoading();
                         }
                     });

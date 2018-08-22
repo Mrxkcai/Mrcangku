@@ -138,6 +138,7 @@ var quickRepairDetails = function () {
                 //  取消定位后输出故障发生地地址;
                 $(".showAddress").text(merchantData.address_detail);
                 $("#address").val(merchantData.address_detail);
+                $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
                 lat = merchantData.lat;
                 lng = merchantData.lng;
                 addressProvince = merchantData.address_province;
