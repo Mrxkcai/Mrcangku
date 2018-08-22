@@ -18,7 +18,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
-    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9l"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.0.9"/>
     <!--公共组件-->
     <style type="text/css">
     	.positioning{
@@ -85,9 +85,9 @@
         <div class="screen-type">
             <h6>门店类型</h6>
             <div class="screen-type-list">
-                <p>维修厂</p>
-                <p>快修店</p>
-                <p>4S店</p>
+                <p data-type="0">维修店</p>
+                <p data-type="2">快修店</p>
+                <p data-type="1">4S店</p>
             </div>
             <div class="screen-type-btn">
                 <button class="reset-btn">重置</button>
@@ -99,7 +99,7 @@
         <ul class="search_select">
             <li>
                 <span class="area ellipsis">
-                    <a class="area-text" href="javascript:;"></a><i></i>
+                    <a class="area-text" href="javascript:;">定位中</a><i></i>
                 </span>
             </li>
             <li>
@@ -159,7 +159,7 @@
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="QuickRepair.js?v=1.0.12l" charset='utf-8'></script>
+<script src="QuickRepair.js?v=1.0.12" charset='utf-8'></script>
 <script>
     $(function () {
 

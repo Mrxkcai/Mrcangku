@@ -14,7 +14,7 @@ var quickRepair = function () {
 
 
 
-
+    var companyTypeId;
     var lng = 0;
     var lat = 0;
     var pageNum = 1;
@@ -32,7 +32,7 @@ var quickRepair = function () {
                 complete();
                 
 				//	判断是否为搜索
-				positionGetMerchantList("update");
+				positionGetMerchantList("update",provinces,citys,countries,companyTypeId);
                 
             }
         }
@@ -44,7 +44,8 @@ var quickRepair = function () {
             ijroll_y = ijroll.maxScrollY;
             
 			//	判断是否为搜索
-			positionGetMerchantList("add");
+            if (pageNum === -1) return;
+			positionGetMerchantList("add",provinces,citys,countries,companyTypeId);
             
         }
     });
@@ -57,20 +58,29 @@ var quickRepair = function () {
             
             //列表图片
             var strIcon;
-            // if(repairer_list_data[i].image.length > 0){
-            //     for (var m = 0; m < repairer_list_data[i].image.length; m++) {
-            //         if (repairer_list_data[i].image[m].image_type == 1) {
-            //             strIcon = repairer_list_data[i].image[m].image_url;
-            //             break;
-            //         }else if(repairer_list_data[i].image[m].image_type != 1){
-            //             strIcon = repairer_list_data[i].image[0].image_url;
-            //             // break;
-            //         }
-            //     }
-            // }else{
-            //     strIcon = "../.." + api.Merchant_default_Icon;
-            // };
-            strIcon = "../.." + api.Merchant_default_Icon;
+            if(repairer_list_data[i].image.length > 0){
+                for (var m = 0; m < repairer_list_data[i].image.length; m++) {
+                    if (repairer_list_data[i].image[m].image_type == 1) {
+                        strIcon = repairer_list_data[i].image[m].image_url;
+                        break;
+                    }else if(repairer_list_data[i].image[m].image_type != 1){
+                        strIcon = repairer_list_data[i].image[0].image_url;
+                        // break;
+                    }
+                }
+            }else{
+                strIcon = "../.." + api.Merchant_default_Icon;
+            };
+
+            //维修店类型
+            var repairType ='';
+            if(repairer_list_data[i].repair_type == 0){
+                repairType = '维修店';
+            }else if(repairer_list_data[i].repair_type == 1){
+                repairType = '4S店';
+            }else {
+                repairType = '快修店';
+            }
             //评分
             var strGrade;
             switch (repairer_list_data[i].grade) {
@@ -138,6 +148,7 @@ var quickRepair = function () {
                     <div class="repairer_img">
                         <img src="${strIcon}"/>
                     </div>
+                    <div class="repair_type">${repairType}</div>
                     <div class="repairer_info_text">
                         <h3 class="h3_name ellipsis">${repairer_list_data[i].name}</h3>
                         <div class="repairer_info_grade clearfix">
@@ -169,9 +180,7 @@ var quickRepair = function () {
     
     	var searchCont = $('.search_bar').val();
     	
-        if (pageNum === -1) {
-            return;
-        }
+
         if (!lng || !lat) {
             alert('未打开定位功能，无法正常获取汽修厂！');
             return;
@@ -184,16 +193,16 @@ var quickRepair = function () {
     		//	下拉时没值则请求所有数据
     		sessionStorage.setItem("sv",$('.search_bar').val())
     		$.ajax({
-	            url: api.NWBDApiPositionGetMerchantList + "?r=" + Math.random(),
+	            url: api.NWBDApiGetMerchantListByArea,
 	            type: "POST",
 	            data: {
-                    // province:province,
-                    // city:city,
-                    // country:country,
-                    // companyTypeId:companyTypeId,
+                    province:province,
+                    city:city,
+                    country:country,
+                    companyTypeId:companyTypeId,
 	                lng: lng,
 	                lat: lat,
-	                pageNum: pageNum,
+                    pageNo: pageNum,
 	                pageSize: pageSize
 	            },
 	            dataType: 'json',
@@ -208,7 +217,8 @@ var quickRepair = function () {
 	                        if (datatype === "add") {
 	                            $(".repairer_list_ul").append(repairer_list_str);
 	                        } else if (datatype === "update") {
-	                            $(".repairer_list_ul").html(repairer_list_str);
+                                $(".repairer_list_ul").html(repairer_list_str);
+
 	                        }
 	                        if (repairer_list_data_length >= pageSize) {
 	                            pageNum++;
@@ -218,10 +228,12 @@ var quickRepair = function () {
 	                        ijroll.refresh();
 	                    }
 	                    else{
+                            $(".repairer_list_ul").html("<li class='text'>"+result.message+"</li>");
 	                    	app.alert(result.message);
 	                    }
 	                    // app.closeLoading();
 	                } else {
+                        pageNum = -1;
 	                    // app.closeLoading();
 	                    app.alert(result.message);
 	                }
@@ -260,12 +272,14 @@ var quickRepair = function () {
                             func(val);
                         } else {
                             app.alert("获取定位失败，请打开定位功能");
+                            getPositioning('定位失败','定位失败')
                         }
                     });
                 });
             },
             fail() {
                 alert("获取定位失败，请打开定位功能");
+                getPositioning('定位失败','定位失败')
             }
         });
     };
@@ -273,15 +287,9 @@ var quickRepair = function () {
         var positionText = $('.city-position-text')
         $('.area-text').html(city);
         positionText.html(city);
-        positionText.attr('data-province',province)
-        var provinces = $('.province').find('li'),
-            provincesIndex;
-        for(var i=0;i<provinces.length;i++){
-            if(provinces.eq(i).html() == province){
-                provincesIndex = i;
-            }
-        };
-        //vm.classActive(provincesIndex,city)
+        if(city == '定位失败') return false;
+        positionText.attr('data-province',province);
+
     };
     app.verificationUserInfo();      //  判断登录去掉；
     //  进入车服门店界面查询用户是否有车辆，若无则提示用户完善车辆信息；现在修改为用户可以无需登录查看维修厂列表；
@@ -456,16 +464,31 @@ var quickRepair = function () {
         sessionStorage.setItem("sv",$('.search_bar').val())
         window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
     });
-
+    function areaScroll(index,id){
+        var areaListH = $('.area-list-box').height();
+        var ulH = (index+1)*liListH;
+        if(areaListH<ulH){
+            var areaScrollY = ulH - areaListH + 10;
+            setTimeout(function () {
+                vm.ijroll(id,-areaScrollY);
+            },100);
+        }
+    }
     //tab切换
     body.on("click", ".search_select li", function () {
         var i = $('.search_select li').index($(this));
         var choiceBox = $('.choice-box');
-        if(i == 0){
-            setTimeout(function () {
-                vm.ijroll('.province');
-            },1);
-
+        if(i == 0 && !$(this).hasClass('active')){
+            var areaListH = $('.area-list-box').height();
+            if(liListH){
+                areaScroll(provincesIndex,'.province');
+                areaScroll(cityIndex,'.city');
+            }else {
+                setTimeout(function () {
+                    var ijrolls = new JRoll($('.province')[0]);
+                    ijrolls.refresh();
+                },100)
+            }
         };
         if(!$(this).hasClass('active')){
             choiceBox.hide();
@@ -499,7 +522,20 @@ var quickRepair = function () {
     body.on("click", ".reset-btn", function () {
         $('.screen-type-list p').removeClass('active');
     });
+    body.on("click", ".mask-all", function (e) {
+        e.stopPropagation();
+        maskHidex();
+    });
     body.on("click", ".confirm-btn", function () {
+        var companyType = $('.screen-type-list p');
+        companyTypeId = '';
+        for (var i=0;i<companyType.length;i++){
+            if(companyType.eq(i).hasClass('active')){
+                companyTypeId = companyType.eq(i).attr("data-type");
+            };
+        };
+        pageNum = 1;
+        positionGetMerchantList('update',provinces,citys,countries,companyTypeId)
         maskHidex();
     });
     //地区
@@ -520,80 +556,51 @@ var quickRepair = function () {
     });
     body.on("click", ".city-position-text", function () {
         var dataProvince = $(this).attr('data-province');
-        //getCar(dataProvince,$(this).text());
-        positionGetMerchantList('update',dataProvince,$(this).text())
-        maskHidex();
+        if(dataProvince == '定位失败') return false;
+        liListH = $('.province li').height();
+        countries = '';
+        pageNum = 1;
+        positionGetMerchantList('update',dataProvince,$(this).text(),countries,companyTypeId);
+        provinces = dataProvince;
+        citys = $(this).text();
+
+        $('.area-text').text($(this).text())
+        var provinceList = $('.province').find('li');
+        for(var i=0;i<provinceList.length;i++){
+            if(provinceList.eq(i).html() == dataProvince){
+                provincesIndex = i;
+            }
+        };
+        vm.classActive(provincesIndex,$(this).text());
+        setTimeout(function () {maskHidex();},100)
     });
     body.on("click", ".city li", function () {
         var i =$('.city li').index($(this));
         var district = vm.city[i].childCity
         if(district.length<=1){
-            positionGetMerchantList('update',provinces,citys)
+            pageNum = 1;
+            positionGetMerchantList('update',provinces,citys,countries,companyTypeId)
             maskHidex();
+            $('.area-text').text(citys);
             return false;
         }
 
     });
     body.on("click", ".district li", function () {
-        var i =$('.district li').index($(this));
-        if(vm.district[i].id){
-            positionGetMerchantList('update',provinces,citys,countries);
-        }else {
-            positionGetMerchantList('update',provinces,citys)
-        }
+        pageNum = 1;
+        positionGetMerchantList('update',provinces,citys,countries,companyTypeId);
+
         maskHidex();
     });
-    function getCar(province,city,country,companyTypeId) {
-        if (!lng || !lat) {
-            alert('未打开定位功能，无法正常获取汽修厂！');
-            return;
-        }
-        $.ajax({
-            type:"POST",
-            url:'https://wxcsht.nuoweibd.com:8443/merchant/getMerchantListByArea',
-            data:{
-                province:province,
-                city:city,
-                country:country,
-                pageNo:1,
-                pageSize:10,
-                companyTypeId:companyTypeId,
-                lat:lat,
-                lng:lng
-            },
-            dataType: 'json',
-            success:function(result){
-                if (result.status === "success" && result.code === 0) {
-                    var repairer_list_data = result.data;
-                    var repairer_list_data_length = repairer_list_data.length;
-                    if (repairer_list_data_length > 0) {
-                        var repairer_list_str = createData(repairer_list_data, repairer_list_data_length);
-                        $(".repairer_list_ul").html(repairer_list_str);
-                    } else {
-                        alert('当前地区暂无维修厂，请切换地区~')
-                        $(".repairer_list_ul").html("<li class='text'>当前地区暂无维修厂，请切换地区~</li>");
-
-                    }
-
-                    	//实例化滚动盒子
-                    ijroll.refresh();
-                    //app.closeLoading();
-                } else {
-                    // app.closeLoading();
-                    app.alert(result.message);
-                }
-            },
-            error:function(){
-                alert('操作失败，请检查网络！');
-            }
-        });
-    }
-
 };
 
 var provinces='',
     citys='',
-    countries='';
+    countries='',
+    provincesIndex,
+    cityIndex,
+    liListH;
+
 //	新增倒计时
 var vm = new Vue({
     el:'#app',
@@ -619,7 +626,7 @@ var vm = new Vue({
     created:function(){
         $.ajax({
             type:"POST",
-            url:'https://wxcsht.nuoweibd.com:8443/repairArea/getList' ,
+            url:api.NWBDApiGetList + "?r=" + Math.random(),
             data:{
                 cityLevel:'PROVINCE'
             },
@@ -634,6 +641,7 @@ var vm = new Vue({
                     }
                 }
                 vm.inits(citiesArrs)
+
             },
             error:function(){
                 alert('操作失败，请检查网络！');
@@ -692,8 +700,10 @@ var vm = new Vue({
             for(var i=0;i<this.city.length;i++){
                 if(this.city[i].name == city){
                     this.cityClick(i);
+                    cityIndex = i
                 }
             };
+            this.districtClick(0)
 
         },
         provinceClick:function (index) {
@@ -704,7 +714,7 @@ var vm = new Vue({
             provinces = this.citiesArr[index].name;
             this.city = cityData;
             setTimeout(function () {
-                vm.ijroll('.city')
+                vm.ijroll('.city',0)
             },100);
             this.current = index;
             this.cityAtive = -1;
@@ -725,13 +735,14 @@ var vm = new Vue({
             };
             this.district = district;
             this.cityAtive = index;
+            this.districtAtive = -1;
             if(district.length<=1){
                 $('.city').css({'width':'65%'});
                 $('.district').css({'left':'100%'});
                 return false;
             }
             setTimeout(function () {
-                vm.ijroll('.district')
+                vm.ijroll('.district',0)
             },100);
             $('.city').css({'width':'30%'})
             $('.district').animate({
@@ -739,15 +750,20 @@ var vm = new Vue({
             },200);
         },
         districtClick:function(index){
+
             if(this.district[index].id){
                 countries = this.district[index].name;
+                $('.area-text').text(countries);
+            }else {
+                countries = '';
+                $('.area-text').text(citys);
             }
             this.districtAtive = index;
         },
-        ijroll:function (id) {
+        ijroll:function (id,ijrollsY) {
             var ijrolls;
             ijrolls = new JRoll($(id)[0]);
-            ijrolls.scrollTo(0, 0, 0);
+            ijrolls.scrollTo(0, ijrollsY, 0);
             ijrolls.refresh();
         }
     },

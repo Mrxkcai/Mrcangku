@@ -35,6 +35,7 @@ var api = (function () {
         NWBDApiSetCommonCar: apiAddress + "/car/setCommonCar",
         NWBDApiGetWxTicket: apiAddress + "/user/getWxTicket",
         NWBDApiPositionGetMerchantList: apiAddress + "/merchant/positionGetMerchantList",
+        NWBDApiGetMerchantListByArea: apiAddress + "/merchant/getMerchantListByArea",
         NWBDApiGetList: apiAddress + "/repairArea/getList",
         NWBDApiSearchMerchantList: apiAddress + "/merchant/searchMerchantList",
         NWBDApiGetOrderList: apiAddress + "/WeiXinPay/getOrderList",

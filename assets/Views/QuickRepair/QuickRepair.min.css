@@ -342,7 +342,15 @@ html{
 .container .repairer_list {
 	overflow: hidden
 }
-
+.repair_type{
+	position: absolute;
+	width: 1.6rem;
+	color: #666;
+	font-size: .24rem;
+	left: 0rem;
+	text-align: center;
+	bottom: 0rem;
+}
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li {
 	height: 2.74rem;
 	border-bottom: .01rem solid #e4e4e5;
