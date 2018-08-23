@@ -606,7 +606,7 @@ html{
 	-webkit-transform: translateX(50%);
 	transform: translateX(50%);
 	position: fixed;
-	left: .1rem;
+	left: .075rem;
 	bottom: 15%;
 	width: .8rem;
 	height: .8rem;
@@ -699,4 +699,8 @@ html{
 	z-index: -1!important;
 }
 
+.dwopa .newPos{
+	background: url('../../images/icon_location_white.png')!important;
+	background-size: 100% 100%;
+}
 

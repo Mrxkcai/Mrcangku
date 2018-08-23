@@ -284,7 +284,7 @@ var quickRepair = function () {
                 });
             },
             fail() {
-                alert("获取定位失败，请打开定位功能");
+                app.alert("获取定位失败，请打开定位功能");
                 getPositioning('定位失败','定位失败')
             }
         });

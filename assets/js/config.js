@@ -63,6 +63,9 @@ var api = (function () {
         document.write("<script src='" + api.getLocalhostPaht() + "/" + api.debugProjectName + "/js/app.js?v=1.0.18' charset='utf-8'></script>");
         document.close();
     } else {
+        $('#barrage_name1 img').css({'opacity':'0'});
+        $('#barrage_name img').css({'opacity':'0'});
+        //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=1.0.18' charset='utf-8'></script>");       ///bbcf-common-h5/assets
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=1.0.8' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=1.0.2' charset='utf-8'></script>");       //  计时器js

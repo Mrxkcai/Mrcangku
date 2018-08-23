@@ -520,7 +520,7 @@ var specificOrder = function () {
             };
         };
         
-
+        console.log(data)
         app.loading();
         $.ajax({
             type:'post',
@@ -565,7 +565,7 @@ var specificOrder = function () {
                         },
                         fail: function () {
                             // alert("支付失败，如已付款，请联系客服");
-                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                            //window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                             app.closeLoading();
                         }
                     });

@@ -18,7 +18,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
-    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.1.0"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=1.1.5"/>
     <!--公共组件-->
     <style type="text/css">
     	.positioning{
@@ -130,7 +130,7 @@
     
 	<!--定位图标-->
 	<!-- style="display: inline-block;" -->
-    <div class="dwopa" style="display: none;">
+    <div class="dwopa" style="display: block;">
 		<div class="positioning">
 			
 		</div>
@@ -159,7 +159,7 @@
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="QuickRepair.js?v=1.0.13" charset='utf-8'></script>
+<script src="QuickRepair.js?v=1.0.14" charset='utf-8'></script>
 <script>
     $(function () {
 
@@ -245,7 +245,14 @@
         }
     });
 </script>
-
+<script>
+    // Vue.use(VueLazyload, {
+	// 		preLoad: 1.3,
+	// 		error: '../../images/img_zhanweitu.png',
+	// 		loading: '../../images/img_zhanweitu.png',
+	// 		attempt: 1,
+	// 	})
+</script>
 </body>
 
 </html>
