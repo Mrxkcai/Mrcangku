@@ -45,6 +45,8 @@ var specificOrder = function () {
     var wxm;            //  维修厂；
     var order_price;    //  订单价格；  
     var coucher_id;     //  优惠券id;
+    var dataList;       //  本地data；
+    var indexData;
 
 
     ijroll = new JRoll($("." + type)[0]);
@@ -82,7 +84,9 @@ var specificOrder = function () {
         }
     };
     var createData = function (data, dataLength, type) {
-    	console.log(data)
+        
+        dataList = data;
+        console.log(dataList)
     	// new Date(data[i].create_time).toLocaleString()	app.getTime(data[i].create_time,1)
         var str = "";
         for (var i = 0; i < dataLength; i++) {
@@ -105,18 +109,36 @@ var specificOrder = function () {
                     <a class="bottom_btn_right" href="tel:${data[i].service_hotline}">联系维修厂</a>
                 </div>`;
             if ((type === 1 || type === 5) && data[i].status === 5) {
-                str += `<div class="order_operating">
+                if(data[i].coupon_amount){
+                    str += `<div class="order_operating">
+                            <p>应付款</p>
+                            <p class="money"><small>￥</small>${data[i].price - data[i].coupon_amount}</p>
+                            <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price - data[i].coupon_amount}">在线支付</button>
+                        </div>`;
+                }else{
+                    str += `<div class="order_operating">
                             <p>应付款</p>
                             <p class="money"><small>￥</small>${data[i].price}</p>
                             <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price}">在线支付</button>
                         </div>`;
+                }
+                
             }
             if (type === 10 && data[i].status === 2 && !data[i].comment_id) {
-                str += `<div class="order_operating">
+                if(data[i].coupon_amount){
+                    str += `<div class="order_operating">
+                            <p>实付款</p>
+                            <p class="money"><small>￥</small>${data[i].price - data[i].coupon_amount}</p>
+                            <button id="btn_evaluation" data-id="${data[i].id}">去评价</button>
+                        </div>`;
+                }else{
+                    str += `<div class="order_operating">
                             <p>实付款</p>
                             <p class="money"><small>￥</small>${data[i].price}</p>
                             <button id="btn_evaluation" data-id="${data[i].id}">去评价</button>
                         </div>`;
+                }
+                
             }
             if (!data[i].price && data[i].expect_price) {
                 str += `<div class="order_operating">
@@ -241,6 +263,9 @@ var specificOrder = function () {
 
     body.on("click", "#btn_pay", function () {
         var self = $(this);
+        var index = $(this).parents('li').index();
+        indexData = index;
+        $('.items').html('');
         order_id = self.attr("data-id");        //  订单id
         order_price = self.attr("data-price");  //  订单价格
         wxcar = $(this).parents('li').find('.order_li_brands').text();  //  车型；
@@ -252,7 +277,7 @@ var specificOrder = function () {
         app.verificationUserInfo();
 
         //  弹出优惠券;
-        if(!chooseVoucher()){
+        if(!chooseVoucher(index)){
             return;
         };
     });
@@ -270,7 +295,7 @@ var specificOrder = function () {
 
     //  优惠券部分*************************;
 
-    var chooseVoucher = function (){
+    var chooseVoucher = function (index){
         // var kg = false;
         $('.voucher_block').show();
         $('.voucher_block').animate({'right':'0','top':'0'},250);
@@ -297,16 +322,23 @@ var specificOrder = function () {
             </div>
             `
         $('.order_details').html(str);
-        $('.order_price_self').html(Number(order_price));  //  输入价格；
-        var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
-        $('.price_num').html(truePrice);
+        if(dataList[index].coupon_amount){
+            $('.order_price_self').html(Number(order_price) + Number(dataList[index].coupon_amount));  //  输入价格；
+            $('.price_num').html(Number(order_price));
+            $('.selectVoucher span').text(Number(dataList[index].coupon_amount));
+        }else{
+            //  加载优惠券
+            get_voucher_list('update');
+            $('.order_price_self').html(Number(order_price));  //  输入价格；
+            //console.log(order_price)
+            var truePrice = Number(order_price) - Number($('.selectVoucher span').text());
+            //console.log(truePrice)
+            $('.price_num').html(truePrice);
+            
+        }
 
         $('.back_span').show();
-        //  加载优惠券
-        get_voucher_list('update');
         
-        //  输出优惠值;
-        // return kg;
     };
 
     //  优惠券返回
@@ -322,11 +354,16 @@ var specificOrder = function () {
         wxn = '';      //  车号码；
         wxcontent = ''; //维修内容；
         wxm = '';   //   维修厂；
+        coucher_id = '';    //  优惠券
+        $('.price_num').text('');   //  支付金额;
+        $('.selectVoucher span').text(0)    //  优惠金额;
     });
 
     //  点击选择优惠券；
     $('.selectVoucher').on('click',function(){
-        
+        if(dataList[indexData].coupon_amount){
+            return;
+        }
         //  支付按钮消失；
         $('.btn_two').hide();
 
@@ -453,6 +490,7 @@ var specificOrder = function () {
                     } else {
                         //console.log(pageNum2)
                         $('.selectVoucher span').text(0);
+                        coucher_id = '';
                         if (pageNum2 === 1) {
                             $('.items').html("<li class='data_none'>暂无优惠券可用</li>");
                         };
@@ -565,7 +603,7 @@ var specificOrder = function () {
                         },
                         fail: function () {
                             // alert("支付失败，如已付款，请联系客服");
-                            //window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                             app.closeLoading();
                         }
                     });
