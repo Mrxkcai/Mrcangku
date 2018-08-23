@@ -68,6 +68,9 @@ var voucher = function voucher() {
 
         },
         mounted: function mounted() {
+            if(!app.getItem('userInfo')){
+                return;
+            }
             var number1 = app.checkTime();
             if (number1 != '') {
                 this.timer(number1);

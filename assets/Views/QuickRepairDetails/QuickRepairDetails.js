@@ -73,11 +73,11 @@ var quickRepairDetails = function () {
                         }else if(merchantData.image[i].image_type == 9){
                             image_arr[8] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 10){
-                            image_arr[9] = merchantData.image[i];
+                            image_arr[11] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 11){
                             image_arr[10] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 12){
-                            image_arr[11] = merchantData.image[i];
+                            image_arr[9] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 13){
                             image_arr[12] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 14){
@@ -138,6 +138,7 @@ var quickRepairDetails = function () {
                 //  取消定位后输出故障发生地地址;
                 $(".showAddress").text(merchantData.address_detail);
                 $("#address").val(merchantData.address_detail);
+                $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
                 lat = merchantData.lat;
                 lng = merchantData.lng;
                 addressProvince = merchantData.address_province;
@@ -229,7 +230,7 @@ var quickRepairDetails = function () {
             type: "GET",
             dataType: 'json',
             success: function (result) {
-                console.log(result.data[0].brand);
+                //console.log(result.data[0].brand);
                 if (result.status === "success" && result.code === 0) {
                     carData = result.data;
                     carDataLength = carData.length;

@@ -25,7 +25,6 @@ Vue.component("adve-block",{
 			var barrage_frame = $("#barrage_frame");
             var body = $("body");
             var windowUrl = window.location.href;
-            $('.img_box').css({'display':'none'});
             $('.icon_none').show();
             //	首次进来直接展示公告
             var index_;
@@ -35,7 +34,7 @@ Vue.component("adve-block",{
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
 					content:`<div class='img_box' style="display:none;opacity:1;">
-								<img src='../../images/img_gonggao.png'/>
+								<img src='../../images/img_gonggao.png' style="min-width:2rem;min-height:3rem;"/>
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
 							</div>
@@ -130,7 +129,7 @@ Vue.component("adve-block",{
     <div class="barrage" id="barrage">
         <div class="barrage_name" id="barrage_name">
             
-                <img src="../../images/icon_huodong.gif" class="icon_none" style="display:none" />
+                <img src="../../images/icon_huodong.gif" class="icon_none" style="display:none;opacity:1;" />
             
         </div>
     </div>

@@ -113,11 +113,12 @@ body{background:#f0efed}body .container .payment_order,body .container .evaluati
     position: relative;
     height: 100%;
 }
-.data_none{
+.items li.data_none{
     text-align: center;
     font-size: .3rem;
     color: #999;
     padding: .3rem 0;
+    border-bottom: none;
 }
 .no_more{
     text-align: center;
