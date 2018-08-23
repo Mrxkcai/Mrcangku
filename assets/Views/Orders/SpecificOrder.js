@@ -528,7 +528,7 @@ var specificOrder = function () {
             data:data,
             dataType: 'json',
             success:function(res){
-                // console.log(res)
+                console.log(res)
                 if(res.code == 0 && res.status == 'success'){
                     wx.chooseWXPay({
                         nonceStr: res.data.nonceStr,
@@ -555,6 +555,7 @@ var specificOrder = function () {
                                 // });
                             } else {
                                 // alert("支付失败，如已付款，请联系客服");
+                                
                                 app.closeLoading();
                             }
                         },
@@ -564,6 +565,7 @@ var specificOrder = function () {
                         },
                         fail: function () {
                             // alert("支付失败，如已付款，请联系客服");
+                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                             app.closeLoading();
                         }
                     });
