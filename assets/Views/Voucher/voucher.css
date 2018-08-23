@@ -38,9 +38,9 @@ body{
     display:block;
     font-size:.24rem;
     font-family:PingFangSC-Regular;
-    color:rgba(153,153,153,1);
+    color:#666;
     line-height:.34rem;
-    margin-top: -.17rem;
+    margin-top: -.09rem;
 }
 .w_text{
     display: inline-block;
@@ -58,7 +58,7 @@ body{
 .w_text>p:nth-child(2){
     font-size:.24rem;
     font-family:PingFangSC-Regular;
-    color:rgba(153,153,153,1);
+    color:#666;
     line-height:.34rem;
     overflow:hidden; 
 
@@ -69,6 +69,7 @@ body{
     -webkit-box-orient:vertical;
 
     -webkit-line-clamp:3; 
+    margin-top: .1rem;
 }
 .cut-off{
     clear: both;

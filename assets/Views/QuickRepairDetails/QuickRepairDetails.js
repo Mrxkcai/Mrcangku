@@ -87,7 +87,7 @@ var quickRepairDetails = function () {
                         }
                     }
                     
-                    console.log(image_arr)
+                    //console.log(image_arr)
                     for(var i = 0;i < image_arr.length;i ++){
                         if (image_arr[i]) {
                             bannerStr += '<div class="swiper-slide"><img src="' + image_arr[i].image_url + '" /></div>';

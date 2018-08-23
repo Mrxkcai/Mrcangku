@@ -275,13 +275,22 @@ $(function () {
                 // console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     app.closeLoading();
-                    alert("保存成功");
+                    app.alert("保存成功");
                     if (fromType === "update" || fromType === "add") {
-                        window.location.href = "ListCar.html";
+                       
+                        setTimeout(function(){
+                            window.location.href = "ListCar.html";
+                        },2000)
                     } else if (fromType === "QuickRepairDetails") {
-                        window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+                       
+                        setTimeout(function(){
+                            window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+                        },2000)
                     } else {
-                        window.location.href = "ListCar.html";
+                        
+                        setTimeout(function(){
+                            window.location.href = "ListCar.html";
+                        },2000)
                     }
                 } else {
                     app.closeLoading();

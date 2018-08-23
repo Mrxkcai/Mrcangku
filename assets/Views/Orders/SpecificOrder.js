@@ -454,7 +454,7 @@ var specificOrder = function () {
                         //console.log(pageNum2)
                         $('.selectVoucher span').text(0);
                         if (pageNum2 === 1) {
-                            $('.items').html("<li class='data_none'>暂无优惠券</li>");
+                            $('.items').html("<li class='data_none'>暂无优惠券可用</li>");
                         };
                     };
 

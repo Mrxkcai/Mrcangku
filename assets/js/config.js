@@ -66,7 +66,7 @@ var api = (function () {
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=1.0.18' charset='utf-8'></script>");       ///bbcf-common-h5/assets
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=1.0.8' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=1.0.2' charset='utf-8'></script>");       //  计时器js
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=1.0.3' charset='utf-8'></script>");       //  指南js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=1.0.4' charset='utf-8'></script>");       //  指南js
         
         //  引入活动css
         $("<link>").attr({ rel: "stylesheet",
