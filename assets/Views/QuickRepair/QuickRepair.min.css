@@ -686,6 +686,8 @@ html{
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	text-indent: .5em;
+    color: #f28928;
 }
 .text{
 	width: 100%;
