@@ -75,7 +75,7 @@ var quickRepair = function () {
             //维修店类型
             var repairType ='';
             if(repairer_list_data[i].repair_type == 0){
-                repairType = '<div class="repair_type">维修店</div>';
+                repairType = '<div class="repair_type">维修厂</div>';
             }else if(repairer_list_data[i].repair_type == 1){
                 repairType = '<div class="repair_type repair_type1">4S店</div>';
             }else {
@@ -115,7 +115,7 @@ var quickRepair = function () {
                     }
                 }
             } else {
-                mainBrandStr = '其他';
+                mainBrandStr = '大众<span>｜</span>丰田<span>｜</span>比亚迪';
             }
 
             var checkStatus = "";
