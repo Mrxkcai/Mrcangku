@@ -138,7 +138,10 @@ var quickRepairDetails = function () {
                 //  取消定位后输出故障发生地地址;
                 $(".showAddress").text(merchantData.address_detail);
                 $("#address").val(merchantData.address_detail);
-                $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
+                if(merchantData.address_province && merchantData.address_city && merchantData.address_county){
+                    $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
+                }
+                
                 lat = merchantData.lat;
                 lng = merchantData.lng;
                 addressProvince = merchantData.address_province;
@@ -434,8 +437,8 @@ var quickRepairDetails = function () {
         var index = layer.open({
                 content:
                 `<div class="d-voucher">
-                    <p class="get-voucher"><span>¥</span>${priceAll}</p>
-                    <p>恭喜您获得${res[0].typeName}</p>
+                    <p class="get-voucher" style="opacity:0;"><span>¥</span>${priceAll}</p>
+                    <p style="font-size:1rem;color:rgba(249,250,169,1);padding-top:.1rem;">${priceAll} <span style="font-size:.7rem;color:rgba(255,218,116,1);">元</span></p>
                     <p>有效期：<br /> ${ct}-${et}</p>
                     <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
                     <p>* ${res[0].introduction}</p>
