@@ -14,7 +14,7 @@ var quickRepair = function () {
 
 
 
-    var companyTypeId;
+    var companyTypeId=[];
     var lng = 0;
     var lat = 0;
     var pageNum = 1;
@@ -185,13 +185,18 @@ var quickRepair = function () {
             alert('未打开定位功能，无法正常获取汽修厂！');
             return;
         }
-        
+        if(companyTypeId){
+            var typeId = companyTypeId.join()
+        }else {
+            typeId = ''
+        }
         // app.loading();
          app.verificationUserInfo();      //  判断登录去掉；
         //	修改搜索下拉查值
     	if(!searchCont){
     		//	下拉时没值则请求所有数据
-    		sessionStorage.setItem("sv",$('.search_bar').val())
+    		sessionStorage.setItem("sv",$('.search_bar').val());
+
     		$.ajax({
 	            url: api.NWBDApiGetMerchantListByArea,
 	            type: "POST",
@@ -199,7 +204,7 @@ var quickRepair = function () {
                     province:province,
                     city:city,
                     country:country,
-                    companyTypeId:companyTypeId,
+                    companyTypeId:typeId,
 	                lng: lng,
 	                lat: lat,
                     pageNo: pageNum,
@@ -504,7 +509,9 @@ var quickRepair = function () {
             if(!companyTypeId){
                 $('.screen-type-list p').removeClass('active');
             }else {
-                $('.screen-type-list p').eq(companyTypeId).addClass('active')
+                for(var i=0;i<companyTypeId.length;i++){
+                    $('.screen-type-list p').eq(companyTypeId[i]).addClass('active')
+                }
             }
         }
         // var y = $('.province_active').height()
@@ -524,7 +531,7 @@ var quickRepair = function () {
     //筛选
     body.on("click", ".screen-type-list p", function () {
         if(!$(this).hasClass('active')){
-            $(this).addClass('active').siblings().removeClass('active');
+            $(this).addClass('active')
         }else {
             $(this).removeClass('active');
         }
@@ -538,17 +545,17 @@ var quickRepair = function () {
         if(!companyTypeId){
             $('.screen-type-list p').removeClass('active');
         }else {
-            $('.screen-type-list p').eq(companyTypeId).addClass('active')
+            for(var i=0;i<companyTypeId.length;i++){
+                $('.screen-type-list p').eq(companyTypeId[i]).addClass('active')
+            }
         }
     });
     body.on("click", ".confirm-btn", function () {
         var companyType = $('.screen-type-list p');
-        companyTypeId = '';
-        $('.kind a').text('筛选')
+        companyTypeId = [];
         for (var i=0;i<companyType.length;i++){
             if(companyType.eq(i).hasClass('active')){
-                companyTypeId = companyType.eq(i).attr("data-type");
-                $('.kind a').text(companyType.eq(i).text())
+                companyTypeId.push(companyType.eq(i).attr("data-type"));
             };
         };
         pageNum = 1;
