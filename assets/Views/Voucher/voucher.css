@@ -46,7 +46,7 @@ body{
     display: inline-block;
     width: 3.6rem;
     float: right;
-    margin-right: .3rem;
+    margin-right: .5rem;
     margin-top: .2rem;
 }
 .w_text>p:nth-child(1){

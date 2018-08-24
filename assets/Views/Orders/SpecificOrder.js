@@ -276,10 +276,20 @@ var specificOrder = function () {
         
         app.verificationUserInfo();
 
-        //  弹出优惠券;
-        if(!chooseVoucher(index)){
-            return;
-        };
+        
+        //  判断订单状态
+        if(dataList[indexData].wx_pay_status && dataList[indexData].wx_pay_status == 0){
+            var dataPrice_s = $(this).attr('data-price');
+            console.log(dataPrice_s)
+        }else{
+            //  弹出优惠券;
+            if(!chooseVoucher(index)){
+                return;
+            };
+        }
+
+
+        
     });
 
     //评价
@@ -364,6 +374,9 @@ var specificOrder = function () {
         if(dataList[indexData].coupon_amount){
             return;
         }
+        
+        
+        
         //  支付按钮消失；
         $('.btn_two').hide();
 
@@ -404,7 +417,7 @@ var specificOrder = function () {
     });
 
     //  第二个滑动加载；
-    var pageSize2 = 5;
+    var pageSize2 = 4;
     var voucher_pageNum = 1;
     var ijroll2;
     var ijroll_y2 = 0;
@@ -599,6 +612,7 @@ var specificOrder = function () {
                         },
                         cancel: function () {
                             // alert("支付已取消");
+                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                             app.closeLoading();
                         },
                         fail: function () {
@@ -609,7 +623,7 @@ var specificOrder = function () {
                     });
 
                 }else{
-                    alert(res.message);
+                    //alert(res.message);
                     app.closeLoading();
                 };
             },
