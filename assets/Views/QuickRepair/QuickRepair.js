@@ -78,8 +78,10 @@ var quickRepair = function () {
                 repairType = '<div class="repair_type">维修厂</div>';
             }else if(repairer_list_data[i].repair_type == 1){
                 repairType = '<div class="repair_type repair_type1">4S店</div>';
-            }else {
+            }else if(repairer_list_data[i].repair_type == 2) {
                 repairType = '<div class="repair_type repair_type2">快修店</div>';
+            }else {
+                repairType = '<div class="repair_type">维修厂</div>';
             }
             //评分
             var strGrade;
