@@ -687,7 +687,8 @@ html{
 	text-overflow: ellipsis;
 	overflow: hidden;
 	text-indent: .5em;
-    color: #f28928;
+	color: #f28928;
+	font-family:'PingFangSC-Medium';
 }
 .text{
 	width: 100%;
