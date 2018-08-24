@@ -14,16 +14,20 @@ var quickRepair = function () {
 
 
 
-    var companyTypeId=[];
-    var lng = 0;
-    var lat = 0;
-    var pageNum = 1;
-    var pageSize = 10;
-    var ijroll;
-    var ijroll_y = 0;
-    var isClick = true;
-    var totalPage ='';
-    var currentPage = '';
+    var companyTypeId=[],
+        lng = 0,
+        lat = 0,
+        pageNum = 1,
+        pageSize = 10,
+        ijroll,
+        ijroll_y = 0,
+        isClick = true,
+        totalPage ='',
+        currentPage = '',
+        pageNo =1,
+        totalPage2 ='',
+        currentPage2='',
+        isSearch = false;
 
     ijroll = new JRoll($(".repairer_list")[0]);
     ijroll.pulldown({
@@ -31,6 +35,7 @@ var quickRepair = function () {
             if (ijroll.y >= 44) {
             	//	下拉刷新
                 pageNum = 1;
+                pageNo =1;
                 ijroll_y = 0;
                 complete();
                 
@@ -47,7 +52,11 @@ var quickRepair = function () {
             ijroll_y = ijroll.maxScrollY;
             
 			//	判断是否为搜索
-            if (pageNum === -1||totalPage <= currentPage) return;
+            if($('.search_bar').val()){
+                if (pageNo === -1||totalPage2 <= currentPage2) return;
+            }else {
+                if (pageNum === -1||totalPage <= currentPage) return;
+            }
             isClick = false;
 			positionGetMerchantList("add",provinces,citys,countries,companyTypeId);
             
@@ -202,7 +211,7 @@ var quickRepair = function () {
     	if(!searchCont){
     		//	下拉时没值则请求所有数据
     		sessionStorage.setItem("sv",$('.search_bar').val());
-
+            isSearch = false;
     		$.ajax({
 	            url: api.NWBDApiGetMerchantListByArea,
 	            type: "POST",
@@ -426,21 +435,40 @@ var quickRepair = function () {
         ijroll.enable();
         // app.loading();
         $.ajax({
-            url: api.NWBDApiSearchMerchantList + "?keyValue=" + search_bar + "&lng=" + lng + "&lat=" + lat + "&r=" + Math.random(),
+            url: api.NWBDApiSearchMerchantList + "?r=" + Math.random(),
             type: "POST",
+            data:{
+                keyValue:search_bar,
+                lng:lng,
+                lat:lat,
+                pageSize:10,
+                pageNo:pageNo
+            },
             dataType: 'json',
             success: function (result) {
                 //    console.log(JSON.stringify(result));
+                totalPage2 = result.data.totalPage;
+                currentPage2 = result.data.currentPage;
                 if (result.status === "success" && result.code === 0) {
-                    var repairer_list_data = result.data;
+                    var repairer_list_data = result.data.list;
                     var repairer_list_data_length = repairer_list_data.length;
+                    if(!isSearch){
+                        $(".repairer_list_ul").html("");
+                    };
+                    isSearch = true;
                     if (repairer_list_data_length > 0) {
                         var repairer_list_str = createData(repairer_list_data, repairer_list_data_length);
-                        $(".repairer_list_ul").html(repairer_list_str);
+                        $(".repairer_list_ul").append(repairer_list_str);
                     } else {
                         $(".repairer_list_ul").html("<li class='text'>"+result.message+"</li>");
                         
                     }
+                    if (repairer_list_data_length >= pageSize) {
+                        pageNo++;
+                    } else {
+                        pageNo = -1;
+                    }
+                    ijroll.refresh();
                     
                     //	实例化滚动盒子
                     ijroll.refresh();
