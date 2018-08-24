@@ -21,6 +21,7 @@ var quickRepair = function () {
     var pageSize = 10;
     var ijroll;
     var ijroll_y = 0;
+    var isClick = true;
 
     ijroll = new JRoll($(".repairer_list")[0]);
     ijroll.pulldown({
@@ -45,6 +46,7 @@ var quickRepair = function () {
             
 			//	判断是否为搜索
             if (pageNum === -1) return;
+            isClick = false;
 			positionGetMerchantList("add",provinces,citys,countries,companyTypeId);
             
         }
@@ -244,7 +246,10 @@ var quickRepair = function () {
 	                    // app.closeLoading();
                         $(".repairer_list_ul").html("<li class='text'>没有匹配的商户列表</li>");
 	                    app.alert('没有匹配的商户列表');
-	                }
+	                };
+	                setTimeout(function () {
+                        isClick = true;
+                    },500)
 	            },
 	            error: function () {
 	                // app.closeLoading();
@@ -465,12 +470,13 @@ var quickRepair = function () {
         //     app.alert("该汽修厂休息中");
         //     return;
         // }
-        
-        app.setItem("merchant_id", $(this).attr("data-id"));
-        app.setItem("send_position", $('.position_text span').text());
-        app.setItem("send_juli", $(this).find('.juli').text());
-        sessionStorage.setItem("sv",$('.search_bar').val())
-        window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+        if(isClick){
+            app.setItem("merchant_id", $(this).attr("data-id"));
+            app.setItem("send_position", $('.position_text span').text());
+            app.setItem("send_juli", $(this).find('.juli').text());
+            sessionStorage.setItem("sv",$('.search_bar').val())
+            window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+        }
     });
     function areaScroll(index,id){
         var areaListH = $('.area-list-box').height();
