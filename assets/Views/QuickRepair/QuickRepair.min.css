@@ -19,7 +19,7 @@ html{
 }
 
 .container header .search_div {
-
+	margin-top: .12rem;
 	position: relative;
 	width: 100%
 }
@@ -43,6 +43,7 @@ html{
 	-webkit-box-pack: justify;
 	position: relative;
 	z-index: 999;
+	margin-top: .05rem;
 }
 .search_select > li{
 	display: block;
@@ -87,7 +88,7 @@ html{
 	background: #fff;
 	position: absolute;
 	z-index: 1001;
-	top: .76rem;
+	top: 1.56rem;
 	border: 1px solid #E8E8E8;
 }
 .area-list-box{
@@ -320,7 +321,7 @@ html{
 .container header .userInfo_prompt {
 	display: none;
 	position: absolute;
-	top: .76rem;
+	top: 0rem;
 	left: 0;
 	height: .8rem;
 	line-height: .8rem;
@@ -345,21 +346,23 @@ html{
 .repair_type{
 	position: absolute;
 	width: 1.6rem;
-    height: .3rem;
-    line-height: .3rem;
     border-radius: .04rem;
 	color: #fff;
 	font-size: .2rem;
-	left: 0rem;
+	left: 0;
 	text-align: center;
-    background: #518EEE;
+	background:-webkit-linear-gradient(right,#AAA9F8,#69A0F7);
+	background:linear-gradient(to left,#AAA9F8,#69A0F7);
     top: 1.68rem;
+	font-weight: bold;
 }
 .repair_type1{
-    background: #F84C4C;
+	background:-webkit-linear-gradient(right,#FA6573,#FB9565);
+	background:linear-gradient(to left,#FA6573,#FB9565);
 }
 .repair_type2{
-    background: #44B54C;
+	background:-webkit-linear-gradient(right,#60DAA7,#63B8D6);
+	background:linear-gradient(to left,#60DAA7,#63B8D6);
 }
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li {
 	height: 2.74rem;

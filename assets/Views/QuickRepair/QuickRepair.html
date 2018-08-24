@@ -18,7 +18,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.0"/>
-    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=2.0.0"/>
+    <link rel="stylesheet" type="text/css" href="QuickRepair.min.css?v=2.0.1"/>
     <!--公共组件-->
     <style type="text/css">
     	.positioning{
@@ -80,6 +80,10 @@
             <label>距离最近</label>
             <i></i>
         </p>
+        <p>
+            <label>评星排序</label>
+            <i></i>
+        </p>
     </div>
     <div class="screen choice-box">
         <div class="screen-type">
@@ -96,6 +100,17 @@
         </div>
     </div>
     <header>
+
+        <div class="search_div">
+            <span class="icon_search"></span>
+            <form id="search_from">
+                <input maxlength="48" type="search" class="search_bar" placeholder="请输入您要找的汽修厂"/>
+            </form>
+            <span class="delete_search">×</span>
+        </div>
+        <div class="userInfo_prompt">
+            完善车型和个人信息，为您推荐更合适的服务<span></span>
+        </div>
         <ul class="search_select">
             <li>
                 <span class="area ellipsis">
@@ -113,16 +128,6 @@
                 </span>
             </li>
         </ul>
-        <div class="search_div">
-            <span class="icon_search"></span>
-            <form id="search_from">
-                <input maxlength="48" type="search" class="search_bar" placeholder="请输入您要找的汽修厂"/>
-            </form>
-            <span class="delete_search">×</span>
-        </div>
-        <div class="userInfo_prompt">
-            完善车型和个人信息，为您推荐更合适的服务<span></span>
-        </div>
     </header>
     <div class="repairer_list">
         <ul class="repairer_list_ul"></ul>
@@ -159,7 +164,7 @@
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="QuickRepair.js?v=2.0.0" charset='utf-8'></script>
+<script src="QuickRepair.js?v=2.0.1" charset='utf-8'></script>
 <script>
     $(function () {
 
