@@ -129,7 +129,7 @@ Vue.component("adve-block",{
     <div class="barrage" id="barrage">
         <div class="barrage_name" id="barrage_name">
             
-                <img src="../../images/icon_huodong.gif" class="icon_none" style="display:none;opacity:1;" />
+                <img src="../../images/icon_huodong.gif?v=2.0.0" class="icon_none" style="display:none;opacity:1;" />
             
         </div>
     </div>

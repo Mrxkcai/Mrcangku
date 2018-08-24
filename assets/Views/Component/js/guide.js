@@ -85,7 +85,7 @@ Vue.component("adve-block1",{
     <div class="barrage1" id="barrage1">
         <div class="barrage_name1" id="barrage_name1">
             
-                <img src="../../images/icon_czzn_orange.png" class="icon_none" style="display:none;opacity:1;" />
+                <img src="../../images/icon_czzn_orange.png?v=2.0.0" class="icon_none" style="display:none;opacity:1;" />
             
         </div>
     </div>
