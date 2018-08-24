@@ -22,6 +22,8 @@ var quickRepair = function () {
     var ijroll;
     var ijroll_y = 0;
     var isClick = true;
+    var totalPage ='';
+    var currentPage = '';
 
     ijroll = new JRoll($(".repairer_list")[0]);
     ijroll.pulldown({
@@ -33,7 +35,7 @@ var quickRepair = function () {
                 complete();
                 
 				//	判断是否为搜索
-				positionGetMerchantList("update",provinces,citys,countries,companyTypeId);
+				positionGetMerchantList("refresh",provinces,citys,countries,companyTypeId);
                 
             }
         }
@@ -45,7 +47,7 @@ var quickRepair = function () {
             ijroll_y = ijroll.maxScrollY;
             
 			//	判断是否为搜索
-            if (pageNum === -1) return;
+            if (pageNum === -1||totalPage <= currentPage) return;
             isClick = false;
 			positionGetMerchantList("add",provinces,citys,countries,companyTypeId);
             
@@ -183,7 +185,7 @@ var quickRepair = function () {
     var positionGetMerchantList = function (datatype,province,city,country,companyTypeId) {
     
     	var searchCont = $('.search_bar').val();
-    	
+        ijroll.enable();
 
         if (!lng || !lat) {
             alert('未打开定位功能，无法正常获取汽修厂！');
@@ -217,39 +219,46 @@ var quickRepair = function () {
 	            dataType: 'json',
 	            success: function (result) {
 	                //  console.log(JSON.stringify(result));
-	                  console.log(result);
+	                  console.log(result)
+                    totalPage = result.data.totalPage;
+                    currentPage = result.data.currentPage;
 	                if (result.status === "success" && result.code === 0) {
-	                    var repairer_list_data = result.data;
+	                    var repairer_list_data = result.data.list;
 	                    var repairer_list_data_length = repairer_list_data.length;
 	                    if (repairer_list_data_length > 0) {
 	                        var repairer_list_str = createData(repairer_list_data, repairer_list_data_length);
 	                        if (datatype === "add") {
 	                            $(".repairer_list_ul").append(repairer_list_str);
 	                        } else if (datatype === "update") {
+                                ijroll.scrollTo(0,0,0);
                                 $(".repairer_list_ul").html(repairer_list_str);
-
-	                        }
+	                        }else {
+                                $(".repairer_list_ul").html(repairer_list_str);
+                            }
 	                        if (repairer_list_data_length >= pageSize) {
 	                            pageNum++;
 	                        } else {
 	                            pageNum = -1;
 	                        }
 	                        ijroll.refresh();
-	                    }
-	                    else{
+	                    } else{
+                            ijroll.scrollTo(0,0,0);
+                            ijroll.disable();
                             $(".repairer_list_ul").html("<li class='text'>"+result.message+"</li>");
 	                    	app.alert(result.message);
 	                    }
 	                    // app.closeLoading();
-	                } else {
+                    } else {
                         pageNum = -1;
 	                    // app.closeLoading();
+                        ijroll.scrollTo(0,0,0);
+                        ijroll.disable();
                         $(".repairer_list_ul").html("<li class='text'>没有匹配的商户列表</li>");
 	                    app.alert('没有匹配的商户列表');
 	                };
 	                setTimeout(function () {
                         isClick = true;
-                    },500)
+                    },1000)
 	            },
 	            error: function () {
 	                // app.closeLoading();
@@ -413,7 +422,8 @@ var quickRepair = function () {
         if (!lng || !lat) {
             alert('未打开定位功能，无法正常获取汽修厂！');
             return;
-        }
+        };
+        ijroll.enable();
         // app.loading();
         $.ajax({
             url: api.NWBDApiSearchMerchantList + "?keyValue=" + search_bar + "&lng=" + lng + "&lat=" + lat + "&r=" + Math.random(),
@@ -611,6 +621,7 @@ var quickRepair = function () {
         var district = vm.city[i].childCity
         if(district.length<=1){
             pageNum = 1;
+            countries = '';
             positionGetMerchantList('update',provinces,citys,countries,companyTypeId)
             maskHidex();
             $('.area-text').text(citys);
