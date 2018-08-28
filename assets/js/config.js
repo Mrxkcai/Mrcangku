@@ -72,7 +72,8 @@ var api = (function () {
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.5' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.4' charset='utf-8'></script>");       //  计时器js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.0' charset='utf-8'></script>");       //  指南js
-        
+        document.write('<script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>')                 //  高德地图api
+
         //  引入活动css
         $("<link>").attr({ rel: "stylesheet",
                 type: "text/css",
