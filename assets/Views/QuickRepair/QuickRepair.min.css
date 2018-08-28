@@ -7,6 +7,8 @@ html{
     cursor:pointer;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
+input[type="search"]{-webkit-appearance:none;}
+input::-webkit-search-cancel-button {display: none;}
 .container header {
 	height: 1.56rem;
 	overflow: hidden;
@@ -293,8 +295,8 @@ html{
 	background: #ddd;
 	border-radius: 50%;
 	position: absolute;
-    top: .14rem;
-    right: .2rem;
+    top: .13rem;
+    right: .14rem;
 	color: #fff;
 	font-size:.3rem;
 }
@@ -510,8 +512,9 @@ html{
 
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .repairer_info_text .juli {
 	width: .8rem;
-	margin-right: -1rem;
-	float: right
+	position: absolute;
+	right: -1rem;
+	top: 1.6rem;
 }
 
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .kind_type {
