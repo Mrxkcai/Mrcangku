@@ -136,10 +136,13 @@ var quickRepairDetails = function () {
                 $(".address_detail_value").html(merchantData.address_detail);
                 
                 //  取消定位后输出故障发生地地址;
-                // $(".showAddress").text(merchantData.address_detail);
-                // $("#address").val(merchantData.address_detail);
-                if(merchantData.address_province && merchantData.address_city && merchantData.address_county && merchantData.address_province != null && merchantData.address_city != null && merchantData.address_county != null){
-                    $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
+                if(localStorage.getItem('address') && localStorage.getItem('address') != null){
+                    $(".showAddress").text(localStorage.getItem('address'));
+                    $("#address").val(localStorage.getItem('address'));
+                };
+                
+                if(localStorage.getItem('province') && localStorage.getItem('city') && localStorage.getItem('district') && localStorage.getItem('province') != null && localStorage.getItem('city') != null && localStorage.getItem('district') != null){
+                    $('#ssq').val(localStorage.getItem('province') + " " + localStorage.getItem('city') + " " + localStorage.getItem('district'))
                 }
                 
                 lat = merchantData.lat;
@@ -373,38 +376,28 @@ var quickRepairDetails = function () {
             	console.log(result)
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
                     app.closeLoading();
-                    window.location.href = "../YuyueRepair/reservationRepair.html";
-                    //	存储订单id；
-                    localStorage.setItem("orderId",result.data.order_id)
-                    $("#carList_carInfo_Id").val("0");
-                    carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
-                    $(".carList_ul_li").removeClass("active");
-                    carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
-                    carList_ul.fadeOut(200);
 
-                    localStorage.removeItem('status');
-                    localStorage.removeItem('num');
                     //  判断是否有优惠券
-                    // if(result.data.coupon){
-                    //     //  弹出优惠券界面
-                    //     if(!red_bag(result.data.coupon)){
-                    //         return
-                    //     }
-                    // }else{
-                    //     //	新增预约维修界面
-                    //     window.location.href = "../YuyueRepair/reservationRepair.html";
-                    //     //	存储订单id；
-                    //     localStorage.setItem("orderId",result.data.order_id)
-                    //     $("#carList_carInfo_Id").val("0");
-                    //     carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
-                    //     $(".carList_ul_li").removeClass("active");
-                    //     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
-                    //     carList_ul.fadeOut(200);
-                    //
-                    //     localStorage.removeItem('status');
-                    //     localStorage.removeItem('num');
-                    //
-                    // }
+                    if(result.data.coupon){
+                        //  弹出优惠券界面
+                        if(!red_bag(result.data.coupon)){
+                            return
+                        }
+                    }else{
+                        //	新增预约维修界面
+                        window.location.href = "../YuyueRepair/reservationRepair.html";
+                        //	存储订单id；
+                        localStorage.setItem("orderId",result.data.order_id)
+                        $("#carList_carInfo_Id").val("0");
+                        carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
+                        $(".carList_ul_li").removeClass("active");
+                        carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
+                        carList_ul.fadeOut(200);
+
+                        localStorage.removeItem('status');
+                        localStorage.removeItem('num');
+                    
+                    }
                     
                    
                     
