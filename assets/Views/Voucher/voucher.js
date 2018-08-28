@@ -1,7 +1,7 @@
 'use strict';
 
 var voucher = function voucher() {
-
+    
     //	新增倒计时
     var vm = new Vue({
         el: '#app',

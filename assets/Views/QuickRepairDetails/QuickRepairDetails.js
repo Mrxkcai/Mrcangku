@@ -215,7 +215,7 @@ var quickRepairDetails = function () {
 
     //调用微信 js-sdk 查看维修厂地图
     body.on("click", ".address_detail_value", function () {
-        openLocation();
+        //openLocation();
     });
     //调用微信 js-sdk 查看维修厂地图
     body.on("click", ".img_address", function () {

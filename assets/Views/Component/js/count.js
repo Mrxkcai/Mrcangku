@@ -16,7 +16,7 @@ Vue.component('count-block',{
 	methods:{
 		goOrder(){
 			var urll = window.location.href;
-			alert(urll)
+			//alert(urll)
 			if(urll.indexOf('index') == -1){
 				window.location.href = "../YuyueRepair/reservationRepair.html";
 			}else{
