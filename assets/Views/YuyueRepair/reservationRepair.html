@@ -219,6 +219,10 @@ var vm = new Vue({
 				}
 				console.log(data)
 				var that = this;
+
+				that.openLocation();
+				return;
+
 				that.$dialog.confirm({
 	      			message: '确认取消订单？'
 	    		}).then(function(){
@@ -266,6 +270,7 @@ var vm = new Vue({
 						console.log(result)
 						if(result.status == 'success' && result.code == 0){
 							app.closeLoading();
+
 							vm.list = result.data;
 							if(vm.list.length <= 0){
 								vm.ajaxfun();
@@ -525,6 +530,7 @@ var vm = new Vue({
 						if(result.code == 0){
 							if(result.data == 1){
 								app.alert('商家已接单')
+								
 								//	待确认跳转
 								setTimeout(function(){
 									window.location.href="../QuickRepair/QuickRepair.html"
@@ -556,7 +562,20 @@ var vm = new Vue({
 			//	可拨打电话
 		    tellphone(tellphone){
 		    	window.location.href = 'tel:' + tellphone
-		    }
+			},
+			
+			//	进入地图导航界面
+
+			openLocation(){
+				var layer_index = layer.open({
+					content: '您的订单已被接单，是否进入'
+					,btn: ['确定', '取消']
+					,yes: function(index, layero){
+						console.log(233)
+						//按钮【按钮一】的回调
+					}
+				})
+			}
 		 
 		},
 		mounted(){
