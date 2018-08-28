@@ -44,7 +44,7 @@ var specificOrder = function () {
     var wxcontent;      //  维修内容；
     var wxm;            //  维修厂；
     var order_price;    //  订单价格；  
-    var coucher_id;     //  优惠券id;
+    var coucher_id = '';     //  优惠券id;
     var dataList;       //  本地data；
     var indexData;
 
@@ -62,7 +62,7 @@ var specificOrder = function () {
     });
     ijroll.scrollTo(0, ijroll_y);
     ijroll.on('touchEnd', function () {
-        if (ijroll.maxScrollY >= ijroll.y) {
+        if (ijroll.maxScrollY >= ijroll.y + 5) {
             ijroll_y = ijroll.maxScrollY;
             console.log(ijroll.maxScrollY)
             getPageData(type, "add");
@@ -110,17 +110,35 @@ var specificOrder = function () {
                 </div>`;
             if ((type === 1 || type === 5) && data[i].status === 5) {
                 if(data[i].coupon_amount){
-                    str += `<div class="order_operating">
+                    if(data[i].wx_pay_status == 0){
+                        str += `<div class="order_operating">
+                            <p>应付款</p>
+                            <p class="money"><small>￥</small>${data[i].price - data[i].coupon_amount}</p>
+                            <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price - data[i].coupon_amount}"  style="background:linear-gradient(90deg,#fe8828,#ffaa35);">去支付</button>
+                        </div>`;
+                    }else{
+                        str += `<div class="order_operating">
                             <p>应付款</p>
                             <p class="money"><small>￥</small>${data[i].price - data[i].coupon_amount}</p>
                             <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price - data[i].coupon_amount}">在线支付</button>
                         </div>`;
+                    }
+                    
                 }else{
-                    str += `<div class="order_operating">
+                    if(data[i].wx_pay_status == 0){
+                        str += `<div class="order_operating">
+                            <p>应付款</p>
+                            <p class="money"><small>￥</small>${data[i].price}</p>
+                            <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price}" style="background:linear-gradient(90deg,#fe8828,#ffaa35);">去支付</button>
+                        </div>`;
+                    }else{
+                        str += `<div class="order_operating">
                             <p>应付款</p>
                             <p class="money"><small>￥</small>${data[i].price}</p>
                             <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price}">在线支付</button>
                         </div>`;
+                    }
+                    
                 }
                 
             }
@@ -265,7 +283,7 @@ var specificOrder = function () {
         var self = $(this);
         var index = $(this).parents('li').index();
         indexData = index;
-        $('.items').html('');
+        
         order_id = self.attr("data-id");        //  订单id
         order_price = self.attr("data-price");  //  订单价格
         wxcar = $(this).parents('li').find('.order_li_brands').text();  //  车型；
@@ -276,18 +294,18 @@ var specificOrder = function () {
         
         app.verificationUserInfo();
 
-        
-        //  判断订单状态
-        if(dataList[indexData].wx_pay_status && dataList[indexData].wx_pay_status == 0){
-            var dataPrice_s = $(this).attr('data-price');
-            console.log(dataPrice_s)
-        }else{
+        // alert(dataList[index].wx_pay_status +"----"+ order_id)
+        if(dataList[index].wx_pay_status != 0 &&  dataList[index].wx_pay_status != 1){
             //  弹出优惠券;
             if(!chooseVoucher(index)){
                 return;
             };
-        }
+        }else if(dataList[index].wx_pay_status == 0){
+            $('.self_pay_btn').trigger('click');
+            return;
+        }else if(dataList[index].wx_pay_status == 1){
 
+        }else{}
 
         
     });
@@ -357,7 +375,12 @@ var specificOrder = function () {
         $('.voucher_block').hide();
         $('.voucher_block').animate({'right':'-100%','top':'0'},250);
 
+        ijroll2.scrollTo(0,0,0);
+        $('.select_span').removeClass('icon_active');
+        $('.items .select_span').removeClass('icon_active');
+        
         //  清空值；
+        voucher_pageNum = 1;  //分页
         order_id = '';        //  订单id
         order_price = '';  //  订单价格
         wxcar = '';  //  车型；
@@ -374,9 +397,6 @@ var specificOrder = function () {
         if(dataList[indexData].coupon_amount){
             return;
         }
-        
-        
-        
         //  支付按钮消失；
         $('.btn_two').hide();
 
@@ -442,12 +462,17 @@ var specificOrder = function () {
     var get_voucher_list = function (type){
         
         var pageNum2 = 1;
+        if(voucher_pageNum == 1){
+            $('.items').html('');
+        }
+
         pageNum2 = voucher_pageNum;
         app.verificationUserInfo();
 
         if(voucher_pageNum == -1){
             return;
         };
+        
         var str = "";
         $.ajax({
             url: api.NWBDApiWeiXincouponListUse + "?r=" + Math.random(),
@@ -462,6 +487,7 @@ var specificOrder = function () {
             success:function(res){
                 console.log(res)
                 if(res.code == 0 && res.status == 'success'){
+                    
                     if(res.data.length > 0){
                         for(var i = 0; i < res.data.length;i ++){
                             str += `
@@ -502,7 +528,7 @@ var specificOrder = function () {
                         };
                     } else {
                         //console.log(pageNum2)
-                        $('.selectVoucher span').text(0);
+                        // $('.selectVoucher span').text(0);
                         coucher_id = '';
                         if (pageNum2 === 1) {
                             $('.items').html("<li class='data_none'>暂无优惠券可用</li>");
@@ -571,7 +597,7 @@ var specificOrder = function () {
             };
         };
         
-        console.log(data)
+        //alert(data)
         app.loading();
         $.ajax({
             type:'post',
@@ -616,14 +642,14 @@ var specificOrder = function () {
                             app.closeLoading();
                         },
                         fail: function () {
-                            // alert("支付失败，如已付款，请联系客服");
+                             alert("支付失败，如已付款，请联系客服");
                             window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                             app.closeLoading();
                         }
                     });
 
                 }else{
-                    //alert(res.message);
+                    alert(res.message);
                     app.closeLoading();
                 };
             },
@@ -633,4 +659,5 @@ var specificOrder = function () {
             },
         });
     });
+    return;
 };

@@ -136,9 +136,9 @@ var quickRepairDetails = function () {
                 $(".address_detail_value").html(merchantData.address_detail);
                 
                 //  取消定位后输出故障发生地地址;
-                $(".showAddress").text(merchantData.address_detail);
-                $("#address").val(merchantData.address_detail);
-                if(merchantData.address_province && merchantData.address_city && merchantData.address_county){
+                // $(".showAddress").text(merchantData.address_detail);
+                // $("#address").val(merchantData.address_detail);
+                if(merchantData.address_province && merchantData.address_city && merchantData.address_county && merchantData.address_province != null && merchantData.address_city != null && merchantData.address_county != null){
                     $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
                 }
                 
