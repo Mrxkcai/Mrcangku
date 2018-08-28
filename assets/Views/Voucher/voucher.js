@@ -138,6 +138,8 @@ var voucher = function voucher() {
                     
                     <span><i>¥</i> ${data[i].price}</span>
                     <span>${data[i].name}</span>
+                    <p></p>
+                    <p></p>
                 </div>
 
                 <div class="w_text">

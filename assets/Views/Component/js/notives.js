@@ -183,7 +183,7 @@ var red_bag = function(res){
                     <p style="font-size:1rem;color:rgba(249,250,169,1);padding-top:.1rem;">${priceAll} <span style="font-size:.7rem;color:rgba(255,218,116,1);">元</span></p>
                     <p>有效期：<br /> ${res.beginDate}-${res.endDate}</p>
                     <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
-                    <p>* ${res.rangeExplain}</p>
+                    <p><img src="../../../images/img_zhu.png"/> 部分4S店及修理厂不支持线上支付，请 您加微信号“bbcfkf01”领取现金红包。</p>
 
                     <button class="btn-get"></button>
                     <div class="btn_see">查看详情 >></div>

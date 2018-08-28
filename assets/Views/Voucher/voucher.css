@@ -5,6 +5,9 @@ body{
     width: 6.9rem;
     margin: 0 auto;
 }
+.voucher_list ul{
+    padding-bottom: .2rem;
+}
 .voucher_list li:first-child{
     margin-top: .24rem;
 }
@@ -19,7 +22,6 @@ body{
     margin-bottom: .24rem;
     display: -webkit-box;
 }
-
 .d_money{
     width: 2.28rem;
     height: 1.96rem;
@@ -27,7 +29,7 @@ body{
     -webkit-box-orient: vertical;
     -webkit-box-align: center;
     -webkit-box-pack: center;
-
+    position: relative;
     background: url("../../images/bg_daijinquan.png") no-repeat left top;
     background-size: 100%;
 }
@@ -45,6 +47,21 @@ body{
     font-style: normal;
     color: #fff;
     font-size: .32rem;
+}
+.d_money > p{
+    position: absolute;
+    background: #F5F5F5;
+    width: .2rem;
+    height: .2rem;
+    right: -.1rem;
+    border-radius: 100px;
+
+}
+.d_money > p:nth-of-type(1){
+    top: -.1rem;
+}
+.d_money > p:nth-of-type(2){
+    bottom: -.1rem;
 }
 .w_text{
     width: 1px;
