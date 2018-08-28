@@ -373,28 +373,38 @@ var quickRepairDetails = function () {
             	console.log(result)
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
                     app.closeLoading();
+                    window.location.href = "../YuyueRepair/reservationRepair.html";
+                    //	存储订单id；
+                    localStorage.setItem("orderId",result.data.order_id)
+                    $("#carList_carInfo_Id").val("0");
+                    carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
+                    $(".carList_ul_li").removeClass("active");
+                    carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
+                    carList_ul.fadeOut(200);
 
+                    localStorage.removeItem('status');
+                    localStorage.removeItem('num');
                     //  判断是否有优惠券
-                    if(result.data.coupon){
-                        //  弹出优惠券界面
-                        if(!red_bag(result.data.coupon)){
-                            return
-                        }
-                    }else{
-                        //	新增预约维修界面
-                        window.location.href = "../YuyueRepair/reservationRepair.html";
-                        //	存储订单id；
-                        localStorage.setItem("orderId",result.data.order_id)
-                        $("#carList_carInfo_Id").val("0");
-                        carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
-                        $(".carList_ul_li").removeClass("active");
-                        carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
-                        carList_ul.fadeOut(200);
-
-                        localStorage.removeItem('status');
-                        localStorage.removeItem('num');
-                    
-                    }
+                    // if(result.data.coupon){
+                    //     //  弹出优惠券界面
+                    //     if(!red_bag(result.data.coupon)){
+                    //         return
+                    //     }
+                    // }else{
+                    //     //	新增预约维修界面
+                    //     window.location.href = "../YuyueRepair/reservationRepair.html";
+                    //     //	存储订单id；
+                    //     localStorage.setItem("orderId",result.data.order_id)
+                    //     $("#carList_carInfo_Id").val("0");
+                    //     carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
+                    //     $(".carList_ul_li").removeClass("active");
+                    //     carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
+                    //     carList_ul.fadeOut(200);
+                    //
+                    //     localStorage.removeItem('status');
+                    //     localStorage.removeItem('num');
+                    //
+                    // }
                     
                    
                     

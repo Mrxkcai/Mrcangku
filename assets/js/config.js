@@ -48,6 +48,8 @@ var api = (function () {
         NWBDApiWeiXincouponList: apiAddress + "/weixin/coupon/list",                    //  优惠券列表
         NWBDApiWeiXincouponListUse: apiAddress + "/weixin/coupon/list/use",             //  可使用优惠券列表
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse",             //  不可使用优惠券列表
+        NWBDApiWeiXincouponIndex: apiAddress + "/weixin/coupon/index",             //  判断是否领取优惠券
+        NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get",             //  优惠券活动领取
         NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder",             //  微信预订单
 
        //****************************** */
@@ -67,20 +69,20 @@ var api = (function () {
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.0' charset='utf-8'></script>");       ///bbcf-common-h5/assets
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.2' charset='utf-8'></script>");     //  活动js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.4' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.2' charset='utf-8'></script>");       //  计时器js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.0' charset='utf-8'></script>");       //  指南js
         
         //  引入活动css
         $("<link>").attr({ rel: "stylesheet",
                 type: "text/css",
-                href: api.getLocalhostPaht() + "/Views/Component/css/notices.css?v=2.1.7"
+                href: api.getLocalhostPaht() + "/Views/Component/css/notices.css?v=2.1.4"
         }).appendTo("head");
         
         //  引入计时器css
         $("<link>").attr({ rel: "stylesheet",
                 type: "text/css",
-                href: api.getLocalhostPaht() + "/Views/Component/css/count.css?v=2.1.3"
+                href: api.getLocalhostPaht() + "/Views/Component/css/count.css?v=2.1.4"
         }).appendTo("head");
         document.close();
     }

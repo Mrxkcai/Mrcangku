@@ -29,7 +29,7 @@ Vue.component("adve-block",{
             //	首次进来直接展示公告
             var index_;
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
-				console.log(2)
+				console.log(windowUrl.indexOf('QuickRepair'))
 				index_ = layer.open({
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
@@ -46,13 +46,20 @@ Vue.component("adve-block",{
                 //  关闭叉号
                 $('.close_img').on('click',function(){
                     $('.layui-m-layer').hide();
+                    couponIndex();
                     $('.layui-m-layercont').removeClass('new');
                     //  出发蒙版的点击事件
                     $('.layui-m-layershade').trigger('click');
                     
                 })
 				
-			}else{
+			} else if(!sessionStorage.getItem("k") && localStorage.getItem("userInfo") && windowUrl.indexOf('index') >= 0){
+                sessionStorage.setItem("k",1);
+                //console.log(windowUrl.indexOf('index'))
+                couponIndex();
+			    //alert(0)
+            } else{
+                console.log(windowUrl.indexOf('index'))
                 layer.close(index_);
 			}
 
@@ -134,4 +141,95 @@ Vue.component("adve-block",{
         </div>
     </div>
     `
-})
+});
+function couponIndex() {
+    $.ajax({
+        type:'GET',
+        url:api.NWBDApiWeiXincouponIndex + '?v=' + Math.random(),
+        data:{
+            userId: app.getItem("userInfo").id
+        },
+        async:true,
+        success:function(res){
+            console.log(res)
+            if(res.code == 0 && res.status === "success"){
+                if(!res.data)return false;
+                if(!res.data.totalAmount)return false;
+                red_bag(res.data)
+            }else{
+                app.closeLoading();
+                app.alert(res.message);
+            };
+
+        },
+        error:function(res){
+            app.closeLoading();
+            app.alert(res.message);
+        }
+    });
+}
+
+//  新增优惠券方法
+var red_bag = function(res){
+    //console.log(res)
+    var priceAll = 0;
+    priceAll += Number(res.totalAmount);
+    var kg = false;
+
+    var index = layer.open({
+        content:
+            `<div class="d-voucher">
+                    <p class="get-voucher" style="opacity:0;"><span>¥</span>${priceAll}</p>
+                    <p style="font-size:1rem;color:rgba(249,250,169,1);padding-top:.1rem;">${priceAll} <span style="font-size:.7rem;color:rgba(255,218,116,1);">元</span></p>
+                    <p>有效期：<br /> ${res.beginDate}-${res.endDate}</p>
+                    <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
+                    <p>* ${res.rangeExplain}</p>
+
+                    <button class="btn-get"></button>
+                    <div class="btn_see">查看详情 >></div>
+                </div>
+                `,
+        style:"padding:none!important;background:none;box-shadow:none;width:6.94rem",
+        shadeClose: false,
+    });
+
+    $('.layui-m-layercont').addClass('new');
+    $('.layui-m-layercont').addClass('layui-m-layercont_self'); //  调整layer样式；
+
+    //  查看详情按钮；
+    $('.btn_see').on('click',function(){
+        window.location.href = '../../Views/Voucher/voucher.html'
+    });
+
+
+    $('.btn-get').on('click',function(){
+        $('.layui-m-layercont').removeClass('new');
+        $('.layui-m-layercont').removeClass('layui-m-layercont_self');
+
+        $.ajax({
+            type:'GET',
+            url:api.NWBDApiWeiXincouponGet + '?v=' + Math.random(),
+            data:{
+                userId: app.getItem("userInfo").id
+            },
+            async:true,
+            success:function(res){
+                console.log(res)
+                if(res.code == 0 && res.status === "success"){
+                    layer.close(index);
+                    window.location.href = '../../Views/Voucher/voucher.html'
+                }else{
+                    app.closeLoading();
+                    app.alert(res.message);
+                };
+
+            },
+            error:function(res){
+                app.closeLoading();
+                app.alert(res.message);
+            }
+        });
+    });
+
+    return  kg;    //     测试阻止--------------------
+};

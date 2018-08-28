@@ -276,7 +276,14 @@ var quickRepair = function () {
 	        });
     	}else{
     		//	否则请求查询数据
-    		$(".icon_search").click();
+
+            if (datatype === "add") {
+                searchs();
+            }else if(datatype === 'refresh'){
+                searchs('up');
+            }else {
+               return false;
+            }
     	}
     	
         
@@ -294,8 +301,13 @@ var quickRepair = function () {
                         if (status === 'complete' && result.info === 'OK') {
                           	$('.position_text span').animate({width:5+"rem"},500)
                             $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress);
+                            app.setItem('address',result.regeocode.formattedAddress);
                             var addressComponents = result.regeocode.addressComponent;
-                            getPositioning(addressComponents.province,addressComponents.city)
+                            console.log(addressComponents)
+                            getPositioning(addressComponents.province,addressComponents.city);
+                            app.setItem('province',addressComponents.province);
+                            app.setItem('city',addressComponents.city);
+                            app.setItem('district',addressComponents.district);
 							//	2m后缩回
 							setTimeout(function(){
 								$('.position_text span').animate({width:0},500)
@@ -426,19 +438,32 @@ var quickRepair = function () {
 
     //搜索的时候获取维修厂列表
     body.on("click", ".icon_search", function () {
+        pageNo = 1;
+        ijroll.scrollTo(0,0,0);
         var search_bar = $.trim($(".search_bar").val());
         sessionStorage.setItem("sv",$('.search_bar').val());
         if (!lng || !lat) {
             alert('未打开定位功能，无法正常获取汽修厂！');
             return;
         };
+        if(!search_bar){
+            positionGetMerchantList('update');
+            return false;
+        }
         ijroll.enable();
+        searchs('up')
         // app.loading();
+
+    });
+    function searchs(searchType){
+        if(searchType == 'up'){
+            pageNo = 1;
+        }
         $.ajax({
             url: api.NWBDApiSearchMerchantList + "?r=" + Math.random(),
             type: "POST",
             data:{
-                keyValue:search_bar,
+                keyValue:$.trim($(".search_bar").val()),
                 lng:lng,
                 lat:lat,
                 pageSize:10,
@@ -458,10 +483,15 @@ var quickRepair = function () {
                     isSearch = true;
                     if (repairer_list_data_length > 0) {
                         var repairer_list_str = createData(repairer_list_data, repairer_list_data_length);
-                        $(".repairer_list_ul").append(repairer_list_str);
+                        if(searchType == 'up'){
+                            $(".repairer_list_ul").html(repairer_list_str);
+                        }else {
+                            $(".repairer_list_ul").append(repairer_list_str);
+                        }
+
                     } else {
                         $(".repairer_list_ul").html("<li class='text'>"+result.message+"</li>");
-                        
+
                     }
                     if (repairer_list_data_length >= pageSize) {
                         pageNo++;
@@ -469,12 +499,15 @@ var quickRepair = function () {
                         pageNo = -1;
                     }
                     ijroll.refresh();
-                    
+
                     //	实例化滚动盒子
                     ijroll.refresh();
                     // app.closeLoading();
                 } else {
                     // app.closeLoading();
+                    ijroll.scrollTo(0,0,0);
+                    ijroll.disable();
+                    $(".repairer_list_ul").html("<li class='text'>"+result.message+"</li>");
                     app.alert(result.message);
                 }
             }, error: function () {
@@ -482,7 +515,7 @@ var quickRepair = function () {
                 app.alert('操作失败，请检查网络！');
             }
         });
-    });
+    }
     document.getElementById('search_from').onsubmit = function (e) {
         document.activeElement.blur();
         $(".icon_search").click();
@@ -604,9 +637,10 @@ var quickRepair = function () {
                 companyTypeId.push(companyType.eq(i).attr("data-type"));
             };
         };
+        maskHidex();
         pageNum = 1;
         positionGetMerchantList('update',provinces,citys,countries,companyTypeId)
-        maskHidex();
+
     });
     //地区
     body.on("click", ".area-list label", function () {

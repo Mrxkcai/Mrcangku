@@ -134,27 +134,19 @@ var voucher = function voucher() {
         for(var i = 0;i < data.length; i ++ ){
             str += `
                 <li>    
-                <p class="line_red"></p>
                 <div class="d_money">
-                    ¥ 
-                    <span>${data[i].price}</span>
+                    
+                    <span><i>¥</i> ${data[i].price}</span>
                     <span>${data[i].name}</span>
                 </div>
 
                 <div class="w_text">
-                    <p>${data[i].typeName}</p>
-                    <p>适用范围：${data[i].introduction}</p>
+                    <p><span>${data[i].typeName}</span>适用范围：${data[i].introduction}</p>
+                    <div class="d-date">
+                        有效期：${app.getTime(data[i].beginDate,4)} ~ ${app.getTime(data[i].endDate,4)}
+                    </div>
                 </div>
-
-                <div class="cut-off">
-                    <div class="d-tringle d-tringle1"></div>
-                    <div class="d-tringle d-tringle2"></div>
-                    <div class="d-tringle3"></div>
-                </div>
-
-                <div class="d-date">
-                    有效期：${app.getTime(data[i].beginDate,4)} ~ ${app.getTime(data[i].endDate,4)}
-                </div>
+                
             </li>
             `
         }

@@ -96,3 +96,92 @@
 #barrage{
     display: none;
 }
+/* 优惠券 */
+.d-voucher{
+    width: 100%;
+    /* height: 9.15rem; */
+    margin: 0 auto;
+    background: url('../../../images/img_daijinquan.png?v=2.0.0');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.layui-m-layercont_self{
+    padding: 0;
+}
+.get-voucher{
+    font-size:1rem;
+    font-family:PingFangSC-Medium;
+    color:rgba(255,49,50,1);
+    line-height:1.09rem;
+    text-align: center;
+}
+.d-voucher p {
+    width: 5rem;
+    margin: 0 auto;
+}
+.d-voucher .get-voucher{
+    margin-top: 1.4rem;
+}
+.d-voucher p.get-voucher span{
+    font-size:.6rem;
+    font-family:ShanghaiFace-QingxiaGB-Regular;
+    color:rgba(255,49,50,1);
+    line-height:1.4rem;
+}
+.d-voucher p:nth-child(2){
+    margin: 1.2rem auto 0;
+    font-size:.45rem;
+    font-family:ShanghaiFace-QingxiaGB-Regular;
+    color:rgba(255,249,231,1);
+    /* text-shadow: 0px 2px 6px black; */
+}
+.d-voucher p:nth-child(3){
+    margin: .35rem auto 0;
+    text-align: left;
+    font-size:.34rem;
+    font-family:PingFangSC-Semibold;
+    color:rgba(249,250,169,1);
+    line-height:.42rem;
+}
+.d-voucher p:nth-child(4){
+    margin: .2rem auto 0;
+    font-size:.26rem;
+    font-family:PingFangSC-Medium;
+    color:rgba(255,255,255,1);
+    line-height:.36rem;
+    text-align: left;
+}
+.d-voucher p:nth-child(5){
+    margin: .1rem auto 0;
+    font-size:.26rem;
+    font-family:PingFangSC-Medium;
+    color:rgba(255,255,255,1);
+    line-height:.36rem;
+    text-align: left;
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    display:-webkit-box;
+
+    -webkit-box-orient:vertical;
+
+    -webkit-line-clamp:2;
+}
+.btn-get{
+    width: 5.07rem;
+    height: .94rem;
+    background: url(../../../images/button_lingqu.png);
+    background-size:cover ;
+    background-repeat:no-repeat ;
+    margin: .2rem auto 0;
+}
+.btn_see{
+    text-align: center;
+    font-size:.3rem;
+    font-family:PingFangSC-Regular;
+    color:rgba(255,255,255,1);
+    margin: .2rem auto .3rem;
+}
