@@ -26,6 +26,7 @@ Vue.component('count-block',{
 		},
 		
 		childs(){
+			var that = this;
 			var data = {
 					user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
 					pageNum:1,
@@ -39,7 +40,7 @@ Vue.component('count-block',{
 					data:data,
 					dataType: 'json',
 					success:function(result){
-//						console.log(result)
+						console.log(result)
 						if(result.status == 'success' && result.code == 0){
 							if(result.data.length > 0){
 								localStorage.setItem('status',1)
@@ -47,6 +48,9 @@ Vue.component('count-block',{
 								console.log(api.pzTime - countdown+"计时器")
 								localStorage.setItem('num',api.pzTime - countdown)
 								localStorage.setItem('orderId',result.data[0].orderInfo.id)
+								//存储订单中维修厂信息
+								localStorage.setItem('merchant',JSON.stringify(result.data[0]));
+
 								
 								//	查询订单状态
 								var data = {
@@ -73,7 +77,10 @@ Vue.component('count-block',{
 															$('.countDown_box').hide();
 															$('.consumer_hotline ').removeClass('bottomP');
 															//	定位出现
-															$('.dwopa').show();		
+															$('.dwopa').show();	
+															//	接单后提示进入地图导航
+															that.openLocation();
+															
 														}else if(result.data == 0){
 															//	未接单存1
 															localStorage.setItem('status',1)
@@ -154,6 +161,69 @@ Vue.component('count-block',{
 				});
 				
 		},
+		//	进入地图导航界面
+		openLocation(){
+			var list = localStorage.getItem('merchant');
+			console.log(list)
+			return
+			var layer_index = layer.open({
+				content: '您的订单已被接单，是否进入导航'
+				,btn: ['确定', '取消']
+				,yes: function(index, layero){
+					var merchantData = {
+						lat:list[0].companylat,
+						lng:list[0].companylng,
+						name:list[0].companyName,
+						address_detail:list[0].companyAddress
+					}
+					var lat = merchantData.lat;
+					var lng = merchantData.lng;
+					if (!lat || !lng) {
+						geocoder.getLocation(merchantData.address_detail, function (status, result) {
+							if (status === 'complete' && result.info === 'OK' && result.geocodes[0].location) {
+								lat = result.geocodes[0].location.lat;
+								lng = result.geocodes[0].location.lng;
+								wx.openLocation({
+									latitude: parseFloat(lat),
+									longitude: parseFloat(lng),
+									name: merchantData.name,
+									address: merchantData.address_detail,
+									scale: 28,
+									infoUrl: '',
+									fail() {
+										alert("打开地图失败，请检查手机权限");
+									}
+								});
+							} else {
+								app.alert("该维修厂无法查看地图！");
+								return;
+							}
+						});
+					} else {
+						wx.openLocation({
+							latitude: parseFloat(lat),
+							longitude: parseFloat(lng),
+							name: merchantData.name,
+							address: merchantData.address_detail,
+							scale: 28,
+							infoUrl: '',
+							fail() {
+								alert("打开地图失败，请检查手机权限");
+							}
+						});
+					}
+					layer.close(layer_index);
+					//按钮【按钮一】的回调
+				},
+				end:function(){
+					//	跳转车服门店
+					setTimeout(function(){
+						window.location.href="../QuickRepair/QuickRepair.html"
+					},3000)
+				},
+				shadeClose:false
+			})
+		}
 		
 		
 	},
