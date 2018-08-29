@@ -115,6 +115,7 @@ $(function () {
     if (api.isDebug) {
         
     } else {
+		//return
         $.ajax({
             url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
             type: "POST",

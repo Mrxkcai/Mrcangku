@@ -96,7 +96,7 @@
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
 <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
-
+<script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
 	
 <!-- 引入组件 -->
 <script src="../../js/vue.min.js"></script>
@@ -389,9 +389,9 @@ var vm = new Vue({
 										app.alert('商家已接单')
 										localStorage.removeItem('status');
 										localStorage.removeItem('num');
+										vm.openLocation(vm.list);
 										vm.list = [];
 										clearInterval(tt)
-										vm.openLocation();
 										//	待确认跳转
 										// setTimeout(function(){
 										// 	window.location.href="../QuickRepair/QuickRepair.html"
@@ -567,17 +567,16 @@ var vm = new Vue({
 			
 			//	进入地图导航界面
 
-			openLocation(){
+			openLocation(list){
 				var layer_index = layer.open({
 					content: '您的订单已被接单，是否进入导航'
 					,btn: ['确定', '取消']
 					,yes: function(index, layero){
 						var merchantData = {
-							lat:'34.1553267',
-							lng:'108.9227829',
-							name:'小菜',
-							address:'航创国际广场',
-							address_detail:'航创国际广场'
+							lat:list[0].companylat,
+							lng:list[0].companylng,
+							name:list[0].companyName,
+							address_detail:list[0].companyAddress
 						}
 						var lat = merchantData.lat;
 						var lng = merchantData.lng;
@@ -594,7 +593,6 @@ var vm = new Vue({
 										scale: 28,
 										infoUrl: '',
 										fail() {
-											alert(22)
 											alert("打开地图失败，请检查手机权限");
 										}
 									});
@@ -612,7 +610,6 @@ var vm = new Vue({
 								scale: 28,
 								infoUrl: '',
 								fail() {
-									alert(33)
 									alert("打开地图失败，请检查手机权限");
 								}
 							});
