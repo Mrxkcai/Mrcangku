@@ -55,6 +55,7 @@
 <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="../../js/vue.min.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
 <script>
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
@@ -87,8 +88,8 @@
                             'hideOptionMenu',		//	隐藏分享菜单
 		        			'checkJsApi',			//	
 		        			'onMenuShareTimeline',	//	分享到朋友圈
-		        			'onMenuShareAppMessage'	//	分享给朋友
-                            ]
+		        			'onMenuShareAppMessage',	//	分享给朋友
+                            'openLocation']
                         });
                         wx.ready(function () {
 							// Personal();

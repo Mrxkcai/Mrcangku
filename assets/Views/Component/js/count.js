@@ -163,63 +163,39 @@ Vue.component('count-block',{
 		},
 		//	进入地图导航界面
 		openLocation(){
-			var list = localStorage.getItem('merchant');
-			console.log(list)
-			return
+			var list = JSON.parse(localStorage.getItem('merchant'));
+			if(!list){
+				return;
+			}
 			var layer_index = layer.open({
 				content: '您的订单已被接单，是否进入导航'
 				,btn: ['确定', '取消']
 				,yes: function(index, layero){
 					var merchantData = {
-						lat:list[0].companylat,
-						lng:list[0].companylng,
-						name:list[0].companyName,
-						address_detail:list[0].companyAddress
+						lat:list.companylat,
+						lng:list.companylng,
+						name:list.companyName,
+						address_detail:list.companyAddress
 					}
 					var lat = merchantData.lat;
 					var lng = merchantData.lng;
-					if (!lat || !lng) {
-						geocoder.getLocation(merchantData.address_detail, function (status, result) {
-							if (status === 'complete' && result.info === 'OK' && result.geocodes[0].location) {
-								lat = result.geocodes[0].location.lat;
-								lng = result.geocodes[0].location.lng;
-								wx.openLocation({
-									latitude: parseFloat(lat),
-									longitude: parseFloat(lng),
-									name: merchantData.name,
-									address: merchantData.address_detail,
-									scale: 28,
-									infoUrl: '',
-									fail() {
-										alert("打开地图失败，请检查手机权限");
-									}
-								});
-							} else {
-								app.alert("该维修厂无法查看地图！");
-								return;
-							}
-						});
-					} else {
-						wx.openLocation({
-							latitude: parseFloat(lat),
-							longitude: parseFloat(lng),
-							name: merchantData.name,
-							address: merchantData.address_detail,
-							scale: 28,
-							infoUrl: '',
-							fail() {
-								alert("打开地图失败，请检查手机权限");
-							}
-						});
-					}
+					wx.openLocation({
+						latitude: parseFloat(lat),
+						longitude: parseFloat(lng),
+						name: merchantData.name,
+						address: merchantData.address_detail,
+						scale: 28,
+						infoUrl: '',
+						fail() {
+							alert("打开地图失败，请检查手机权限");
+						}
+					});
 					layer.close(layer_index);
 					//按钮【按钮一】的回调
 				},
 				end:function(){
-					//	跳转车服门店
-					setTimeout(function(){
-						window.location.href="../QuickRepair/QuickRepair.html"
-					},3000)
+					//	地图结束
+					
 				},
 				shadeClose:false
 			})

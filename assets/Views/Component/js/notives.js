@@ -34,7 +34,7 @@ Vue.component("adve-block",{
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
 					content:`<div class='img_box' style="display:none;opacity:1;">
-								<img src='../../images/img_gonggao.png?v=2.0.0' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
+								<img src='../../images/img_gonggao.png?v=2.0.1' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
 							</div>
@@ -109,7 +109,7 @@ Vue.component("adve-block",{
                         title:'',
                         style:'padding: 0!important;background: none!important;box-shadow:none;',
                         content:`<div class='img_box'>
-                                    <img src='../../images/img_gonggao.png'/>
+                                    <img src='../../images/img_gonggao.png?v=2.0.1'/>
                                     <div class="line_shu"></div>
                                     <img src='../../images/icon_close.png' class="close_img" />
                                 </div>

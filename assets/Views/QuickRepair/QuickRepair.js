@@ -64,7 +64,7 @@ var quickRepair = function () {
     });
 
     var createData = function (repairer_list_data, repairer_list_data_length) {
-    	console.log(repairer_list_data)
+    	//console.log(repairer_list_data)
     	
         var repairer_list_str = "";
         for (var i = 0; i < repairer_list_data_length; i++) {
@@ -292,6 +292,7 @@ var quickRepair = function () {
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {
+                //console.log(res);
                 lat = res.latitude;
                 lng = res.longitude;
                 AMap.service('AMap.Geocoder', function () {
@@ -299,15 +300,22 @@ var quickRepair = function () {
                     geocoder = new AMap.Geocoder({city: "010"});
                     geocoder.getAddress([lng, lat], function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
-                          	$('.position_text span').animate({width:5+"rem"},500)
+                          	$('.position_text span').animate({width:5.5+"rem"},500)
                             $('.position_text span').text("当前位置：" + result.regeocode.formattedAddress);
                             app.setItem('address',result.regeocode.formattedAddress);
                             var addressComponents = result.regeocode.addressComponent;
-                            console.log(addressComponents)
+                            //console.log(addressComponents)
                             getPositioning(addressComponents.province,addressComponents.city);
                             app.setItem('province',addressComponents.province);
                             app.setItem('city',addressComponents.city);
                             app.setItem('district',addressComponents.district);
+                            var locationObj = {
+                                lat : res.latitude,
+                                lng : res.longitude,
+                            }
+                            app.setItem('location',locationObj)
+                           
+                            //console.log(locationObj);
 							//	2m后缩回
 							setTimeout(function(){
 								$('.position_text span').animate({width:0},500)

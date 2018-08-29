@@ -136,20 +136,23 @@ var quickRepairDetails = function () {
                 $(".address_detail_value").html(merchantData.address_detail);
                 
                 //  取消定位后输出故障发生地地址;
-                if(localStorage.getItem('address') && localStorage.getItem('address') != null){
-                    $(".showAddress").text(localStorage.getItem('address'));
-                    $("#address").val(localStorage.getItem('address'));
+                if(app.getItem('address') && app.getItem('address') != null){
+                    $(".showAddress").text(app.getItem('address'));
+                    $("#address").val(app.getItem('address'));
                 };
                 
-                if(localStorage.getItem('province') && localStorage.getItem('city') && localStorage.getItem('district') && localStorage.getItem('province') != null && localStorage.getItem('city') != null && localStorage.getItem('district') != null){
-                    $('#ssq').val(localStorage.getItem('province') + " " + localStorage.getItem('city') + " " + localStorage.getItem('district'))
+                if(app.getItem('province') && app.getItem('city') && app.getItem('district') && app.getItem('province') != null && app.getItem('city') != null && app.getItem('district') != null){
+                    $('#ssq').val(app.getItem('province') + " " + app.getItem('city') + " " + app.getItem('district'))
                 }
                 
-                lat = merchantData.lat;
-                lng = merchantData.lng;
-                addressProvince = merchantData.address_province;
-                addressCity = merchantData.address_city;
-                addressCounty = merchantData.address_county;
+                
+                //  输出故障发生地经纬度省市区
+                console.log(app.getItem('location'))
+                lat = app.getItem('location').lat;
+                lng = app.getItem('location').lng;
+                addressProvince = app.getItem('province');
+                addressCity = app.getItem('city');
+                addressCounty = app.getItem('district');
 
                 //主修车型
                 var mainBrandStr = "";
