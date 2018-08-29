@@ -11,6 +11,7 @@ var quickRepair = function () {
     	$('.search_bar').val(sessionStorage.getItem("sv"))
     }
 
+    
 
 
 
@@ -271,7 +272,7 @@ var quickRepair = function () {
 	            },
 	            error: function () {
 	                // app.closeLoading();
-	                app.alert('操作失败，请检查网络！');
+	                app.alert('网络故障，请检查网络！');
 	            }
 	        });
     	}else{
@@ -362,7 +363,7 @@ var quickRepair = function () {
                 app.alert(result.message);
             }
         }, error: function () {
-            app.alert('操作失败，请检查网络！');
+            app.alert('网络故障，请检查网络！');
         }
     });
     body.on("click", ".userInfo_prompt", function () {
@@ -520,7 +521,7 @@ var quickRepair = function () {
                 }
             }, error: function () {
                 // app.closeLoading();
-                app.alert('操作失败，请检查网络！');
+                app.alert('网络故障，请检查网络！');
             }
         });
     }
@@ -757,7 +758,7 @@ var vm = new Vue({
 
             },
             error:function(){
-                alert('操作失败，请检查网络！');
+                app.alert('网络故障，请检查网络！');
             }
         });
     },
@@ -798,7 +799,7 @@ var vm = new Vue({
                             }
                         },
                         error:function(){
-                            alert('操作失败，请检查网络！');
+                            app.alert('网络故障，请检查网络！');
                         }
                     });
                 }

@@ -128,13 +128,19 @@ Vue.component("adve-block",{
                 }
                 
 
-			})
+            })
+
+            //  html加载完成执行
+            $(document).ready(function(){
+                $('.barrage_name').show();
+            })
+
         }
     },
     template:
     `
     <div class="barrage" id="barrage">
-        <div class="barrage_name" id="barrage_name">
+        <div class="barrage_name" id="barrage_name" style="display:none;">
             
                 <img src="../../images/icon_huodong.gif?v=2.0.0" class="icon_none" style="display:none;opacity:1;" />
             

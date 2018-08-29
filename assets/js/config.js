@@ -69,9 +69,9 @@ var api = (function () {
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.0' charset='utf-8'></script>");       ///bbcf-common-h5/assets
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.5' charset='utf-8'></script>");     //  活动js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.6' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.6' charset='utf-8'></script>");       //  计时器js
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.0' charset='utf-8'></script>");       //  指南js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js
         
 
         //  引入活动css

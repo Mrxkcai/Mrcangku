@@ -77,13 +77,18 @@ Vue.component("adve-block1",{
                 }
                 
 
-			})
+            })
+            
+            //  html加载完成执行
+            $(document).ready(function(){
+                $('.barrage_name1').show();
+            })
         }
     },
     template:
     `
     <div class="barrage1" id="barrage1">
-        <div class="barrage_name1" id="barrage_name1">
+        <div class="barrage_name1" id="barrage_name1" style="display:none;">
             
                 <img src="../../images/icon_czzn_orange.png?v=2.0.0" class="icon_none" style="display:none;opacity:1;" />
             
