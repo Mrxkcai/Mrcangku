@@ -210,8 +210,6 @@ var red_bag = function(res){
 
 
     $('.btn-get').on('click',function(){
-        $('.layui-m-layercont').removeClass('new');
-        $('.layui-m-layercont').removeClass('layui-m-layercont_self');
 
         $.ajax({
             type:'GET',
@@ -229,8 +227,9 @@ var red_bag = function(res){
                 }else{
                     app.closeLoading();
                     app.alert(res.message);
-                };
-
+                }
+                $('.layui-m-layercont').removeClass('new');
+                $('.layui-m-layercont').removeClass('layui-m-layercont_self');
             },
             error:function(res){
                 app.closeLoading();
