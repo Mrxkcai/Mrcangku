@@ -86,7 +86,7 @@ $(function () {
 	// jsapi.charset = 'utf-8';
 	// jsapi.src = 'https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d&callback=onApiLoaded';
 	// document.head.appendChild(jsapi);
-});
+
 
 
 var newDetails = function () {
@@ -118,6 +118,9 @@ var newDetails = function () {
 			},
 			seeImg: function seeImg(index, length) {
 				var that = this;
+				if(length == 1){
+					return;
+				}
 				if (index === 0) {
 					$('.newDetail_block').addClass('moveActive');
 					that.showBtn = false;
@@ -139,12 +142,7 @@ var newDetails = function () {
 				var merchantData;
 				var body = $('body');
 				$("#app").css({'min-height': $(window).height() + 'px'});
-				//  阻止微信拉动出现背景
-				document.querySelector('body').addEventListener('touchmove', function(e) {
-					if (!document.querySelector('.container').contains(e.target)) {
-						e.preventDefault();
-					}
-				});
+				
 
 				//首次进入页面获取维修厂信息
 				if (!app.getItem("merchant_id")) {
@@ -261,3 +259,5 @@ var newDetails = function () {
 		}
 	});
 }
+
+});
