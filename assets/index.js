@@ -69,7 +69,7 @@ $(function () {
     }
 
     body.on("click", ".improve_information,.head_portrait", function () {
-        window.location.href = "Views/PersonalInformation/PersonalInformation.html";
+        //window.location.href = "Views/PersonalInformation/PersonalInformation.html";
     });
 
     //退出登录

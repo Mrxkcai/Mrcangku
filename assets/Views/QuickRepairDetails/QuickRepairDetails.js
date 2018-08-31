@@ -33,7 +33,7 @@ var quickRepairDetails = function () {
         window.location.href = "../QuickRepair/QuickRepair.html";
     }
     $.ajax({
-        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
         type: "GET",
         dataType: 'json',
         success: function (result) {
@@ -235,7 +235,7 @@ var quickRepairDetails = function () {
     var update_carList_ul = function () {
         app.verificationUserInfo();
         $.ajax({
-            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -406,7 +406,7 @@ var quickRepairDetails = function () {
             },
             error: function (res) {
                 console.log(res)
-                alert('操作失败，请检查网络！');
+                app.alert('操作失败，请检查网络！');
                 app.closeLoading();
             }
         });

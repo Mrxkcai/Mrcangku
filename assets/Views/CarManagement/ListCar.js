@@ -16,7 +16,7 @@ $(function () {
         app.verificationUserInfo();
         app.loading();
         $.ajax({
-            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {

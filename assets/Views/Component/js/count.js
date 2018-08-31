@@ -138,7 +138,7 @@ Vue.component('count-block',{
 													}
 												},
 												error:function(){
-													alert('操作失败，请检查网络！');
+													//alert('操作失败，请检查网络！');
 									                clearInterval(status)
 												}
 								   			});

@@ -84,6 +84,7 @@ var order = function () {
         }
     };
     var createData = function (data, dataLength, type) {
+        console.log(data)
         var str = "";
         for (var i = 0; i < dataLength; i++) {
             str += `
