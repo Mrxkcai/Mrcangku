@@ -192,10 +192,11 @@ var specificOrder = function () {
             type: "POST",
             dataType: 'json',
             data: {
-                open_id: app.getItem("userInfo").id,
+                userId: app.getItem("userInfo").id,
                 type: type,
                 pageNum: pageNum,
                 pageSize: pageSize,
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 // console.log(JSON.stringify(result));
@@ -251,7 +252,8 @@ var specificOrder = function () {
             url: api.NWBDApiOrderQuery + "?r=" + Math.random(),
             type: "POST",
             data: {
-                outTradeNo: outTradeNo
+                outTradeNo: outTradeNo,
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success: function (result) {
@@ -483,6 +485,7 @@ var specificOrder = function () {
                 orderId: order_id,
                 pageNum: pageNum2,
                 pageSize: pageSize2,
+                openid: app.getItem("open_id")
             },
             success:function(res){
                 console.log(res)
@@ -586,12 +589,12 @@ var specificOrder = function () {
         var data;
         if(coucher_id == ''){
             data = {
-                open_id:app.getItem("open_id"),
+                openid:app.getItem("open_id"),
                 order_id:order_id
             };
         }else{
             data = {
-                open_id:app.getItem("open_id"),
+                openid:app.getItem("open_id"),
                 order_id:order_id,
                 couponId:coucher_id
             };

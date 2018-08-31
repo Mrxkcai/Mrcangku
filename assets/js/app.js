@@ -26,7 +26,8 @@
                 content: str,
                 style: 'background:rgba(0,0,0,.4); color:#fff; border:none;font-size:0.28rem;',
                 time: 1.5,
-                skin: 'msg'
+                skin: 'msg',
+                type:1
             });
         };
         app.loading = function () {
@@ -85,10 +86,11 @@
 		//	查询订单剩余时间
 		app.checkTime = function () {
 			var data = {
-				user_id:app.getItem('userInfo').id,		//	app.getItem('open_id')
+				userId:app.getItem('userInfo').id,		//	app.getItem('open_id')
 				pageNum:1,
 				pageSize:1,
-				seconds:api.pzTime
+                seconds:api.pzTime,
+                openid: app.getItem("open_id")
             };
 			var tt;
 			$.ajax({

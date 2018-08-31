@@ -20,7 +20,8 @@ var vm = new Vue({
 					type: "post",
 					url: api.NWBDApiWeiXincreateShareCode,
 					data: {
-						customerId: id
+						customerId: id,
+						
 					},
 					success: function success(result) {
 						console.log(result);

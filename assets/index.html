@@ -109,22 +109,29 @@
     document.write("<script src='js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="js/login.js?v=2.0.0" charset='utf-8'></script>
-<script src="index.js?v=2.0.0" charset='utf-8'></script>
+<script>
+	// //获取open_id
+    api.getopenid();
+</script>
+<script src="js/login.js?v=2.0.1" charset='utf-8'></script>
+<script src="index.js?v=2.0.4" charset='utf-8'></script>
 <script>
 $(function () {
     if (api.isDebug) {
         
     } else {
 		//return
+		//console.log(app.getItem("open_id"))
         $.ajax({
             url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
             type: "POST",
             async: false,
             data: {
-                wxUrl: window.location.href
+				wxUrl: window.location.href,
+				openid: app.getItem("open_id")
             },
             success: function (result) {
+				console.log(result)
                 if (result.status === "success" && result.code === 0) {
                     wx.config({
                         debug: api.isDebug,
@@ -233,7 +240,8 @@ $(function () {
 					$('.consumer_hotline').removeClass('bottomP')
 					var data = {
 						order_id:vm.countBlock.orderId,
-						user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+						userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+						openid: app.getItem("open_id")
 					}
 					$.ajax({
 						type:"POST",

@@ -153,7 +153,8 @@ function couponIndex() {
         type:'GET',
         url:api.NWBDApiWeiXincouponIndex + '?v=' + Math.random(),
         data:{
-            userId: app.getItem("userInfo").id
+            userId: app.getItem("userInfo").id,
+            openid: app.getItem("open_id")
         },
         async:true,
         success:function(res){
@@ -216,7 +217,8 @@ var red_bag = function(res){
             type:'GET',
             url:api.NWBDApiWeiXincouponGet + '?v=' + Math.random(),
             data:{
-                userId: app.getItem("userInfo").id
+                userId: app.getItem("userInfo").id,
+                openid: app.getItem("open_id")
             },
             async:true,
             success:function(res){

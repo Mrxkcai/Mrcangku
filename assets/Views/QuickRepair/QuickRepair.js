@@ -12,6 +12,8 @@ var quickRepair = function () {
     }
 
     
+    //  检测是否含有openid
+    api.getopenid();
 
 
 
@@ -63,7 +65,7 @@ var quickRepair = function () {
             
         }
     });
-
+    
     var createData = function (repairer_list_data, repairer_list_data_length) {
     	//console.log(repairer_list_data)
     	
@@ -192,6 +194,8 @@ var quickRepair = function () {
         }
         return repairer_list_str;
     };
+
+    
     var positionGetMerchantList = function (datatype,province,city,country,companyTypeId) {
     
     	var searchCont = $('.search_bar').val();
@@ -224,7 +228,8 @@ var quickRepair = function () {
 	                lng: lng,
 	                lat: lat,
                     pageNo: pageNum,
-	                pageSize: pageSize
+                    pageSize: pageSize,
+                    openid: app.getItem("open_id")
 	            },
 	            dataType: 'json',
 	            success: function (result) {
@@ -289,6 +294,7 @@ var quickRepair = function () {
     	
         
     };
+    
     var positioning = function (func, val) {
         wx.getLocation({
             type: 'gcj02',
@@ -335,6 +341,8 @@ var quickRepair = function () {
             }
         });
     };
+
+    
     var getPositioning = function(province,city){
         var positionText = $('.city-position-text')
         $('.area-text').html(city);
@@ -343,13 +351,15 @@ var quickRepair = function () {
         positionText.attr('data-province',province);
 
     };
+    
     app.verificationUserInfo();      //  判断登录去掉；
     //  进入车服门店界面查询用户是否有车辆，若无则提示用户完善车辆信息；现在修改为用户可以无需登录查看维修厂列表；
     $.ajax({
         url: api.NWBDApiCarIsExist + "?r=" + Math.random(),
         type: "POST",
         data: {
-            customerId: app.getItem("userInfo").id
+            userId: app.getItem("userInfo").id,
+            openid: app.getItem("open_id")
         },
         dataType: 'json',
         success: function (result) {
@@ -373,12 +383,12 @@ var quickRepair = function () {
             window.location.href = api.selfHttp + api.callbackUrl + "/index.html";
         }
     });
-
+    
     // lat = 34.160183;
     // lng = 108.97301;
     // positionGetMerchantList("add");
     positioning(positionGetMerchantList, "add");
-
+    
     // var city = ["西安市", "咸阳市", "渭南市", "榆林市", "酒泉市", "银川市", "兴义市", "清镇市"];
     // var district = ["123", "234", "345", "456", "567", "678", "789", "809"];
     // var showCity = function () {
@@ -444,6 +454,7 @@ var quickRepair = function () {
         positioning(function () {
         });
     });
+    
 
     //搜索的时候获取维修厂列表
     body.on("click", ".icon_search", function () {
@@ -476,7 +487,8 @@ var quickRepair = function () {
                 lng:lng,
                 lat:lat,
                 pageSize:10,
-                pageNo:pageNo
+                pageNo:pageNo,
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success: function (result) {
@@ -605,6 +617,8 @@ var quickRepair = function () {
         // var y = $('.province_active').height()
         // console.log(y)
     });
+
+    
     function maskHidex(){
         $('.search_select li').removeClass('active');
         $('.choice-box').hide();
@@ -638,6 +652,7 @@ var quickRepair = function () {
             }
         }
     });
+    
     body.on("click", ".confirm-btn", function () {
         var companyType = $('.screen-type-list p');
         companyTypeId = [];
@@ -700,6 +715,7 @@ var quickRepair = function () {
         }
 
     });
+    
     body.on("click", ".district li", function () {
         pageNum = 1;
         positionGetMerchantList('update',provinces,citys,countries,companyTypeId);
@@ -714,6 +730,7 @@ var provinces='',
     provincesIndex,
     cityIndex,
     liListH;
+
 
 //	新增倒计时
 var vm = new Vue({
@@ -742,7 +759,8 @@ var vm = new Vue({
             type:"POST",
             url:api.NWBDApiGetList + "?r=" + Math.random(),
             data:{
-                cityLevel:'PROVINCE'
+                cityLevel:'PROVINCE',
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success:function(res){
@@ -784,7 +802,8 @@ var vm = new Vue({
                     localStorage.removeItem('num');
                     var data = {
                         order_id:vm.countBlock.orderId,
-                        user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'
+                        userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'
+                        openid: app.getItem("open_id")
                     }
                     $.ajax({
                         type:"POST",
@@ -883,7 +902,8 @@ var vm = new Vue({
     },
     
     mounted(){
-         app.verificationUserInfo();      //  判断登录去掉；
+        
+        app.verificationUserInfo();      //  判断登录去掉；
         if(!app.getItem('userInfo')){
             return;
         }

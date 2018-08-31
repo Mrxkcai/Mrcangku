@@ -10,7 +10,8 @@ $(function () {
             url: api.NWBDApiPayAndCommentCount + "?r=" + Math.random(),
             type: "POST",
             data: {
-                customer_id: app.getItem("userInfo").id
+                userId: app.getItem("userInfo").id,
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success: function success(result) {
@@ -44,46 +45,8 @@ $(function () {
     };
 
     
-    //获取open_id
-    if (!app.getItem("open_id")) {
-
-        if (!app.getQueryString("code")) {
-            if (api.isDebug) {
-                app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
-                window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
-
-                return;
-            } else {
-                
-                window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.selfHttp + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
-                return;
-            }
-        }
-        
-        
-        //      console.log(app.getQueryString("code"))
-        $.ajax({
-            url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),
-            type: "POST",
-            data: {
-                code: app.getQueryString("code")
-            },
-            success: function success(result) {
-                console.log(result);
-                if (result.status === "success" && result.code === 0) {
-                    app.setItem("open_id", result.data);
-                } else {
-                    alert("获取 open_id 失败");
-                    app.f_close();
-                }
-            },
-            error: function error(res) {
-                console.log(res)
-                // alert("网络异常，请检查网络");
-                app.f_close();
-            }
-        });
-    }
+    
+    
 
     if (app.getItem("userInfo") && app.getItem("userInfo").id && app.getItem("userInfo").mobile && app.getItem("open_id")) {
         $(".show_mobile").text(app.getItem("userInfo").mobile.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'));

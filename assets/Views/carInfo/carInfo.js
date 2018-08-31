@@ -35,7 +35,8 @@ var vm = new Vue({
 				$('#app').removeClass('bottomP')
 				var data = {
 					order_id:vm.countBlock.orderId,
-					user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+					userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+					openid: app.getItem("open_id")
 				}
 				$.ajax({
 					type:"POST",

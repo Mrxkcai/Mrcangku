@@ -48,7 +48,8 @@
             type: "POST",
             dataType: 'json',
             data: {
-                mobile: mobile
+                mobile: mobile,
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 // console.log(JSON.stringify(result));

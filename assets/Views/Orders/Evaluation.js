@@ -55,11 +55,12 @@ $(function () {
             dataType: 'json',
             data: {
                 commentJson: {
-                    customerId: app.getItem("userInfo").id,
+                    userId: app.getItem("userInfo").id,
                     evaluate: overall_evaluation_grade,
                     quality: service_quality_grade,
                     service: service_attitude_grade,
-                    commentContent: text
+                    commentContent: text,
+                    openid: app.getItem("open_id")
                 },
                 order_id: order_id
             },

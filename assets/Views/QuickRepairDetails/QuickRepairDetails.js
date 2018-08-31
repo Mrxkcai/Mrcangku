@@ -33,7 +33,7 @@ var quickRepairDetails = function () {
         window.location.href = "../QuickRepair/QuickRepair.html";
     }
     $.ajax({
-        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&r=" + Math.random(),
+        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
         type: "GET",
         dataType: 'json',
         success: function (result) {
@@ -235,7 +235,7 @@ var quickRepairDetails = function () {
     var update_carList_ul = function () {
         app.verificationUserInfo();
         $.ajax({
-            url: api.NWBDApiGetCarListByCustomer + "?open_id=" + app.getItem("userInfo").id + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -351,7 +351,8 @@ var quickRepairDetails = function () {
                 address: $("#address").val(),
                 addressProvince: addressProvince,
                 addressCity: addressCity,
-                addressCounty: addressCounty
+                addressCounty: addressCounty,
+                openid: app.getItem("open_id")
             }
         app.setItem('info',JSON.stringify(data));
         
@@ -372,7 +373,8 @@ var quickRepairDetails = function () {
                 address: $("#address").val(),
                 addressProvince: addressProvince,
                 addressCity: addressCity,
-                addressCounty: addressCounty
+                addressCounty: addressCounty,
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success: function (result) {

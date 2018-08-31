@@ -10,7 +10,8 @@ $(function () {
 			type: "POST",
 			async: false,
 			data: {
-				wxUrl: window.location.href
+				wxUrl: window.location.href,
+				openid: app.getItem("open_id")
 			},
 			success: function (result) {
 				console.log(result)

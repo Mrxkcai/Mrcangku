@@ -71,7 +71,8 @@
                 type: "POST",
                 async: false,
                 data: {
-                    wxUrl: window.location.href
+                    wxUrl: window.location.href,
+                    openid: app.getItem("open_id")
                 },
                 success: function (result) {
                 	
@@ -93,7 +94,7 @@
                             'openLocation']
                         });
                         wx.ready(function () {
-//                          CommonProblem();
+                         CommonProblem();
                             
                             //新增分享
                             // wx.checkJsApi({
@@ -183,8 +184,9 @@
 					$('#app').removeClass('bottomP')
 					var data = {
 						order_id:vm.countBlock.orderId,
-						user_id:app.getItem('userInfo').id	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
-					}
+						userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+                        openid: app.getItem("open_id")
+                    }
 					$.ajax({
 						type:"POST",
 						url:api.NWBDApiWeiXincancelOrder,

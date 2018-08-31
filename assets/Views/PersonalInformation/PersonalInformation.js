@@ -13,9 +13,10 @@ $(function () {
             type: "POST",
             dataType: "json",
             data: {
-                customer_id: app.getItem("userInfo").id,
+                userId: app.getItem("userInfo").id,
                 mobile: app.getItem("userInfo").mobile,
-                name: $.trim($("#name").val())
+                name: $.trim($("#name").val()),
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 if (result.status === "success" && result.code === 0) {

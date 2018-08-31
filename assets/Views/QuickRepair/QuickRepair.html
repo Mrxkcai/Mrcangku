@@ -164,10 +164,9 @@
     document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
-<script src="QuickRepair.js?v=2.3.7" charset='utf-8'></script>
+<script src="QuickRepair.js?v=2.3.18" charset='utf-8'></script>
 <script>
     $(function () {
-
         if (api.isDebug) {
             quickRepair();
         } else {
@@ -176,7 +175,8 @@
                 type: "POST",
                 async: false,
                 data: {
-                    wxUrl: window.location.href
+                    wxUrl: window.location.href,
+                    openid: app.getItem("open_id")
                 },
                 success: function (result) {
 					console.log(result)

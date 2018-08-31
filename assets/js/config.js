@@ -59,6 +59,65 @@ var api = (function () {
         // shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址(正式记得注释掉)
         // imgUrl:apiAddress1 + '/images/qrhtml.png'                               //  分享图片地址
         
+        getopenid :function (){     //  获取openid fun（）
+            
+            //获取open_id
+            // if (!app.getItem("open_id")) {
+                var kg = false;
+                // if (!app.getQueryString("code")) {
+                //     if (api.isDebug) {
+                //         app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
+                //         window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
+
+                //         return;
+                //     } else {
+                //         if(app.getItem("userInfo")){
+
+                //         }else{
+                //             window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.selfHttp + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                //             return;
+                //         }
+                        
+                //     }
+                // }
+                
+                if(app.getItem("code") && app.getQueryString("code") == app.getItem("code") || !app.getQueryString("code")){
+
+                }else{
+                
+                    //      console.log(app.getQueryString("code"))
+                    $.ajax({
+                        url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),
+                        type: "POST",
+                        data: {
+                            code: app.getQueryString("code"),
+                            openid: app.getItem("open_id")
+                        },
+                        success: function success(result) {
+                            console.log(result);
+                            if (result.status === "success" && result.code === 0) {
+                                app.setItem("open_id", result.data);
+                                //  存储code
+                                app.setItem("code", app.getQueryString("code"));
+                                kg = true;
+                            } else {
+                                //app.alert("获取 open_id 失败");
+                                app.f_close();
+                            }
+                        },
+                        error: function error(res) {
+                            console.log(res)
+                            // alert("网络异常，请检查网络");
+                            app.removeItem('open_id');
+                            app.f_close();
+                            kg = false;
+                        }
+                    });
+                }
+
+                return kg;
+            // }
+        }
     };
 
     if (api.isDebug) {
@@ -68,9 +127,9 @@ var api = (function () {
         $('#barrage_name1 img').css({'opacity':'0'});
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
-        document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.0' charset='utf-8'></script>");       ///bbcf-common-h5/assets
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.6' charset='utf-8'></script>");     //  活动js
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.6' charset='utf-8'></script>");       //  计时器js
+        document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.1' charset='utf-8'></script>");       ///bbcf-common-h5/assets
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.7' charset='utf-8'></script>");     //  活动js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.7' charset='utf-8'></script>");       //  计时器js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js
         
 
@@ -87,5 +146,9 @@ var api = (function () {
         }).appendTo("head");
         document.close();
     }
+
+    
+
+
     return api;
 })();

@@ -16,7 +16,7 @@ $(function () {
         app.verificationUserInfo();
         app.loading();
         $.ajax({
-            url: api.NWBDApiGetCarListByCustomer + "?open_id=" + app.getItem("userInfo").id + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -65,8 +65,9 @@ $(function () {
             type: "POST",
             dataType: 'json',
             data: {
-                open_id: app.getItem("userInfo").id,
-                car_id: thisLi.attr("data-carId")
+                userId: app.getItem("userInfo").id,
+                car_id: thisLi.attr("data-carId"),
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 if (result.status === "success" && result.code === 0) {

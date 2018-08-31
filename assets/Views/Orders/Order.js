@@ -152,10 +152,11 @@ var order = function () {
             type: "POST",
             dataType: 'json',
             data: {
-                open_id: app.getItem("userInfo").id,
+                userId: app.getItem("userInfo").id,
                 type: type,
                 pageNum: pageNum,
                 pageSize: pageSize,
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 // console.log(JSON.stringify(result));
@@ -210,7 +211,8 @@ var order = function () {
             url: api.NWBDApiOrderQuery + "?r=" + Math.random(),
             type: "POST",
             data: {
-                outTradeNo: outTradeNo
+                outTradeNo: outTradeNo,
+                openid: app.getItem("open_id")
             },
             dataType: 'json',
             success: function (result) {
@@ -241,7 +243,7 @@ var order = function () {
             url: api.NWBDApiUniformorder + "?r=" + Math.random(),
             type: "POST",
             data: {
-                open_id: app.getItem("open_id"),
+                openid: app.getItem("open_id"),
                 order_id: self.attr("data-id"),
                 money: self.attr("data-price")
             },

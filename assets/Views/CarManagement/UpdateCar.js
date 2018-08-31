@@ -9,7 +9,7 @@ $(function () {
     if (fromType === "update" && app.getQueryString("update_carId")) {
         app.loading();
         $.ajax({
-            url: api.NWBDApiGetCarInfoByID + "?car_id=" + app.getQueryString("update_carId") + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarInfoByID + "?car_id=" + app.getQueryString("update_carId") + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -153,7 +153,7 @@ $(function () {
         app.loading();
         var commom_page_content = $(".commom_page_content");
         $.ajax({
-            url: api.NWBDApiGetInsuranceCompanyList + "?r=" + Math.random(),
+            url: api.NWBDApiGetInsuranceCompanyList + "?openid=" + app.getItem("open_id") + "?r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -268,8 +268,9 @@ $(function () {
             dataType: "json",
             data: {
                 carJson: JSON.stringify(carJson),
-                open_id: app.getItem("userInfo").id,
-                type: type
+                userId: app.getItem("userInfo").id,
+                type: type,
+                openid: app.getItem("open_id")
             },
             success: function (result) {
                 // console.log(JSON.stringify(result));

@@ -133,6 +133,9 @@
             $.ajax({
                 url: api.NWBDApiGetBrandAll + "?r=" + Math.random(),
                 type: "POST",
+                data:{
+                    openid: app.getItem("open_id")
+                },
                 dataType: 'json',
                 success: function (result) {
                     // console.log(JSON.stringify(result));
@@ -205,7 +208,7 @@
             element.text('请您选择');
             app.loading();
             $.ajax({
-                url: api.NWBDApiGetBrandSub + "?parentId=" + data_brandId + "&type=brand&r=" + Math.random(),
+                url: api.NWBDApiGetBrandSub + "?parentId=" + data_brandId + "?openid=" + app.getItem("open_id") + "&type=brand&r=" + Math.random(),
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
@@ -268,7 +271,7 @@
             element.text('请您选择');
             app.loading();
             $.ajax({
-                url: api.NWBDApiGetBrandSub + "?parentId=" + data_brandId + "&type=brand&r=" + Math.random(),
+                url: api.NWBDApiGetBrandSub + "?parentId=" + data_brandId + "?openid=" + app.getItem("open_id") + "&type=brand&r=" + Math.random(),
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
@@ -326,7 +329,7 @@
             $("#car_modelName").val('');
             app.loading();
             $.ajax({
-                url: api.NWBDApiGetBrandSub + "?parentId=" + data_seriesId + "&type=series&r=" + Math.random(),
+                url: api.NWBDApiGetBrandSub + "?parentId=" + data_seriesId + "?openid=" + app.getItem("open_id") + "&type=series&r=" + Math.random(),
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
