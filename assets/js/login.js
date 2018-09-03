@@ -29,20 +29,6 @@
             return;
         }
         var btn_code = $(this);
-        btn_code.css("backgroundColor", "#fec897");
-        var time = 60;
-        btn_code.text(time);
-        btn_code.attr("disabled", true);
-        var timer = setInterval(function () {
-            time--;
-            btn_code.text(time);
-            if (time <= 0) {
-                clearInterval(timer);
-                btn_code.css("backgroundColor", "#f87b19");
-                btn_code.text("获取验证码");
-                btn_code.attr("disabled", false);
-            }
-        }, 1000);
         $.ajax({
             url: api.NWBDApiVerifysend + "?r=" + Math.random(),
             type: "POST",
@@ -52,7 +38,28 @@
                 openid: app.getItem("open_id")
             },
             success: function (result) {
-                // console.log(JSON.stringify(result));
+                 console.log(JSON.stringify(result));
+                if(result.code == 0 && result.status == 'success'){
+                    //app.alert(result.message)
+                    
+                    btn_code.css("backgroundColor", "#fec897");
+                    var time = 60;
+                    btn_code.text(time);
+                    btn_code.attr("disabled", true);
+                    var timer = setInterval(function () {
+                        time--;
+                        btn_code.text(time);
+                        if (time <= 0) {
+                            clearInterval(timer);
+                            btn_code.css("backgroundColor", "#f87b19");
+                            btn_code.text("获取验证码");
+                            btn_code.attr("disabled", false);
+                        }
+                    }, 1000);
+                }else{
+                    app.alert(result.message)
+                }
+                
             },
             error: function () {
                 app.alert('操作失败，请检查网络！');

@@ -157,7 +157,7 @@ var newDetails = function () {
 
 				$.ajax({
 					type:'get',
-					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&r=" + Math.random(),
+					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
 					dataType: 'json',
 					async:true,
 					success:function(res){

@@ -64,22 +64,6 @@ var api = (function () {
             //获取open_id
             // if (!app.getItem("open_id")) {
                 var kg = false;
-                // if (!app.getQueryString("code")) {
-                //     if (api.isDebug) {
-                //         app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
-                //         window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
-
-                //         return;
-                //     } else {
-                //         if(app.getItem("userInfo")){
-
-                //         }else{
-                //             window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.selfHttp + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
-                //             return;
-                //         }
-                        
-                //     }
-                // }
                 
                 if(app.getItem("code") && app.getQueryString("code") == app.getItem("code") || !app.getQueryString("code")){
 
