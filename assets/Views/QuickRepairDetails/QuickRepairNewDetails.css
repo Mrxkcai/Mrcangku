@@ -292,6 +292,7 @@ header img:nth-child(n+2){
 }
 .man_list>div>img{
 	width: 100%;
+	height: 100%;
 }
 .lue_cion{
 	display: inline-block;

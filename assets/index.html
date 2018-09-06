@@ -185,7 +185,8 @@ $(function () {
 						// 	wx.onMenuShareAppMessage(obj)	//	分享给朋友
 						// }
                     });
-                    wx.error(function () { 
+                    wx.error(function (res) { 
+						console.log(res)
                         alert("公众号页面授权失败");
                         app.f_close();
                     });

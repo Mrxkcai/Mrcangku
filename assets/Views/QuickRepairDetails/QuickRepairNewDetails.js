@@ -89,7 +89,6 @@ $(function () {
 	// document.head.appendChild(jsapi);
 
 
-
 var newDetails = function () {
 	"use strict";
 
@@ -103,9 +102,12 @@ var newDetails = function () {
 			timeStatus: "",
 			marchantGrade:[],
 			up: false,
+			userNum:false,
 			marchantStatus:'',
 			marchantJoin:'',
-			marchantDetails:{}
+			marchantDetails:{},
+			image_arr:[],	//	图片重新排序
+			imagesNew:[]	//	图片数组
 		},
 		methods: {
 			init: function init() {
@@ -165,6 +167,32 @@ var newDetails = function () {
 						if(res.code == 0 && res.status == 'success'){
 							if(res.data.length > 0){
 								that_.marchantDetails = res.data[0];
+								for(var i = 0; i < that_.marchantDetails.image.length;i ++){
+									//  图片重新排序；
+									if(that_.marchantDetails.image[i].image_type == 1){
+										that_.image_arr[0] = that_.marchantDetails.image[i];
+									}else if(that_.marchantDetails.image[i].image_type == 8){
+										that_.image_arr[1] = that_.marchantDetails.image[i];
+									}else if(that_.marchantDetails.image[i].image_type == 9){
+										that_.image_arr[2] = that_.marchantDetails.image[i];
+									}else if(that_.marchantDetails.image[i].image_type == 12){
+										that_.image_arr[3] = that_.marchantDetails.image[i];
+									}else if(that_.marchantDetails.image[i].image_type == 10){
+										that_.image_arr[4] = that_.marchantDetails.image[i];
+									}else{
+			
+									}
+										
+								}
+
+								//	-判断门店技师人数
+								if(that_.marchantDetails.user.length == 5){
+									that_.userNum = true
+								}else{
+									that_.userNum = false
+								}
+
+								
 								//	判断休息状态；
 								if(that_.marchantDetails.working != ''){
 									that_.timeStatus = '营业中';
