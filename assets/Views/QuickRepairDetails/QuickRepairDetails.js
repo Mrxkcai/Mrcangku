@@ -33,7 +33,7 @@ var quickRepairDetails = function () {
         window.location.href = "../QuickRepair/QuickRepair.html";
     }
     $.ajax({
-        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&r=" + Math.random(),
         type: "GET",
         dataType: 'json',
         success: function (result) {
@@ -136,23 +136,17 @@ var quickRepairDetails = function () {
                 $(".address_detail_value").html(merchantData.address_detail);
                 
                 //  取消定位后输出故障发生地地址;
-                if(app.getItem('address') && app.getItem('address') != null){
-                    $(".showAddress").text(app.getItem('address'));
-                    $("#address").val(app.getItem('address'));
-                };
-                
-                if(app.getItem('province') && app.getItem('city') && app.getItem('district') && app.getItem('province') != null && app.getItem('city') != null && app.getItem('district') != null){
-                    $('#ssq').val(app.getItem('province') + " " + app.getItem('city') + " " + app.getItem('district'))
+                // $(".showAddress").text(merchantData.address_detail);
+                // $("#address").val(merchantData.address_detail);
+                if(merchantData.address_province && merchantData.address_city && merchantData.address_county && merchantData.address_province != null && merchantData.address_city != null && merchantData.address_county != null){
+                    $('#ssq').val(merchantData.address_province + " " + merchantData.address_city + " " + merchantData.address_county)
                 }
                 
-                
-                //  输出故障发生地经纬度省市区
-                console.log(app.getItem('location'))
-                lat = app.getItem('location').lat;
-                lng = app.getItem('location').lng;
-                addressProvince = app.getItem('province');
-                addressCity = app.getItem('city');
-                addressCounty = app.getItem('district');
+                lat = merchantData.lat;
+                lng = merchantData.lng;
+                addressProvince = merchantData.address_province;
+                addressCity = merchantData.address_city;
+                addressCounty = merchantData.address_county;
 
                 //主修车型
                 var mainBrandStr = "";
@@ -235,7 +229,7 @@ var quickRepairDetails = function () {
     var update_carList_ul = function () {
         app.verificationUserInfo();
         $.ajax({
-            url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+            url: api.NWBDApiGetCarListByCustomer + "?open_id=" + app.getItem("userInfo").id + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
             success: function (result) {
@@ -351,8 +345,7 @@ var quickRepairDetails = function () {
                 address: $("#address").val(),
                 addressProvince: addressProvince,
                 addressCity: addressCity,
-                addressCounty: addressCounty,
-                openid: app.getItem("open_id")
+                addressCounty: addressCounty
             }
         app.setItem('info',JSON.stringify(data));
         
@@ -373,14 +366,14 @@ var quickRepairDetails = function () {
                 address: $("#address").val(),
                 addressProvince: addressProvince,
                 addressCity: addressCity,
-                addressCounty: addressCounty,
-                openid: app.getItem("open_id")
+                addressCounty: addressCounty
             },
             dataType: 'json',
             success: function (result) {
             	console.log(result)
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
                     app.closeLoading();
+
                     //	新增预约维修界面
                     window.location.href = "../YuyueRepair/reservationRepair.html";
                     //	存储订单id；
@@ -394,11 +387,6 @@ var quickRepairDetails = function () {
                     localStorage.removeItem('status');
                     localStorage.removeItem('num');
 
-                  
-                    
-                   
-                    
-                    
                 } else {
                     alert(result.message);
                     app.closeLoading();
@@ -406,7 +394,7 @@ var quickRepairDetails = function () {
             },
             error: function (res) {
                 console.log(res)
-                app.alert('操作失败，请检查网络！');
+                alert('操作失败，请检查网络！');
                 app.closeLoading();
             }
         });

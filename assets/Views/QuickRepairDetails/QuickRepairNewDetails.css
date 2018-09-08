@@ -7,14 +7,19 @@
 header{
 	width: 100%;
 	/*height: 4.2rem;*/
-	position: relative;
+	position: fixed;
 	background: rgb(141, 148, 160);
 }
 header img{
 	width: 100%;
+<<<<<<< HEAD
 	/* height: 4.22rem; */
 	display: inline-block;
 	float: left;
+=======
+	height: auto;
+	display: block;
+>>>>>>> 5ea1b242392218a2f3068ab16986d6789af6d65e
 }
 header img:nth-child(n+2){
 	display: none;
@@ -22,6 +27,13 @@ header img:nth-child(n+2){
 
 
 /*信息模块*/
+.newDetail_main{
+	width: 100%;
+	position: relative;
+	background: rgba(0,0,0,0);
+	top: 0;
+	left: 0;
+}
 .newDetail_block{
 	width: 100%;
 	position: absolute;
@@ -172,11 +184,11 @@ header img:nth-child(n+2){
 	color:rgba(68,181,76,1);
 	border: 1px solid #44B54C;
 }
-.badge_box span:nth-child(2){
+.badge_box span:nth-child(3){
 	color:#518EEE;
 	border: 1px solid #518EEE;
 }
-.badge_box span:nth-child(3){
+.badge_box span:nth-child(2){
 	color: #fff;
 	background: #F84C4C;
 }
@@ -378,8 +390,13 @@ header img:nth-child(n+2){
 	font-size:.26rem;
 	font-family:PingFangSC-Regular;
 	color:rgba(51,51,51,1);
-	margin-right: .4rem;
+	margin-right: .53rem;
 	margin-bottom: .22rem;
+}
+.small_icon:nth-of-type(4),
+.small_icon:nth-of-type(8),
+.small_icon:nth-of-type(8){
+	margin-right: 0;
 }
 .small_icon img{
 	display: inline-block;

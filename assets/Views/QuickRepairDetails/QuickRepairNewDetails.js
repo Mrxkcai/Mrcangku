@@ -10,8 +10,7 @@ $(function () {
 			type: "POST",
 			async: false,
 			data: {
-				wxUrl: window.location.href,
-				openid: app.getItem("open_id")
+				wxUrl: window.location.href
 			},
 			success: function (result) {
 				console.log(result)
@@ -87,11 +86,13 @@ $(function () {
 	// jsapi.charset = 'utf-8';
 	// jsapi.src = 'https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d&callback=onApiLoaded';
 	// document.head.appendChild(jsapi);
-
+});
 
 var newDetails = function () {
 	"use strict";
-
+    var ijroll;
+    ijroll = new JRoll($(".newDetail_main")[0]);
+    ijroll.refresh();
 	var vm = new Vue({
 		el: "#app",
 		data: {
@@ -115,7 +116,7 @@ var newDetails = function () {
 			init: function init() {
 				var that = this;
 				$('.slideRight').animate({ right: "0" }, 400);
-				
+				$('.newDetail_main').css({'height':window.screen.availHeight+'px'})
 				//	初次进入加载数据；
 				that.firstIn();
 
@@ -123,9 +124,6 @@ var newDetails = function () {
 			},
 			seeImg: function seeImg(index, length) {
 				var that = this;
-				if(length == 1){
-					return;
-				}
 				if (index === 0) {
 					$('.newDetail_block').addClass('moveActive');
 					that.showBtn = false;
@@ -140,6 +138,13 @@ var newDetails = function () {
 					that.up = true;
 				}
 			},
+            seeImg2: function(){
+                var that = this;
+                $('.newDetail_block').addClass('moveActive');
+                that.showBtn = false;
+                $('.newDetail_block').animate({ top: '100%' }, 400);
+                that.up = true;
+			},
 			upImg: function upImg() {
 				var that = this;
 				$('.newDetail_block').animate({ top: "3.54rem" }, 500);
@@ -147,13 +152,21 @@ var newDetails = function () {
 				that.up = false;
 				that.showBtn = true;
 			},
+            eStop:function (){
+				return false;
+			},
 			firstIn(){
 				var that_ = this;
 				//当前页面保存维修厂信息
 				var merchantData;
 				var body = $('body');
 				$("#app").css({'min-height': $(window).height() + 'px'});
-				
+				//  阻止微信拉动出现背景
+				// document.querySelector('body').addEventListener('touchmove', function(e) {
+				// 	if (!document.querySelector('.container').contains(e.target)) {
+				// 		e.preventDefault();
+				// 	}
+				// });
 
 				//首次进入页面获取维修厂信息
 				if (!app.getItem("merchant_id")) {
@@ -167,7 +180,7 @@ var newDetails = function () {
 
 				$.ajax({
 					type:'get',
-					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&r=" + Math.random(),
 					dataType: 'json',
 					async:true,
 					success:function(res){
@@ -325,5 +338,3 @@ var newDetails = function () {
 		}
 	});
 }
-
-});

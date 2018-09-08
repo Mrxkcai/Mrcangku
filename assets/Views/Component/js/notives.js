@@ -34,7 +34,7 @@ Vue.component("adve-block",{
 					title:'',
 					style:'padding: 0!important;background: none!important;box-shadow:none;',
 					content:`<div class='img_box' style="display:none;opacity:1;">
-								<img src='../../images/img_gonggao.png?v=2.0.1' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
+								<img src='../../images/tanchuang.png' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
                                 <div class="line_shu"></div>
                                 <img src='../../images/icon_close.png' class="close_img" />
 							</div>
@@ -205,13 +205,12 @@ var red_bag = function(res){
 
     //  查看详情按钮；
     $('.btn_see').on('click',function(){
+        app.closeLoading();
         window.location.href = '../../Views/Voucher/voucher.html'
     });
 
 
     $('.btn-get').on('click',function(){
-        $('.layui-m-layercont').removeClass('new');
-        $('.layui-m-layercont').removeClass('layui-m-layercont_self');
 
         $.ajax({
             type:'GET',
@@ -229,8 +228,11 @@ var red_bag = function(res){
                 }else{
                     app.closeLoading();
                     app.alert(res.message);
-                };
-
+                }
+                setTimeout(function () {
+                    $('.layui-m-layercont').removeClass('new');
+                    $('.layui-m-layercont').removeClass('layui-m-layercont_self');
+                },200)
             },
             error:function(res){
                 app.closeLoading();
