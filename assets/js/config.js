@@ -7,7 +7,7 @@ var api = (function () {
         isDebug: false,
         debugProjectName: "wxcs.nuoweibd.com",		//	正式地址:wx.nuoweibd.com
         callbackUrl: "wxcs.nuoweibd.com",
-        appid: "wxe6766bc37f2769b2",                //  正式appid   wxd464d2d248a7f6ed
+        appid: "wxe6766bc37f2769b2",                //  正式appid   wxe934a7df8d628f3c
         selfHttp:"https://",                        //  自定义配置； 正式为：http
         getLocalhostPaht: function () {
             var curWwwPath = window.document.location.href;		//	完整的路径
