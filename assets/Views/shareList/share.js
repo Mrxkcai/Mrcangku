@@ -20,14 +20,17 @@ var vm = new Vue({
 					type: "post",
 					url: api.NWBDApiWeiXincreateShareCode,
 					data: {
-						customerId: id,
-						
+						uniqueCode: id,
+						source:'CUSTOMER'
+						// openid: app.getItem("open_id")
 					},
 					success: function success(result) {
 						console.log(result);
 						if (result.code === 0) {
-							that.srcUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data;
-							$('.imgCode').append('<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data + '" />');
+							that.srcUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data.ticket;
+							$('.imgCode').append('<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data.ticket + '" />');
+						}else{
+							app.alert(result.message);
 						}
 					},
 					error: function error() {

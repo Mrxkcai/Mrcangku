@@ -1,6 +1,6 @@
 var api = (function () {
 //	var apiAddress = "http://share.baobaochefu.net/car";         //  正式地址
-	// var apiAddress1 = "https://wxcs.nuoweibd.com";      //  正式需注释；
+	var apiAddress1 = "https://wxcs.nuoweibd.com";      //  正式需注释；
     var apiAddress = "https://wxcsht.nuoweibd.com:8443";    //  正式需注释；
    
     var api = {
@@ -53,12 +53,14 @@ var api = (function () {
         NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder",             //  微信预订单
 
        //****************************** */
-        // NWBDApiWeiXincreateShareCode: apiAddress1 + "/wechat/portal/createShareCode", 	//	获取分享二维码
+        NWBDApiWeiXincreateShareCode: apiAddress + "/qrCode/createOrGetQrCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
         testPhone:'/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
-        // shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址(正式记得注释掉)
-        // imgUrl:apiAddress1 + '/images/qrhtml.png'                               //  分享图片地址
-        
+        shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址(正式记得注释掉)
+        imgUrl:apiAddress1 + '/images/qrhtml.png?v=2.0.0',                               //  分享图片地址
+        shareText:'修车上保宝车服靠谱',
+        shareText2:'爱车维修保养，我首选保宝车服',
+
         getopenid :function (){     //  获取openid fun（）
             
             //获取open_id
@@ -112,7 +114,7 @@ var api = (function () {
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
         document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.2' charset='utf-8'></script>");       ///bbcf-common-h5/assets
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.0.8' charset='utf-8'></script>");     //  活动js
+        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>");       //  计时器js
         document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js
         

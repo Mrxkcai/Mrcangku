@@ -29,29 +29,8 @@ Vue.component("adve-block",{
             //	首次进来直接展示公告
             var index_;
 			if(!sessionStorage.getItem("g") && localStorage.getItem("userInfo") && windowUrl.indexOf('QuickRepair') >= 0){
-				console.log(windowUrl.indexOf('QuickRepair'))
-				index_ = layer.open({
-					title:'',
-					style:'padding: 0!important;background: none!important;box-shadow:none;',
-					content:`<div class='img_box' style="display:none;opacity:1;">
-								<img src='../../images/tanchuang.png' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
-                                <div class="line_shu"></div>
-                                <img src='../../images/icon_close.png' class="close_img" />
-							</div>
-							`
-                })
-                $('.layui-m-layercont').addClass('new');
-                $('.img_box').show();
-                sessionStorage.setItem("g",1);
-                //  关闭叉号
-                $('.close_img').on('click',function(){
-                    $('.layui-m-layer').hide();
-                    couponIndex();
-                    $('.layui-m-layercont').removeClass('new');
-                    //  出发蒙版的点击事件
-                    $('.layui-m-layershade').trigger('click');
-                    
-                })
+				sessionStorage.setItem("g",1);
+				couponIndex();
 				
 			} else if(!sessionStorage.getItem("k") && localStorage.getItem("userInfo") && windowUrl.indexOf('index') >= 0){
                 sessionStorage.setItem("k",1);
@@ -148,7 +127,11 @@ Vue.component("adve-block",{
     </div>
     `
 });
+
+//-是否有优惠券
 function couponIndex() {
+    var type = 1;
+    // alert(app.getItem("userInfo").id)
     $.ajax({
         type:'GET',
         url:api.NWBDApiWeiXincouponIndex + '?v=' + Math.random(),
@@ -160,9 +143,55 @@ function couponIndex() {
         success:function(res){
             console.log(res)
             if(res.code == 0 && res.status === "success"){
-                if(!res.data)return false;
-                if(!res.data.totalAmount)return false;
-                red_bag(res.data)
+                // if(!res.data)return false;
+                if(!res.data || !res.data.totalAmount){
+                    $.ajax({
+                        type:'GET',
+                        url:api.NWBDApiWeiXincouponList + '?v=' + Math.random(),
+                        data:{
+                            userId: app.getItem("userInfo").id,
+                            type: type,
+                            pageNum: 1,
+                            pageSize: 10,
+                            openid: app.getItem("open_id")
+                        },
+                        async:true,
+                        success:function(res){
+                            if(res.code == 0 && res.status == "success"){
+                                if(res.data.length > 0){
+                                    index_ = layer.open({
+                                        title:'',
+                                        style:'padding: 0!important;background: none!important;box-shadow:none;',
+                                        content:`<div class='img_box' style="display:none;opacity:1;">
+                                                    <img src='../../images/tanchuang.png' style="min-width:2rem;min-height:3rem;width: 93%;margin-top: -1rem"/>
+                                                    <div class="line_shu"></div>
+                                                    <img src='../../images/icon_close.png' class="close_img" />
+                                                </div>
+                                                `
+                                    })
+                                    $('.layui-m-layercont').addClass('new');
+                                    $('.img_box').show();
+                                    
+                                    //  关闭叉号
+                                    $('.close_img').on('click',function(){
+                                        $('.layui-m-layer').hide();
+                                        // couponIndex();
+                                        $('.layui-m-layercont').removeClass('new');
+                                        //  出发蒙版的点击事件
+                                        $('.layui-m-layershade').trigger('click');
+                                        
+                                    })
+                                }
+                            }else{
+                                
+                            }
+                        }
+                    })
+                }else{
+                    red_bag(res.data)
+                }
+                // if(!res.data.totalAmount)return false;
+                
             }else{
                 app.closeLoading();
                 app.alert(res.message);
@@ -180,6 +209,8 @@ function couponIndex() {
 var red_bag = function(res){
     //console.log(res)
     var priceAll = 0;
+    // alert(JSON.stringify(res))
+    // alert(res.totalAmount)
     priceAll += Number(res.totalAmount);
     var kg = false;
 

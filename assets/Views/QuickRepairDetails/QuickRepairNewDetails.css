@@ -12,14 +12,8 @@ header{
 }
 header img{
 	width: 100%;
-<<<<<<< HEAD
-	/* height: 4.22rem; */
-	display: inline-block;
-	float: left;
-=======
 	height: auto;
 	display: block;
->>>>>>> 5ea1b242392218a2f3068ab16986d6789af6d65e
 }
 header img:nth-child(n+2){
 	display: none;
