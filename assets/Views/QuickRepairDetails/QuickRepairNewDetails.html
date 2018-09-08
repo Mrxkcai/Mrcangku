@@ -15,10 +15,10 @@
 		        document.documentElement.style.fontSize = '100px';
 		    }
 		</script>
-		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=1.0.3"/>
+		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 	    <!-- 引入样式 -->
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.1"/>
+		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.2"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -33,7 +33,7 @@
 			
 			<!--维修厂信息模块-->
 			<div class="newDetail_block">
-				<div class="info_time2" v-show="up"><img src="../../images/icon_up.png" @click="upImg"/></div>
+				<div class="info_time2" v-show="up" @click="upImg"><img src="../../images/icon_up.png"/></div>
 				<div class="info_time">
 					<div class="watch_icon sp2"></div>
 					<p class="time_icon">营业时间：<span>{{marchantDetails.businessHours}}</span></p>
@@ -85,11 +85,11 @@
 								<img src="../../images/jinat.png"/>
 							</div>
 							<div class="man_list">
-								<div v-for="item,index in marchantDetails.user">
+								<div v-for="item,index in artificerArr">
 									<img :src="item.head" v-lazy="item.head"/>
 								</div>
 								<span class="lue_cion" v-show="userNum">...</span>
-								<span class="men_num">10人</span>
+								<span class="men_num">{{userNumber}}人</span>
 							</div>
 					</div>
 					
@@ -231,13 +231,13 @@
 					
 					<div class="iconKefu">
 						<img src="../../images/icon_kefu.png"/>
-						<div class="iconPhone">
+						<div class="iconPhone" @click="telphoto('4000-016-369')">
 							4000-016-369
 						</div>
 					</div>
 					<p class="endTel">有任何问题，请您拨打我们的客服热线</p>
 					
-					<div class="repairBtn">
+					<div class="repairBtn" @click="peoductOrder()">
 						预约维修
 					</div>
 				</div>
@@ -258,7 +258,7 @@
 	    document.close();
 	</script>
 	<script src="../../js/vant.min.js"></script>
-	<script src="QuickRepairNewDetails.js?v=2.0.31"></script>
+	<script src="QuickRepairNewDetails.js?v=2.0.5"></script>
 	<script>
 		//调用图片懒加载
 		Vue.use(VueLazyload, {

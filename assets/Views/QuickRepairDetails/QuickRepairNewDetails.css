@@ -12,12 +12,12 @@ header{
 }
 header img{
 	width: 100%;
-	height: 4.22rem;
+	/* height: 4.22rem; */
 	display: inline-block;
 	float: left;
 }
 header img:nth-child(n+2){
-	/*display: none;*/
+	display: none;
 }
 
 

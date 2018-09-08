@@ -105,6 +105,8 @@ var newDetails = function () {
 			userNum:false,
 			marchantStatus:'',
 			marchantJoin:'',
+			userNumber:'',		//-技师人数
+			artificerArr:[],	//-展示前五个技师
 			marchantDetails:{},
 			image_arr:[],	//	图片重新排序
 			imagesNew:[]	//	图片数组
@@ -127,15 +129,21 @@ var newDetails = function () {
 				if (index === 0) {
 					$('.newDetail_block').addClass('moveActive');
 					that.showBtn = false;
+					$('header img').show();
 					var h = $('.newDetail_block').height(),
-						h2 = $('.info_time').height();
-					$('.newDetail_block').animate({ top: 4.2 * length - 1.26 + "rem" }, 400);
+						h2 = $('.info_time').height(),
+						h3 = $('header').height(),
+						h4 = $('.info_time2').height(),
+						h5 = $('.info_time').height();
+					// $('.newDetail_block').animate({ top: 4.2 * length - 1.26 + "rem" }, 400);
+					$('.newDetail_block').animate({ top: h3 - h4 - h5 + "px"}, 500);
 					that.up = true;
 				}
 			},
 			upImg: function upImg() {
 				var that = this;
-				$('.newDetail_block').animate({ top: "3.54rem" }, 400);
+				$('.newDetail_block').animate({ top: "3.54rem" }, 500);
+				$('header img:nth-child(n+2)').hide();
 				that.up = false;
 				that.showBtn = true;
 			},
@@ -167,6 +175,21 @@ var newDetails = function () {
 						if(res.code == 0 && res.status == 'success'){
 							if(res.data.length > 0){
 								that_.marchantDetails = res.data[0];
+								that_.userNumber = that_.marchantDetails.user.length;
+								//-展示前五个技师
+								if(that_.marchantDetails.user.length > 5){
+									for(var i = 0;i < 4; i ++){
+										that_.artificerArr[i] = that_.marchantDetails.user[i]
+									}
+								}else{
+									that_.artificerArr = that_.marchantDetails.user;
+								}
+								//	判断技师人数
+								if(that_.userNumber >= 10){
+									that_.userNum = true;
+								}else{
+									that_.userNum = false;
+								}
 								for(var i = 0; i < that_.marchantDetails.image.length;i ++){
 									//  图片重新排序；
 									if(that_.marchantDetails.image[i].image_type == 1){
@@ -279,6 +302,20 @@ var newDetails = function () {
 						}
 					});
 				}
+			},
+			//-可拨打电话
+			telphoto(tellphone){
+				window.location.href = 'tel:' + tellphone
+			},
+			//-产生订单
+			peoductOrder(){
+				//-检测是否登录
+				app.verificationUserInfo();
+				if (!app.getItem("merchant_id")) {
+					window.location.href = "../QuickRepair/QuickRepair.html";
+				}
+				
+
 			}
 		},
 		mounted: function mounted() {
