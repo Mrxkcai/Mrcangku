@@ -1,20 +1,22 @@
 var api = (function () {
 //	var apiAddress = "http://share.baobaochefu.net/car";         //  正式地址
-	var apiAddress1 = "https://wxcs.nuoweibd.com";      //  正式需注释；
+	var apiAddress1 = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5";      //  正式需注释；
     var apiAddress = "https://wxcsht.nuoweibd.com:8443";    //  正式需注释；
+    var apiAddress2 = 'https://wxcs.nuoweibd.com'
    
     var api = {
         isDebug: false,
         debugProjectName: "wxcs.nuoweibd.com",		//	正式地址:wx.nuoweibd.com
-        callbackUrl: "wxcs.nuoweibd.com",
-        appid: "wxe6766bc37f2769b2",                //  正式appid   wxe934a7df8d628f3c
+        callbackUrl: "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5",
+        appid: "wxe6766bc37f2769b2",                //  正式appid   wxd464d2d248a7f6ed
         selfHttp:"https://",                        //  自定义配置； 正式为：http
         getLocalhostPaht: function () {
             var curWwwPath = window.document.location.href;		//	完整的路径
             var pathName = window.document.location.pathname;	//	域名下面的某一页面
             var pos = curWwwPath.indexOf(pathName);				//	域名下面的某一页面下标的起始位置
-																//	如：	http://127.0.0.1:8020								
-            return curWwwPath.substring(0, pos);
+            var apiAddr = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5";
+            							
+            return apiAddr;
         },
         Merchant_default_Icon: "/images/default_151_151.png",
         Merchant_default_Banner: "/images/default_1125_633.png",
@@ -52,19 +54,21 @@ var api = (function () {
         NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get",             //  优惠券活动领取
         NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder",             //  微信预订单
 
+        NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message",             //  海尔短信发送接口
+        NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register",             //  海尔注册接口
+
        //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress + "/qrCode/createOrGetQrCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
         testPhone:'/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
         shareAdd:apiAddress1 + '/Views/shareList/share.html?customerId=',     //  分享页面地址(正式记得注释掉)
-        imgUrl:apiAddress1 + '/images/qrhtml.png?v=2.0.0',                               //  分享图片地址
+        imgUrl:apiAddress1 + '/images/qrhtml.png?v=2.0.1',                               //  分享图片地址
         shareText:'修车上保宝车服靠谱',
         shareText2:'爱车维修保养，我首选保宝车服',
 
         getopenid :function (){     //  获取openid fun（）
             
             //获取open_id
-            // if (!app.getItem("open_id")) {
                 var kg = false;
                 
                 if(app.getItem("code") && app.getQueryString("code") == app.getItem("code") || !app.getQueryString("code")){
@@ -102,33 +106,32 @@ var api = (function () {
                 }
 
                 return kg;
-            // }
         }
     };
 
     if (api.isDebug) {
-        document.write("<script src='" + api.getLocalhostPaht() + "/" + api.debugProjectName + "/js/app.js?v=1.0.18' charset='utf-8'></script>");
+        document.write("<script src='" + apiAddress1 + "/" + api.debugProjectName + "/js/app.js?v=1.0.19' charset='utf-8'></script>");
         document.close();
     } else {
         $('#barrage_name1 img').css({'opacity':'0'});
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
-        document.write("<script src='" + api.getLocalhostPaht() + "/js/app.js?v=2.0.2' charset='utf-8'></script>");       ///bbcf-common-h5/assets
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>");     //  活动js
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>");       //  计时器js
-        document.write("<script src='" + api.getLocalhostPaht() + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js
+        document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.3' charset='utf-8'></script>");       ///bbcf-common-h5/assets
+        document.write("<script src='" + apiAddress1 + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>");     //  活动js
+        document.write("<script src='" + apiAddress1 + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>");       //  计时器js
+        document.write("<script src='" + apiAddress1 + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js
         
 
         //  引入活动css
         $("<link>").attr({ rel: "stylesheet",
                 type: "text/css",
-                href: api.getLocalhostPaht() + "/Views/Component/css/notices.css?v=2.1.5"
+                href: apiAddress1 + "/Views/Component/css/notices.css?v=2.1.5"
         }).appendTo("head");
         
         //  引入计时器css
         $("<link>").attr({ rel: "stylesheet",
                 type: "text/css",
-                href: api.getLocalhostPaht() + "/Views/Component/css/count.css?v=2.1.4"
+                href: apiAddress1 + "/Views/Component/css/count.css?v=2.1.4"
         }).appendTo("head");
         document.close();
     }

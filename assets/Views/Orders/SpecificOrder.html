@@ -163,7 +163,7 @@
                             		console.log(res)
                             	}
                             });
-                            var id = getUrlParam('customerId');
+                            var id = app.getItem('userInfo').id;
                             var shareUrl = api.shareAdd + id;
                             var obj = {
                             	//	朋友圈

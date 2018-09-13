@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+		<meta name="format-detection" content="telephone=yes,email=no"/>
+		<meta name="x5-orientation" content="portrait"/>
+		<meta name="x5-fullscreen" content="true"/>
+		<meta name="x5-page-mode" content="app"/>
+		<title>预约维修</title>
+		<script>
+		    if (window.screen.availWidth <= 750) {
+		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+		    } else {
+		        document.documentElement.style.fontSize = '100px';
+		    }
+		</script>
+		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+		<link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.11"/>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+            <!-- 联系人-姓名-电话-地点模块 -->
+            <div class="lxdd">
+                <ul>
+                    <li>
+                        <span>|</span>
+                        <span>联系人信息</span>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>姓名</span>
+                        <input type="text" placeholder="请输入您的姓名"/>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>联系电话</span>
+                        <input type="text" placeholder="请输入您的电话"/>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>故障发生地点</span>
+                        <div class="choo"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 车辆信息模块 -->
+            <div class="carCompon">
+                <ul>
+                    <li>
+                        <span>|</span>
+                        <span>车辆信息</span>
+                        <span class="chooseCar">选择车辆</span>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>车牌号</span>
+                        <i>*</i>
+                        <input type="text" placeholder="请输入车牌号"/>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>品牌型号</span>
+                        <i>*</i>
+                        <input type="text" placeholder="请选择车辆品牌型号"/>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>保险公司</span>
+                        <input type="text" placeholder="请选择保险公司"/>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 维修内容 -->
+            <div class="repairContent">
+                 <ul>
+                    <li>
+                        <span>|</span>
+                        <span>维修内容</span>
+                        <span class="chooseCar">选择维修内容</span>
+                    </li>
+                 </ul>
+
+                 <textarea name="" id="" cols="30" rows="10" placeholder="还有什么想说的（不超过200字）" maxlength="200"></textarea>
+            </div>
+            
+            <!-- 确定维修 -->
+            <div class="orderBtn">
+                    确定预约
+            </div>
+
+
+        </div>
+    </body>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+    <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+    <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
+    <script>
+        document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+        document.close();
+    </script>
+    <script src="editQuickMess.js?v=2.0.0"></script>
+</html>
+    

@@ -63,7 +63,7 @@
 
         app.verificationUserInfo = function () {
             if (!app.getItem("userInfo") || !app.getItem("userInfo").id || !app.getItem("userInfo").mobile || !app.getItem("open_id")) {
-                app.alert("请您登录！");
+                alert("请您登录！");
                 sessionStorage.removeItem("g");
                 if (api.isDebug) {
                     app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");

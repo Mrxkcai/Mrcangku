@@ -176,6 +176,7 @@ var newDetails = function () {
 							if(res.data.length > 0){
 								that_.marchantDetails = res.data[0];
 								that_.userNumber = that_.marchantDetails.user.length;
+								
 								//-展示前五个技师
 								if(that_.marchantDetails.user.length > 5){
 									for(var i = 0;i < 4; i ++){
@@ -184,6 +185,7 @@ var newDetails = function () {
 								}else{
 									that_.artificerArr = that_.marchantDetails.user;
 								}
+								console.log(that_.artificerArr)
 								//	判断技师人数
 								if(that_.userNumber >= 10){
 									that_.userNum = true;

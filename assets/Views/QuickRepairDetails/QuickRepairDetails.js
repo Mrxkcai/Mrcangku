@@ -51,41 +51,24 @@ var quickRepairDetails = function () {
                 if (merchantData.image.length > 0) {
                     var image_arr = [];
 
-                    for (var i = 0; i < merchantData.image.length; i++) {
-
+                    for(var i = 0; i < merchantData.image.length;i ++){
                         //  图片重新排序；
                         if(merchantData.image[i].image_type == 1){
                             image_arr[0] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 2){
-                            image_arr[1] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 3){
-                            image_arr[2] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 4){
-                            image_arr[3] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 5){
-                            image_arr[4] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 6){
-                            image_arr[5] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 7){
-                            image_arr[6] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 8){
-                            image_arr[7] = merchantData.image[i];
+                            image_arr[1] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 9){
-                            image_arr[8] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 10){
-                            image_arr[11] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 11){
-                            image_arr[10] = merchantData.image[i];
+                            image_arr[2] = merchantData.image[i];
                         }else if(merchantData.image[i].image_type == 12){
-                            image_arr[9] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 13){
-                            image_arr[12] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 14){
-                            image_arr[13] = merchantData.image[i];
+                            image_arr[3] = merchantData.image[i];
+                        }else if(merchantData.image[i].image_type == 10){
+                            image_arr[4] = merchantData.image[i];
                         }else{
 
                         }
+                            
                     }
+                    
                     
                     //console.log(image_arr)
                     for(var i = 0;i < image_arr.length;i ++){

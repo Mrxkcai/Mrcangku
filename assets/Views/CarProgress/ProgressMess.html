@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+		<meta name="format-detection" content="telephone=yes,email=no"/>
+		<meta name="x5-orientation" content="portrait"/>
+		<meta name="x5-fullscreen" content="true"/>
+		<meta name="x5-page-mode" content="app"/>
+		<title>维修详情</title>
+		<script>
+		    if (window.screen.availWidth <= 750) {
+		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+		    } else {
+		        document.documentElement.style.fontSize = '100px';
+		    }
+		</script>
+		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+		<link rel="stylesheet" type="text/css" href="ProgressMess.css?v=2.0.0"/>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+            <header>
+                <div @click="navT(0)"><span class="borderL">当前维修进度</span></div>|
+                <div @click="navT(1)"><span>车辆维修记录</span></div>
+            </header>
+
+            <!-- 状态部分 S -->
+            <section>
+                <div class="class" v-show="show1">
+                    <div class="backYellow">
+                        <div class="progressWord">
+                            <span>维修状态：</span>
+                            <span>待检验</span>
+                            <div class="marchantName">
+                                <div class="imgBox">
+                                    <img :src="src" v-lazy="src" alt="维修厂logo">
+                                </div>
+                                <p></p>
+                                <div class="tellPhoto springDe">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 进度部分 -->
+                    <aside class="asideL">
+                        <div class="lineS">
+                            <span v-for="item,index in lineArr"></span>
+                        </div>
+                    </aside>
+
+                    <aside class="asideR">
+                        <ul>
+                            <li v-for="item,index in lineArr">
+                                <div class="tringle"></div>
+                                <p><span>{{item.add}}</span><span>{{item.time}}</span></p>
+                            </li>
+                        </ul>
+                    </aside>
+                    <p style="clear: both;"></p>
+                </div>
+
+                <div class="class" v-show="show2">
+                    <div class="repairCarMess">
+                        <!-- 维修车辆信息部分 -->
+                        <div class="block1">
+                            <div></div>
+                            <span>维修车辆信息</span>
+                            <p></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>车牌号码</span>
+                            <div>陕A12312</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>车辆识别代码</span>
+                            <div>ODNGNE923979DTEG</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>保险公司</span>
+                            <div>大众帕萨特</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>型号</span>
+                            <div>2006自动2.4L</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>使用性质</span>
+                            <div>非运营</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>燃料类型</span>
+                            <div>汽油</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>注册日期</span>
+                            <div>2018-01-01</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                    </div>
+
+                    <!-- 维修企业信息 -->
+                    <div class="companyMess">
+                        <div class="block1">
+                            <div></div>
+                            <span>维修企业信息</span>
+                            <p></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>维修企业名称</span>
+                            <div>保宝车服汽车服务有限公司</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>经营业务信息</span>
+                            <div>汽车维修保养</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>维修质量保证信息</span>
+                            <div>一类</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 车辆维修记录 -->
+                <div class="repairHis">
+                    <div class="block1">
+                        <div></div>
+                        <span>车辆维修记录</span>
+                        <p></p>
+                    </div>
+                    <div class="itemMess">
+                        <span>维修企业名称</span>
+                        <div>保宝车服汽车服务有限公司</div>
+                        <p style="clear: both;"></p>
+                    </div>
+                    <div class="itemMess">
+                        <span>经营业务信息</span>
+                        <div>汽车维修保养</div>
+                        <p style="clear: both;"></p>
+                    </div>
+                    <div class="itemMess">
+                        <span>维修质量保证信息</span>
+                        <div>一类</div>
+                        <p style="clear: both;"></p>
+                    </div>
+                </div>
+
+                
+                
+
+                <!-- 底部电话 -->
+                <div class="bottomTel">
+                    <div class="iconKefu">
+                        <img src="../../images/icon_kefu.png"/>
+                        <div class="iconPhone" @click="telphoto('4000-016-369')">
+                            4000-016-369
+                        </div>
+                    </div>
+                    <p class="endTel">有任何问题，请您拨打我们的客服热线</p>
+                </div>
+            </section>
+        </div>
+    </body>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+    <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+    <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/vue-lazyload.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
+    <script>
+        document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+        document.close();
+    </script>
+    <script src="ProgressMess.js?v=2.0.0"></script>
+    <script>
+        //-layer懒加载页面图片
+        Vue.use(VueLazyload,{
+            preLoad:1.3,
+            error:'../../images/img_zhanweitu.png',
+            loading:'../../images/img_zhanweitu.png',
+            attempt:1
+        })
+    </script>
+</html>

@@ -67,23 +67,38 @@ var quickRepair = function () {
     });
     
     var createData = function (repairer_list_data, repairer_list_data_length) {
-    	//console.log(repairer_list_data)
+    	console.log(repairer_list_data)
     	
         var repairer_list_str = "";
         for (var i = 0; i < repairer_list_data_length; i++) {
             
             //列表图片
             var strIcon;
+            var image_arr = [];
+
             if(repairer_list_data[i].image.length > 0){
                 for (var m = 0; m < repairer_list_data[i].image.length; m++) {
                     if (repairer_list_data[i].image[m].image_type == 1) {
                         strIcon = repairer_list_data[i].image[m].image_url;
                         break;
                     }else if(repairer_list_data[i].image[m].image_type != 1){
+                        //-重新排序图片
+                        
+                        if(repairer_list_data[i].image[m].image_type == 8){
+                            image_arr[0] = repairer_list_data[i].image[m].image_url;
+                        }else if(repairer_list_data[i].image[m].image_type == 9){
+                            image_arr[1] = repairer_list_data[i].image[m].image_url;
+                        }else if(repairer_list_data[i].image[m].image_type == 12){
+                            image_arr[2] = repairer_list_data[i].image[m].image_url;
+                        }else if(repairer_list_data[i].image[m].image_type == 10){
+                            image_arr[3] = repairer_list_data[i].image[m].image_url;
+                        };
+                        // repairer_list_data[i].image = image_arr;
+                        // console.log(repairer_list_data[i].image)
                         strIcon = repairer_list_data[i].image[0].image_url;
-                        // break;
                     }
                 }
+                
             }else{
                 strIcon = "../.." + api.Merchant_default_Icon;
             };

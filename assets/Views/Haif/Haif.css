@@ -1,0 +1,81 @@
+[v-cloak] {
+  display: none;
+}
+body #app {
+  overflow: hidden;
+  background: url('../../images/regist_bg.png');
+  background-size: 100% 100%;
+}
+body #app .con1 {
+  margin: 4rem .4rem 0;
+}
+body #app .con1 .p2,
+body #app .con1 .p3,
+body #app .con1 .p4 {
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: 1px solid #ccc;
+  height: .5rem;
+  margin-top: .3rem;
+  position: relative;
+}
+body #app .con1 .p2 input,
+body #app .con1 .p3 input,
+body #app .con1 .p4 input {
+  width: 100%;
+  font-size: .26rem;
+  position: absolute;
+  bottom: 0;
+}
+body #app .con1 .p2 ::-webkit-input-placeholder,
+body #app .con1 .p3 ::-webkit-input-placeholder,
+body #app .con1 .p4 ::-webkit-input-placeholder {
+  color: #c9c4f8 !important;
+}
+body #app .con1 .p2 {
+  top: -0.4rem;
+}
+body #app .con1 .p3 {
+  top: -0.4rem;
+}
+body #app .con1 .p3 button {
+  position: absolute;
+  /* top: -1.0rem; */
+  top: -0.15rem;
+  right: 0rem;
+  padding: .1rem .3rem;
+  text-align: center;
+  font-size: 0.25rem;
+  color: #6C2302;
+  border-radius: 0.1rem;
+  background: #FF9A03;
+}
+body #app .con1 .p4 {
+  top: -0.4rem;
+}
+body #app .con1 .p4 #pwd_show {
+  width: .35rem;
+  height: .2rem;
+  position: absolute;
+  right: 0rem;
+  top: .05rem;
+}
+body #app .registe_btn {
+  display: block;
+  width: 6.7rem;
+  margin: .05rem auto;
+}
+body #app .regist_bottom {
+  display: block;
+  width: 6.7rem;
+  margin: .05rem auto;
+  margin-bottom: .7rem;
+}
+body .layui-m-layer0 .layui-m-layerchild {
+  width: 80%;
+}
+body .layui-m-layercont {
+  padding: 10px 20px;
+  font-size: .3rem;
+  text-align: center;
+}

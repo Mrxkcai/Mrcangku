@@ -375,6 +375,9 @@ header img:nth-child(n+2){
 .icon_item{
 	width: 6.14rem;
 	margin: .2rem auto;
+	display: -webkit-flex; /* Safari */
+  	display: flex;
+	flex-wrap:wrap; 
 }
 .small_icon{
 	display: inline-block;
@@ -384,8 +387,9 @@ header img:nth-child(n+2){
 	font-size:.26rem;
 	font-family:PingFangSC-Regular;
 	color:rgba(51,51,51,1);
-	margin-right: .53rem;
+	margin-right: .5rem;
 	margin-bottom: .22rem;
+	align-items: flex-start;
 }
 .small_icon:nth-of-type(4),
 .small_icon:nth-of-type(8),

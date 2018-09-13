@@ -1,0 +1,427 @@
+[v-cloak] {
+  display: none;
+}
+body {
+  background: #f5f5f5;
+}
+body .springDe {
+  background: url('../../images/springDe.png');
+  background-size: 7.7rem 5.76rem;
+  background-position: 7.7rem 5.76rem;
+}
+body .normalAc {
+  background: #F77B19;
+  border: 1px solid #F77B19;
+}
+body .colorAc {
+  color: #333;
+}
+body header {
+  display: flex;
+  height: .88rem;
+  color: #b3b3b3;
+  line-height: .88rem;
+  background: #fff;
+}
+body header div {
+  flex: 1;
+  text-align: center;
+  height: 100%;
+  font-size: .26rem;
+  line-height: .88rem;
+  background: #fff;
+}
+body header div span {
+  display: inline-block;
+  height: 100%;
+  color: #b3b3b3;
+}
+body header div span.borderL {
+  border-bottom: 2px solid #F77B19;
+  color: #F28928;
+}
+body section .backYellow {
+  width: 100%;
+  position: relative;
+  height: 2.58rem;
+  background: url('../../images/img_bg_weixiu.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+body section .backYellow .progressWord {
+  margin: .5rem 0 0 .3rem;
+  display: inline-block;
+}
+body section .backYellow .progressWord span {
+  display: inline-block;
+}
+body section .backYellow .progressWord span:nth-child(1) {
+  font-size: .24rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #ffffff;
+}
+body section .backYellow .progressWord span:nth-child(2) {
+  font-size: .34rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ffffff;
+}
+body section .backYellow .marchantName {
+  width: 6.9rem;
+  height: 1.36rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -3.45rem;
+  background: #fff;
+  border-radius: .05rem;
+  bottom: 0;
+}
+body section .backYellow .marchantName .imgBox {
+  width: .8rem;
+  height: .8rem;
+  border-radius: .1rem;
+  overflow: hidden;
+  margin: .28rem .3rem 0 .3rem;
+  float: left;
+}
+body section .backYellow .marchantName .imgBox img {
+  width: 100%;
+  height: 100%;
+}
+body section .backYellow .marchantName p {
+  width: 4.2rem;
+  height: .42rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .3rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #333333;
+  float: left;
+  margin-top: .38rem;
+}
+body section .backYellow .marchantName .tellPhoto {
+  width: .65rem;
+  height: .65rem;
+  float: right;
+  margin: .355rem .3rem 0 0;
+  background-position: -0.1rem -5.05rem;
+}
+body section .asideL {
+  margin: .2rem 0 0 .3rem;
+  background: #f5f5f5;
+  width: .88rem;
+  float: left;
+}
+body section .asideL .lineS {
+  width: 1px;
+  min-height: .96rem;
+  border-left: 1px dashed #ddd;
+  margin: .36rem 0 0 .3rem;
+  position: relative;
+}
+body section .asideL .lineS span {
+  display: block;
+  position: absolute;
+  width: .24rem;
+  height: .24rem;
+  border-radius: 50%;
+  background: #fff;
+  left: -0.13rem;
+  border: 1px solid #ccc;
+}
+body section .asideL .lineS span:last-child {
+  width: .6rem;
+  height: .6rem;
+  background: url('../../images/springDe.png');
+  background-size: 7.7rem 5.76rem;
+  background-position: -0.9rem -5rem;
+  border: none;
+  left: -0.3rem;
+  top: 5.55rem!important;
+}
+body section .asideL .lineS span.goneAc {
+  background: url('../../images/springDe.png');
+  background-size: 7.7rem 5.76rem;
+  background-position: -1.68rem -5rem;
+}
+body section .asideR {
+  margin: .2rem .3rem 0 0;
+  width: 6.02rem;
+  float: right;
+}
+body section .asideR ul li {
+  height: .96rem;
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
+  box-sizing: border-box;
+}
+body section .asideR ul li .tringle {
+  width: 0;
+  height: 0;
+  border-top: .1rem solid transparent;
+  border-bottom: .1rem solid transparent;
+  border-right: .15rem solid #fff;
+  position: absolute;
+  left: -0.15rem;
+  top: .35rem;
+}
+body section .asideR ul li p {
+  line-height: .96rem;
+}
+body section .asideR ul li p span {
+  display: inline-block;
+}
+body section .asideR ul li p span:nth-child(1) {
+  font-size: .3rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #aaa;
+  float: left;
+  margin-left: .52rem;
+}
+body section .asideR ul li p span:nth-child(2) {
+  font-size: .26rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #666666;
+  float: right;
+  margin-right: .44rem;
+}
+body section .asideR li:last-child {
+  border-bottom: none;
+}
+body section .bottomTel .iconKefu {
+  width: 3.4rem;
+  height: .88rem;
+  margin: .76rem auto 0;
+  position: relative;
+}
+body section .bottomTel .iconKefu > img {
+  width: .88rem;
+  height: .88rem;
+  z-index: 2;
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid #fafafa ;
+}
+body section .bottomTel .iconPhone {
+  width: 2.55rem;
+  height: .52rem;
+  background: #fff;
+  text-align: center;
+  line-height: .52rem;
+  border-radius: .251rem;
+  position: absolute;
+  z-index: 1;
+  left: .75rem;
+  top: .22rem;
+  font-size: .26rem;
+  font-family: PingFangSC-Regular;
+  color: #f28928;
+}
+body section .bottomTel .endTel {
+  width: 100%;
+  text-align: center;
+  font-size: .22rem;
+  font-family: PingFangSC-Regular;
+  color: #aaaaaa;
+  line-height: .32rem;
+  margin-top: .2rem;
+}
+body section .repairCarMess {
+  width: 6.9rem;
+  padding-bottom: .2rem;
+  background: #fff;
+  margin: .22rem auto 0;
+}
+body section .repairCarMess .block1 {
+  width: 100%;
+  height: 1.18rem;
+}
+body section .repairCarMess .block1 div {
+  width: .4rem;
+  height: .4rem;
+  background: url('../../images/iconDe.png');
+  background-size: 1.12rem 1.08rem;
+  background-position: -0.65rem -0.1rem;
+  float: left;
+  margin: .41rem .3rem 0;
+}
+body section .repairCarMess .block1 span {
+  display: inline-block;
+  font-size: .3rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.18rem;
+}
+body section .repairCarMess .block1 p {
+  width: 6.62rem;
+  height: 1px;
+  border-top: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  float: right;
+  margin-bottom: .1rem;
+}
+body section .repairCarMess .itemMess {
+  padding: 0 .3rem;
+  margin-top: .28rem;
+}
+body section .repairCarMess .itemMess span {
+  display: inline-block;
+}
+body section .repairCarMess .itemMess span:nth-child(1) {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #999999;
+  float: left;
+}
+body section .repairCarMess .itemMess div {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  float: right;
+  text-align: right;
+  width: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+body section .companyMess {
+  width: 6.9rem;
+  padding-bottom: .2rem;
+  background: #fff;
+  margin: .22rem auto 0;
+}
+body section .companyMess .block1 {
+  width: 100%;
+  height: 1.18rem;
+}
+body section .companyMess .block1 div {
+  width: .4rem;
+  height: .4rem;
+  background: url('../../images/iconDe.png');
+  background-size: 1.12rem 1.08rem;
+  background-position: -0.1rem -0.1rem;
+  float: left;
+  margin: .41rem .3rem 0;
+}
+body section .companyMess .block1 span {
+  display: inline-block;
+  font-size: .3rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.18rem;
+}
+body section .companyMess .block1 p {
+  width: 6.62rem;
+  height: 1px;
+  border-top: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  float: right;
+  margin-bottom: .1rem;
+}
+body section .companyMess .itemMess {
+  padding: 0 .3rem;
+  margin-top: .28rem;
+}
+body section .companyMess .itemMess span {
+  display: inline-block;
+}
+body section .companyMess .itemMess span:nth-child(1) {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #999999;
+  float: left;
+}
+body section .companyMess .itemMess div {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  float: right;
+  text-align: right;
+  width: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+body section .repairHis {
+  width: 6.9rem;
+  padding-bottom: .2rem;
+  background: #fff;
+  margin: .22rem auto 0;
+}
+body section .repairHis .block1 {
+  width: 100%;
+  height: 1.18rem;
+}
+body section .repairHis .block1 div {
+  width: .4rem;
+  height: .4rem;
+  background: url('../../images/iconDe.png');
+  background-size: 1.12rem 1.08rem;
+  background-position: -0.1rem -0.61rem;
+  float: left;
+  margin: .38rem .3rem 0;
+}
+body section .repairHis .block1 span {
+  display: inline-block;
+  font-size: .3rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.18rem;
+}
+body section .repairHis .block1 p {
+  width: 6.62rem;
+  height: 1px;
+  border-top: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  float: right;
+  margin-bottom: .1rem;
+}
+body section .repairHis .itemMess {
+  padding: 0 .3rem;
+  margin-top: .28rem;
+}
+body section .repairHis .itemMess span {
+  display: inline-block;
+}
+body section .repairHis .itemMess span:nth-child(1) {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #999999;
+  float: left;
+}
+body section .repairHis .itemMess div {
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  float: right;
+  text-align: right;
+  width: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+body section #aa {
+  width: 100%;
+  height: 5rem;
+}
