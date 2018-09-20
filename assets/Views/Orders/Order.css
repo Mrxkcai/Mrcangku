@@ -234,3 +234,9 @@ body .container .completed_order ul li .order_operating button,
 body .container .cancelled_order ul li .order_operating button {
   background: #fb9120;
 }
+
+
+/* 新增查看详情 */
+.bottom_btn_mid{
+  border-right: .01rem solid #e4e4e5;
+}

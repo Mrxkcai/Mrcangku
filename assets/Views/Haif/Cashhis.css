@@ -1,0 +1,180 @@
+[v-cloak] {
+  display: none;
+}
+body {
+  background: #FEF2C6;
+}
+body #app {
+  background: url('img/img_bg_tixian.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  overflow: hidden;
+  position: relative;
+}
+body #app .jinbi {
+  width: 2.54;
+  height: 1.52rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -1.29rem;
+  top: .6rem;
+  z-index: 2;
+}
+body #app .jinbi img {
+  height: 100%;
+}
+body #app .nav_t {
+  width: 6.5rem;
+  margin: 1.3rem auto 0;
+}
+body #app .nav_t .sec1 {
+  width: 100%;
+  height: 1.5rem;
+  background: url('img/img_bg_top.png');
+  background-size: 100% 100%;
+  position: relative;
+}
+body #app .nav_t .sec1 .par1 {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+body #app .nav_t .sec1 .par1 > div {
+  display: inline-block;
+  font-size: .26rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ffffff;
+  padding: .2rem .45rem;
+  background: #FB7E5B;
+  border-radius: .35rem .35rem 0 0;
+  margin-left: .29rem;
+}
+body #app .nav_t .sec1 .par1 > div.Ac {
+  color: #FF5746;
+  background: #fff!important;
+}
+body #app .nav_t .sec2 {
+  width: 100%;
+  background: url('img/img_bg_bottom_1.png');
+  min-height: 6.04rem;
+  background-size: 100% 100%;
+  padding-bottom: .2rem;
+}
+body #app .nav_t .sec2 ul {
+  width: 5.7rem;
+  margin: 0 auto;
+  padding-top: .2rem;
+  background: #fff;
+}
+body #app .nav_t .sec2 ul li {
+  height: 1.06rem;
+  border-bottom: 1px solid #ddd;
+}
+body #app .nav_t .sec2 ul li .leftImg {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: url('img/csp.png');
+  background-size: 13.46rem 10.67rem;
+  background-position: -11.4rem -6.36rem;
+  float: left;
+  margin-top: .28rem;
+}
+body #app .nav_t .sec2 ul li .rightDiv {
+  width: 4.9rem;
+  height: 1.06rem;
+  float: right;
+}
+body #app .nav_t .sec2 ul li .rightDiv .p1 {
+  float: left;
+  height: 1.06rem;
+}
+body #app .nav_t .sec2 ul li .rightDiv .p1 p:nth-child(1) {
+  font-size: .32rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  margin-top: .15rem;
+}
+body #app .nav_t .sec2 ul li .rightDiv .p1 p:nth-child(2) {
+  font-size: .2rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #aaaaaa;
+}
+body #app .nav_t .sec2 ul li .rightDiv .p2 {
+  float: right;
+  font-size: .36rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ff5746;
+  line-height: 1.06rem;
+}
+body #app .nav_t .sec2 ul li:last-of-type {
+  border-bottom: none;
+}
+body #app .nav_t .high {
+  background: url('img/img_bg_bottom_2.png');
+  min-height: 8.8rem;
+  background-size: 100% 100%;
+}
+body #app .nav_t .btn1 {
+  width: 6.55rem;
+  height: 1rem;
+  margin: .47rem auto .33rem;
+  background: #fff;
+  border-radius: .5rem;
+  border: 2px solid #F83E20;
+  text-align: center;
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #ff5746;
+  box-sizing: border-box;
+  line-height: 1rem;
+}
+body #app .nav_t .btn1 em {
+  font-style: normal;
+  font-size: .34rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ff5746;
+}
+body #app .nav_t .btn1 span {
+  font-size: .42rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ff5746;
+}
+body #app .nav_t .btn2 {
+  width: 6.55rem;
+  height: 1rem;
+  margin: 0rem auto .5rem;
+  background: linear-gradient(0deg, #ff9a14, #f83e20);
+  opacity: 0.8;
+  border-radius: .5rem;
+  text-align: center;
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #ff5746;
+  line-height: 1rem;
+  background: url('img/csp.png');
+  background-size: 13.46rem 10.67rem;
+  background-position: -0.3rem -9.25rem;
+}
+body #app .nav_t .btn3 {
+  width: 6.55rem;
+  height: 1rem;
+  margin: 0rem auto .5rem;
+  border-radius: .5rem;
+  text-align: center;
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1rem;
+  background: #ddd;
+}

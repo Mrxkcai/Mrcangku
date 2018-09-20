@@ -37,7 +37,7 @@
                                     <img :src="src" v-lazy="src" alt="维修厂logo">
                                 </div>
                                 <p></p>
-                                <div class="tellPhoto springDe">
+                                <div class="tellPhoto springDe" @click="telphone()">
 
                                 </div>
                             </div>
@@ -63,8 +63,9 @@
                 </div>
 
                 <div class="class" v-show="show2">
-                    <div class="repairCarMess">
-                        <!-- 维修车辆信息部分 -->
+                     <!-- 维修车辆信息部分 -->
+                    <!-- <div class="repairCarMess">
+                       
                         <div class="block1">
                             <div></div>
                             <span>维修车辆信息</span>
@@ -105,10 +106,10 @@
                             <div>2018-01-01</div>
                             <p style="clear: both;"></p>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- 维修企业信息 -->
-                    <div class="companyMess">
+                    <!-- <div class="companyMess">
                         <div class="block1">
                             <div></div>
                             <span>维修企业信息</span>
@@ -129,35 +130,64 @@
                             <div>一类</div>
                             <p style="clear: both;"></p>
                         </div>
+                    </div> -->
+
+
+                    <!-- 车辆维修记录 -->
+                    <div class="repairHis">
+                        <div class="block1">
+                            <div></div>
+                            <span>车辆维修记录</span>
+                            <p></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>送修日期</span>
+                            <div>2018-02-14</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>送修里程</span>
+                            <div>8500km</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>故障描述</span>
+                            <div>翼子板破损，引擎盖破损。内 容较多行显示</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>维修项目</span>
+                            <div>更换引擎盖</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>维修工时</span>
+                            <div>48小时</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>配件名称</span>
+                            <div>引擎盖</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>配件数量</span>
+                            <div>引擎盖*1</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>结算日期</span>
+                            <div>2018-03-01</div>
+                            <p style="clear: both;"></p>
+                        </div>
+                        <div class="itemMess">
+                            <span>结算订单编号</span>
+                            <div>TX2018051010016</div>
+                            <p style="clear: both;"></p>
+                        </div>
                     </div>
+
                 </div>
-
-
-                <!-- 车辆维修记录 -->
-                <div class="repairHis">
-                    <div class="block1">
-                        <div></div>
-                        <span>车辆维修记录</span>
-                        <p></p>
-                    </div>
-                    <div class="itemMess">
-                        <span>维修企业名称</span>
-                        <div>保宝车服汽车服务有限公司</div>
-                        <p style="clear: both;"></p>
-                    </div>
-                    <div class="itemMess">
-                        <span>经营业务信息</span>
-                        <div>汽车维修保养</div>
-                        <p style="clear: both;"></p>
-                    </div>
-                    <div class="itemMess">
-                        <span>维修质量保证信息</span>
-                        <div>一类</div>
-                        <p style="clear: both;"></p>
-                    </div>
-                </div>
-
-                
                 
 
                 <!-- 底部电话 -->

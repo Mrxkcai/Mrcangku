@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+    <meta name="format-detection" content="telephone=yes,email=no" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-page-mode" content="app" />
+    <title>注册</title>
+    <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3" />
+    <link rel="stylesheet" type="text/css" href="Haif.css?v=2.0.2" />
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- 新修改界面 -->
+        <div class="new_back">
+
+        </div>
+        <p class="new_p">最高借款额度（元）</p>
+        <p class="new_p2">200,000</p>
+        <p class="new_p3">1000元借1天最低仅0.35元</p>
+        <img src="img/img_3point.png" alt="" class="new_point" />
+
+        <div class="con1" style="position: relative;">
+            <p style="position: relative; height: 0.4rem;"></p>
+            <p class="p2" style="position: relative;">
+                <input type="text" name="" placeholder="请输入手机号" maxlength="11" v-model="phone" />
+            </p>
+            <p class="p3" style="position: relative;">
+                <input type="text" name="" placeholder="请输入验证码" maxlength="6" v-model="code" />
+                <button type="button" class="a-send noborder" @click="getCode()">获取验证码</button>
+            </p>
+            <p class="p4" style="position: relative;">
+                <input id="pwd" type="password" name="" placeholder="设置登录密码" v-model="pass" />
+                <img @click="show()" id="pwd_show" src="https://app.haiercash.com:6688/hf/html/download/20180627/images/show.png">
+            </p>
+            <p style="position: relative; height: 0.3rem;"></p>
+        </div>
+
+        <div class="regiter_box" class="registe_btn" @click="regist()">
+            <!-- <img src="../../images/regist_btn.png" alt="" class="registe_btn" @click="regist()"/> -->
+            注册享免息特权
+        </div>
+        <img src="img/regist_bg2.png" class="regist_bottom" alt="">
+        <p style="clear: both;"></p>
+    </div>
+</body>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vue-lazyload.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script>
+    //-layer懒加载页面图片
+    Vue.use(VueLazyload, {
+        preLoad: 1.3,
+        error: '../../images/img_zhanweitu.png',
+        loading: '../../images/img_zhanweitu.png',
+        attempt: 1
+    })
+</script>
+<script>
+    //  -fastclick 用法
+    FastClick.attach(document.body);
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            phone:"",
+            code:'',
+            pass:'', 
+            userId:'',
+            type:'',
+            sourceId:''
+        },
+        methods: {
+            init() {
+                //-初始化页面高度
+                $("#app").css({ 'min-height': $(window).height() + 'px' });
+                var that = this;
+                if(getUrlParam('userid')){
+                    that.userId = getUrlParam('userid')
+                }else if(!getUrlParam('userid') && !app.getItem("userInfo")){
+                    that.userId = '';
+                }else if(!getUrlParam('userid') && app.getItem("userInfo")){
+                    that.userId = app.getItem("userInfo").id
+                };
+
+
+                //  -判断用户类型
+                if(getUrlParam('userType')){    
+                    if(getUrlParam('userType') == 0){
+                        that.type = 'USER';
+                    }else if(getUrlParam('userType') == 1){
+                        that.type = 'PARTNER';
+                    }else if(getUrlParam('userType') == 2){
+                        that.type = 'WX_USER';
+                    }else{};
+                }else{
+                    //-非app
+                    that.type = 'WX_USER';
+
+                };
+
+                // -判断来源
+                if(getUrlParam('source')){
+                    that.sourceId = getUrlParam('source')
+                }else{
+                    that.sourceId = '501';
+                };
+
+                
+                console.log(that.userId)
+                if(getUrlParam('d')){
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    if(isAndroid == true){
+                        //-调用安卓方法
+                        anF.anF(
+                            "我的收益",
+                            'http://wx.nuoweibd.com/Views/Haif/Cashhis.html'
+                        );
+                    }else if(isiOS == true){
+                        (function iosF(){
+                            window.webkit.messageHandlers.iosF.postMessage({title:'我的收益',content:'http://wx.nuoweibd.com/Views/Haif/Cashhis.html'});
+                        }());
+
+                        
+                    };
+                };
+                    
+
+                // that.fun('233',3);
+            },
+            regist(){
+                var that = this;
+                // layer.open({
+                //     title:that.type
+                // })
+                // return
+                if(that.phone == ''){
+                    that.fun('请输入手机号');
+                    return;
+                }else if(that.phone.length > 0 && !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
+                    that.fun('手机号格式不正确');
+                    return;
+                }else if(that.code == ''){
+                    that.fun('请输入验证码');
+                    return;
+                }else if (that.code.length > 0 && that.code.length < 6){
+                    that.fun('验证码格式不正确');
+                    return;
+                }else if(that.pass == ''){
+                    that.fun('请输入登录密码');
+                    return;
+                }else if(that.pass.length > 0 && !/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/.test(that.pass)){
+                    that.fun('密码由6-20位字母和数字组成');
+                    return;
+                }else{
+                    $.ajax({
+                        url:api.NWBDApiHairReg,
+                        type:'POST',
+                        data:{
+                            userId:that.userId,
+                            type:that.type,
+                            mobile:that.phone,
+                            verifyNo:that.code,
+                            password:that.pass,
+                            sourceId:that.sourceId
+                        },
+                        // dataType:"jsonp",
+                        success:function(res){
+                            console.log(res)
+                            if(res.code == 0 && res.status == 'success'){
+                                
+                                that.fun(res.message,3);
+                            }else if(res.code == 2){
+                                that.fun(res.message);
+                            }else if(res.code == 1){
+                                if(res.message == "请发送短信验证码"){
+                                    that.fun(res.message,2);
+                                }else{
+                                    that.fun(res.message,1);
+                                };
+                                
+                            }
+                            
+                        },
+                        error:function(){
+                            app.alert('网络故障，请稍后重试')
+                        }
+                    });
+                }
+
+                
+                
+            },
+            show(){
+                var that = this;
+                if($('#pwd').attr('type') == 'password'){
+                    $('#pwd').attr('type','text')
+                }else if($('#pwd').attr('type') == 'text'){
+                    $('#pwd').attr('type','password')
+                }
+            },
+            getCode(){
+                var that = this;
+                var btn_code = $('.a-send');
+                if(/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
+                    $.ajax({
+                        url:api.NWBDApiHairCode,
+                        type:'GET',
+                        data:{
+                            userId:that.userId,
+                            type:that.type,
+                            mobile:that.phone,
+                            sourceId:that.sourceId
+                        },
+                        // dataType:"jsonp",
+                        success:function(res){
+                            console.log(res)
+                            if(res.code == 0 && res.status == 'success'){
+                                var time = 60;
+                                btn_code.text(time + "后重新获取");
+                                btn_code.attr("disabled", true);
+                                var timer = setInterval(function () {
+                                    time--;
+                                    btn_code.text(time + "后重新获取");
+                                    if (time <= 0) {
+                                        clearInterval(timer);
+                                        btn_code.text("获取验证码");
+                                        btn_code.attr("disabled", false);
+                                    }
+                                }, 1000);
+                            }else{
+                                app.alert(res.message)
+                            }
+                        },
+                        error:function(){
+                            app.alert('网络故障，请稍后重试')
+                        }
+                    })
+                }else if(that.phone.length == 0){
+                    that.fun('请输入手机号');
+                }else if(that.phone.length > 0 && !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
+                    
+                    that.fun('手机号格式不正确');
+                }else{}
+                
+            },
+            fun(mes,n){
+                var that = this;
+                if(n == 1){
+                    var index = layer.open({
+                        title:'',
+                        style: 'border:none;font-size:0.28rem;',
+                        content:'<p>'+mes+'</p>',
+                        shadeClose:false,
+                        btn:'关闭',
+                        shade:0.2,
+                        yes:function(){
+                            layer.close(index)
+                            window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
+                        }
+                    });
+                    $('.layui-m-layerchild h3').remove();
+                }else if(n == 3){
+                    var index = layer.open({
+                        title:'',
+                        style:'padding: 0!important;background: none!important;box-shadow:none;',
+                        content:`<div class='img_box'>
+                                    <img src='img/img_quchakan.png?v=2.0.1'/>
+                                    <img src='img/icon_close_1.png?v=2.0.0' class="close_img2" />
+                                    <p><span>6</span> 元</p>
+                                    <img src="img/img_button_quchakan.png?v=2.0.0" class="quchk"/>
+                                </div>
+                                `,
+                        shadeClose:false,
+                        shade:0.2,
+                        yes:function(){
+                            console.log(233)
+                            layer.close(index)
+                        }
+                    });
+                    $('.img_box').css({'opacity':'1'});
+                    $('.layui-m-layerchild h3').remove();
+                    //  关闭叉号
+                    $('.close_img2').on('click',function(){
+                        layer.close(index);
+                        window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
+                    });
+                    
+                    //-去查看
+                    $('.quchk').on('click',function(){
+                        layer.close(index);
+                        if(!getUrlParam('d')){
+                            // alert(that.userId)
+                            // layer.open({
+                            //     title:'22'
+                            // })
+                            window.location.href = "Cashhis.html?userType=2&userid="+that.userId;
+                        }else{
+                            var u = navigator.userAgent;
+                            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                            if(isAndroid == true){
+                                //-调用安卓方法
+                                postMessage.postMessage();
+                                
+                            }else if(isiOS == true){
+                                (function ios_into_income(){
+                                    window.webkit.messageHandlers.ios_into_income.postMessage({title:null,content:null});
+                                }());
+
+                                
+                            };
+                        }
+                       
+                        
+                        // if(getUrlParam('d')){
+                        //     var u = navigator.userAgent;
+                        //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                        //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        //     if(isAndroid == true){
+                        //         //-调用安卓方法
+                                
+                        //     }else if(isiOS == true){
+                        //         (function ios_into_income(){
+                        //             window.webkit.messageHandlers.ios_into_income.postMessage({title:null,content:null});
+                        //         }());
+
+                                
+                        //     };
+                        // };
+                        
+
+                        
+                    });
+
+                }
+                else{
+                    var index = layer.open({
+                        title:'',
+                        style: 'border:none;font-size:0.28rem;',
+                        content:'<p>'+mes+'</p>',
+                        shadeClose:false,
+                        btn:'关闭',
+                        shade:0.2,
+                        yes:function(){
+                            console.log(233)
+                            layer.close(index)
+                        }
+                    });
+                    $('.layui-m-layerchild h3').remove();
+                }
+                
+            }
+        },
+        mounted() {
+            var that = this;
+            that.init();
+        }
+    });
+</script>
+
+</html>

@@ -103,7 +103,8 @@ var order = function () {
                 </div>
                 <div class="bottom_btn">
                     <a class="bottom_btn_left" href="tel:4000-016-369">联系客服</a>
-                    <a class="bottom_btn_right" href="tel:${data[i].service_hotline}">联系维修厂</a>
+                    <a class="bottom_btn_right bottom_btn_mid" href="tel:${data[i].service_hotline}">联系维修厂</a>
+                    <a class="bottom_btn_right" href="../CarProgress/ProgressMess.html" onclick="app.setItem('orderNo','${data[i].id}')">维修详情</a>
                 </div>`;
             if (type === 1 && data[i].status === 5) {
                 str += `<div class="order_operating">
@@ -312,6 +313,7 @@ var order = function () {
         $('.' + $(this).attr("data-className")).children("ul").html("");
         getPageData($(this).attr("data-className"), "update");
     });
+    
 
     //首次进入页面
     $("header>ul>li:first-child").click();

@@ -7,7 +7,8 @@ Vue.component("adve-block",{
     },
     data(){
         return{
-
+            // url1:'../../images/icon_huodong.gif?v=2.0.0',
+            // url2:'images/icon_huodong.gif?v=2.0.0',
         }
     },
     computed:{

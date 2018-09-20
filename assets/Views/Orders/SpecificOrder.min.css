@@ -242,3 +242,7 @@ body{background:#f0efed}body .container .payment_order,body .container .evaluati
     background-size: cover;
     border: 1px solid #fff;
 }
+/* 新增查看详情 */
+.bottom_btn_mid{
+    border-right: .01rem solid #e4e4e5;
+  }

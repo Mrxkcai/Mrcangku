@@ -17,13 +17,22 @@
         }
     </script>
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3" />
-    <link rel="stylesheet" type="text/css" href="Haif.css?v=2.0.0" />
+    <link rel="stylesheet" type="text/css" href="Haif.css?v=2.0.31" />
 </head>
 
 <body>
     <div id="app" v-cloak>
-        <div class="con1" style="position: relative;background: url(&quot;https://app.haiercash.com:6688/hf/html/download/20180627/images/div_bg.png&quot;) 0% 0% / 100% 100% no-repeat;">
-            <p style="position: relative; height: 1.5rem;"></p>
+        <!-- 新修改界面 -->
+        <div class="new_back">
+
+        </div>
+        <p class="new_p">最高借款额度（元）</p>
+        <p class="new_p2">200,000</p>
+        <p class="new_p3">1000元借1天最低仅0.35元</p>
+        <img src="img/img_3point.png" alt="" class="new_point" />
+
+        <div class="con1" style="position: relative;">
+            <p style="position: relative; height: 0.4rem;"></p>
             <p class="p2" style="position: relative;">
                 <input type="text" name="" placeholder="请输入手机号" maxlength="11" v-model="phone" />
             </p>
@@ -38,9 +47,11 @@
             <p style="position: relative; height: 0.3rem;"></p>
         </div>
 
-        <img src="../../images/regist_btn.png" alt="" class="registe_btn" @click="regist()"/>
-
-        <img src="../../images/regist_bottom.png" alt="" class="regist_bottom" />
+        <div class="regiter_box" class="registe_btn" @click="regist()">
+            <!-- <img src="../../images/regist_btn.png" alt="" class="registe_btn" @click="regist()"/> -->
+            注册享免息特权
+        </div>
+        <img src="img/regist_bg2.png" class="regist_bottom" alt="">
         <p style="clear: both;"></p>
     </div>
 </body>
@@ -50,6 +61,7 @@
 <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
 <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+<script src="../../js/common.js"></script>
 <script src="../../js/vue.min.js"></script>
 <script src="../../js/vue-lazyload.js"></script>
 <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
@@ -75,17 +87,77 @@
         data: {
             phone:"",
             code:'',
-            pass:''
+            pass:'', 
+            userId:'',
+            type:'',
+            sourceId:''
         },
         methods: {
             init() {
                 //-初始化页面高度
                 $("#app").css({ 'min-height': $(window).height() + 'px' });
                 var that = this;
-                // that.fun('该手机号码已经注册海尔会员，请下载嗨付直接用此手机号码登录',1);
+                if(getUrlParam('userid')){
+                    that.userId = getUrlParam('userid')
+                }else if(!getUrlParam('userid') && !app.getItem("userInfo")){
+                    that.userId = '';
+                }else if(!getUrlParam('userid') && app.getItem("userInfo")){
+                    that.userId = app.getItem("userInfo").id
+                };
+
+
+                //  -判断用户类型   
+                // if(getUrlParam('userType')){    
+                    if(getUrlParam('userType') == 0){
+                        that.type = 'USER';
+                    }else if(getUrlParam('userType') == 1){
+                        that.type = 'PARTNER';
+                    }else if(getUrlParam('userType') == 2){
+                        that.type = 'WX_USER';
+                    }else{};
+                // }else{
+                //     //-非app
+                //     that.type = 'WX_USER';
+
+                // };
+
+                // -判断来源
+                if(getUrlParam('source')){
+                    that.sourceId = getUrlParam('source')
+                }else{
+                    // that.sourceId = '501';
+                };
+
+                
+                console.log(that.userId)
+                if(getUrlParam('d')){
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    if(isAndroid == true){
+                        //-调用安卓方法
+                        anF.anF(
+                            "我的收益",
+                            'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'
+                        );
+                    }else if(isiOS == true){
+                        (function iosF(){
+                            window.webkit.messageHandlers.iosF.postMessage({title:'我的收益',content:'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'});
+                        }());
+
+                        
+                    };
+                };
+                    
+
+                // that.fun('233',3);
             },
             regist(){
                 var that = this;
+                // layer.open({
+                //     title:that.type
+                // })
+                // return
                 if(that.phone == ''){
                     that.fun('请输入手机号');
                     return;
@@ -109,21 +181,28 @@
                         url:api.NWBDApiHairReg,
                         type:'POST',
                         data:{
-                            userId:app.getItem("userInfo").id,
-                            type:"WX_USER",
+                            userId:that.userId,
+                            type:that.type,
                             mobile:that.phone,
                             verifyNo:that.code,
-                            password:that.pass
+                            password:that.pass,
+                            sourceId:that.sourceId
                         },
-                        dataType:"jsonp",
+                        // dataType:"jsonp",
                         success:function(res){
                             console.log(res)
                             if(res.code == 0 && res.status == 'success'){
-                                that.fun(res.message,1);
+                                
+                                that.fun(res.message,3);
                             }else if(res.code == 2){
                                 that.fun(res.message);
                             }else if(res.code == 1){
-                                that.fun(res.message,1);
+                                if(res.message == "请发送短信验证码"){
+                                    that.fun(res.message,2);
+                                }else{
+                                    that.fun(res.message,1);
+                                };
+                                
                             }
                             
                         },
@@ -152,11 +231,12 @@
                         url:api.NWBDApiHairCode,
                         type:'GET',
                         data:{
-                            userId:app.getItem("userInfo").id,
-                            type:'WX_USER',
-                            mobile:that.phone
+                            userId:that.userId,
+                            type:that.type,
+                            mobile:that.phone,
+                            sourceId:that.sourceId
                         },
-                        dataType:"jsonp",
+                        // dataType:"jsonp",
                         success:function(res){
                             console.log(res)
                             if(res.code == 0 && res.status == 'success'){
@@ -189,6 +269,7 @@
                 
             },
             fun(mes,n){
+                var that = this;
                 if(n == 1){
                     var index = layer.open({
                         title:'',
@@ -199,11 +280,85 @@
                         shade:0.2,
                         yes:function(){
                             layer.close(index)
-                            window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html?c=YONGHUI&fg=null"
+                            window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
                         }
                     });
                     $('.layui-m-layerchild h3').remove();
-                }else{
+                }else if(n == 3){
+                    var index = layer.open({
+                        title:'',
+                        style:'padding: 0!important;background: none!important;box-shadow:none;',
+                        content:`<div class='img_box'>
+                                    <img src='img/img_quchakan.png?v=2.0.1'/>
+                                    <img src='img/icon_close_1.png?v=2.0.0' class="close_img2" />
+                                    <p><span>6</span> 元</p>
+                                    <img src="img/img_button_quchakan.png?v=2.0.0" class="quchk"/>
+                                </div>
+                                `,
+                        shadeClose:false,
+                        shade:0.2,
+                        yes:function(){
+                            console.log(233)
+                            layer.close(index)
+                        }
+                    });
+                    $('.img_box').css({'opacity':'1'});
+                    $('.layui-m-layerchild h3').remove();
+                    //  关闭叉号
+                    $('.close_img2').on('click',function(){
+                        layer.close(index);
+                        window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
+                    });
+                    
+                    //-去查看
+                    $('.quchk').on('click',function(){
+                        layer.close(index);
+                        if(!getUrlParam('d')){
+                            // alert(that.userId)
+                            // layer.open({
+                            //     title:'22'
+                            // })
+                            window.location.href = "Cashhis.html?userType=2&userid="+that.userId;
+                        }else{
+                            var u = navigator.userAgent;
+                            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                            if(isAndroid == true){
+                                //-调用安卓方法
+                                postMessage.postMessage();
+                                
+                            }else if(isiOS == true){
+                                (function ios_into_income(){
+                                    window.webkit.messageHandlers.ios_into_income.postMessage({title:null,content:null});
+                                }());
+
+                                
+                            };
+                        }
+                       
+                        
+                        // if(getUrlParam('d')){
+                        //     var u = navigator.userAgent;
+                        //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                        //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        //     if(isAndroid == true){
+                        //         //-调用安卓方法
+                                
+                        //     }else if(isiOS == true){
+                        //         (function ios_into_income(){
+                        //             window.webkit.messageHandlers.ios_into_income.postMessage({title:null,content:null});
+                        //         }());
+
+                                
+                        //     };
+                        // };
+                        
+
+                        
+                    });
+
+                }
+                else{
                     var index = layer.open({
                         title:'',
                         style: 'border:none;font-size:0.28rem;',

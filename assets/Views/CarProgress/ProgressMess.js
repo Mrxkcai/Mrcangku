@@ -126,8 +126,8 @@ $(function () {
                         time:'2018-1-8'
                     }
                 ],
-                show1:false,     //-维修进度
-                show2:true,    //-车辆维修记录
+                show1:true,     //-维修进度
+                show2:false,    //-车辆维修记录
 
             },
             methods:{
@@ -143,8 +143,26 @@ $(function () {
 
                     //-最后一个已完成
                     //$('.lineS span:last-child').addClass('goneAc');
+
+                    if(app.getItem('orderNo')){
+                        $.ajax({
+                            url:api.NWBDApiSitengS,
+                            type:'post',
+                            data:{
+                                orderNo:app.getItem('orderNo')
+                            },
+                            dataType:'json',
+                            success:function(res){
+                                console.log(res)
+                            },
+                            error(){
+                                app.alert('网络故障，请稍后重试')
+                            }
+                        });
+                    };
                                
                 },
+                //-tab切换
                 navT(n){
                     var that = this;
                     if(n == 0){
@@ -160,7 +178,11 @@ $(function () {
                     };
 
                     
-                }
+                },
+                //-可拨打电话
+                telphone(tellphone){
+                    window.location.href = 'tel:' + tellphone
+                },
             },
             mounted(){
                 var that = this;

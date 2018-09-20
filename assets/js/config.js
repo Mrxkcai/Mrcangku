@@ -57,6 +57,9 @@ var api = (function () {
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message",             //  海尔短信发送接口
         NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register",             //  海尔注册接口
 
+        //- 关于思腾维修厂的接口
+        NWBDApiSitengS: apiAddress + "/order/status/sten/getOrderStatus",             //  根据订单号查询订单在偲腾ERP的状态
+
        //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress + "/qrCode/createOrGetQrCode", 	//	获取分享二维码
         pzTime:'3600',	//		计时器时间״̬
@@ -75,7 +78,7 @@ var api = (function () {
 
                 }else{
                 
-                    //      console.log(app.getQueryString("code"))
+                    console.log(app.getQueryString("code"))
                     $.ajax({
                         url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),
                         type: "POST",
@@ -110,7 +113,7 @@ var api = (function () {
     };
 
     if (api.isDebug) {
-        document.write("<script src='" + apiAddress1 + "/" + api.debugProjectName + "/js/app.js?v=1.0.19' charset='utf-8'></script>");
+        document.write("<script src='" + apiAddress1 + "/" + api.debugProjectName + "/js/app.js?v=1.0.20' charset='utf-8'></script>");
         document.close();
     } else {
         $('#barrage_name1 img').css({'opacity':'0'});

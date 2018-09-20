@@ -129,6 +129,7 @@ var voucher = function voucher() {
         }
     });
 
+    console.log(ijroll)
     //  输出html结构
     var createData = function (data,datatype) {
         var str = '';

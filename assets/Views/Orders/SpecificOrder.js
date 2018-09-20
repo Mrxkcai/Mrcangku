@@ -106,7 +106,8 @@ var specificOrder = function () {
                 </div>
                 <div class="bottom_btn">
                     <a class="bottom_btn_left" href="tel:4000-016-369">联系客服</a>
-                    <a class="bottom_btn_right" href="tel:${data[i].service_hotline}">联系维修厂</a>
+                    <a class="bottom_btn_right bottom_btn_mid" href="tel:${data[i].service_hotline}">联系维修厂</a>
+                    <a class="bottom_btn_right" href="../CarProgress/ProgressMess.html" onclick="app.setItem('orderNo','${data[i].id}')">维修详情</a>
                 </div>`;
             if ((type === 1 || type === 5) && data[i].status === 5) {
                 if(data[i].coupon_amount){
