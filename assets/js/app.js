@@ -63,13 +63,21 @@
 
         app.verificationUserInfo = function () {
             if (!app.getItem("userInfo") || !app.getItem("userInfo").id || !app.getItem("userInfo").mobile || !app.getItem("open_id")) {
-                alert("请您登录！");
+                // alert("请您登录！");
                 sessionStorage.removeItem("g");
                 if (api.isDebug) {
                     app.setItem("open_id", "oalBd0epVVUS-w1rswxpJsaj2Fqc");
                     window.location.href = api.getLocalhostPaht() + "/" + api.debugProjectName + "/index.html";
                 } else {
-                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                    var locat = window.location.href;
+                    // if(locat.indexOf('index') > 0){
+                    //     window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.callbackUrl + "/index.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                    // }else if(locat.indexOf('QuickRepair') > 0){
+                    //     window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.callbackUrl + "/Views/QuickRepair/QuickRepair.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                    // }else if(locat.indexOf('adverList') > 0){
+                    //     window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.callbackUrl + "/Views/Haif/adverList.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                    // }else{}
+                    
                 }
             }
         };

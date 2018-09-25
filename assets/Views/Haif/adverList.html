@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+    <meta name="format-detection" content="telephone=yes,email=no" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-page-mode" content="app" />
+    <title>享优惠</title>
+    <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3" />
+    <link rel="stylesheet" type="text/css" href="../../lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
+    <link rel="stylesheet" href="../../css/login.min.css?v=2.0.0">
+    <link rel="stylesheet" href="vant.css">
+    <style>
+        .d{
+            display: block;
+            width: 6.9rem;
+            height: 4rem;
+            margin: .2rem auto 0;
+            box-shadow: 0 0px 10px #ddd;
+            background: none;
+            border-radius: .2rem;
+            clear: both;
+            overflow: hidden;
+        }
+        .d img{
+            display:block;
+            width: 100%;
+            height: 100%;
+            float: left;
+        };  
+        body #app .van-popup {
+            background: none!important;
+        }
+        body #app .txfs {
+        width: 6rem;
+        height: 6rem;
+        background: none;
+        margin: 0 auto;
+        position: relative;
+        }
+        body #app .txfs .img_b {
+        width: 5.83rem;
+        height: 4.73rem;
+        margin: 0 auto;
+        background: url('img/img_youka.png');
+        background-size: 100% 100%;
+        }
+        body #app .txfs .four {
+        width: 4.86rem;
+        height: .68rem;
+        background: #fff;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        margin-left: -2.43rem;
+        border-radius: .1rem;
+        }
+        body #app .txfs .four span {
+        display: inline-block;
+        font-size: .3rem;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        line-height: .68rem;
+        padding-left: .2rem;
+        }
+        body #app .txfs .four span:nth-child(2) {
+        color: #F14836;
+        }
+        body #app .txfs .four2 {
+        bottom: 1.7rem;
+        }
+        body #app .txfs .four1 {
+        bottom: 2.7rem;
+        }
+        body #app .txfs .close_i {
+        width: .75rem;
+        height: .75rem;
+        background: none;
+        background: url('img/csp.png');
+        background-size: 13.46rem 10.67rem;
+        background-position: -10.5rem -6.35rem;
+        margin: .5rem auto 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="d d1" @click="f1()">
+                <img src="img/img_jishigou_1.png?v=2.0.0" alt="">
+        </div>
+
+        <div class="d d2" @click="f2()">
+                <img src="img/img_jishigou_2.png?v=2.0.0" alt="">
+        </div>
+
+
+        <div class="d d3" @click="f3()">
+                <img src="img/img_jishigou_3.png?v=2.0.0" alt="">
+        </div>
+
+
+        <van-popup v-model="show" close-on-click-overlay='false' style="background: none!important;">
+            <div class="txfs">
+                <div class="img_b">
+
+                </div>
+                <div class="four four1">
+                    <span>1. 购买请加微信号:</span>
+                    <span>JeremyLi120</span>
+                </div>
+                <div class="four four2">
+                        <span>2. 联系电话:</span>
+                        <span>15691959091</span>
+                </div>
+
+                <div class="close_i" @click=close_()></div>
+            </div>
+
+        </van-popup>
+    </div>
+</body>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/vant.min.js"></script>
+<script src="../../lib/fastclick 1.0.6/fastclick.min.js"></script>
+<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<script src="../../js/login.js?v=2.0.4"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            show:false
+        },
+        methods:{
+            init(){
+                var that = this;
+                //  检测是否含有openid
+                api.getopenid();
+                app.verificationUserInfo();
+            },
+            f1(){
+                var that = this;
+                window.location.href = "https://c.360doo.com/d.aspx?c=4091&p=23610&v=57B3E44B3E3ACA34"
+            },
+            f2(){
+                var that = this;
+                window.location.href = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Haif.html?userType=2&source=501"
+            },
+            f3(){
+                var that = this;
+                that.show = true;
+            },
+            close_(){
+                var that = this;
+                that.show = false;
+            }
+        },
+        mounted(){
+            var that = this;
+            that.init();
+        }
+    });
+</script>
+</html>

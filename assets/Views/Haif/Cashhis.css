@@ -178,3 +178,60 @@ body #app .nav_t .btn3 {
   line-height: 1rem;
   background: #ddd;
 }
+body #app .layui-layer {
+  width: 80%;
+  background: none!important;
+}
+body #app .van-popup {
+  background: none;
+}
+body #app .txfs {
+  width: 6rem;
+  height: 6rem;
+  background: none;
+  margin: 0 auto;
+  position: relative;
+}
+body #app .txfs .img_b {
+  width: 5.83rem;
+  height: 4.73rem;
+  margin: 0 auto;
+  background: url('img/img_tixianfangshi.png');
+  background-size: 100% 100%;
+}
+body #app .txfs .four {
+  width: 4.86rem;
+  height: .68rem;
+  background: #fff;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.43rem;
+  border-radius: .1rem;
+}
+body #app .txfs .four span {
+  display: inline-block;
+  font-size: .3rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  line-height: .68rem;
+  padding-left: .2rem;
+}
+body #app .txfs .four span:nth-child(2) {
+  color: #F14836;
+}
+body #app .txfs .four2 {
+  bottom: 1.7rem;
+}
+body #app .txfs .four1 {
+  bottom: 2.7rem;
+}
+body #app .txfs .close_i {
+  width: .75rem;
+  height: .75rem;
+  background: none;
+  background: url('img/csp.png');
+  background-size: 13.46rem 10.67rem;
+  background-position: -10.5rem -6.35rem;
+  margin: .5rem auto 0;
+}

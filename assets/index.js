@@ -114,6 +114,11 @@ $(function () {
     body.on("click", ".common_problem", function () {
         window.location.href = "Views/CommonProblem/CommonProblem.html";
     });
+    //-红包
+    body.on("click", ".red_package", function () {
+        var userid = app.getItem("userInfo").id;
+        window.location.href = "Views/Haif/Cashhis.html?userType=2&userid=" + userid;
+    });
 
     //首页
     body.on("click", ".footer_left", function () {
@@ -122,6 +127,10 @@ $(function () {
     //车服门店
     body.on("click", ".footer_right", function () {
         window.location.href = "Views/QuickRepair/QuickRepair.html";
+    });
+    //享优惠
+    body.on("click", ".footer_mid", function () {
+        window.location.href = "Views/Haif/adverList.html";
     });
 
 });

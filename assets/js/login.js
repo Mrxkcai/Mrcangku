@@ -24,10 +24,14 @@
 
     body.on("click", ".btn_code", function () {
         var mobile = $.trim($('#mobile').val());
-        if (!mobile || !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
+        if(!mobile){
+            app.alert("请填写手机号");
+            return;
+        }else if (!/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
             app.alert("手机号填写有误");
             return;
-        }
+        }else{};
+
         var btn_code = $(this);
         $.ajax({
             url: api.NWBDApiVerifysend + "?r=" + Math.random(),
@@ -69,16 +73,23 @@
 
     body.on("click", ".btn_login", function () {
         var mobile = $.trim($('#mobile').val());
-        if (!mobile || !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
+        if(!mobile){
+            app.alert("请填写手机号");
+            return;
+        }else if (!/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
             app.alert("手机号填写有误");
             return;
-        }
+        }else{};
+        
         var code = $.trim($('#code').val());
-        if (!code || !/^[0-9]{4}$/.test(code)) {
+        if(!code){
+            app.alert("请填写验证码");
+            return;
+        }else if (!/^[0-9]{4}$/.test(code)) {
             app.alert("验证码填写有误");
             return;
-        }
-//      alert(app.getItem('open_id'))
+        };
+        
         $.ajax({
             url: api.NWBDApiLogin + "?r=" + Math.random(),
             type: "POST",

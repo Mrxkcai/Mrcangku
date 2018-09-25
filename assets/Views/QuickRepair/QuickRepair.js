@@ -224,9 +224,7 @@ var quickRepair = function () {
             var typeId = companyTypeId.join()
         }else {
             typeId = ''
-        }
-        // app.loading();
-         app.verificationUserInfo();      //  判断登录去掉；
+        };
         //	修改搜索下拉查值
     	if(!searchCont){
     		//	下拉时没值则请求所有数据
@@ -918,7 +916,6 @@ var vm = new Vue({
     
     mounted(){
         
-        app.verificationUserInfo();      //  判断登录去掉；
         if(!app.getItem('userInfo')){
             return;
         }

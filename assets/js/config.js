@@ -69,7 +69,7 @@ var api = (function () {
         shareText:'修车上保宝车服靠谱',
         shareText2:'爱车维修保养，我首选保宝车服',
 
-        getopenid :function (){     //  获取openid fun（）
+        getopenid :function (){    
             
             //获取open_id
                 var kg = false;
@@ -83,8 +83,7 @@ var api = (function () {
                         url: api.NWBDApiGetWxOpenId + "?r=" + Math.random(),
                         type: "POST",
                         data: {
-                            code: app.getQueryString("code"),
-                            openid: app.getItem("open_id")
+                            code: app.getQueryString("code")
                         },
                         success: function success(result) {
                             console.log(result);
@@ -94,7 +93,6 @@ var api = (function () {
                                 app.setItem("code", app.getQueryString("code"));
                                 kg = true;
                             } else {
-                                //app.alert("获取 open_id 失败");
                                 app.f_close();
                             }
                         },
@@ -113,13 +111,13 @@ var api = (function () {
     };
 
     if (api.isDebug) {
-        document.write("<script src='" + apiAddress1 + "/" + api.debugProjectName + "/js/app.js?v=1.0.20' charset='utf-8'></script>");
+        document.write("<script src='" + apiAddress1 + "/" + api.debugProjectName + "/js/app.js?v=1.0.21' charset='utf-8'></script>");
         document.close();
     } else {
         $('#barrage_name1 img').css({'opacity':'0'});
         $('#barrage_name img').css({'opacity':'0'});
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
-        document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.3' charset='utf-8'></script>");       ///bbcf-common-h5/assets
+        document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.32' charset='utf-8'></script>");       ///bbcf-common-h5/assets
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>");     //  活动js
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>");       //  计时器js
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>");       //  指南js

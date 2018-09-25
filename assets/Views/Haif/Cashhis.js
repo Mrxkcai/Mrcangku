@@ -14,7 +14,8 @@ $(function(){
             pageSize:'10',
             list:[],
             tx:'0',
-            b3:false
+            b3:false,
+            show:false
         },
         methods:{
             init(){
@@ -33,13 +34,13 @@ $(function(){
                 that.fun1(0);
 
                 //-由链接获取数据
-                if(getUrlParam('userid')){
-                    that.userId = getUrlParam('userid')
-                }else if(!getUrlParam('userid') && !app.getItem("userInfo")){
-                    that.userId = '';
-                }else if(!getUrlParam('userid') && app.getItem("userInfo")){
-                    that.userId = app.getItem("userInfo").id
-                };
+                // if(getUrlParam('userid')){
+                //     that.userId = getUrlParam('userid')
+                // }else if(!getUrlParam('userid') && !app.getItem("userInfo")){
+                //     that.userId = '';
+                // }else if(!getUrlParam('userid') && app.getItem("userInfo")){
+                //     that.userId = app.getItem("userInfo").id
+                // };
 
                 
             },
@@ -61,39 +62,51 @@ $(function(){
                 };
 
             },
+            //-提现
             btn2(){
                 var that = this;
+                if(getUrlParam('userType') == 2){
+                    //-公众号进入的
+                    that.show = true;
+
+                }else{
                 //-按钮变灰
-                $.ajax({
-                    url:that.url2,
-                    type:'post',
-                    data:{
-                        userId:that.userId,
-                        userType:that.userType
-                        // userId:'cd92936c-c60a-4f86-b989-7a2e6f7c2759',
-                        // userType:0
-                    },
-                    success:function(res){
-                        console.log(res)
-                        if(res.status == 'success' && res.code == 0){
-                            //-刷新页面
-                            $('.btn2').hide();
-                            that.b3 = true;
-                            $('.par1>div:nth-child(1)').trigger('click');
-                        }else{
-                            app.alert(res.message)
+                    $.ajax({
+                        url:that.url2,
+                        type:'post',
+                        data:{
+                            userId:that.userId,
+                            userType:that.userType
+                            // userId:'cd92936c-c60a-4f86-b989-7a2e6f7c2759',
+                            // userType:0
+                        },
+                        success:function(res){
+                            console.log(res)
+                            if(res.status == 'success' && res.code == 0){
+                                //-刷新页面
+                                $('.btn2').hide();
+                                that.b3 = true;
+                                $('.par1>div:nth-child(1)').trigger('click');
+                            }else{
+                                app.alert(res.message)
+                            }
+                        },
+                        error:function(){
+                            // app.alert('网络故障，请检查网络');
                         }
-                    },
-                    error:function(){
-                        // app.alert('网络故障，请检查网络');
-                    }
-                });
+                    });
+                        
+                };
                 
             },
             //存放数据
             fun1(n){
                 var that = this;
 
+            },
+            close_(){
+                var that = this;
+                that.show = false
             }
 
             
@@ -102,6 +115,7 @@ $(function(){
         mounted(){
             var that = this;
             that.init();
+            // that.btn2();
         }
     });
 
