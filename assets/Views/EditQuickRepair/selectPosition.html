@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+		<meta name="format-detection" content="telephone=yes,email=no"/>
+		<meta name="x5-orientation" content="portrait"/>
+		<meta name="x5-fullscreen" content="true"/>
+		<meta name="x5-page-mode" content="app"/>
+		<title>故障发生地点</title>
+		<script>
+		    if (window.screen.availWidth <= 750) {
+		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+		    } else {
+		        document.documentElement.style.fontSize = '100px';
+		    }
+		</script>
+        <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+        <style>
+            .gaode_map{width:100%;height:100%;position:fixed;top:0;left:0;background:#fff;overflow:hidden;z-index:2;}
+            .gaode_map #show_map{height:100%;width:100%}.gaode_map .search_map{position:absolute;top:.2rem;left:0}
+            .gaode_map .search_map #map_address{width:3.7rem;border:.01rem solid #518eee;height:.6rem;border-radius:.2rem;font-size:.28rem;-webkit-transform:translateX(0.36rem);transform:translateX(0.36rem)}
+            .gaode_map .search_map #map_search,.gaode_map .search_map #map_back{background:#518eee;height:.6rem;color:#fff;font-size:.22rem;-webkit-transform:translate(0.36rem,-0.01rem);transform:translate(0.36rem,-0.01rem);border-radius:.2rem;width:1.5rem}
+            .gaode_map #panel_map{position:absolute;top:1rem;width:100%}    
+        </style>
+    </head>
+	<body>
+		<div id="app" v-cloak>
+
+            <!-- 点击选择地址出现地图 E-->
+
+            <div class="gaode_map">
+                <div id="show_map"></div>
+                <div class="search_map">
+                    <input type="text" id="map_address"/>
+                    <button id="map_search">搜索</button>
+                    <button id="map_back">返回</button>
+                </div>
+                <div id="panel_map"></div>
+            </div>
+        </div>
+    </body>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
+    <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+    <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
+    <script>
+        document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+        document.close();
+    </script>
+    <script src="selectPosition.js?v=2.0.0"></script>
+</html>

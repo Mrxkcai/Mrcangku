@@ -83,11 +83,6 @@ $(function () {
 		});
 	}
 
-	// var jsapi = document.createElement('script');
-	// jsapi.charset = 'utf-8';
-	// jsapi.src = 'https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d&callback=onApiLoaded';
-	// document.head.appendChild(jsapi);
-
 
 var newDetails = function () {
 	"use strict";
@@ -103,6 +98,7 @@ var newDetails = function () {
 			marchantGrade:[],
 			up: false,
 			userNum:false,
+			showBtn:true,
 			marchantStatus:'',
 			marchantJoin:'',
 			userNumber:'',		//-技师人数
@@ -129,23 +125,34 @@ var newDetails = function () {
 				if (index === 0) {
 					$('.newDetail_block').addClass('moveActive');
 					that.showBtn = false;
-					$('header img').show();
+					// $('header img').show();
+					$('.info_time2').addClass('infoActive');
 					var h = $('.newDetail_block').height(),
 						h2 = $('.info_time').height(),
 						h3 = $('header').height(),
 						h4 = $('.info_time2').height(),
-						h5 = $('.info_time').height();
+						h5 = $('.info_time').height() - 60;
 					// $('.newDetail_block').animate({ top: 4.2 * length - 1.26 + "rem" }, 400);
-					$('.newDetail_block').animate({ top: h3 - h4 - h5 + "px"}, 500);
+					$('.newDetail_block').animate({ top: h3 - h4 - h5 + "px"}, 600,function(){
+						$('header').css({'height':$(window).height(),'overflow-y':'auto'});
+						$('.newDetail_block').hide();
+					});
 					that.up = true;
 				}
 			},
 			upImg: function upImg() {
 				var that = this;
-				$('.newDetail_block').animate({ top: "3.54rem" }, 500);
-				$('header img:nth-child(n+2)').hide();
+				$('.newDetail_block').show();
+				$('header').animate({scrollTop: '0px'}, 600);
+				
+				$('.newDetail_block').animate({ top: "3.54rem" }, 600,function(){
+					that.showBtn = true;
+					$('.info_time2').removeClass('infoActive');
+					$('header').css({'overflow-y':'hidden'});
+				});
+				// $('header img:nth-child(n+2)').hide();
 				that.up = false;
-				that.showBtn = true;
+				
 			},
 			firstIn(){
 				var that_ = this;
@@ -315,8 +322,9 @@ var newDetails = function () {
 				app.verificationUserInfo();
 				if (!app.getItem("merchant_id")) {
 					window.location.href = "../QuickRepair/QuickRepair.html";
-				}
-				
+				}else{
+					window.location.href = "../EditQuickRepair/editQuickMess.html";
+				};
 
 			}
 		},

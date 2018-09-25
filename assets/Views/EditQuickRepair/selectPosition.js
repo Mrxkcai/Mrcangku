@@ -7,7 +7,7 @@ $(function () {
 	app.loading();
 	if (api.isDebug) {
         //-调用页面逻辑方法
-		editQuickMess();
+		selectPosition();
 	} else {
 		$.ajax({
 			url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
@@ -38,7 +38,7 @@ $(function () {
 					});
 					wx.ready(function () {
 						//-调用页面逻辑方法
-		                editQuickMess();
+		                selectPosition();
 						
 						//新增分享
 						wx.checkJsApi({
@@ -89,7 +89,7 @@ $(function () {
     }
 
     //  -页面加载方法
-    var editQuickMess = function (){
+    var selectPosition = function (){
         // -页面逻辑加载
         var vm = new Vue({
             el:"#app",
@@ -98,12 +98,20 @@ $(function () {
             },
             methods:{
                 init(){
+                    var that = this;
                     //  页面加载组织某些input输入
                     // $('#chooseAddress').prop('disabled',true);
-				},
-				chooseArea:function(){
-					window.location.href = "selectPosition.html";
-				}
+                    //-调用 获取openid方法
+                    api.getopenid();
+
+                    var jsapi = document.createElement('script');
+                    jsapi.charset = 'utf-8';
+                    jsapi.src = 'https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d&callback=' + that.onApiLoaded();
+                    document.head.appendChild(jsapi);
+                },
+                onApiLoaded:function (){
+                    
+                }
             },
             mounted(){
                 var that = this;
