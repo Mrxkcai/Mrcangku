@@ -99,7 +99,12 @@ $(function () {
             methods:{
                 init(){
                     //  页面加载组织某些input输入
-                    // $('#chooseAddress').prop('disabled',true);
+					// $('#chooseAddress').prop('disabled',true);
+					if(app.getItem("send_position")){
+						var get_position = app.getItem("send_position");
+						$('.choo').text(get_position);
+					};
+					
 				},
 				chooseArea:function(){
 					window.location.href = "selectPosition.html";

@@ -197,6 +197,7 @@ $(function () {
                     });
                     wx.error(function (res) { 
 						console.log(res)
+						console.log(location.href.split('#')[0])
                         alert("公众号页面授权失败");
                         app.f_close();
                     });
@@ -205,7 +206,7 @@ $(function () {
                     app.f_close();
                 }
             },
-            error: function () {
+            error: function (res) {
                 alert("网络异常，请检查网络");
                 app.f_close();
             }

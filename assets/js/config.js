@@ -98,7 +98,6 @@ var api = (function () {
                         },
                         error: function error(res) {
                             console.log(res)
-                            // alert("网络异常，请检查网络");
                             app.removeItem('open_id');
                             app.f_close();
                             kg = false;
