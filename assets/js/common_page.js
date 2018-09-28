@@ -12,7 +12,8 @@
         $(".commom_page").css("height", $(window).height() + "px").stop().animate({"left": "0"}, 200, "linear");
 
         //关闭页面
-        body.on('click', '.commom_page_close', function () {
+        body.on('click', '.commom_page_close', function (e) {
+            e.stopPropagation();
             $(".commom_page").stop().animate({"left": "100%"}, 200, "linear");
         });
     };

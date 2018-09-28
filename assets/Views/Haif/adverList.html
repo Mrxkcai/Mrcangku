@@ -151,19 +151,22 @@
         methods:{
             init(){
                 var that = this;
-               
+                document.write("<div style='display:none;'><script src='https://s13.cnzz.com/z_stat.php?id=1274913797&web_id=1274913797' language='JavaScript'><\/script><\/div>");
                 app.verificationUserInfo();
             },
             f1(){
                 var that = this;
+                document.write("<script src='https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764' language='JavaScript'><\/script>");
                 window.location.href = "https://c.360doo.com/d.aspx?c=4091&p=23610&v=57B3E44B3E3ACA34"
             },
             f2(){
                 var that = this;
+                document.write("<script src='https://s22.cnzz.com/z_stat.php?id=1274913728&web_id=1274913728' language='JavaScript'><\/script>");
                 window.location.href = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Haif.html?userType=2&source=501"
             },
             f3(){
                 var that = this;
+                document.write("<div style='display:none;'><script src='https://s19.cnzz.com/z_stat.php?id=1274913805&web_id=1274913805' language='JavaScript'><\/script><\/div>");
                 that.show = true;
             },
             close_(){
@@ -177,104 +180,6 @@
         }
     });
 
-    $(function(){
-         //  检测是否含有openid
-                api.getopenid();
-          $.ajax({
-                url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
-                type: "POST",
-                async: false,
-                data: {
-                    wxUrl: window.location.href,
-                    openid: app.getItem("open_id")
-                },
-
-                success: function (result) {
-
-                    if (result.status === "success" && result.code === 0) {
-                        wx.config({
-                            debug: api.isDebug,
-                            appId: result.data.AppID,
-                            timestamp: result.data.timestamp,
-                            nonceStr: result.data.noncestr,
-                            signature: result.data.signature,
-                            jsApiList: [
-                            'getLocation', 
-                            'hideAllNonBaseMenuItem',
-                            'hideOptionMenu',       //  隐藏分享菜单
-                            'checkJsApi',           //  
-                            'onMenuShareTimeline',  //  分享到朋友圈
-                            'onMenuShareAppMessage',    //  分享给朋友
-                            'openLocation']
-                        });
-                        wx.ready(function () {
-                           
-                            // quickRepair();
-                            
-                            //新增分享
-                            wx.checkJsApi({
-                                jsApiList:['chooseImage'],  //  需要检测的JS接口列表
-                                success:function(res){
-                                    // console.log(res)
-                                }
-                            });
-                            var id = app.getItem('userInfo').id;
-                            var shareUrl = api.shareAdd + id;
-                            var obj = {
-                                //  朋友圈
-                                title:api.shareText,    //  标题
-                                desc:api.shareText2,    //  描述
-                                link:shareUrl,  //  分享链接
-                                imgUrl:api.imgUrl,  //  分享图标
-                                fail:function(res){
-                                    // console.log(JSON.stringify(res))
-                                },
-                                success:function(res){
-                                  let ad_userInfo=app.getItem("userInfo")
-                                   $.ajax({
-                                       url: api.NWBDApiWeiXinShareHaif,
-                                       type: 'POST',
-                                       data: {
-                                        uniqueCode:ad_userInfo.id,
-                                        source:'CUSTOMER',
-                                        status:'SUCCEED'
-                                    },
-                                   })
-                                   .done(function() {
-                                       console.log("success");
-                                   })
-                                   .fail(function() {
-                                       console.log("error");
-                                   })   
-                                },
-                                cancel:function(){
-                                }
-                            };
-                            
-                            
-                            if(!app.getItem('userInfo').id){
-                                wx.hideAllNonBaseMenuItem();    //  隐藏所有非基础按钮
-                            }else{
-                                //alert(233)
-                                wx.onMenuShareTimeline(obj) //  分享到朋友圈
-                                wx.onMenuShareAppMessage(obj)   //  分享给朋友
-                            }
-                            
-                        });
-                        wx.error(function (err) {
-                            alert("公众号页面授权失败");
-                            app.f_close();
-                        });
-                    } else {
-                        alert("获取授权失败：" + result.message);
-                        app.f_close();
-                    }
-                },
-                error: function () {
-                    alert("网络异常，请检查网络");
-                    app.f_close();
-                }
-            });
-    })
+    
 </script>
 </html>

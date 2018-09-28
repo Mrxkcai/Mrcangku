@@ -15,11 +15,13 @@
 		        document.documentElement.style.fontSize = '100px';
 		    }
 		</script>
-		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+        <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+        <link rel="stylesheet" href="../../css/carBrands.min.css?v=2.0.0"/>
+        <link rel="stylesheet" href="../../css/common_page.min.css?v=2.0.0"/>
 		<link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.11"/>
 	</head>
 	<body>
-		<div id="app" v-cloak>
+		<div id="app">
             <!-- 联系人-姓名-电话-地点模块 -->
             <div class="lxdd">
                 <ul>
@@ -38,7 +40,7 @@
                         <input type="text" placeholder="请输入您的电话"/>
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
                     </li>
-                    <li @click="chooseArea()">
+                    <li class="chooseArea">
                         <span>故障发生地点</span>
                         <div class="choo"></div>
                     </li>
@@ -57,18 +59,30 @@
                     <li>
                         <span>车牌号</span>
                         <i>*</i>
-                        <input type="text" placeholder="请输入车牌号"/>
+                        <!-- 请输入车牌号 -->
+                        <!-- <a href="javascript:;" id="carNo" class="colorG" ></a> -->
+                        <input id="carNo" readonly="readonly" maxlength="8" type="text" placeholder="请您输入车牌号"/>
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
                     </li>
                     <li>
                         <span>品牌型号</span>
                         <i>*</i>
-                        <input type="text" placeholder="请选择车辆品牌型号"/>
+                        <!-- 请选择车辆品牌型号 -->
+                        <a href="javascript:;" class="car_showName colorG" >请选择车辆品牌型号</a>
+                        <input type="hidden" id="car_brandId"/>
+                        <input type="hidden" id="car_brandName"/>
+                        <input type="hidden" id="car_seriesId"/>
+                        <input type="hidden" id="car_seriesName"/>
+                        <input type="hidden" id="car_modelId"/>
+                        <input type="hidden" id="car_modelName"/>   
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
                     </li>
-                    <li>
+                    <li class="chooseSafe">
                         <span>保险公司</span>
-                        <input type="text" placeholder="请选择保险公司"/>
+                        <!-- 请选择保险公司 -->
+                        <a href="javascript:;" class="car_showCarinsuranceName colorG" >请选择保险公司</a>
+                        <input type="hidden" id="car_insuranceId"/>
+                        <input type="hidden" id="car_insuranceName"/>
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
                     </li>
                 </ul>
@@ -87,6 +101,7 @@
                  <textarea name="" id="" cols="30" rows="10" placeholder="还有什么想说的（不超过200字）" maxlength="200"></textarea>
             </div>
             
+
             <!-- 确定维修 -->
             <div class="orderBtn">
                     确定预约
@@ -94,6 +109,25 @@
 
 
         </div>
+
+
+        <!-- 点击选择地址出现地图 E-->
+
+        <div class="gaode_map">
+            <div id="show_map"></div>
+            <div class="search_map">
+                <input type="text" id="map_address"/>
+                <button id="map_search">搜索</button>
+                <button id="map_back">返回</button>
+            </div>
+            <div id="panel_map"></div>
+        </div>
+
+
+        <!-- choose car Number -->
+        <!-- <div class="close_carNo_keyboard" style="height: 6rem;"></div> -->
+
+
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
@@ -107,6 +141,8 @@
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
+    <script src="../../js/carBrands.js?v=2.0.1" charset='utf-8'></script>
+    <script src="../../js/common_page.js?v=2.0.0" charset='utf-8'></script>
     <script src="editQuickMess.js?v=2.0.0"></script>
 </html>
     

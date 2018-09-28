@@ -199,6 +199,10 @@ var newDetails = function () {
 								}else{
 									that_.userNum = false;
 								}
+								if(that_.marchantDetails.image.length == 0){
+									$('header').append('<img src="../../images/default_1125_633.png" />')
+								};
+								
 								for(var i = 0; i < that_.marchantDetails.image.length;i ++){
 									//  图片重新排序；
 									if(that_.marchantDetails.image[i].image_type == 1){

@@ -1,7 +1,6 @@
 (function ($, select_list) {
     "use strict";
     var body = $('body');
-
     body.append(`
 <div class="select_list">
     <div class="select_list_close">×</div>
@@ -105,6 +104,7 @@
         `);
 
     select_list.init = function (element) {
+        
         $(".select_list").css("height", $(window).height() + "px");
         $(".select_list_letter").css("height", $(window).height() + "px");
         $(".select_list_ul").css("height", ($(window).height() - $(".hot_car").outerHeight(true) - $(".select_list_close").outerHeight(true)) + "px");
@@ -113,12 +113,14 @@
         var ijroll;
 
         //关闭页面
-        body.on('click', '.select_list_close', function () {
+        body.on('click', '.select_list_close', function (e) {
+            e.stopPropagation();
             $(".select_list").stop().animate({"left": "100%"}, 200, "linear");
         });
 
         //点击索引查询
-        body.on('click', '.select_list_letter li a', function () {
+        body.on('click', '.select_list_letter li a', function (e) {
+            e.stopPropagation();
             var scrollToStr = $(this).html();
            
             $("#select_list_showLetter span").html(scrollToStr);
@@ -128,7 +130,9 @@
         });
 
         //获取选择车辆品牌型号并展示
-        element.on("click", function () {
+        element.on("click",function (e) {
+            console.log('222')
+            e.stopPropagation();
             app.loading();
             $.ajax({
                 url: api.NWBDApiGetBrandAll + "?r=" + Math.random(),
@@ -184,8 +188,8 @@
         });
 
         //选择普通品牌（一级）
-        body.on('click', '.select_list_ul ul li p', function () {
-            
+        body.on('click', '.select_list_ul ul li p', function (e) {
+            e.stopPropagation();
             
             var data_brandId = $(this).attr("data-brandId");
             var data_brandName = $(this).attr("data-brandName");
@@ -201,6 +205,7 @@
             $("#car_modelId").val('');
             $("#car_modelName").val('');
 
+            $(".car_showName").val($(this).text());
             element.text($(this).text());       //      车辆品牌型号选择一级即可不继续选择；
             closeAllSelectList();               //      选择一级完成后关闭选择列表
             return                              //      阻止往下执行写的return，注意修改
@@ -247,7 +252,8 @@
         });
 
         //选择热门（一级）
-        body.on('click', '.hot_car ul li img', function () {
+        body.on('click', '.hot_car ul li img', function (e) {
+            e.stopPropagation();
             // app.alertSuccess($(this).attr("data-brandId"));
             // app.alertSuccess($(this).attr("data-brandName"));
             var data_brandId = $(this).attr("data-brandId");
@@ -264,6 +270,7 @@
             $("#car_modelId").val('');          //          车型号
             $("#car_modelName").val('');
 
+            $(".car_showName").val(data_brandName);
             element.text(data_brandName);       //      车辆品牌型号选择一级即可不继续选择；
             closeAllSelectList();               //      选择一级完成后关闭选择列表
             return                              //      阻止往下执行写的return，注意修改
@@ -310,12 +317,14 @@
         });
 
         //关闭页面（一级）
-        body.on('click', '.select_list_close2', function () {
+        body.on('click', '.select_list_close2', function (e) {
+            e.stopPropagation();
             $(".select_list2").stop().animate({"left": "100%"}, 200, "linear");
         });
 
         //选择普通品牌（二级）
-        body.on('click', '.select_list_ul2 ul li', function () {
+        body.on('click', '.select_list_ul2 ul li', function (e) {
+            e.stopPropagation();
             var data_seriesId = $(this).attr("data-seriesId");
             var data_seriesName = $(this).attr("data-seriesName");
             if (!data_seriesId || !data_seriesName) {
@@ -366,12 +375,14 @@
         });
 
         //关闭页面（二级）
-        body.on('click', '.select_list_close2', function () {
+        body.on('click', '.select_list_close2', function (e) {
+            e.stopPropagation();
             $(".select_list2").stop().animate({"left": "100%"}, 200, "linear");
         });
 
         //选择普通品牌（三级）
-        body.on('click', '.select_list_ul3 ul li', function () {
+        body.on('click', '.select_list_ul3 ul li', function (e) {
+            e.stopPropagation();
             // app.alertSuccess($(this).attr("data-modelId"));
             // app.alertSuccess($(this).attr("data-modelName"));
             var data_modelId = $(this).attr("data-modelId");
@@ -388,7 +399,8 @@
         });
 
         //关闭页面（三级）
-        body.on('click', '.select_list_close3', function () {
+        body.on('click', '.select_list_close3', function (e) {
+            e.stopPropagation();
             $(".select_list3").stop().animate({"left": "100%"}, 200, "linear");
         });
 

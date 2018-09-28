@@ -110,7 +110,7 @@ body{
                     width: 3.4rem;
                     float: right;
                     line-height: .4rem;
-                    text-align: right;
+                    text-align: left;
                     margin-right: .6rem;
                     margin-top: .1rem;
                     font-size:.28rem;
@@ -132,6 +132,22 @@ body{
     .carCompon{
         margin-bottom:.18rem; 
         background: #fff;
+        ul li a{
+            // color: #999!important;
+            display: block;
+            min-height: .5rem;
+            width: 3.4rem;
+            color: #666;
+            float: right;
+            text-align: right;
+            line-height: .4rem;
+            margin-right: .6rem;
+            font-size:.28rem;
+            margin-top: .25rem;
+        };
+        .colorG{
+            color: #ccc!important;
+        };
         ul li:nth-child(1){
             height: 1.19rem;
             span{
@@ -343,5 +359,83 @@ body{
         position: fixed;
         bottom: 0;
         left: 0;
-    }
+    };
+
+
+    .gaode_map{width:100%;height:100%;position:fixed;top:0;left:100%;background:#fff;overflow:hidden;z-index:2;}
+    .gaode_map #show_map{height:100%;width:100%}.gaode_map .search_map{position:absolute;top:.2rem;left:0}
+    .gaode_map .search_map #map_address{width:3.7rem;border:.01rem solid #518eee;height:.6rem;border-radius:.2rem;font-size:.28rem;-webkit-transform:translateX(0.36rem);transform:translateX(0.36rem)}
+    .gaode_map .search_map #map_search,.gaode_map .search_map #map_back{background:#518eee;height:.6rem;color:#fff;font-size:.22rem;-webkit-transform:translate(0.36rem,-0.01rem);transform:translate(0.36rem,-0.01rem);border-radius:.2rem;width:1.5rem}
+    .gaode_map #panel_map{position:absolute;top:1rem;width:100%}    
+
+
+    // 选择车牌号
+    .ul_pro {
+        background-color: #CED3D9;
+        text-align: center;
+        padding: 0.04rem 0.02rem;
+        font-size: 0.32rem;
+      }
+      .ul_pro li {
+        float: left;
+        width: 20%;
+        padding: 0.1rem;
+        box-sizing: border-box;
+      }
+      .ul_pro .li_close,
+      .ul_pro .li_SwitchingKeybord,
+      .ul_pro .li_clean {
+        float: right;
+        width: 22.22%;
+      }
+      .ul_pro .li_close span {
+        background-color: #ACB3BB;
+      }
+      .ul_pro li span {
+        display: block;
+        background-color: #fff;
+        border-radius: 0.04rem;
+        box-shadow: 0.02rem 0.02rem 0.02rem #888888;
+        line-height: 0.52rem;
+        padding-top: 0.02rem;
+        height: 0.52rem;
+      }
+      .ul_pro .li_Province span:active {
+        background-color: #4DA9F2;
+        color: #fff;
+      }
+      .ul_keybord {
+        background-color: #CED3D9;
+        text-align: center;
+        padding: 0.04rem 0.02rem;
+        font-size: 0.28rem;
+      }
+      .ul_keybord li {
+        float: left;
+        width: 20%;
+        padding: 0.06rem;
+        box-sizing: border-box;
+      }
+      .ul_keybord .li_close,
+      .ul_keybord .li_del,
+      .ul_keybord .li_SwitchingProvince {
+        float: right;
+      }
+      .ul_keybord .li_close span {
+        background-color: #ACB3BB;
+      }
+      .ul_keybord li span {
+        display: block;
+        background-color: #fff;
+        border-radius: 0.04rem;
+        box-shadow: 0.02rem 0.02rem 0.02rem #888888;
+        height: 0.52rem;
+        line-height: 0.52rem;
+        padding-top: 0.02rem;
+      }
+      .ul_keybord .li_Keybord span:active {
+        background-color: #4DA9F2;
+        color: #fff;
+      }
+      
 }
