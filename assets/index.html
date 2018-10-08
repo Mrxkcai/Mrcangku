@@ -19,87 +19,88 @@
     <link rel="stylesheet" type="text/css" href="lib/layer.mobile-v2.0/layer_mobile/need/layer.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/base.min.css?v=2.0.0"/>
     <link rel="stylesheet" type="text/css" href="css/login.min.css?v=2.0.0"/>
-    <link rel="stylesheet" type="text/css" href="index.min.css?v=2.0.1"/>
+    <link rel="stylesheet" type="text/css" href="index.min.css?v=2.0.2"/>
     <style type="text/css">
-    	.countDown_box{
-    		bottom: .95rem;
-    	}
-    	.bottomP{
-			bottom: 1rem!important;
-		}
+        .countDown_box {
+            bottom: .95rem;
+        }
+
+        .bottomP {
+            bottom: 1rem !important;
+        }
     </style>
 </head>
 
 <body>
 <div id="app">
-	
-<header>
-    <div class="header_left">
-        <div class="head_portrait"></div>
-        <div class="show_user">
-            <p class="show_mobile">请您登录</p>
-            <p class="show_name"></p>
-            <p class="improve_information" id="improve_information">完善个人信息</p>
+
+    <header>
+        <div class="header_left">
+            <div class="head_portrait"></div>
+            <div class="show_user">
+                <p class="show_mobile">请您登录</p>
+                <p class="show_name"></p>
+                <p class="improve_information" id="improve_information">完善个人信息</p>
+            </div>
         </div>
-    </div>
-    <div class="header_right">
-        <p class="sign_out">退出登录</p>
-    </div>
-</header>
-<ul class="floor1">
-    <li class="pending_payment">
-        <span class="pending_payment_icon"></span>
-        <p>待付款</p>
-        <span class="pending_payment_count">0</span>
-    </li>
-    <li class="current_order">
-        <span class="current_order_icon"></span>
-        <p>当前订单</p>
-        <span class="current_order_new">NEW</span>
-    </li>
-    <li class="be_evaluated">
-        <span class="be_evaluated_icon"></span>
-        <p>待评价</p>
-        <span class="be_evaluated_count">0</span>
-    </li>
-</ul>
-<ul class="floor2">
-    <li class="all_orders">
-        <span></span>
-        <p>全部订单</p>
-	</li>
-	<!-- 新增优惠券 -->
-	<li class="car_voucher">
-		<span></span>
-		<p>优惠券</p>
-	</li>
-	
-    <li class="red_package">
-		<span></span>
-		<p>钱包</p>
-	</li>
+        <div class="header_right">
+            <p class="sign_out">退出登录</p>
+        </div>
+    </header>
+    <ul class="floor1">
+        <li class="pending_payment">
+            <span class="pending_payment_icon"></span>
+            <p>待付款</p>
+            <span class="pending_payment_count">0</span>
+        </li>
+        <li class="current_order">
+            <span class="current_order_icon"></span>
+            <p>当前订单</p>
+            <span class="current_order_new">NEW</span>
+        </li>
+        <li class="be_evaluated">
+            <span class="be_evaluated_icon"></span>
+            <p>待评价</p>
+            <span class="be_evaluated_count">0</span>
+        </li>
+    </ul>
+    <ul class="floor2">
+        <li class="all_orders">
+            <span></span>
+            <p>全部订单</p>
+        </li>
+        <!-- 新增优惠券 -->
+        <li class="car_voucher">
+            <span></span>
+            <p>优惠券</p>
+        </li>
 
-    <li class="car_management">
-        <span></span>
-        <p>我的车辆</p>
-    </li>
+        <li class="red_package">
+            <span></span>
+            <p>钱包</p>
+        </li>
 
-    <li class="common_problem">
-        <span></span>
-        <p>常见问题</p>
-    </li>
-</ul>
-<!-- 
-<a href="new.html">1111</a> -->
+        <li class="car_management">
+            <span></span>
+            <p>我的车辆</p>
+        </li>
 
-<a class="consumer_hotline" href="tel:4000-016-369">客服电话：4000-016-369</a>
+        <li class="common_problem">
+            <span></span>
+            <p>常见问题</p>
+        </li>
+    </ul>
+    <!--
+    <a href="new.html">1111</a> -->
 
-	<!--倒计时组件-->
-	<count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
-	<!-- 悬浮组件 -->
-	<adve-block ref="adverblock"></adve-block>
-	<!-- 操作指南 -->
-	<adve-block1 ref="adverblock1"></adve-block1>
+    <a class="consumer_hotline" href="tel:4000-016-369">客服电话：4000-016-369</a>
+
+    <!--倒计时组件-->
+    <count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+    <!-- 悬浮组件 -->
+    <adve-block ref="adverblock"></adve-block>
+    <!-- 操作指南 -->
+    <adve-block1 ref="adverblock1"></adve-block1>
 </div>
 
 <footer>
@@ -109,204 +110,244 @@
     <!-- <span></span> -->
     <div class="footer_right">车服门店</div>
 </footer>
+<!-- 分享指引 -->
+<img src="images/red.png" alt="" class="redShare">
 
+
+<!-- 弹层 -->
+<script type="text/html" id="template">
+<div class="ui-dialog ui-dialog-operate show-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <h1>{{list.data}}<span>元</span></h1>
+            <a href="#" class="looks"></a>
+            <p>* 好友注册保宝车服后，您还可获得额外奖励；注册的好友越多，获得奖励越多！快邀请好友注册赚钱吧！</p>
+            <a href="#" class="notice">活动规则&gt;&gt;</a>
+        </div>
+        <i class="ui-dialog-close" data-role="button"></i>
+    </div>
+</div>
+</script>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
 <script src="lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
 <script src="lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="js/vue.min.js"></script>
+<script src="js/template-web.js"></script>
 <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
 <script>
     document.write("<script src='js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
     document.close();
 </script>
 <script>
-	// //获取open_id
+    // //获取open_id
     api.getopenid();
 </script>
 <script src="js/login.js?v=2.0.10" charset='utf-8'></script>
 <script src="index.js?v=2.0.8" charset='utf-8'></script>
 <script>
-$(function () {
-    if (api.isDebug) {
-        
-    } else {
-		//return
-		//console.log(app.getItem("open_id"))
-        $.ajax({
-            url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
-            type: "POST",
-            async: false,
-            data: {
-				wxUrl: window.location.href,
-				openid: app.getItem("open_id")
-            },
-            success: function (result) {
-				console.log(result)
-                if (result.status === "success" && result.code === 0) {
-                    wx.config({
-                        debug: api.isDebug,
-                        appId: result.data.AppID,
-                        timestamp: result.data.timestamp,
-                        nonceStr: result.data.noncestr,
-                        signature: result.data.signature,
-                        jsApiList: [
-                        'hideOptionMenu',		//	隐藏分享菜单
-	        			'checkJsApi',			//	
-	        			'onMenuShareTimeline',	//	分享到朋友圈
-	        			'onMenuShareAppMessage',	//	分享给朋友
-                        'chooseWXPay', 
-						'hideAllNonBaseMenuItem',
-						'openLocation']
-                    });
-                    wx.ready(function () {
-                        //新增分享
-						wx.checkJsApi({
-							jsApiList:['chooseImage'],	//	需要检测的JS接口列表
-							success:function(res){
-								console.log(res)
-							}
-						});
-						
-						var i = window.location.href.indexOf('?');
-						var e = window.location.href.indexOf('&');
-						var id = app.getItem('userInfo').id;
-						var shareUrl = api.shareAdd + id;
-						var obj = {
-							//	朋友圈
-							title:api.shareText,	//	标题
-							desc:api.shareText2,	//	描述
-							link:shareUrl,	//	分享链接
-							imgUrl:api.imgUrl,	//	分享图标
-							fail:function(res){
-								console.log(JSON.stringify(res))
-							},
-							success:function(){
-							},
-							cancel:function(){
-							}
-						};
-						
-						
-						if(!app.getItem('userInfo').id){
-							wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
-						}else{
-							wx.onMenuShareTimeline(obj)	//	分享到朋友圈
-							wx.onMenuShareAppMessage(obj)	//	分享给朋友
-						}
-                    });
-                    wx.error(function (res) { 
-						console.log(res)
-						console.log(location.href.split('#')[0])
-                        alert("公众号页面授权失败");
+    $(function () {
+        if (api.isDebug) {
+
+        } else {
+            //return
+            //console.log(app.getItem("open_id"))
+            $.ajax({
+                url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
+                type: "POST",
+                async: false,
+                data: {
+                    wxUrl: window.location.href,
+                    openid: app.getItem("open_id")
+                },
+                success: function (result) {
+                    if (result.status === "success" && result.code === 0) {
+                        wx.config({
+                            debug: api.isDebug,
+                            appId: result.data.AppID,
+                            timestamp: result.data.timestamp,
+                            nonceStr: result.data.noncestr,
+                            signature: result.data.signature,
+                            jsApiList: [
+                                'hideOptionMenu',		//	隐藏分享菜单
+                                'checkJsApi',			//
+                                'onMenuShareTimeline',	//	分享到朋友圈
+                                'onMenuShareAppMessage',	//	分享给朋友
+                                'chooseWXPay',
+                                'hideAllNonBaseMenuItem',
+                                'openLocation']
+                        });
+                        wx.ready(function () {
+                            //新增分享
+                            wx.checkJsApi({
+                                jsApiList: ['chooseImage'],	//	需要检测的JS接口列表
+                                success: function (res) {
+                                    console.log(res)
+                                }
+                            });
+
+                            var i = window.location.href.indexOf('?');
+                            var e = window.location.href.indexOf('&');
+                            var id = app.getItem('userInfo').id;
+                            var shareUrl = api.shareAdd + id;
+                            var obj = {
+                                //	朋友圈
+                                title: api.shareText,	//	标题
+                                desc: api.shareText2,	//	描述
+                                link: shareUrl,	//	分享链接
+                                imgUrl: api.imgUrl,	//	分享图标
+                                fail: function (res) {
+                                    console.log(JSON.stringify(res))
+                                },
+                                success: function () {
+                                	$.ajax({
+                                		url: api.NWBDApiWeiXinShareModel,
+                                		type: 'GET',		
+                                		data: {
+                                           commissionType: 'QR_CODE_SHARE',
+                                           openid: app.getItem("open_id")
+                                        },
+                                	})
+                                	.done(function(res) {
+                                		console.log(res);
+                                        var obj={
+                                            list:res
+                                        }
+                                        var result = template('template',obj);
+                                      $('footer').append(result)
+                                     
+                                	})
+                                	.fail(function() {
+                                		console.log("error");
+                                	})
+                                	$('.ui-dialog').addClass('show');
+                                    $('.ui-dialog-close').click(function (event) {
+                                        $(this).parents('.ui-dialog').removeClass('show');
+
+                                    });
+                                },
+                                cancel: function () {
+                                }
+                            };
+
+
+                            if (!app.getItem('userInfo').id) {
+                                wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
+                            } else {
+                                wx.onMenuShareTimeline(obj)	//	分享到朋友圈
+                                wx.onMenuShareAppMessage(obj)	//	分享给朋友
+                            }
+                        });
+                        wx.error(function (res) {
+                            console.log(res)
+                            alert("公众号页面授权失败");
+                            app.f_close();
+                        });
+                    } else {
+                        alert("获取授权失败");
                         app.f_close();
-                    });
-                } else {
-                    alert("获取授权失败" );
+                    }
+                },
+                error: function () {
+                    alert("网络异常，请检查网络");
                     app.f_close();
                 }
-            },
-            error: function (res) {
-                alert("网络异常，请检查网络");
-                app.f_close();
-            }
-        });
-    }
-});
+            });
+        }
+
+    });
 </script>
 <script type="text/javascript">
-	//	新增倒计时
-	var vm = new Vue({
-		el:'#app',
-		data:{
-			isBox:false,
-			countBlock:{
-				min:'00',
-				sec:'00',
-				numAll:'',
-				orderId:localStorage.getItem('orderId')
-			},
-			countDown:''
-					},
-		methods:{
-			//	转化时间并赋值
-			formaFun(a){
-				var obj = app.formatDuring(a);
-					this.countBlock.min = obj.min;
-					this.countBlock.sec = obj.sec;
-			},
-		 timer(m){
-		   	// 定时器
-		   	var tt = setInterval(function(){
-		   		m++;
-		   		this.countDown = m;
-		   		localStorage.setItem('num',m)
-		   		vm.formaFun(m)
-		   		if(this.countDown == api.pzTime){
-		   			// 	指定时间后定时器消失
-		   			vm.isBox = false;
-		   			clearInterval(tt);
-		   			vm.countDown = 0;
-   					localStorage.removeItem('status');
-					localStorage.removeItem('num');
-					$('.consumer_hotline').removeClass('bottomP')
-					var data = {
-						order_id:vm.countBlock.orderId,
-						userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
-						openid: app.getItem("open_id")
-					}
-					$.ajax({
-						type:"POST",
-						url:api.NWBDApiWeiXincancelOrder,
-						data:data,
-						dataType: 'json',
-						success:function(result){
-							console.log(result)
-							if(result.code == 0){
-								app.alert(result.data)
-								localStorage.removeItem('status');
-								localStorage.removeItem('num');
-							}
-						},
-						error:function(){
-							alert('操作失败，请检查网络！');
-			                app.closeLoading();
-						}
-					});
-		   		}
-		   	},1000)
-		}
-		
-		},
-		mounted(){
-			if(!app.getItem('userInfo')){
+    //	新增倒计时
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isBox: false,
+            countBlock: {
+                min: '00',
+                sec: '00',
+                numAll: '',
+                orderId: localStorage.getItem('orderId')
+            },
+            countDown: ''
+        },
+        methods: {
+            //	转化时间并赋值
+            formaFun(a) {
+                var obj = app.formatDuring(a);
+                this.countBlock.min = obj.min;
+                this.countBlock.sec = obj.sec;
+            },
+            timer(m) {
+                // 定时器
+                var tt = setInterval(function () {
+                    m++;
+                    this.countDown = m;
+                    localStorage.setItem('num', m)
+                    vm.formaFun(m)
+                    if (this.countDown == api.pzTime) {
+                        // 	指定时间后定时器消失
+                        vm.isBox = false;
+                        clearInterval(tt);
+                        vm.countDown = 0;
+                        localStorage.removeItem('status');
+                        localStorage.removeItem('num');
+                        $('.consumer_hotline').removeClass('bottomP')
+                        var data = {
+                            order_id: vm.countBlock.orderId,
+                            userId: app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'
+                            openid: app.getItem("open_id")
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: api.NWBDApiWeiXincancelOrder,
+                            data: data,
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.code == 0) {
+                                    app.alert(result.data)
+                                    localStorage.removeItem('status');
+                                    localStorage.removeItem('num');
+                                }
+                            },
+                            error: function () {
+                                alert('操作失败，请检查网络！');
+                                app.closeLoading();
+                            }
+                        });
+                    }
+                }, 1000)
+            }
+
+        },
+        mounted() {
+            if (!app.getItem('userInfo')) {
                 return;
             }
-			var number1 = app.checkTime()	
-			if(number1 != ''){
-				this.timer(number1);
-			}
-			//	有未接订单的情况
-			var status = localStorage["status"];
-			if(status == 1){
-				this.isBox = true;
-				$('.consumer_hotline').addClass('bottomP')
-				$('body').css({'margin-bottom':'1rem'})
-				this.$refs.countblock.childs();
-			}else{
-				this.isBox = false;
-				// $('.consumer_hotline').removeClass('bottomP')
-				$('body').css({'margin-bottom':'0'})
-			}
+            var number1 = app.checkTime()
+            if (number1 != '') {
+                this.timer(number1);
+            }
+            //	有未接订单的情况
+            var status = localStorage["status"];
+            if (status == 1) {
+                this.isBox = true;
+                $('.consumer_hotline').addClass('bottomP')
+                $('body').css({'margin-bottom': '1rem'})
+                this.$refs.countblock.childs();
+            } else {
+                this.isBox = false;
+                // $('.consumer_hotline').removeClass('bottomP')
+                $('body').css({'margin-bottom': '0'})
+            }
 
 
-
-			// 调用组件
-			this.$refs.adverblock.init();
-			//	操作指南
-			this.$refs.adverblock1.init1();
-		}
-	})
+            // 调用组件
+            this.$refs.adverblock.init();
+            //	操作指南
+            this.$refs.adverblock1.init1();
+        }
+    })
 </script>
 
 </body>

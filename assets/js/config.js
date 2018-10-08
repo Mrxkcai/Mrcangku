@@ -1,4 +1,6 @@
 var api = (function() {
+    // shareText: '修车上保宝车服靠谱',
+    // shareText2: '爱车维修保养，我首选保宝车服',
     //	var apiAddress = "http://share.baobaochefu.net/car";         //  正式地址
     var apiAddress1 = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5"; //  正式需注释；
     var apiAddress = "https://wxcsht.nuoweibd.com:8443"; //  正式需注释；
@@ -52,9 +54,10 @@ var api = (function() {
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse", //  不可使用优惠券列表
         NWBDApiWeiXincouponIndex: apiAddress + "/weixin/coupon/index", //  判断是否领取优惠券
         NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get", //  优惠券活动领取
-        // NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
-        NWBDApiWeiXinUniformorder: apiAddress + "/allInPay/pay",
+        NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
         NWBDApiWeiXinShareHaif: apiAddress + '/qrCode/shareResult', //  haif分享
+        NWBDApiWeiXinShareHaifs: apiAddress + '/customer/commission/list', //提现
+        NWBDApiWeiXinShareModel: apiAddress + '/customer/commission/queryCommissionByType', //分享奖金
 
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message", //  海尔短信发送接口
         NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register", //  海尔注册接口
@@ -67,10 +70,9 @@ var api = (function() {
         pzTime: '3600', //		计时器时间״̬
         testPhone: '/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
         shareAdd: apiAddress1 + '/Views/shareList/share.html?customerId=', //  分享页面地址(正式记得注释掉)
-        imgUrl: apiAddress1 + '/images/qrhtml.png?v=2.0.1', //  分享图片地址
-        shareText: '修车上保宝车服靠谱',
-        shareText2: '爱车维修保养，我首选保宝车服',
-
+        imgUrl: apiAddress1 + '/images/qrhtm2.png?v=2.1', //  分享图片地址
+        shareText: '保宝车服送送福利了！',
+        shareText2: '关注保宝车服完成注册， 领取1000元现金红包。',
         getopenid: function() {
 
             //获取open_id

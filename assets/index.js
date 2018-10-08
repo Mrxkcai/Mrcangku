@@ -1,6 +1,6 @@
 "use strict";
 
-$(function () {
+$(function() {
     $("#app").css("min-height", $(window).height() + "px");
     var body = $("body");
     var sil;
@@ -44,9 +44,7 @@ $(function () {
         });
     };
 
-    
-    
-    
+
 
     if (app.getItem("userInfo") && app.getItem("userInfo").id && app.getItem("userInfo").mobile && app.getItem("open_id")) {
         $(".show_mobile").text(app.getItem("userInfo").mobile.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'));
@@ -56,7 +54,7 @@ $(function () {
         }
         $(".header_right").show();
         getCount();
-        sil = setInterval(function () {
+        sil = setInterval(function() {
             getCount();
         }, 5000);
     } else {
@@ -68,12 +66,12 @@ $(function () {
         $(".header_right").hide();
     }
 
-    body.on("click", ".improve_information,.head_portrait", function () {
+    body.on("click", ".improve_information,.head_portrait", function() {
         //window.location.href = "Views/PersonalInformation/PersonalInformation.html";
     });
 
     //退出登录
-    body.on("click", ".sign_out", function () {
+    body.on("click", ".sign_out", function() {
         app.removeItem("open_id");
         app.removeItem("userInfo");
         app.removeItem("orderNo");
@@ -86,51 +84,49 @@ $(function () {
     });
 
     //待付款
-    body.on("click", ".pending_payment", function () {
+    body.on("click", ".pending_payment", function() {
         window.location.href = "Views/Orders/SpecificOrder.html?type=payment_order";
     });
     //当前订单
-    body.on("click", ".current_order", function () {
+    body.on("click", ".current_order", function() {
         window.location.href = "Views/Orders/SpecificOrder.html?type=current_order";
     });
     //待评价
-    body.on("click", ".be_evaluated", function () {
+    body.on("click", ".be_evaluated", function() {
         window.location.href = "Views/Orders/SpecificOrder.html?type=evaluation_order";
     });
 
     //全部订单
-    body.on("click", ".all_orders", function () {
+    body.on("click", ".all_orders", function() {
         window.location.href = "Views/Orders/Order.html";
     });
-     //优惠券
-    body.on("click", ".car_voucher", function () {
+    //优惠券
+    body.on("click", ".car_voucher", function() {
         window.location.href = "Views/Voucher/voucher.html";
     });
     //车辆管理
-    body.on("click", ".car_management", function () {
+    body.on("click", ".car_management", function() {
         window.location.href = "Views/CarManagement/ListCar.html";
     });
     //常见问题
-    body.on("click", ".common_problem", function () {
+    body.on("click", ".common_problem", function() {
         window.location.href = "Views/CommonProblem/CommonProblem.html";
     });
     //-红包
-    body.on("click", ".red_package", function () {
+    body.on("click", ".red_package,.ui-dialog ", function() {
         var userid = app.getItem("userInfo").id;
         window.location.href = "Views/Haif/Cashhis.html?userType=2&userid=" + userid;
     });
-
     //首页
-    body.on("click", ".footer_left", function () {
+    body.on("click", ".footer_left", function() {
         app.f_close();
     });
     //车服门店
-    body.on("click", ".footer_right", function () {
+    body.on("click", ".footer_right", function() {
         window.location.href = "Views/QuickRepair/QuickRepair.html";
     });
     //享优惠
-    body.on("click", ".footer_mid", function () {
+    body.on("click", ".footer_mid", function() {
         window.location.href = "Views/Haif/adverList.html";
     });
-
 });
