@@ -142,14 +142,14 @@
                     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                     if(isAndroid == true){
                         //-调用安卓方法
-                        anF.anF(
-                            "我的收益",
-                            'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'
-                        );
+                        // anF.anF(
+                        //     "我的收益",
+                        //     'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'
+                        // );
                     }else if(isiOS == true){
-                        (function iosF(){
-                            window.webkit.messageHandlers.iosF.postMessage({title:'我的收益',content:'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'});
-                        }());
+                        // (function iosF(){
+                        //     window.webkit.messageHandlers.iosF.postMessage({title:'我的收益',content:'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'});
+                        // }());
 
                         
                     };
@@ -200,10 +200,12 @@
                             if(res.code == 0 && res.status == 'success'){
                                 if(getUrlParam('d')){
                                     //-app进入
-                                    that.fun(res.message,3);
+                                    // that.fun(res.message,3);
+                                    window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
                                 }else{
                                     //-公众号进入
-                                    that.fun(res.message,4);
+                                    // that.fun(res.message,4);
+                                    window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
                                 };
                             }else if(res.code == 2){
                                 that.fun(res.message);
@@ -295,7 +297,8 @@
                         }
                     });
                     $('.layui-m-layerchild h3').remove();
-                }else if(n == 3){
+                }
+                else if(n == 3){
                     var index = layer.open({
                         title:'',
                         style:'padding: 0!important;background: none!important;box-shadow:none;',
@@ -349,7 +352,8 @@
                         
                     });
 
-                }else if(n == 4){
+                }
+                else if(n == 4){
                     var index_ = layer.open({
                         title:'',
                         style:'padding: 0!important;background: none!important;box-shadow:none;',

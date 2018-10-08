@@ -261,6 +261,8 @@ $(function () {
             //修改车辆
             type = 1;
         }
+        // console.log(carJson)
+        
         app.loading();
         $.ajax({
             url: api.NWBDApiCarAdd + "?r=" + Math.random(),
@@ -273,10 +275,11 @@ $(function () {
                 openid: app.getItem("open_id")
             },
             success: function (result) {
-                // console.log(JSON.stringify(result));
+                console.log(result);
                 if (result.status === "success" && result.code === 0) {
                     app.closeLoading();
                     app.alert("保存成功");
+                    // return
                     if (fromType === "update" || fromType === "add") {
                        
                         setTimeout(function(){

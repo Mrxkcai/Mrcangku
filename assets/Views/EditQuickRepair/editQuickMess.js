@@ -1,11 +1,17 @@
 
-
-
+var lat;
+var lng;
+var addressProvince = "";
+var addressCity = "";
+var addressCounty = "";
+var carId = '';
+var merchantname = '';
 //	初始化；
 $(function () {
     "use strict";
     //  -fastclick 用法
-    FastClick.attach(document.body);
+	FastClick.attach(document.body);
+	
 
 	app.loading();
 	if (api.isDebug) {
@@ -50,7 +56,11 @@ $(function () {
 								console.log(res)
 							}
 						});
-						var id = app.getItem('userInfo').id;
+						var id = '';
+						if(app.getItem('userInfo')){
+							id = app.getItem('userInfo').id;
+						};
+							
 						var shareUrl = api.shareAdd + id;
 						var obj = {
 							//	朋友圈
@@ -68,7 +78,7 @@ $(function () {
 						};
 						
 						
-						if(!app.getItem('userInfo').id){
+						if(!app.getItem('userInfo')){
 							wx.hideAllNonBaseMenuItem();	//	隐藏所有非基础按钮
 						}else{
 							wx.onMenuShareTimeline(obj)	//	分享到朋友圈
@@ -89,16 +99,10 @@ $(function () {
 				app.f_close();
 			}
 		});
-    }
+    };
 
-	var lat;
-	var lng;
-	var addressProvince = "";
-	var addressCity = "";
-	var addressCounty = "";
+	
 
-	//-调用 获取openid方法
-	api.getopenid();
 
 
 	//-选择车牌号
@@ -249,22 +253,15 @@ $(function () {
 		e.stopPropagation();
         $("#car_insuranceId").val($(this).attr("data-id"));
 		$("#car_insuranceName").val($(this).text());
-        $(".car_showCarinsuranceName").text($(this).text());		
+		$(".car_showCarinsuranceName").text($(this).text());
+		$(".car_showCarinsuranceName").removeClass('colorG');	//-删除样式	
+		$(".car_showCarinsuranceName").addClass('colorB');
         $(".commom_page").stop().animate({"left": "100%"}, 200, "linear");
     });
    
 
 });
 
- //  -页面加载方法
- var editQuickMess = function (){
-	// -页面逻辑加载
-	if(app.getItem("send_position")){
-		var get_position = app.getItem("send_position");
-		$('.choo').text(get_position);
-	};
-	$('body').css({'min-height':$(window).height()});
-};
 
 
 function onApiLoaded() {
@@ -375,3 +372,222 @@ var jsapi = document.createElement('script');
 
 
 	
+ //  -页面加载方法
+ var editQuickMess = function (){
+	// -页面逻辑加载
+	if(app.getItem("send_position")){
+		var get_position = app.getItem("address");
+		$('.choo').text(get_position);
+	};
+	$('body').css({'min-height':$(window).height()});
+	
+	var data;
+	if(app.getItem("userInfo")){
+		
+		$('#name').val(app.getItem("userInfo").name);
+		$('#mobile').val(app.getItem("userInfo").mobile);
+		lat = app.getItem('location').lat;
+		lng = app.getItem('location').lng;
+		addressProvince = app.getItem('province');
+		addressCity = app.getItem('city');
+		addressCounty = app.getItem('district');
+		$.ajax({
+				url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id  + "&r=" + Math.random(),
+				type:'get',
+				success:function(res){
+					
+					if(res.status == 'success' && res.code == 0){
+						data = res.data;
+						merchantname = data[0].name;	//-维修厂名字
+						//-判断是否存在车辆信息
+						if(!data.commonCar){
+							
+						}else{
+							
+							$('#carNo').val(data[0].commonCar.carNumber);	//-输出车牌号
+							$('.car_showName').val(data[0].commonCar.brandName);	//-输出品牌型号
+							$('.car_showCarinsuranceName').val(data[0].commonCar.insuranceName);	//-输出保险公司
+							carId = data[0].commonCar.carId;	//-	车辆id
+							
+						};
+					}else{
+						app.alert(res.message);
+					};
+				},
+				error:function(){
+					app.alert('请检查网络')
+				}
+			});
+
+		//-确定预约事件
+		$('.orderBtn').on('click',function(){
+			
+			if (!app.getItem("merchant_id")) {
+				alert("维修厂信息有变，请重新进入页面");
+				window.location.href = "../QuickRepair/QuickRepair.html";
+			};
+			var name = $.trim($('#name').val());
+			if (!name) {
+				app.alert('姓名不能为空');
+				return;
+			};
+			if (name.length < 2 || name.length > 10) {
+				app.alert('姓名填写有误');
+				return;
+			};
+			var phone = $.trim($('#mobile').val());
+			if (!phone) {
+				app.alert("手机号不能为空");
+				return;
+			};
+			if (/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(phone) == false) {
+				app.alert("手机号填写有误");
+				return;
+			};
+			var customerJson = {
+				"customerId": app.getItem("userInfo").id,
+				"userName": name,
+				"mobile": phone
+			};
+			var carNo = $("#carNo").val();
+			if (!carNo || carNo === "0") {
+				app.alert('请填写车牌号');
+				return;
+			};
+			if (!lat || !lng || !$(".choo").text() || !addressProvince || !addressCity || !addressCounty) {
+				app.alert('请选择故障发生地点');
+				return;
+			};
+			var carXh = $.trim($('.car_showName').text());
+			if(carXh == '请选择车辆品牌型号' && $('.car_showName').hasClass('colorG')){
+				app.alert('请选择车辆品牌型号');
+				return;
+			};
+			//车辆Id
+			var carId = $.trim($("#carId").val());
+			//车牌号
+			var carNo = $.trim($('#carNo').val());
+			//车辆品牌相关
+			var car_brandId = $.trim($('#car_brandId').val());
+			var car_brandName = $.trim($('#car_brandName').val());
+			var car_seriesId = $.trim($('#car_seriesId').val());
+			var car_seriesName = $.trim($('#car_seriesName').val());
+			var car_modelId = $.trim($('#car_modelId').val());
+			var car_modelName = $.trim($('#car_modelName').val());
+			//保险公司相关
+			var car_insuranceId = $.trim($('#car_insuranceId').val());
+			var car_insuranceName = $.trim($('#car_insuranceName').val());
+
+			if (!carId) {
+				app.alert('车辆信息有误');
+				return;
+			}
+			if (!carNo) {
+				app.alert('车牌号不能为空');
+				return;
+			}
+			if (carNo.length < 6 || carNo.length > 8) {
+				app.alert('车牌号格式有误');
+				return;
+			};
+			if (!car_brandId || !car_brandName) {
+				app.alert("请选择车辆品牌型号");
+				return;
+			};
+			var carJson = {
+				Id: carId,
+				carNo: carNo,
+				brandId: car_brandId,
+				brandName: car_brandName,
+				modelId: car_modelId,
+				modelName: car_modelName,
+				seriesId: car_seriesId,
+				seriesName: car_seriesName,
+				insuranceId: car_insuranceId,
+				insuranceName: car_insuranceName
+			};
+
+			app.loading();
+			$.ajax({
+				url: api.NWBDApiCarAdd + "?r=" + Math.random(),
+				type: "POST",
+				dataType: "json",
+				data: {
+					carJson: JSON.stringify(carJson),
+					userId: app.getItem("userInfo").id,
+					type:'',
+					openid: app.getItem("open_id")
+				},
+				async:false,
+				success: function (result) {
+					console.log(result);
+
+					if (result.status === "success" && result.code === 0) {
+						var data = {
+							car_id: carId,
+							customerJson: JSON.stringify(customerJson),
+							company_id: app.getItem("merchant_id"),
+							company_name: merchantname,
+							lat: lat,
+							lng: lng,
+							address: $(".choo").text(),
+							addressProvince: addressProvince,
+							addressCity: addressCity,
+							addressCounty: addressCounty,
+							openid: app.getItem("open_id"),
+							repairContent:$('.repairContent textarea').val()
+						}
+						app.setItem('info',JSON.stringify(data));
+						
+						$.ajax({
+							url: api.NWBDApiOrderAdd + "?r=" + Math.random(),
+							type: "POST",
+							data: data,
+							dataType: 'json',
+							success: function (result) {
+								console.log(result)
+								if (result.status === "success" && result.code === 0) {
+									app.closeLoading();
+									//	新增预约维修界面
+									return
+									window.location.href = "../YuyueRepair/reservationRepair.html";
+									//	存储订单id；
+									localStorage.setItem("orderId",result.data.order_id)
+									$("#carNo").val("0");
+									localStorage.removeItem('status');
+									localStorage.removeItem('num');
+				
+									
+									
+								} else {
+									alert(result.message);
+									app.closeLoading();
+								}
+							},
+							error: function (res) {
+								console.log(res)
+								app.alert('操作失败，请检查网络！');
+								app.closeLoading();
+							}
+						});
+						
+					} else {
+						app.closeLoading();
+						app.alert(result.message);
+					}
+				},
+				error: function () {
+					app.closeLoading();
+					app.alert('操作失败，请检查网络！');
+				}
+			});
+			
+		});	
+		
+	}else{
+
+	};
+
+	
+	
+};

@@ -611,46 +611,52 @@ var specificOrder = function () {
             success:function(res){
                 console.log(res)
                 if(res.code == 0 && res.status == 'success'){
-                    wx.chooseWXPay({
-                        nonceStr: res.data.nonceStr,
-                        package: res.data.package,
-                        signType: 'MD5',
-                        paySign: res.data.paySign,
-                        timestamp: res.data.timeStamp,
-                        success: function (result) {
-                            console.log(result)
-                            app.closeLoading();
-                            if (result.errMsg === "chooseWXPay:ok") {
-                                window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
-                                // layer.open({
-                                //     content: '支付结果？',
-                                //     btn: ['支付成功', '支付遇到问题'],
-                                //     yes: function (index) {
-                                //         layer.close(index);
-                                        
-                                //         // detectPay(order_id);
-                                //     },
-                                //     no: function () {
-                                //         // detectPay(order_id);
-                                //     }
-                                // });
-                            } else {
-                                // alert("支付失败，如已付款，请联系客服");
+                    // wx.chooseWXPay({
+                    //     nonceStr: res.data.nonceStr,
+                    //     package: res.data.package,
+                    //     signType: 'MD5',
+                    //     paySign: res.data.paySign,
+                    //     timestamp: res.data.timeStamp,
+                    //     success: function (result) {
+                    //         console.log(result)
+                    //         app.closeLoading();
+                    //         if (result.errMsg === "chooseWXPay:ok") {
+                    //             window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
                                 
-                                app.closeLoading();
-                            }
+                    //         } else {
+                                
+                    //             app.closeLoading();
+                    //         }
+                    //     },
+                    //     cancel: function () {
+                    //         window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                    //         app.closeLoading();
+                    //     },
+                    //     fail: function () {
+                    //          alert("支付失败，如已付款，请联系客服");
+                    //         window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                    //         app.closeLoading();
+                    //     }
+                    // });
+
+                    WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest', {
+                           "appId":res.data.appId,     //公众号名称，由商户传入     
+                           "timeStamp":res.data.timeStamp,         //时间戳，自1970年以来的秒数     
+                           "nonceStr":res.data.nonceStr, //随机串     
+                           "package":res.data.package,     
+                           "signType":res.data.signType,         //微信签名方式：     
+                           "paySign":res.data.paySign //微信签名 
                         },
-                        cancel: function () {
-                            // alert("支付已取消");
-                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
-                            app.closeLoading();
-                        },
-                        fail: function () {
-                             alert("支付失败，如已付款，请联系客服");
-                            window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
-                            app.closeLoading();
-                        }
-                    });
+                        function(res){
+                        if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                            
+                        // 使用以上方式判断前端返回,微信团队郑重提示：
+                              //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                        }else{
+                            alert("支付失败，如已付款，请联系客服");
+                        };
+                     }); 
 
                 }else{
                     alert(res.message);

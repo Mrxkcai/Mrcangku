@@ -33,7 +33,7 @@ var quickRepairDetails = function () {
         window.location.href = "../QuickRepair/QuickRepair.html";
     }
     $.ajax({
-        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
         type: "GET",
         dataType: 'json',
         success: function (result) {

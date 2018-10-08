@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+		<meta name="format-detection" content="telephone=yes,email=no"/>
+		<meta name="x5-orientation" content="portrait"/>
+		<meta name="x5-fullscreen" content="true"/>
+		<meta name="x5-page-mode" content="app"/>
+		<title></title>
+		<script>
+		    if (window.screen.availWidth <= 750) {
+		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+		    } else {
+		        document.documentElement.style.fontSize = '100px';
+		    }
+        </script>
+    </head>
+    <body>
+		
+		<p id="id"></p>
+		<br />
+		<p id="url"></p>
+    </body>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+    		
+    			
+    			//-统计方法
+		    function ocuntFun (id,url){
+		    	var countJs,
+	    			num,
+	    			dataJs,
+	    			urlJs;
+		    		countJs = id.split(',')[0];
+		    		num = id.split(',')[1];
+//		    		document.write("<script src='https://"+num+".cnzz.com/z_stat.php?id="+countJs+"&web_id="+countJs+"' language='JavaScript'><\/script>");
+   				//dataJs = "<script src='https://"+num+".cnzz.com/z_stat.php?id="+countJs+"&web_id="+countJs+"' language='JavaScript'><\/script>";
+   				dataJs = 'alert(22)';
+   				window.webkit.messageHandlers.iosFunction.postMessage({content:dataJs});
+   				window.location.href = decodeURIComponent(url);
+		    };
+	    
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			if(isAndroid == true){
+				var dataJs;
+				anFun.anFun('myFun')
+				function myFun(id,url){
+					var a1 = id.split(',')[0]
+					var a2 = id.split(',')[1]
+					var a3 = id.split(',')[2]
+					document.write("<script src='https://"+a2+".cnzz.com/z_stat.php?id="+a1+"&web_id="+a1+"' language='JavaScript'><\/script>");
+	   				window.location.href = decodeURI(a3);
+				};
+			}else{
+				
+	   			
+			};
+			
+			
+			
+    </script>
+</html>

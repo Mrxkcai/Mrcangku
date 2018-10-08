@@ -261,7 +261,9 @@ var newDetails = function () {
 								}
 								
 							}
-						}
+						}else if(res.message == '用户Id不能为空!'){
+							window.location.href = '../QuickRepair/QuickRepair.html'
+						};
 					},
 					error:function(res){
 						console.log(res)

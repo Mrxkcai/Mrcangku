@@ -52,7 +52,8 @@ var api = (function() {
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse", //  不可使用优惠券列表
         NWBDApiWeiXincouponIndex: apiAddress + "/weixin/coupon/index", //  判断是否领取优惠券
         NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get", //  优惠券活动领取
-        NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
+        // NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
+        NWBDApiWeiXinUniformorder: apiAddress + "/allInPay/pay",
         NWBDApiWeiXinShareHaif: apiAddress + '/qrCode/shareResult', //  haif分享
 
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message", //  海尔短信发送接口
