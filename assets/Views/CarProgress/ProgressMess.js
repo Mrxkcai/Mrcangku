@@ -128,7 +128,8 @@ $(function () {
                 ],
                 show1:true,     //-维修进度
                 show2:false,    //-车辆维修记录
-                wxStatus:''     //-维修状态
+                wxStatus:'',     //-维修状态
+                company_id:''
             },
             methods:{
                 init(){
@@ -140,6 +141,11 @@ $(function () {
                         $('.lineS').css({'height':0.96*n + "rem"})
                         $('.lineS span').eq(n).css({'top':0.955*n + "rem"});
                     }; 
+                    //-或取维修厂id
+                    that.company_id = getUrlParam('company_id');
+                    // console.log(that.company_id)
+                    //-更具维修厂id查询维修厂信息
+                    that.getCompanyInfo(that.company_id);
 
                     //-最后一个已完成
                     //$('.lineS span:last-child').addClass('goneAc');
@@ -202,6 +208,22 @@ $(function () {
                 telphone(tellphone){
                     window.location.href = 'tel:' + tellphone
                 },
+                getCompanyInfo(companyId){
+                    $.ajax({
+                        url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + companyId + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
+                        type: "GET",
+                        dataType: 'json',
+                        success: function (res){
+                            console.log(res)
+                            if(res.code == 0){
+                                
+                            };
+                        },
+                        error:function(res){
+                            app.alert(res.message)
+                        }
+                    });
+                }
             },
             mounted(){
                 var that = this;
