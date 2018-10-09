@@ -89,6 +89,10 @@
             <span></span>
             <p>常见问题</p>
         </li>
+         <li class="my_count">
+            <span></span>
+            <p>我的账户</p>
+        </li>
     </ul>
     <!--
     <a href="new.html">1111</a> -->
@@ -115,11 +119,10 @@
 
 
 <!-- 弹层 -->
-<script type="text/html" id="template">
 <div class="ui-dialog ui-dialog-operate show-dialog">
     <div class="ui-dialog-cnt">
         <div class="ui-dialog-bd">
-            <h1>{{list.data}}<span>元</span></h1>
+          
             <a href="#" class="looks"></a>
             <p>* 好友注册保宝车服后，您还可获得额外奖励；注册的好友越多，获得奖励越多！快邀请好友注册赚钱吧！</p>
             <a href="#" class="notice">活动规则&gt;&gt;</a>
@@ -127,13 +130,11 @@
         <i class="ui-dialog-close" data-role="button"></i>
     </div>
 </div>
-</script>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
 <script src="lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
 <script src="lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 <script src="js/vue.min.js"></script>
-<script src="js/template-web.js"></script>
 <script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
 <script>
     document.write("<script src='js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
@@ -210,11 +211,9 @@
                                 	})
                                 	.done(function(res) {
                                 		console.log(res);
-                                        var obj={
-                                            list:res
-                                        }
-                                        var result = template('template',obj);
-                                      $('footer').append(result)
+                                        var list=res;
+                                        var items+='<h1>'+list.data+'<span>'+'元'+'</span>'+'</h1>';
+                                      $('.ui-dialog-bd').prepend(items);
                                      
                                 	})
                                 	.fail(function() {
