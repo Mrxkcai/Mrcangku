@@ -128,7 +128,7 @@ $(function () {
                 ],
                 show1:true,     //-维修进度
                 show2:false,    //-车辆维修记录
-
+                wxStatus:''     //-维修状态
             },
             methods:{
                 init(){
@@ -154,11 +154,30 @@ $(function () {
                             dataType:'json',
                             success:function(res){
                                 console.log(res)
+                                if(res.data.stenOrderStatus == -1){
+                                    that.wxStatus = ''
+                                }else if(res.data.stenOrderStatus == 0){
+                                    that.wxStatus = '待交接'
+                                }else if(res.data.stenOrderStatus == 1){
+                                    that.wxStatus = '维修中'
+                                }else if(res.data.stenOrderStatus == 2){
+                                    that.wxStatus = '待检验'
+                                }else if(res.data.stenOrderStatus == 3){
+                                    that.wxStatus = '待结算'
+                                }else if(res.data.stenOrderStatus == 4){
+                                    that.wxStatus = '待付款'
+                                }else if(res.data.stenOrderStatus == 5){
+                                    that.wxStatus = '待取车'
+                                }else if(res.data.stenOrderStatus == 6){
+                                    that.wxStatus = '已完成'
+                                };
                             },
                             error(){
                                 app.alert('网络故障，请稍后重试')
                             }
                         });
+                    }else{
+                        window.history.go(-1);  //-返回+刷新
                     };
                                
                 },

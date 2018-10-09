@@ -365,6 +365,8 @@ var quickRepairDetails = function () {
                 if (result.status === "success" && result.code === 0 && result.code!== 2) {
                     app.closeLoading();
                     //	新增预约维修界面
+                    //return
+
                     window.location.href = "../YuyueRepair/reservationRepair.html";
                     //	存储订单id；
                     localStorage.setItem("orderId",result.data.order_id)

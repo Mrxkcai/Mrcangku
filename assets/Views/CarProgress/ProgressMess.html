@@ -16,7 +16,7 @@
 		    }
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
-		<link rel="stylesheet" type="text/css" href="ProgressMess.css?v=2.0.0"/>
+		<link rel="stylesheet" type="text/css" href="ProgressMess.css?v=2.0.1"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -31,7 +31,7 @@
                     <div class="backYellow">
                         <div class="progressWord">
                             <span>维修状态：</span>
-                            <span>待检验</span>
+                            <span>{{wxStatus}}</span>
                             <div class="marchantName">
                                 <div class="imgBox">
                                     <img :src="src" v-lazy="src" alt="维修厂logo">
@@ -216,7 +216,7 @@
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="ProgressMess.js?v=2.0.0"></script>
+    <script src="ProgressMess.js?v=2.0.1"></script>
     <script>
         //-layer懒加载页面图片
         Vue.use(VueLazyload,{

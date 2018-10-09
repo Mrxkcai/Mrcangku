@@ -370,6 +370,96 @@ var jsapi = document.createElement('script');
 
 
 
+//	新增倒计时
+var vm = new Vue({
+	el:'#app',
+	data:{
+		isBox:false,
+		countBlock:{
+			min:'00',
+			sec:'00',
+			numAll:'',
+			orderId:localStorage.getItem('orderId')
+		},
+		countDown:''
+				},
+	methods:{
+		//	转化时间并赋值
+		formaFun(a){
+			var obj = app.formatDuring(a);
+				this.countBlock.min = obj.min;
+				this.countBlock.sec = obj.sec;
+		},
+	timer(m){
+		// 定时器
+		var tt = setInterval(function(){
+			m++;
+			this.countDown = m;
+			
+			localStorage.setItem('num',m)
+			vm.formaFun(m)
+			if(this.countDown == api.pzTime){
+				// 	指定时间后定时器消失
+				vm.isBox = false;
+				clearInterval(tt);
+				vm.countDown = 0;
+				localStorage.removeItem('status');
+				localStorage.removeItem('num');
+				$('#app').removeClass('bottomP')
+				var data = {
+					order_id:vm.countBlock.orderId,
+					userId:app.getItem('userInfo').id,	//	app.getItem('open_id') '9d8eb665-d810-411b-8ad1-77c341f40038'	
+					openid: app.getItem("open_id")
+				}
+				$.ajax({
+					type:"POST",
+					url:api.NWBDApiWeiXincancelOrder,
+					data:data,
+					dataType: 'json',
+					success:function(result){
+						console.log(result)
+						if(result.code == 0){
+							app.alert(result.data)
+							localStorage.removeItem('status');
+							localStorage.removeItem('num');
+						}
+					},
+					error:function(){
+						app.closeLoading();
+					}
+				});
+			}
+		},1000)
+	}
+	
+	},
+	mounted(){
+		if(!app.getItem('userInfo')){
+			return;
+		}
+		var number1 = app.checkTime()	
+		if(number1 != ''){
+			this.timer(number1);
+		}
+		
+		//	有未接订单的情况
+		var status = localStorage["status"];
+		if(status == 1){
+			this.isBox = true;
+			$('#app').addClass('bottomP')
+			this.$refs.countblock.childs();
+		}else{
+			this.isBox = false;
+			$('#app').removeClass('bottomP')
+		}
+		
+		// 调用组件
+		this.$refs.adverblock.init();
+		//	操作指南
+		this.$refs.adverblock1.init1();
+	}
+});
+
 
 	
  //  -页面加载方法
@@ -395,7 +485,7 @@ var jsapi = document.createElement('script');
 				url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id  + "&r=" + Math.random(),
 				type:'get',
 				success:function(res){
-					
+					console.log(res)
 					if(res.status == 'success' && res.code == 0){
 						data = res.data;
 						merchantname = data[0].name;	//-维修厂名字
@@ -509,7 +599,7 @@ var jsapi = document.createElement('script');
 
 			app.loading();
 			$.ajax({
-				url: api.NWBDApiCarAdd + "?r=" + Math.random(),
+				url: api.NWBDApioperateCar + "?r=" + Math.random(),
 				type: "POST",
 				dataType: "json",
 				data: {
@@ -523,6 +613,7 @@ var jsapi = document.createElement('script');
 					console.log(result);
 
 					if (result.status === "success" && result.code === 0) {
+						carId = result.data;
 						var data = {
 							car_id: carId,
 							customerJson: JSON.stringify(customerJson),
@@ -549,7 +640,7 @@ var jsapi = document.createElement('script');
 								if (result.status === "success" && result.code === 0) {
 									app.closeLoading();
 									//	新增预约维修界面
-									return
+									// return
 									window.location.href = "../YuyueRepair/reservationRepair.html";
 									//	存储订单id；
 									localStorage.setItem("orderId",result.data.order_id)

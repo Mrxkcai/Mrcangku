@@ -18,7 +18,10 @@
         <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
         <link rel="stylesheet" href="../../css/carBrands.min.css?v=2.0.0"/>
         <link rel="stylesheet" href="../../css/common_page.min.css?v=2.0.0"/>
-		<link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.12"/>
+        <link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.12"/>
+        <style>
+            .bottomP{padding-bottom:1.8rem; }
+        </style>
 	</head>
 	<body>
 		<div id="app">
@@ -109,6 +112,14 @@
             </div>
 
 
+            <!--倒计时组件-->
+            <count-block :countblock="countBlock" v-show="isBox" ref="countblock"></count-block>
+            <!-- 悬浮组件 -->
+            <adve-block ref="adverblock"></adve-block>
+            <!-- 操作指南 -->
+            <adve-block1 ref="adverblock1"></adve-block1>
+
+
         </div>
 
 
@@ -126,8 +137,7 @@
 
 
         <!-- choose car Number -->
-        <!-- <div class="close_carNo_keyboard" style="height: 6rem;"></div> -->
-
+        
 
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -144,6 +154,6 @@
     </script>
     <script src="../../js/carBrands.js?v=2.0.2" charset='utf-8'></script>
     <script src="../../js/common_page.js?v=2.0.0" charset='utf-8'></script>
-    <script src="editQuickMess.js?v=2.0.21"></script>
+    <script src="editQuickMess.js?v=2.0.29"></script>
 </html>
     

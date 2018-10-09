@@ -32,6 +32,7 @@ var api = (function() {
         NWBDApiGetBrandSub: apiAddress + "/customer/car/brand/sub",
         NWBDApiGetInsuranceCompanyList: apiAddress + "/insurance/getInsuranceCompanyList",
         NWBDApiCarAdd: apiAddress + "/car/carAdd",
+        NWBDApioperateCar: apiAddress + "/car/operateCar",
         NWBDApiGetCarListByCustomer: apiAddress + "/car/getCarListByCustomer",
         NWBDApiGetCarInfoByID: apiAddress + "/car/getCarInfoByID",
         NWBDApiSetCommonCar: apiAddress + "/car/setCommonCar",

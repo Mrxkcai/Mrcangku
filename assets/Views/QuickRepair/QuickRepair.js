@@ -580,7 +580,7 @@ var quickRepair = function () {
             app.setItem("send_position", $('.position_text span').text());
             app.setItem("send_juli", $(this).find('.juli').text());
             sessionStorage.setItem("sv",$('.search_bar').val())
-            window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+            window.location.href = "../QuickRepairDetails/QuickRepairNewDetails.html";
         }
     });
     function areaScroll(index,id){
