@@ -166,7 +166,7 @@
     document.close();
 </script>
 <script src="../../js/login.js?v=2.0.3"></script>
-<script src="QuickRepair.js?v=2.3.22" charset='utf-8'></script>
+<script src="QuickRepair.js?v=2.3.24" charset='utf-8'></script>
 <script>
     $(function () {
         if (api.isDebug) {
@@ -209,6 +209,9 @@
                             		console.log(res)
                             	}
                             });
+                            if(!app.getItem("userInfo")){
+                                return false;
+                            };
                             var id = app.getItem('userInfo').id;
                             var shareUrl = api.shareAdd + id;
                             var obj = {

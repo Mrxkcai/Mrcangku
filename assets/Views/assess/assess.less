@@ -7,4 +7,121 @@
 @displayL:{display: inline-block;};
 body{
     background: @backColor;
+    section{
+        display: block;
+        width:6.9rem;
+        min-height:9.19rem;
+        background:rgba(255,255,255,1);
+        box-shadow:0px 4px 8px 0px rgba(238,238,238,1);
+        border-radius:4px;
+        margin: .2rem auto 0;
+        overflow: hidden;
+        .rateScore{
+            width: 3rem;
+            height: .5rem;
+            margin: .48rem auto 0;
+            font-family:PingFangSC-Regular;
+            font-weight:400;
+            font-size:.22rem;
+            color:rgba(170,170,170,1);
+            p{
+                width: .68rem;
+                height: .01rem;
+                border-top: 1px solid #ddd;
+                margin-top: .18rem;
+            };
+            p:nth-child(1){
+                float: left;
+            };
+            p:nth-child(2){
+                float: right;
+            };
+            span{
+                display: block;
+               text-align: center;
+            };
+        };
+        //-评分
+        .rateSz{
+            text-align: center;
+            color: #F28928;
+            font-size: .2rem;
+            margin:0 auto .14rem ;
+            span{
+                font-size: .32rem;
+            };
+        };
+        //-星星
+        .rateNum{
+            width: 2.9rem;
+            margin: 0 auto;
+        };
+        //-评价
+        .rateWord{
+            text-align: center;
+            font-size:.28rem;
+            font-family:PingFangSC-Regular;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            margin: .2rem auto 0;
+        };
+
+        //-标签
+        .label{
+            max-width: 6rem;
+            margin: .32rem auto .28rem;
+            min-height: .55rem;
+            span{
+                @displayL();
+                padding: 0 .1rem;
+                height: .52rem;
+                line-height: .52rem;
+                border: 1px solid #999;
+                font-size:.24rem;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(153,153,153,1);
+                margin: 0 .11rem;
+            };
+            .activeLabel{
+                background:rgba(242,137,40,0.1);
+                color: #F28928;
+                border: 1px solid #F28928;
+            };  
+        };
+
+
+        //-输入文字
+        .textInput{
+            width: 6.32rem;
+            height: 2.48rem;
+            margin: .32rem auto 0;
+            background: #fafafa;
+            textarea{
+                display: block;
+                @wid100();
+                height: 100%;
+                background: #fafafa;
+                font-size:.28rem;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:#666;
+                padding: .1rem;
+            };
+        };
+
+
+        //-上传图片
+        .uploadImg{
+            width: 6.32rem;
+            margin: .26rem auto 0;
+            p{
+                font-size:.22rem;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(153,153,153,1);
+            };
+        };
+
+    };
 };

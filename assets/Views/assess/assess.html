@@ -15,12 +15,53 @@
 		        document.documentElement.style.fontSize = '100px';
 		    }
 		</script>
-        <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
-		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+		<link rel="stylesheet" href="../../css/vant.css">
+		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.10"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
+			<section>
+				<div class="rateScore">
+					<p></p>
+					<p></p>
+					<span>我的评分</span>
+				</div>
+				<p class="rateSz">
+					<span>{{value}}</span>.0
+					
+				</p>
+				<div class="rateNum">
+					<van-rate 
+					v-model="value"
+					:size="25"
+					color="#F77B19"
+					
+					 />
+				</div>
+				<p class="rateWord">{{rateWord}}</p>
 
+
+				<!-- 标签 -->
+				<div class="label">
+					<span v-for="item,index in labels" :class = "{activeLabel:item.isActive}" @click="chooseLabel(index)">{{item.title}}</span>
+				</div>
+
+
+				<div class="textInput">
+					<textarea name="" id="" cols="" rows="" placeholder="还有什么想说的（不超过200字）" maxlength="200"></textarea>
+				</div>
+
+
+				<div class="uploadImg">
+					<p>上传图片（<span>1</span>/4）</p>
+					<div>
+						<van-uploader :after-read="onRead" accept="image/gif, image/jpeg" multiple>
+							<van-icon name="photograph" />
+						</van-uploader>
+					</div>
+				</div>
+			</section>
         </div>
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -29,10 +70,11 @@
     <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
-    <script src="../../js/vue.min.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/vant.min.js"></script>
     <script>
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="assess.js?v=2.0.0"></script>
+    <script src="assess.js?v=2.0.1"></script>
 </html>

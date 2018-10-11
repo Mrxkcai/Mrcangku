@@ -1,5 +1,7 @@
 $(function(){
-    "use strict"
+	"use strict"
+	//-获取openid
+	api.getopenid();
     
     if (api.isDebug) {
         //-调用页面逻辑方法
@@ -14,13 +16,14 @@ $(function(){
 				openid: app.getItem("open_id")
 			},
 			success: function (result) {
-				if (result.status === "success" && result.code === 0) {
+				var res = JSON.parse(result)
+				if (res.status === "success" && res.code === 0) {
 					wx.config({
 						debug: api.isDebug,
-						appId: result.data.AppID,
-						timestamp: result.data.timestamp,
-						nonceStr: result.data.noncestr,
-						signature: result.data.signature,
+						appId: res.data.AppID,
+						timestamp: res.data.timestamp,
+						nonceStr: res.data.noncestr,
+						signature: res.data.signature,
 						jsApiList: [
 						'openLocation', 
 						'hideAllNonBaseMenuItem',
@@ -87,15 +90,60 @@ $(function(){
         var vm = new Vue({
             el:'#app',
             data:{
-
+				value:3,
+				rateWord:'一般',	//-评价
+				labels:[
+					{
+						title:'服务态度差',
+						isActive:false
+					},
+					{
+						title:'技术能力差',
+						isActive:false
+					},
+					{
+						title:'店面环境差',
+						isActive:false
+					},
+					{
+						title:'其他',
+						isActive:false
+					}
+					
+				]
             },
             methods:{
                 init:function(){
                     var that = this;
-                    console.log(233)
                     $('body').css({'min-height':$(window).height()});
-                }
-            },
+				},
+				chooseLabel:function(index){
+					this.labels[index].isActive = !this.labels[index].isActive
+				},
+				//-上传图片
+				onRead:function(file){
+					console.log(file)
+				}
+			},
+			computed:{
+				countChange:function(){
+					if(this.value == 1){
+						this.rateWord = '很不满意'
+					}else if(this.value == 2){
+						this.rateWord = '不满意'
+					}else if(this.value == 3){
+						this.rateWord = '一般'
+					}else if(this.value == 4){
+						this.rateWord = '满意'
+					}else if(this.value == 5){
+						this.rateWord = '非常满意'
+					}
+				}
+			},
+			watch:{
+				countChange:function(){
+				}
+			},
             mounted(){
                 var that = this;
                 that.init();

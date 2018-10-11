@@ -367,6 +367,9 @@ var quickRepair = function () {
     
     app.verificationUserInfo();      //  判断登录去掉；
     //  进入车服门店界面查询用户是否有车辆，若无则提示用户完善车辆信息；现在修改为用户可以无需登录查看维修厂列表；
+    if(!app.getItem("userInfo")){
+        return false;
+    };
     $.ajax({
         url: api.NWBDApiCarIsExist + "?r=" + Math.random(),
         type: "POST",
@@ -768,6 +771,9 @@ var vm = new Vue({
         districtAtive:-1
     },
     created:function(){
+        if(!app.getItem("open_id")){
+            return false;
+        };
         $.ajax({
             type:"POST",
             url:api.NWBDApiGetList + "?r=" + Math.random(),
