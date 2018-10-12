@@ -86,97 +86,68 @@ $(function(){
     };
 
 
+
     var firstDom = function (){
         var vm = new Vue({
             el:'#app',
             data:{
-				value:3,
-				rateWord:'一般',	//-评价
-				labels:[
-					{
-						title:'服务态度差',
-						isActive:false
-					},
-					{
-						title:'技术能力差',
-						isActive:false
-					},
-					{
-						title:'店面环境差',
-						isActive:false
-					},
-					{
-						title:'其他',
-						isActive:false
-					}
-					
-				],
-				uploadImgArr:[],	//-上传的图片
-				uploadBool:true,		//-上传现实和隐藏
-				checked:false,			//匿名
-				labelLevel:true			//-标签现实和隐藏
+                labelArray:[
+                    {
+                        name:'全部',
+                        count:11,
+                        active:true
+                    },
+                    {
+                        name:'非常满意',
+                        count:12,
+                        active:false
+                    },
+                    {
+                        name:'满意',
+                        count:13,
+                        active:false
+                    },
+                    {
+                        name:'一般',
+                        count:14,
+                        active:false
+                    },
+                    {
+                        name:'不满意',
+                        count:15,
+                        active:false
+                    },
+                    {
+                        name:'很不满意',
+                        count:16,
+                        active:false
+                    },
+                    {
+                        name:'有内容',
+                        count:17,
+                        active:false
+                    },
+                    {
+                        name:'有图片',
+                        count:18,
+                        active:false
+                    }
+                ]
             },
             methods:{
                 init:function(){
-                    var that = this;
-                    $('body').css({'min-height':$(window).height()});
-				},
-				chooseLabel:function(index){
-					this.labels[index].isActive = !this.labels[index].isActive
-				},
-				//-上传图片
-				onRead:function(file){
-					
-					if(this.uploadImgArr.length < 3){
-						this.uploadBool = true;
-						this.uploadImgArr.push(file.content)
-					}else{
-						this.uploadImgArr.push(file.content)
-						this.uploadBool = false;
-					};
-				},
-				//-删除图片
-				uploadClose:function(index){
-					this.uploadImgArr.splice(index)
-					if(this.uploadImgArr.length >= 4){
-						this.uploadBool = false;
-					}else{
-						this.uploadBool = true;
-					};
-				},
-				//-提交按钮
-				uploadSubmit:function(){
-
-				}
-			},
-			computed:{
-				countChange:function(){
-					if(this.value == 1){
-						this.rateWord = '很不满意'
-						this.labelLevel = true
-					}else if(this.value == 2){
-						this.rateWord = '不满意'
-						this.labelLevel = true
-					}else if(this.value == 3){
-						this.rateWord = '一般'
-						this.labelLevel = true
-					}else if(this.value == 4){
-						this.rateWord = '满意'
-						this.labelLevel = false
-					}else if(this.value == 5){
-						this.rateWord = '非常满意'
-						this.labelLevel = false
-					}
-				}
-			},
-			watch:{
-				countChange:function(){
-				}
-			},
+                    
+                },
+                //-筛选
+                labelSelect:function(index){
+                    this.labelArray[index].active = !this.labelArray[index].active;
+                }
+            },
             mounted(){
-                var that = this;
-                that.init();
+                this.init();
             }
         });
     };
+
+
 });

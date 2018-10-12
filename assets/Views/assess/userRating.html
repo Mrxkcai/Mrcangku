@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
+		<meta name="format-detection" content="telephone=yes,email=no"/>
+		<meta name="x5-orientation" content="portrait"/>
+		<meta name="x5-fullscreen" content="true"/>
+		<meta name="x5-page-mode" content="app"/>
+		<title>用户评价</title>
+		<script>
+		    if (window.screen.availWidth <= 750) {
+		        document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+		    } else {
+		        document.documentElement.style.fontSize = '100px';
+		    }
+		</script>
+		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
+		<link rel="stylesheet" href="../../css/vant.css">
+		<link rel="stylesheet" type="text/css" href="userRating.css?v=2.0.0"/>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+            <div class="container">
+                <div class="labelBox">
+                    <span v-for="item,index in labelArray" :class="{active:item.active}" @click="labelSelect(index)" >{{item.name}}({{item.count}})</span>
+                    <p style="clear: both"></p>
+                </div>
+
+
+                <!-- 评价内容 -->
+                <div class="section">
+                    <div class="bottom_line">
+                        
+                        <div class="listBlock">
+                            <div class="userBlock">
+                                <img src="../../images/head_portrait.png" class="userImg"/>
+                                <span class="userNick">龙马精神</span>
+                                <span class="userTime">2018-05-18</span>
+                            </div>
+                            <div class="userStar">
+                                <div class="starBox">
+                                    <img src="../../images/icon5.png"/>
+                                    <img src="../../images/icon5.png"/>
+                                    <img src="../../images/icon5.png"/>
+                                </div>
+                                <span class="userScore">
+                                    <i>5</i>.0
+                                </span>
+                                
+                                
+                                <div class="wordRight">
+                                    <p>
+                                        保宝车服认证店，技师技能娴熟，服务态度非常非常好，维修质量快！ 
+                                        保宝车服公众号设计合理，解决了用户的需求，下次如果我的车出现问题，
+                                        我还是要找保宝车服公众号的门店进行维修和保养。
+                                    </p>
+                                    <ul class="imgList">
+                                        <li>
+                                            <img src="../../images/default_1125_633.png"/>
+                                        </li>
+                                        <li>
+                                            <img src="../../images/default_1125_633.png"/>
+                                        </li>
+                                        <li>
+                                            <img src="../../images/default_1125_633.png"/>
+                                        </li>
+                                        <li>
+                                            <img src="../../images/default_1125_633.png"/>
+                                        </li>
+                                        <p style="clear: both;"></p>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="clear: both;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="../../js/zepto.min.js" charset='utf-8'></script>
+    <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
+    <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
+    <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/vant.min.js"></script>
+    <script>
+        document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+        document.close();
+    </script>
+    <script src="userRating.js?v=2.0.0"></script>
+</html>

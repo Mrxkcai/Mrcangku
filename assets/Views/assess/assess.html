@@ -17,7 +17,7 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.10"/>
+		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.11"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -44,7 +44,7 @@
 
 				<!-- 标签 -->
 				<div class="label">
-					<span v-for="item,index in labels" :class = "{activeLabel:item.isActive}" @click="chooseLabel(index)">{{item.title}}</span>
+					<span v-show="labelLevel" v-for="item,index in labels" :class = "{activeLabel:item.isActive}" @click="chooseLabel(index)">{{item.title}}</span>
 				</div>
 
 
@@ -54,14 +54,34 @@
 
 
 				<div class="uploadImg">
-					<p>上传图片（<span>1</span>/4）</p>
+					<p>上传图片（<span v-text="uploadImgArr.length">0</span>/4）</p> 	
 					<div>
-						<van-uploader :after-read="onRead" accept="image/gif, image/jpeg" multiple>
-							<van-icon name="photograph" />
+						<div class="uploadImgArr">
+							<div class="smallBox" v-for="item,index in uploadImgArr">
+								<img :src="item" alt="图片">
+								<i class="uploadClose" @click="uploadClose(index)">×</i>
+							</div>
+						</div>
+						<van-uploader :after-read="onRead" accept="image/gif, image/jpeg, image/png" v-show="uploadBool">
+							<!-- <van-icon name="add-o" /> -->
+							<span>十</span>
 						</van-uploader>
+						<p style="clear: both"></p>
+					</div>
+
+					<!-- 匿名评价 -->
+					<div class="anonymous">
+						<van-checkbox v-model="checked"> 匿名评价</van-checkbox>
 					</div>
 				</div>
+
 			</section>
+
+			<!-- 提交按钮
+				 -->
+			<div class="uploadBtn" @click="uploadSubmit">
+					提交
+			</div>
         </div>
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -76,5 +96,5 @@
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="assess.js?v=2.0.1"></script>
+    <script src="assess.js?v=2.0.11"></script>
 </html>

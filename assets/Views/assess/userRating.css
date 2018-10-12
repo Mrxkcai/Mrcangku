@@ -1,0 +1,124 @@
+[v-cloak] {
+  display: none;
+}
+body {
+  background: #fafafa;
+}
+body #app {
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+}
+body #app .container {
+  width: 6.9rem;
+  margin: .34rem auto 0;
+}
+body #app .container .labelBox span {
+  display: inline-block;
+  height: .52rem;
+  padding: 0 .2rem;
+  background: rgba(242, 137, 40, 0.08);
+  border-radius: 4px;
+  font-size: .24rem;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #666666;
+  line-height: .52rem;
+  float: left;
+  margin-right: .3rem;
+  margin-bottom: .2rem;
+}
+body #app .container .labelBox .active {
+  color: #fff;
+  background: #F28928;
+}
+body #app .section {
+  border-top: 1px solid #e8e8e8;
+  margin-top: .2rem;
+  padding-top: .3rem;
+}
+body #app .section .listBlock {
+  padding: 0 .3rem;
+}
+body #app .section .userBlock > span {
+  display: inline-block;
+}
+body #app .section .userNick {
+  font-size: .3rem;
+  font-family: PingFangSC-Regular;
+  color: #aaaaaa;
+  line-height: .56rem;
+}
+body #app .section .userBlock > img {
+  width: .56rem;
+  height: .56rem;
+  display: inline-block;
+  float: left;
+  margin-right: .2rem;
+}
+body #app .section .userBlock > span {
+  display: inline-block;
+  float: left;
+}
+body #app .section .userBlock .userTime {
+  font-family: PingFangSC-Regular;
+  color: #aaaaaa;
+  line-height: .56rem;
+  font-size: .24rem;
+  float: right;
+}
+body #app .section .userStar {
+  clear: both;
+  margin-left: .8rem;
+}
+body #app .section .starBox > img {
+  width: .22rem;
+  float: left;
+  margin: 0 .02rem;
+}
+body #app .section .userScore i {
+  font-size: .32rem;
+  font-family: PingFangSC-Medium;
+  color: #f28928;
+  font-style: normal;
+}
+body #app .section .userScore {
+  color: #f28928;
+  display: inline-block;
+  margin-left: .2rem;
+  margin-top: -0.1rem;
+  float: left;
+}
+body #app .section .wordRight {
+  float: right;
+}
+body #app .section .wordRight > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  color: #333333;
+  line-height: .44rem;
+}
+body #app .section .imgList li img {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: .05rem;
+}
+body #app .section .imgList li {
+  float: left;
+  margin-right: .12rem;
+}
+body #app .section .bottom_line {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: .3rem;
+}
+body #app .section .bottom_line:last-of-type {
+  border-bottom: none;
+}
+body #app .section .userCommont > .bottom_line:nth-child(n+2) {
+  margin-top: .3rem;
+}

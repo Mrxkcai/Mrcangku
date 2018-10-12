@@ -108,4 +108,70 @@ body section .uploadImg p {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #999999;
+  margin-bottom: .18rem;
+}
+body section .uploadImg .uploadImgArr {
+  display: inline-block;
+  float: left;
+}
+body section .uploadImg .uploadImgArr img {
+  width: 100%;
+  height: 100%;
+}
+body section .uploadImg .uploadImgArr .smallBox {
+  display: inline-block;
+  width: 1.28rem!important;
+  height: 1.28rem!important;
+  margin-right: .16rem;
+  position: relative;
+}
+body section .uploadImg .uploadImgArr .uploadClose {
+  display: inline-block;
+  width: .4rem;
+  height: .4rem;
+  background: #ccc;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-style: normal;
+  font-size: .35rem;
+  color: #fff;
+  text-align: center;
+  line-height: .4rem;
+}
+body section .uploadImg .van-uploader {
+  display: inline-block;
+  width: 1.28rem!important;
+  height: 1.28rem!important;
+  line-height: 1.28rem;
+  float: left;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  text-align: center;
+}
+body section .uploadImg .van-uploader span {
+  color: #ccc;
+  font-size: .5rem;
+}
+body section .uploadImg .van-checkbox__icon--checked .van-icon {
+  border-color: #FFAA35;
+  background-color: #FFAA35;
+}
+body section .uploadImg .van-checkbox {
+  text-align: right;
+}
+body .uploadBtn {
+  width: 6.90rem;
+  height: .96rem;
+  background: linear-gradient(270deg, #fe8828 0%, #ffaa35 100%);
+  box-shadow: 0px 4px 8px 0px #eeeeee;
+  border-radius: .48rem;
+  font-size: .34rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ffffff;
+  margin: .2rem auto 0;
+  text-align: center;
+  line-height: .96rem;
 }
