@@ -505,6 +505,9 @@ header img:nth-child(n+2){
 	border-bottom: 1px solid #ddd;
 	padding-bottom: .3rem;
 }
+.bottom_line:last-of-type{
+	border-bottom:none!important;
+}
 
 .userCommont>.bottom_line:nth-child(n+2){
 	margin-top: .3rem;

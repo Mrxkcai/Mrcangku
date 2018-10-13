@@ -332,6 +332,14 @@ var newDetails = function () {
 					window.location.href = "../EditQuickRepair/editQuickMess.html";
 				};
 
+			},
+
+			//-点击评价详情
+			goUserRating:function(){
+				if(app.getItem("merchant_id")){
+					window.location.href = "../assess/userRating.html"
+				};
+				
 			}
 		},
 		mounted: function mounted() {
