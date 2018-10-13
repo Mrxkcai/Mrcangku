@@ -193,18 +193,18 @@ $(function(){
                 },
                 //-筛选
                 labelSelect:function(index){
-					console.log(index)
 					this.labelArray[index].active = !this.labelArray[index].active;
 
-					this.labelArray.forEach(item => {
-						console.log(item)
-						if(item.active == false){
-							this.labelArray[0].active = false;
+					this.labelArray.forEach((item,index) => {
+						if(this.labelArray[index].active == true){
+							this.label0.active = true;
 						}else{
-							// this.labelArray[0].active = true;		//-有筛选条件时全部则变灰
+							this.label0.active = false;
+							
 						};
 					});
-
+					
+					
                     
 				},
 				//-全选
