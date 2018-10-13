@@ -91,12 +91,17 @@ $(function(){
         var vm = new Vue({
             el:'#app',
             data:{
+				label0:{
+					name:'全部',
+					count:11,
+					active:true
+				},
                 labelArray:[
-                    {
-                        name:'全部',
-                        count:11,
-                        active:true
-                    },
+                    // {
+                    //     name:'全部',
+                    //     count:11,
+                    //     active:true
+                    // },
                     {
                         name:'非常满意',
                         count:12,
@@ -132,19 +137,98 @@ $(function(){
                         count:18,
                         active:false
                     }
-                ]
+				],
+				ratingActive:false,
+				param:{
+					companyId:app.getItem("merchant_id"),	//-维修厂id
+					// ratingListStr:
+				},
+				selectPoint:'-1'		//-选择条件标记	
             },
             methods:{
                 init:function(){
-                    
+					var this_ = this;
+					//-查询每种评价的数量
+					$.ajax({
+						url:api.NWBDApiAssessCountList,
+						type:'GET',
+						data:{
+							companyId:app.getItem("merchant_id")
+						},
+						dataType:'json',
+						success:function(res){
+							console.log(res)
+							this_.label0.count = res.data.all;
+							for(var i = 0;i < this_.labelArray.length;i ++){
+								if(this_.labelArray[i].name == '全部'){
+									this_.labelArray[i].count = res.data.all
+								}else if(this_.labelArray[i].name == '非常满意'){
+									this_.labelArray[i].count = res.data.rating5
+								}else if(this_.labelArray[i].name == '满意'){
+									this_.labelArray[i].count = res.data.rating4
+								}else if(this_.labelArray[i].name == '一般'){
+									this_.labelArray[i].count = res.data.rating3
+								}else if(this_.labelArray[i].name == '不满意'){
+									this_.labelArray[i].count = res.data.rating2
+								}else if(this_.labelArray[i].name == '很不满意'){
+									this_.labelArray[i].count = res.data.rating1
+								}else if(this_.labelArray[i].name == '有内容'){
+									this_.labelArray[i].count = res.data.haveContent
+								}else if(this_.labelArray[i].name == '有图片'){
+									this_.labelArray[i].count = res.data.haveImage
+								};
+							};
+
+
+
+							//-判断有没有评价内容
+							if(res.data.all== 0){
+								this_.ratingActive = true;
+							};
+						},
+						error:function(){
+
+						}
+					});
                 },
                 //-筛选
                 labelSelect:function(index){
-                    this.labelArray[index].active = !this.labelArray[index].active;
-                }
-            },
+					console.log(index)
+					this.labelArray[index].active = !this.labelArray[index].active;
+
+					this.labelArray.forEach(item => {
+						console.log(item)
+						if(item.active == false){
+							this.labelArray[0].active = false;
+						}else{
+							// this.labelArray[0].active = true;		//-有筛选条件时全部则变灰
+						};
+					});
+
+                    
+				},
+				//-全选
+				allSele:function(){
+					this.selectPoint = 0;
+				}
+			},
+			computed:{
+				allSelect:function(){
+					if(this.selectPoint == 0){
+						this.labelArray.forEach(item => {
+							item.active = true;
+						});
+					}
+				}
+			},
+			watch:{
+				allSelect:function(){}
+			},
             mounted(){
-                this.init();
+				if(app.getItem("merchant_id")){
+					this.init();
+				};
+                
             }
         });
     };

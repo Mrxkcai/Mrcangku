@@ -23,6 +23,7 @@
 		<div id="app" v-cloak>
             <div class="container">
                 <div class="labelBox">
+                    <span @click="allSele()"  :class="{active:label0.active}">{{label0.name}}({{label0.count}})</span>
                     <span v-for="item,index in labelArray" :class="{active:item.active}" @click="labelSelect(index)" >{{item.name}}({{item.count}})</span>
                     <p style="clear: both"></p>
                 </div>
@@ -75,6 +76,12 @@
                         </div>
                         <p style="clear: both;"></p>
                     </div>
+
+
+                    <!-- 暂无评价内容 -->
+                    <div class="assessNo" v-show="ratingActive">
+                        暂无评价内容
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,5 +98,5 @@
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="userRating.js?v=2.0.0"></script>
+    <script src="userRating.js?v=2.0.1"></script>
 </html>

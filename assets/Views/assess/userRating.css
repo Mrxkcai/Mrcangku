@@ -122,3 +122,9 @@ body #app .section .bottom_line:last-of-type {
 body #app .section .userCommont > .bottom_line:nth-child(n+2) {
   margin-top: .3rem;
 }
+body #app .section .assessNo {
+  text-align: center;
+  color: #aaaaaa;
+  font-size: .12rem;
+  line-height: 1rem;
+}
