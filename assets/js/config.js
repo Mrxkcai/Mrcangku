@@ -63,6 +63,10 @@ var api = (function() {
 
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message", //  海尔短信发送接口
         NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register", //  海尔注册接口
+        //-评价部分接口
+        NWBDApiAssessCountList: apiAddress + "/companyComment/countList", //  查询每种评价的数量
+        NWBDApiAssessList: apiAddress + "/companyComment/list", //  获取商户评价列表
+        NWBDApiAssessCreate: apiAddress + "/companyComment/create", //  添加评价
 
         //- 关于思腾维修厂的接口
         NWBDApiSitengS: apiAddress + "/order/status/sten/getOrderStatus", //  根据订单号查询订单在偲腾ERP的状态
