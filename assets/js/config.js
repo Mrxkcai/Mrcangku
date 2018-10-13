@@ -59,6 +59,7 @@ var api = (function() {
         NWBDApiWeiXinShareHaif: apiAddress + '/qrCode/shareResult', //  haif分享
         NWBDApiWeiXinShareHaifs: apiAddress + '/customer/commission/list', //提现
         NWBDApiWeiXinShareModel: apiAddress + '/customer/commission/queryCommissionByType', //分享奖金
+        NWBDApiWeiXinShareBank: apiAddress + '/customer/bank', //查询,填写银行信息
 
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message", //  海尔短信发送接口
         NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register", //  海尔注册接口
@@ -72,7 +73,7 @@ var api = (function() {
         testPhone: '/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/',
         shareAdd: apiAddress1 + '/Views/shareList/share.html?customerId=', //  分享页面地址(正式记得注释掉)
         imgUrl: apiAddress1 + '/images/qrhtm2.png?v=2.1', //  分享图片地址
-        shareText: '保宝车服送送福利了！',
+        shareText: '保宝车服送福利了！',
         shareText2: '关注保宝车服完成注册， 领取1000元现金红包。',
         getopenid: function() {
 
@@ -126,7 +127,7 @@ var api = (function() {
             'opacity': '0'
         });
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
-        document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.33' charset='utf-8'></script>"); ///bbcf-common-h5/assets
+        document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.32' charset='utf-8'></script>"); ///bbcf-common-h5/assets
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>"); //  活动js
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>"); //  计时器js
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>"); //  指南js
