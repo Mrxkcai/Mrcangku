@@ -1,0 +1,71 @@
+.myCount .ui-btn-edit {
+  margin-top: 15px; }
+
+.myCount .icon-plus {
+  margin-right: 5px; }
+
+* {
+  box-sizing: border-box; }
+
+html, body {
+  height: 100%; }
+
+.wrap{
+  height: 100%;
+  background: url('img/img_bg_zhanghu.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-position: center;
+  padding:15px;
+}
+.wrap .card{
+  width:6.9rem;
+  height: 2.92rem;
+  background: url('img/img_bg_yinhangka.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-position: center;
+  padding:15px 15px 10px;
+}
+.wrap .card h1 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 17px;
+ }
+  .wrap .card h3{
+  color: #fff;
+  font-size: 13px;
+  margin: 10px 0;
+ }
+  .wrap .card p{
+    color: #fff;
+    font-size: 16px;
+  }
+  .unbind{
+    color: #fff;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 13px;
+    position: relative;
+    margin-top: 15px;
+  }
+  .unbind>div{
+    display: inline-block;
+  }
+  .unbind div>img{
+    margin-right: 3px;
+    position: relative;
+    bottom: -1px;
+  }
+.unbind:before {
+ content: "";
+ display: block;
+ position: absolute;
+ bottom: 0;
+ top: -11px;
+ width: 100%;
+ height: 1px;
+ background: #fff;
+}

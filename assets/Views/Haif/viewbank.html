@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+    <title>我的账户</title>
+    <link rel="stylesheet" href="frozenui.css">
+    <link rel="stylesheet" href="viewbank.css">
+    <link rel="stylesheet" href="model.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+     <script>
+        if (window.screen.availWidth <= 750) {
+            document.documentElement.style.fontSize = (100 / 750 * window.screen.availWidth) + 'px';
+        } else {
+            document.documentElement.style.fontSize = '100px';
+        }
+    </script>
+</head>
+<body>
+
+<div class="ui-grid-expand wrap"></div>
+
+<!-- 确认弹层 -->
+<div class="ui-dialog bank-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <p>确定解除绑定?</p>
+        </div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="cancel">取消</button>
+            <button type="button" data-role="button" id="suc">确定</button>
+        </div>
+    </div>
+</div>
+<!-- 分享弹层 -->
+
+<!-- 弹层 -->
+<div class="ui-dialog ui-dialog-operate show-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <div class="looks"></div>
+            <p>* 好友注册保宝车服后，您还可获得额外奖励；注册的好友越多，获得奖励越多！快邀请好友注册赚钱吧！</p>
+            <a href="#" class="notice">活动规则&gt;&gt;</a>
+        </div>
+        <i class="ui-dialog-close" data-role="button"></i>
+    </div>
+</div>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/fastclick.min.js" charset='utf-8'></script>
+<script src="js/common.js?v=2.0.4"></script>
+<script src="js/app.js"></script>
+<script src="js/jroll.min.js"></script>
+<script src="js/jroll-pulldown.1.0.0.min.js"></script>
+<script src="js/clipboard.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="myCount.js"></script>
+<script src="model.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+
+<script>
+    // //获取open_id
+    api.getopenid();
+</script>
+<script>
+	$(function(){
+		
+// 银行卡信息
+  var storage = window.localStorage;
+        $.ajax({
+        	url:  api.NWBDApiWeiXinShareBank,
+        	data: {
+        		userId: app.getItem('userInfo').id,
+        		openid: app.getItem("open_id")
+        	},
+        })
+        .done(function(res) {
+        	if(res.status=="success"){   
+        		  var items = '<h1>' + res.data.accountBank+ '</h1>';
+        		  var items2 = '<h3>' + res.data.accountName+ '</h3>';
+        		  var data = res.data.accountNo;
+                  storage.setItem("banknum",res.data.accountNo);
+        		  var items3 = '<p>' + data.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "**** **** **** $2")+ '</p>';
+                  var item4='<div class="unbind">'+'<div>'+'<img src="./img/icon_jiechu.png" alt="">'+'解除绑定'+'</div>'+'<div>';
+                  var bank='<div class="card">'+items+items2+items3+item4+'</div>'
+        		   $('.wrap').append(bank);     		 
+        	}
+        })
+        .fail(function() {
+        	console.log("error");
+        })    
+// 解除绑定
+    $('.ui-grid-expand').on('click', '.unbind>div', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        $.ajax({
+            url: api.NWBDApiWeiXinDeleteBank,
+            type: 'POST',
+            data: {
+               userId: app.getItem('userInfo').id,
+               accountNo:storage.banknum,
+               openid: app.getItem("open_id")
+            },
+        })
+        .done(function(res) {
+            if(res.status=="success"){
+                $('.bank-dialog').addClass('show');
+                $('#suc').click(function(event) {
+                    /* Act on the event */
+                    $(this).parents('.bank-dialog').removeClass('show');
+                    $('.card').remove();
+                    window.location.href = "myCount1.html";
+                }); 
+                $('#cancel').click(function(event) {
+                    /* Act on the event */
+                    $(this).parents('.bank-dialog').removeClass('show');
+                });  
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })    
+    });
+
+	})
+</script>
+</body>
+</html>
