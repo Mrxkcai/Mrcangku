@@ -55,11 +55,12 @@ var api = (function() {
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse", //  不可使用优惠券列表
         NWBDApiWeiXincouponIndex: apiAddress + "/weixin/coupon/index", //  判断是否领取优惠券
         NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get", //  优惠券活动领取
-        NWBDApiWeiXinUniformorder: apiAddress + "/allInPay/pay", //  修改过的微信预订单
+        NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
         NWBDApiWeiXinShareHaif: apiAddress + '/qrCode/shareResult', //  haif分享
         NWBDApiWeiXinShareHaifs: apiAddress + '/customer/commission/list', //提现
         NWBDApiWeiXinShareModel: apiAddress + '/customer/commission/queryCommissionByType', //分享奖金
         NWBDApiWeiXinShareBank: apiAddress + '/customer/bank', //查询,填写银行信息
+        NWBDApiWeiXinDeleteBank: apiAddress + '/customer/deleteBank', //接触绑定银行卡
 
         NWBDApiHairCode: apiAddress2 + "/h5/thirdparty/haier/send/message", //  海尔短信发送接口
         NWBDApiHairReg: apiAddress2 + "/h5/thirdparty/haier/register", //  海尔注册接口
