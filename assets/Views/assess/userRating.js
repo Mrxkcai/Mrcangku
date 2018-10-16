@@ -93,55 +93,54 @@ $(function(){
             data:{
 				label0:{
 					name:'全部',
-					count:11,
+					count:0,
 					active:true
 				},
                 labelArray:[
-                    // {
-                    //     name:'全部',
-                    //     count:11,
-                    //     active:true
-                    // },
                     {
                         name:'非常满意',
-                        count:12,
+                        count:0,
                         active:false
                     },
                     {
                         name:'满意',
-                        count:13,
+                        count:0,
                         active:false
                     },
                     {
                         name:'一般',
-                        count:14,
+                        count:0,
                         active:false
                     },
                     {
                         name:'不满意',
-                        count:15,
+                        count:0,
                         active:false
                     },
                     {
                         name:'很不满意',
-                        count:16,
+                        count:0,
                         active:false
                     },
                     {
                         name:'有内容',
-                        count:17,
+                        count:0,
                         active:false
                     },
                     {
                         name:'有图片',
-                        count:18,
+                        count:0,
                         active:false
                     }
 				],
 				ratingActive:false,
 				param:{
 					companyId:app.getItem("merchant_id"),	//-维修厂id
-					// ratingListStr:
+					ratingListStr:'',		//-评论等级
+					haveImage:'',		//-评价是否有图片标识 0：无图 1：有图
+					haveContent:'',		//-评价是否有内容 0：无 1：有
+					pageNum:'',		//-
+					pageSize:''
 				},
 				selectPoint:'-1'		//-选择条件标记	
             },
@@ -190,26 +189,32 @@ $(function(){
 
 						}
 					});
+
+
+					//-获取商户评价列表
+
                 },
                 //-筛选
                 labelSelect:function(index){
 					this.labelArray[index].active = !this.labelArray[index].active;
-
-					this.labelArray.forEach((item,index) => {
-						if(this.labelArray[index].active == true){
-							this.label0.active = true;
-						}else{
-							this.label0.active = false;
-							
+					this.label0.active = false;
+					var arr = [];
+					this.labelArray.forEach(item => {
+						if(item.active == false){
+							arr.push(item)
 						};
 					});
 					
+					//-如果一个都不选则显示全部的信息
+					if(arr.length == this.labelArray.length){
+						this.label0.active = true;
+					};
 					
                     
 				},
 				//-全选
 				allSele:function(){
-					this.selectPoint = 0;
+					// this.selectPoint = 0;
 				}
 			},
 			computed:{
