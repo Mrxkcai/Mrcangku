@@ -20,7 +20,9 @@
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3" />
     <link rel="stylesheet" href="layui/css/layui.css">
     <link rel="stylesheet" href="vant.css">
-    <link rel="stylesheet" type="text/css" href="Cashhis.css?v=2.1.0" />
+    <link rel="stylesheet" href="frozenui.css?v=2.1.3345">
+    <link rel="stylesheet" type="text/css" href="Cashhis.css?v=2.1.3345" />
+   
 </head>
 
 <body>
@@ -48,9 +50,10 @@
 
             <div class="sec2">
                 <ul class="u0" id="scroller">
-                    
+                  <!--   <div class="box">
+                         <img src="images/img_kongzhuangtai.png" alt="">
+                    </div> -->
                 </ul>
-
             </div>
             
             <div v-show="btnS" class="boox">
@@ -60,7 +63,7 @@
                 </div>
 
                 <!-- 按钮 -->
-                <div class="btn2" @click="btn2()">
+                <div class="btn2" id="btn2">
                         
                 </div>
                 <div class="btn3" v-show="b3">
@@ -69,7 +72,7 @@
             </div>
 
 
-            <van-popup v-model="show" close-on-click-overlay='false'>
+<!--             <van-popup v-model="show" close-on-click-overlay='false'>
                 <div class="txfs">
                     <div class="img_b">
 
@@ -86,9 +89,60 @@
                     <div class="close_i" @click=close_()></div>
                 </div>
 
-            </van-popup>
+            </van-popup> -->
         </div>
     </div>
+<!-- 弹层 -->
+<div class="ui-dialog ui-dialog-operate drawCash-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd drawCash-dialog-bd">
+            <div href="#" class="tx"></div>
+            <a href="#" class="zjtx"></a>
+        </div>
+        <i class="ui-dialog-close" data-role="button"></i>
+    </div>
+</div>
+<!-- 绑定银行信息弹层 -->
+<div class="ui-dialog ui-dialog-operate ui-dialog2"> 
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <div class="ui-grid-expand wrap">
+       <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                银行
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入银行名称" id="bankname">
+        </div>
+    </div>
+    <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                持卡人
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入持卡人本人姓名" id="name">
+        </div>
+    </div>
+    <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                卡号
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入卡号" id="banknum">
+        </div>
+    </div>
+</div>
+<button class="ui-btn-lg ui-btn-edit ui-btn-pill" id="save">保存</button>    
+        </div>
+        <i class="ui-dialog-close" data-role="button"></i>
+    </div>
+</div>
 </body>
 <script src="js/jquery-3.3.1.min.js" charset='utf-8'></script>
 <script src="js/fastclick.min.js" charset='utf-8'></script>
@@ -101,6 +155,10 @@
 <script src="js/jroll-pulldown.1.0.0.min.js"></script>
 <script src="js/clipboard.js"></script>
 <script src="js/vant.min.js"></script>
-<script src="Cashhis.js?v=2.1.0"></script>
+<script src="Cashhis.js?v=2.1.826"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
 <!-- <script src="vconsole.min.js"></script> -->
 </html>

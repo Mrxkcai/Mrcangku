@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+    <title>添加银行卡</title>
+     <!-- <link rel="stylesheet" href="layui/css/layui.css"> -->
+    <link rel="stylesheet" href="frozenui.css">
+    <!-- <link rel="stylesheet" href="../../css/login.min.css?v=2.0.0"> -->
+    <link rel="stylesheet" href="addCard.css">
+</head>
+<body>
+
+<div class="ui-grid-expand wrap">
+       <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                银行
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入银行名称" id="bankname">
+        </div>
+    </div>
+    <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                持卡人
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入持卡人本人姓名" id="name">
+        </div>
+    </div>
+    <div class="ui-row-flex ui-whitespace">
+        <div class="ui-col ui-border-b">
+            <label>
+                卡号
+            </label>
+        </div>
+        <div class="ui-col ui-col-2 ui-border-b">
+            <input type="text" class="ui-input" placeholder="请输入卡号" id="banknum">
+        </div>
+    </div>
+
+</div>
+<button class="ui-btn-lg ui-btn-edit ui-btn-pill" id="save">保存</button>
+
+<!-- 分享弹层弹层 -->
+<div class="ui-dialog ui-dialog-operate show-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <div class="looks"></div>
+            <p>* 好友注册保宝车服后，您还可获得额外奖励；注册的好友越多，获得奖励越多！快邀请好友注册赚钱吧！</p>
+            <a href="#" class="notice">活动规则&gt;&gt;</a>
+        </div>
+        <i class="ui-dialog-close" data-role="button" id="ui-dialog-close"></i>
+    </div>
+</div>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/fastclick.min.js" charset='utf-8'></script>
+<script src="js/common.js?v=2.0.4"></script>
+<script src="js/app.js"></script>
+<script src="js/jroll.min.js"></script>
+<script src="js/jroll-pulldown.1.0.0.min.js"></script>
+<script src="js/clipboard.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="layui/layui.all.js"></script>
+<script>
+    document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
+    document.close();
+</script>
+<!-- <script src="../../js/login.js?v=2.0.4"></script> -->
+
+
+<script>
+    // //获取open_id
+    api.getopenid();
+</script>
+<script>
+    $(function(){
+        var storage = window.localStorage;
+        var f1;
+        var f2;
+        var f3;
+        if (api.isDebug) {
+
+        } else {
+            //return
+            //console.log(app.getItem("open_id"))
+            $.ajax({
+                url: api.NWBDApiGetWxTicket + "?r=" + Math.random(),
+                type: "POST",
+                async: false,
+                data: {
+                    wxUrl: window.location.href,
+                    openid: app.getItem("open_id")
+                },
+                success: function (result) {
+                    if (result.status === "success" && result.code === 0) {
+                        wx.config({
+                            debug: api.isDebug,
+                            appId: result.data.AppID,
+                            timestamp: result.data.timestamp,
+                            nonceStr: result.data.noncestr,
+                            signature: result.data.signature,
+                            jsApiList: [
+                                'hideOptionMenu',       //  隐藏分享菜单
+                                'checkJsApi',           //
+                                'onMenuShareTimeline',  //  分享到朋友圈
+                                'onMenuShareAppMessage',    //  分享给朋友
+                                'chooseWXPay',
+                                'hideAllNonBaseMenuItem',
+                                'openLocation']
+                        });
+                        wx.ready(function () {
+                            //新增分享
+                            wx.checkJsApi({
+                                jsApiList: ['chooseImage'], //  需要检测的JS接口列表
+                                success: function (res) {
+                                    console.log(res)
+                                }
+                            });
+
+                            var i = window.location.href.indexOf('?');
+                            var e = window.location.href.indexOf('&');
+                            var id = app.getItem('userInfo').id;
+                            var shareUrl = api.shareAdd + id;
+                            var obj = {
+                                //  朋友圈
+                                title: api.shareText,   //  标题
+                                desc: api.shareText2,   //  描述
+                                link: shareUrl, //  分享链接
+                                imgUrl: api.imgUrl, //  分享图标
+                                fail: function (res) {
+                                    console.log(JSON.stringify(res))
+                                },
+                                success: function () {
+                                    layer.close();
+                                    $.ajax({
+                                        url: api.NWBDApiWeiXinShareHaif,
+                                        type: 'POST',       
+                                        data: {
+                                           uniqueCode: app.getItem('userInfo').id,
+                                           source: 'CUSTOMER',
+                                           status:'SUCCEED'
+                                        },
+                                    })
+                                    .done(function(res) {
+                                        var list=res;
+                                        if(list.status=="success"){
+                                            $.ajax({
+                                                url: api.NWBDApiWeiXinShareModel,
+                                                type: 'POST',
+                                                data: {
+                                                    commissionType:'QR_CODE_SHARE',
+                                                    openid:app.getItem("open_id")
+                                                },
+                                            })
+                                            .done(function(req) {
+                                                var item = req
+                                                $('.ui-dialog').addClass('show');
+                                                var items='<h1>'+item.data+'<span>'+'元'+'</span>'+'</h1>';
+                                                $('.ui-dialog-bd').prepend(items);
+                                                $('.ui-dialog-close').click(function (event) {   
+                                                $(this).parents('.ui-dialog').removeClass('show');
+                                            })
+                                        });
+                                    } 
+                                })
+                            },
+                        };
+                            if (!app.getItem('userInfo').id) {
+                                wx.hideAllNonBaseMenuItem();    //  隐藏所有非基础按钮
+                            } else {
+                                wx.onMenuShareTimeline(obj) //  分享到朋友圈
+                                wx.onMenuShareAppMessage(obj)   //  分享给朋友
+                            }
+                        });
+                        wx.error(function (res) {
+                            console.log(res)
+                            alert("公众号页面授权失败");
+                            app.f_close();
+                        });
+                    } else {
+                        alert("获取授权失败");
+                        app.f_close();
+                    }
+                },
+                error: function () {
+                    alert("网络异常，请检查网络");
+                    app.f_close();
+                }
+            });
+        }
+// 表单验证
+    $('.ui-input').blur(function(event) {
+        event.stopPropagation();   
+        var nameVal = $.trim(this.value);
+        var regName = /[~#^$@%&!*()<>:;'"{}【】  ]/;
+        var num = /^\d*$/; //全数字
+        var strBin = "10,18,30,35,37,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,58,60,62,65,68,69,84,87,88,94,95,98,99"; //开头2位
+        // 验证用户名
+        if ($(this).is('#bankname')) {
+            if (nameVal == "" || nameVal.length < 4 || regName.test(nameVal)) {
+                layer.msg('请输入正确银行名称', {
+                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                });
+               f1=false;
+            }else{
+                f1=true;
+            }
+
+        } else if ($(this).is('#name')) {
+            if (nameVal == "" || regName.test(nameVal)|| nameVal.length < 2) {
+                layer.msg('请输入正确名称', {
+                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                });
+                 f2=false;
+            }else{
+                f2=true;
+            }
+        } else if ($(this).is('#banknum')) {
+            // 验证银行卡号
+            if (nameVal == "" || nameVal.length < 16 || nameVal.length > 19) {
+                layer.msg('银行卡号长度必须在16到19之间', {
+                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                });
+                f3=false;
+            } else if (!num.exec(nameVal)) {
+                layer.msg('银行卡号必须全为数字', {
+                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                });
+                f3=false;
+            } else if (strBin.indexOf(nameVal.substring(0, 2)) == -1) {
+                layer.msg('银行卡号开头2位不符合规范', {
+                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                });
+               f3=false;
+            } else {
+                var lastNum = nameVal.substr(nameVal.length - 1, 1); //取出最后一位（与luhm进行比较）
+
+                var first15Num = nameVal.substr(0, nameVal.length - 1); //前15或18位
+                var newArr = new Array();
+                for (var i = first15Num.length - 1; i > -1; i--) { //前15或18位倒序存进数组
+                    newArr.push(first15Num.substr(i, 1));
+                }
+                var arrJiShu = new Array(); //奇数位*2的积 <9
+                var arrJiShu2 = new Array(); //奇数位*2的积 >9
+
+                var arrOuShu = new Array(); //偶数位数组
+                for (var j = 0; j < newArr.length; j++) {
+                    if ((j + 1) % 2 == 1) { //奇数位
+                        if (parseInt(newArr[j]) * 2 < 9)
+                            arrJiShu.push(parseInt(newArr[j]) * 2);
+                        else
+                            arrJiShu2.push(parseInt(newArr[j]) * 2);
+                    } else //偶数位
+                        arrOuShu.push(newArr[j]);
+                }
+
+                var jishu_child1 = new Array(); //奇数位*2 >9 的分割之后的数组个位数
+                var jishu_child2 = new Array(); //奇数位*2 >9 的分割之后的数组十位数
+                for (var h = 0; h < arrJiShu2.length; h++) {
+                    jishu_child1.push(parseInt(arrJiShu2[h]) % 10);
+                    jishu_child2.push(parseInt(arrJiShu2[h]) / 10);
+                }
+
+                var sumJiShu = 0; //奇数位*2 < 9 的数组之和
+                var sumOuShu = 0; //偶数位数组之和
+                var sumJiShuChild1 = 0; //奇数位*2 >9 的分割之后的数组个位数之和
+                var sumJiShuChild2 = 0; //奇数位*2 >9 的分割之后的数组十位数之和
+                var sumTotal = 0;
+                for (var m = 0; m < arrJiShu.length; m++) {
+                    sumJiShu = sumJiShu + parseInt(arrJiShu[m]);
+                }
+
+                for (var n = 0; n < arrOuShu.length; n++) {
+                    sumOuShu = sumOuShu + parseInt(arrOuShu[n]);
+                }
+
+                for (var p = 0; p < jishu_child1.length; p++) {
+                    sumJiShuChild1 = sumJiShuChild1 + parseInt(jishu_child1[p]);
+                    sumJiShuChild2 = sumJiShuChild2 + parseInt(jishu_child2[p]);
+                }
+                //计算总和
+                sumTotal = parseInt(sumJiShu) + parseInt(sumOuShu) + parseInt(sumJiShuChild1) + parseInt(sumJiShuChild2);
+
+                //计算Luhm值
+                var k = parseInt(sumTotal) % 10 == 0 ? 10 : parseInt(sumTotal) % 10;
+                var luhm = 10 - k;
+
+                if (lastNum == luhm) {
+                    f3=true;
+                } else {
+                    layer.msg('银行卡号不正确', {
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                    });
+                f3=false;
+                }
+            }
+        }
+      
+    });
+   
+        $('#save').click(function(event) {
+        event.stopPropagation();
+        if(f1&f2&f3){
+            $.ajax({
+                url: api.NWBDApiWeiXinShareBank,
+                type: 'POST',
+                data: {
+                    userId: app.getItem('userInfo').id,
+                    accountNo: $("#banknum").val(),
+                    accountName: $("#name").val(),
+                    accountBank: $('#bankname').val(),
+                    openid: app.getItem("open_id")
+                },
+            })
+            .done(function(res) {          
+                $('#save').addClass('disabled');
+                $('.ui-input').attr('disabled','disabled')
+                window.location.href = "viewbank.html";
+                // storage.setItem("flag", 1);
+                  // storage.clear();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+        }else{
+             layer.msg('请输入完整内容', {
+                time: 1000 //2秒关闭
+            });
+        }
+    }); 
+
+    // if(storage.flag){
+    //     // $('#save').addClass('disabled');
+    //     // $('.ui-input').attr('disabled','disabled')
+    // }     
+    })
+</script>
+</body>
+</html>
