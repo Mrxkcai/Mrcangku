@@ -87,10 +87,9 @@ body #app .section .userScore {
   display: inline-block;
   margin-left: .2rem;
   margin-top: -0.1rem;
-  float: left;
 }
 body #app .section .wordRight {
-  float: right;
+  clear: both;
 }
 body #app .section .wordRight > p {
   overflow: hidden;
@@ -115,6 +114,9 @@ body #app .section .imgList li {
 body #app .section .bottom_line {
   border-bottom: 1px solid #ddd;
   padding-bottom: .3rem;
+}
+body #app .section .bottom_line:not(:nth-child(1)) {
+  margin-top: .3rem;
 }
 body #app .section .bottom_line:last-of-type {
   border-bottom: none;

@@ -105,7 +105,9 @@ var newDetails = function () {
 			artificerArr:[],	//-展示前五个技师
 			marchantDetails:{},
 			image_arr:[],	//	图片重新排序
-			imagesNew:[]	//	图片数组
+			imagesNew:[],	//	图片数组
+			list:[],
+			totalCount:0
 		},
 		methods: {
 			init: function init() {
@@ -174,7 +176,7 @@ var newDetails = function () {
 
 				$.ajax({
 					type:'get',
-					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
+					url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
 					dataType: 'json',
 					async:true,
 					success:function(res){
@@ -206,21 +208,27 @@ var newDetails = function () {
 								for(var i = 0; i < that_.marchantDetails.image.length;i ++){
 									//  图片重新排序；
 									if(that_.marchantDetails.image[i].image_type == 1){
-										that_.image_arr[0] = that_.marchantDetails.image[i];
+										// that_.image_arr[0] = that_.marchantDetails.image[i];
+										that_.image_arr.push(that_.marchantDetails.image[i])
 									}else if(that_.marchantDetails.image[i].image_type == 8){
-										that_.image_arr[1] = that_.marchantDetails.image[i];
+										// that_.image_arr[1] = that_.marchantDetails.image[i];
+										that_.image_arr.push(that_.marchantDetails.image[i])
 									}else if(that_.marchantDetails.image[i].image_type == 9){
-										that_.image_arr[2] = that_.marchantDetails.image[i];
+										// that_.image_arr[2] = that_.marchantDetails.image[i];
+										that_.image_arr.push(that_.marchantDetails.image[i])
 									}else if(that_.marchantDetails.image[i].image_type == 12){
-										that_.image_arr[3] = that_.marchantDetails.image[i];
+										// that_.image_arr[3] = that_.marchantDetails.image[i];
+										that_.image_arr.push(that_.marchantDetails.image[i])
 									}else if(that_.marchantDetails.image[i].image_type == 10){
-										that_.image_arr[4] = that_.marchantDetails.image[i];
+										// that_.image_arr[4] = that_.marchantDetails.image[i];
+										that_.image_arr.push(that_.marchantDetails.image[i])
 									}else{
 			
 									}
 										
 								}
 
+								console.log(that_.image_arr)
 								//	-判断门店技师人数
 								if(that_.marchantDetails.user.length == 5){
 									that_.userNum = true
@@ -271,8 +279,58 @@ var newDetails = function () {
 				});
 
 				
-			},
+				//-获取评价
+				//-获取商户评价列表
+				$.ajax({
+					url:api.NWBDApiAssessList,
+					data:{
+						companyId:app.getItem("merchant_id"),
+						ratingListStr:12345,
+						haveImage:'',
+						haveContent:'',
+						pageNum:1,
+						pageSize:10
+					},
+					type:'POST',
+					dataType:'json',
+					success:function(res){
+						console.log(res)
+						if(res.code == 0){
+							that_.totalCount = res.data.totalCount;
+							that_.list = res.data.list;
+							if(that_.list){
+								if(that_.list.length > 2){
+									$('.seeMore').show();
+									// $('.userCommont').show();
 
+								}else if(that_.list.length == 0){
+									// $('.userCommont').hide();
+								}
+								else{
+									$('.seeMore').hide();
+									// $('.userCommont').show();
+								};
+								that_.list.forEach(item => {
+									item.createTime = getTime(item.createTime,1);
+									if(item.customerInfo == null){
+										item.customerInfo = '匿名'
+									}else{
+										item.customerInfo = item.customerInfo;
+									};
+									
+								});
+							};
+							
+						}else{
+							app.alert(res.message)
+						};
+						
+					},
+					error:function(){
+
+					},
+				});
+			},
 			//点击定位调用微信地图；
 			wxPosition(){
 				var that_ = this;
@@ -337,9 +395,15 @@ var newDetails = function () {
 			//-点击评价详情
 			goUserRating:function(){
 				if(app.getItem("merchant_id")){
-					window.location.href = "../assess/userRating.html"
+					window.location.href = "../assess/userRating.html?company_id=" + app.getItem("merchant_id")	
 				};
 				
+			},
+			//-查看技师
+			seeUser:function(){
+				if(app.getItem("merchant_id")){
+					window.location.href = "technichList.html?company_id=" + app.getItem("merchant_id")	
+				};
 			}
 		},
 		mounted: function mounted() {

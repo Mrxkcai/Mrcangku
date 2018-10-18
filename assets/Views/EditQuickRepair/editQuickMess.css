@@ -143,6 +143,9 @@ body .carCompon ul li a {
   font-size: .28rem;
   margin-top: .25rem;
 }
+body .carCompon .chooseSafe {
+  min-height: 1rem!important;
+}
 body .carCompon .colorG {
   color: #ccc!important;
 }

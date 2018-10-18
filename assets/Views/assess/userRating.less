@@ -96,10 +96,10 @@ body{
                 display: inline-block;
                 margin-left: .2rem;
                 margin-top: -.1rem;
-                float: left;
+                // float: left;
             }
             .wordRight{
-                float: right;
+                clear: both;
             }
             .wordRight>p{
                 overflow: hidden;
@@ -124,6 +124,10 @@ body{
             .bottom_line{
                 border-bottom: 1px solid #ddd;
                 padding-bottom: .3rem;
+                
+            }
+            .bottom_line:not(:nth-child(1)){
+                margin-top: .3rem;
             }
             .bottom_line:last-of-type{
                 border-bottom: none;

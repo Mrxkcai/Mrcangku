@@ -86,7 +86,6 @@ var specificOrder = function () {
     var createData = function (data, dataLength, type) {
         
         dataList = data;
-        console.log(dataList)
     	// new Date(data[i].create_time).toLocaleString()	app.getTime(data[i].create_time,1)
         var str = "";
         for (var i = 0; i < dataLength; i++) {
@@ -148,13 +147,13 @@ var specificOrder = function () {
                     str += `<div class="order_operating">
                             <p>实付款</p>
                             <p class="money"><small>￥</small>${data[i].price - data[i].coupon_amount}</p>
-                            <button id="btn_evaluation" data-id="${data[i].id}">去评价</button>
+                            <button id="btn_evaluation" data-id="${data[i].id}" onclick="window.location.href = '../assess/assess.html?company_id='+${data[i].company_id}+'&orderId='+${data[i].id}+'&customerId='+${data[i].customer_id}" >去评价</button>
                         </div>`;
                 }else{
                     str += `<div class="order_operating">
                             <p>实付款</p>
                             <p class="money"><small>￥</small>${data[i].price}</p>
-                            <button id="btn_evaluation" data-id="${data[i].id}">去评价</button>
+                            <button id="btn_evaluation" data-id="${data[i].id}" onclick="window.location.href = '../assess/assess.html?company_id='+'${data[i].company_id}'+'&orderId='+'${data[i].id}'+'&customerId='+'${data[i].customer_id}'">去评价</button>
                         </div>`;
                 }
                 
@@ -200,7 +199,7 @@ var specificOrder = function () {
                 openid: app.getItem("open_id")
             },
             success: function (result) {
-                // console.log(JSON.stringify(result));
+                console.log(result);
                 if (result.status === "success" && result.code === 0) {
                     var data = result.data;
                     var dataLength = result.data.length;
@@ -314,8 +313,12 @@ var specificOrder = function () {
     });
 
     //评价
+    function goAssess(id){
+        console.log(22)
+    };
     body.on("click", "#btn_evaluation", function () {
-        app.alert("coming soon");
+
+        // window.location.href = "../assess/assess.html?company_id="
     });
 
 

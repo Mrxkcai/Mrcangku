@@ -106,6 +106,17 @@
                 <img src="img/img_jishigou_2.png?v=2.0.0" alt="">
         </div>
 
+        <!-- 新增信用卡链接 -->
+        <div class="d d4" @click="f4()">
+                <img src="img/ms.png?v=2.0.0" alt="">
+        </div>
+        <div class="d d5" @click="f5()">
+                <img src="img/pf.png?v=2.0.0" alt="">
+        </div>
+        <div class="d d6" @click="f6()">
+                <img src="img/jt.png?v=2.0.0" alt="">
+        </div>
+         <!-- 新增信用卡链接 E-->
 
         <div class="d d3" @click="f3()">
                 <img src="img/img_jishigou_3.png?v=2.0.0" alt="">
@@ -170,18 +181,54 @@
             },
             f1(){
                 var that = this;
-                document.write("<script src='https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764' language='JavaScript'><\/script>");
+                var jsapi = document.createElement('script');
+                jsapi.charset = 'utf-8';
+                jsapi.src = 'https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764';
+                document.head.appendChild(jsapi);
                 window.location.href = "https://c.360doo.com/d.aspx?c=4091&p=23610&v=57B3E44B3E3ACA34"
             },
             f2(){
                 var that = this;
-                document.write("<script src='https://s22.cnzz.com/z_stat.php?id=1274913728&web_id=1274913728' language='JavaScript'><\/script>");
+                var jsapi = document.createElement('script');
+                jsapi.charset = 'utf-8';
+                jsapi.src = 'https://s22.cnzz.com/z_stat.php?id=1274913728&web_id=1274913728';
+                document.head.appendChild(jsapi);
                 window.location.href = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Haif.html?userType=2&source=501"
             },
             f3(){
                 var that = this;
-                document.write("<div style='display:none;'><script src='https://s19.cnzz.com/z_stat.php?id=1274913805&web_id=1274913805' language='JavaScript'><\/script><\/div>");
+                var jsapi = document.createElement('script');
+                jsapi.charset = 'utf-8';
+                jsapi.src = 'https://s19.cnzz.com/z_stat.php?id=1274913805&web_id=1274913805';
+                document.head.appendChild(jsapi);
                 that.show = true;
+            },
+
+
+            //-新增信用卡链接
+            f4(){
+                var that = this;
+                // var jsapi = document.createElement('script');
+                // jsapi.charset = 'utf-8';
+                // jsapi.src = 'https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764';
+                // document.head.appendChild(jsapi);
+                window.location.href = "https://creditcard.cmbc.com.cn/wsv2/step?encryptStr=m8WrsCqGzpKjGBKn3YySSMb07yQORpTi%2FOEkCksu6qzHjR8N8Sb%2FfRNAgYXLhdL9ZLCiF5faX1TaPTuew%2FUouV6QF1GsdFpB%2FSxO3yu9KdksODDqp4ZncYDq0iDlR1WtTjpcB5uZ60QbGhg%2B%2BBd5hNwCRdQBRtoExOH9PGTBmhd7oPIMpE16oQSW0y1n75QqH5A1bHwVFUda3LiANCkX1iqB5ulJRN1rjqagG4oijw5FACB6rWS5Dnk1kMQts3cidCFolNF7qprLrhxSmesBLaI7DbmAs%2BBENJ0nyh2vZd8o4CGe4mD3EbCg5XmaYDGbnk8p1%2Fuyrbb1KJgul1nQEg%3D%3D&cardId=105&source=YX-SZCYB24#page=1"
+            },
+            f5(){
+                var that = this;
+                // var jsapi = document.createElement('script');
+                // jsapi.charset = 'utf-8';
+                // jsapi.src = 'https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764';
+                // document.head.appendChild(jsapi);
+                window.location.href = "https://ecentre.spdbccc.com.cn/creditcard/indexActivity.htm?data=ZF2794965&itemcode=0000002067"
+            },
+            f6(){
+                var that = this;
+                // var jsapi = document.createElement('script');
+                // jsapi.charset = 'utf-8';
+                // jsapi.src = 'https://s19.cnzz.com/z_stat.php?id=1274913764&web_id=1274913764';
+                // document.head.appendChild(jsapi);
+                window.location.href = "https://creditcardapp.bankcomm.com/applynew/front/apply/track/record.html?trackCode=A0428102716477&cardId=17"
             },
             close_(){
                 var that = this;

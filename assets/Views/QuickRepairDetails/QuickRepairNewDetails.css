@@ -476,10 +476,10 @@ header img:nth-child(n+2){
 	display: inline-block;
 	margin-left: .2rem;
 	margin-top: -.1rem;
-	float: left;
+	/* float: left; */
 }
 .wordRight{
-	float: right;
+	clear: both;
 }
 .wordRight>p{
 	overflow: hidden;
@@ -511,6 +511,9 @@ header img:nth-child(n+2){
 
 .userCommont>.bottom_line:nth-child(n+2){
 	margin-top: .3rem;
+}
+.lieb>.bottom_line:nth-child(n+3){
+	display: none;
 }
 .seeMore{
 	width: 100%;

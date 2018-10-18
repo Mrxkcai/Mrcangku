@@ -17,7 +17,7 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.11"/>
+		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.1"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -49,7 +49,7 @@
 
 
 				<div class="textInput">
-					<textarea name="" id="" cols="" rows="" placeholder="还有什么想说的（不超过200字）" maxlength="200"></textarea>
+					<textarea name="" id="textInput" cols="" rows="" placeholder="还有什么想说的（不超过200字）" maxlength="200"></textarea>
 				</div>
 
 
@@ -58,14 +58,15 @@
 					<div>
 						<div class="uploadImgArr">
 							<div class="smallBox" v-for="item,index in uploadImgArr">
-								<img :src="item" alt="图片">
+								<img :src="url + item.imageUrl" alt="图片">
 								<i class="uploadClose" @click="uploadClose(index)">×</i>
 							</div>
 						</div>
-						<van-uploader :after-read="onRead" accept="image/gif, image/jpeg, image/png" v-show="uploadBool">
-							<!-- <van-icon name="add-o" /> -->
+						<van-uploader :after-read="onRead" :oversize="oversize" accept="image/jpeg, image/png" max-size="2000000" v-show="uploadBool">
+						
 							<span>十</span>
 						</van-uploader>
+						<img id="imgContent" src="" alt="">
 						<p style="clear: both"></p>
 					</div>
 
@@ -89,12 +90,13 @@
     <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
     <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
-    <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+	<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+	<script	src="../../js/common.js"></script>
 	<script src="../../js/vue.min.js"></script>
-	<script src="../../js/vant.min.js"></script>
+	<script src="https://unpkg.com/vant/lib/vant.min.js"></script>
     <script>
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="assess.js?v=2.0.11"></script>
+	<script src="assess.js?v=2.0.17"></script>
 </html>

@@ -473,7 +473,6 @@ var vm = new Vue({
 	
 	var data;
 	if(app.getItem("userInfo")){
-		
 		$('#name').val(app.getItem("userInfo").name);
 		$('#mobile').val(app.getItem("userInfo").mobile);
 		lat = app.getItem('location').lat;
@@ -481,7 +480,48 @@ var vm = new Vue({
 		addressProvince = app.getItem('province');
 		addressCity = app.getItem('city');
 		addressCounty = app.getItem('district');
-		$.ajax({
+
+
+		//-判断用户是否天蝎姓名
+		if(sessionStorage.getItem('name')){
+			$('#name').val(sessionStorage.getItem('name'))
+		};
+		
+
+		//-判断本地是否存储了选择的车辆
+		if(app.getItem('carInfo')){
+			console.log(app.getItem('carInfo'))
+			var carInfo = app.getItem('carInfo');
+
+			$('#carNo').val(carInfo.carNo);	//-输出车牌号
+			$('.car_showName').text(carInfo.brandName);	//-输出品牌型号
+			$('.car_showCarinsuranceName').text(carInfo.insuranceName?carInfo.insuranceName:'请选择保险公司');	//-输出保险公司
+			$("#carId").val(carInfo.Id);	//-	车辆id
+			$('#car_brandId').val(carInfo.brandId)
+			$('#car_brandName').val(carInfo.brandName)
+			$('#car_insuranceId').val(carInfo.insuranceId?carInfo.insuranceId:null)
+			$('#car_insuranceName').val(carInfo.insuranceName?carInfo.insuranceName:null)
+
+			$('.car_showName').removeClass('colorG');
+			$('.car_showCarinsuranceName').removeClass('colorG');
+			$.ajax({
+				url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id  + "&r=" + Math.random(),
+				type:'get',
+				success:function(res){
+					console.log(res)
+					if(res.status == 'success' && res.code == 0){
+						data = res.data;
+						merchantname = data[0].name;	//-维修厂名字
+					}else{
+						app.alert(res.message);
+					};
+				},
+				error:function(){
+					app.alert('请检查网络')
+				}
+			});
+		}else{
+			$.ajax({
 				url:api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id")  + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id  + "&r=" + Math.random(),
 				type:'get',
 				success:function(res){
@@ -490,15 +530,22 @@ var vm = new Vue({
 						data = res.data;
 						merchantname = data[0].name;	//-维修厂名字
 						//-判断是否存在车辆信息
-						if(!data.commonCar){
-							
+						console.log(data[0].commonCar)
+						if(!data[0].commonCar || data[0].commonCar == '' || !data[0].commonCar.carNumber){
+							$('.car_showName').addClass('colorG');
+							$('.car_showCarinsuranceName').addClass('colorG');
 						}else{
-							
 							$('#carNo').val(data[0].commonCar.carNumber);	//-输出车牌号
-							$('.car_showName').val(data[0].commonCar.brandName);	//-输出品牌型号
-							$('.car_showCarinsuranceName').val(data[0].commonCar.insuranceName);	//-输出保险公司
-							carId = data[0].commonCar.carId;	//-	车辆id
-							
+							$('.car_showName').text(data[0].commonCar.brandName);	//-输出品牌型号
+							$('.car_showCarinsuranceName').text(data[0].commonCar.insuranceName);	//-输出保险公司
+							$("#carId").val(data[0].commonCar.carId);	//-	车辆id
+							$('#car_brandId').val(data[0].commonCar.brandId)
+							$('#car_brandName').val(data[0].commonCar.brandName)
+							$('#car_insuranceId').val(data[0].commonCar.insuranceId)
+							$('#car_insuranceName').val(data[0].commonCar.insuranceName)
+
+							$('.car_showName').removeClass('colorG');
+							$('.car_showCarinsuranceName').removeClass('colorG');
 						};
 					}else{
 						app.alert(res.message);
@@ -508,6 +555,9 @@ var vm = new Vue({
 					app.alert('请检查网络')
 				}
 			});
+		};
+
+		
 
 		//-确定预约事件
 		$('.orderBtn').on('click',function(){
@@ -596,6 +646,8 @@ var vm = new Vue({
 				insuranceId: car_insuranceId,
 				insuranceName: car_insuranceName
 			};
+			console.log(carJson)
+			// return
 
 			app.loading();
 			$.ajax({
@@ -640,7 +692,7 @@ var vm = new Vue({
 								if (result.status === "success" && result.code === 0) {
 									app.closeLoading();
 									//	新增预约维修界面
-									// return
+									app.removeItem('carInfo');
 									window.location.href = "../YuyueRepair/reservationRepair.html";
 									//	存储订单id；
 									localStorage.setItem("orderId",result.data.order_id)
@@ -673,6 +725,15 @@ var vm = new Vue({
 				}
 			});
 			
+		});	
+
+
+		//-选则车辆
+		$('.goAddCar').on('click',function(){
+			if($('#name').val() != ''){
+				sessionStorage.setItem('name',$('#name').val())
+			};
+			window.location.href = "../CarManagement/ListCar.html?e=1"
 		});	
 		
 	}else{

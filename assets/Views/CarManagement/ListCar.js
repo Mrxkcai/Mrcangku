@@ -2,6 +2,7 @@ $(function () {
     "use strict";
 
     var body = $("body");
+    var list = [];      //- 存储数据
 
     $("#wrapper").css("height", ($(window).height() - $(".placeholder_footer").outerHeight(true)) + "px");
     var ijroll = new JRoll(document.getElementById("wrapper"));
@@ -20,7 +21,9 @@ $(function () {
             type: "GET",
             dataType: 'json',
             success: function (result) {
-                // console.log(result);
+                
+                list = result.data;
+                console.log(list);
                 if (result.status === "success" && result.code === 0) {
                     var str = '';
                     for (var car = 0; car < result.data.length; car++) {
@@ -85,11 +88,45 @@ $(function () {
 
     //修改车辆
     body.on("click", ".update_car", function () {
-        window.location.href = "UpdateCar.html?fromType=update&update_carId=" + $(this).attr("data-carId");
+        if(getUrlParam('e')){
+            window.location.href = "UpdateCar.html?fromType=update&e=1&update_carId=" + $(this).attr("data-carId");
+        }else{
+            window.location.href = "UpdateCar.html?fromType=update&update_carId=" + $(this).attr("data-carId");
+        }
+        
     });
 
     //添加车辆
     body.on("click", "footer", function () {
-        window.location.href = "UpdateCar.html?fromType=add";
+        if(getUrlParam('e')){
+            window.location.href = "UpdateCar.html?fromType=add&e=1";
+        }else{
+            window.location.href = "UpdateCar.html?fromType=add";
+        };
+        
+    });
+
+
+    //-点击选择车辆
+    body.on('click','#scroller li .car_top',function(){
+        if(getUrlParam('e')){
+            var index = $(this).parent('li').index()
+            var data = {
+                Id:list[index].carId,
+                brandId:list[index].brand_id,
+                brandName:list[index].brand,
+                carNo:list[index].car_no,
+                insuranceId:list[index].insurer?list[index].insurer.id:null,
+                insuranceName:list[index].insurer?list[index].insurer.name:null,
+                modelId:list[index].model_id,
+                modelName:list[index].model,
+                seriesId:list[index].series_id,
+                seriesName:list[index].series
+            };
+
+            app.setItem('carInfo',data)
+            window.location.href = "../EditQuickRepair/editQuickMess.html"
+            // console.log(data)
+        };
     });
 });

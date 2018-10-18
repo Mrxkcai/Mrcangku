@@ -281,10 +281,16 @@ $(function () {
                     app.alert("保存成功");
                     // return
                     if (fromType === "update" || fromType === "add") {
-                       
-                        setTimeout(function(){
-                            window.location.href = "ListCar.html";
-                        },2000)
+                        if(getUrlParam('e')){
+                            setTimeout(function(){
+                                window.location.href = "ListCar.html?e=1";
+                            },2000)
+                        }else{
+                            setTimeout(function(){
+                                window.location.href = "ListCar.html";
+                            },2000)
+                        }
+                        
                     } else if (fromType === "QuickRepairDetails") {
                        
                         setTimeout(function(){
@@ -292,9 +298,15 @@ $(function () {
                         },2000)
                     } else {
                         
-                        setTimeout(function(){
-                            window.location.href = "ListCar.html";
-                        },2000)
+                        if(getUrlParam('e')){
+                            setTimeout(function(){
+                                window.location.href = "ListCar.html?e=1";
+                            },2000)
+                        }else{
+                            setTimeout(function(){
+                                window.location.href = "ListCar.html";
+                            },2000)
+                        }
                     }
                 } else {
                     app.closeLoading();

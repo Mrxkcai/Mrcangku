@@ -1,6 +1,4 @@
 var api = (function() {
-    // shareText: '修车上保宝车服靠谱',
-    // shareText2: '爱车维修保养，我首选保宝车服',
     //	var apiAddress = "http://share.baobaochefu.net/car";         //  正式地址
     var apiAddress1 = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5"; //  正式需注释；
     var apiAddress = "https://wxcsht.nuoweibd.com:8443"; //  正式需注释；
@@ -55,7 +53,7 @@ var api = (function() {
         NWBDApiWeiXincouponListNotuse: apiAddress + "/weixin/coupon/list/notuse", //  不可使用优惠券列表
         NWBDApiWeiXincouponIndex: apiAddress + "/weixin/coupon/index", //  判断是否领取优惠券
         NWBDApiWeiXincouponGet: apiAddress + "/weixin/coupon/get", //  优惠券活动领取
-        NWBDApiWeiXinUniformorder: apiAddress + "/WeiXinPay/uniformorder", //  微信预订单
+        NWBDApiWeiXinUniformorder: apiAddress + "/allInPay/pay", //  微信预订单
         NWBDApiWeiXinShareHaif: apiAddress + '/qrCode/shareResult', //  haif分享
         NWBDApiWeiXinShareHaifs: apiAddress + '/customer/commission/list', //提现
         NWBDApiWeiXinShareModel: apiAddress + '/customer/commission/queryCommissionByType', //分享奖金
@@ -68,6 +66,9 @@ var api = (function() {
         NWBDApiAssessCountList: apiAddress + "/companyComment/countList", //  查询每种评价的数量
         NWBDApiAssessList: apiAddress + "/companyComment/list", //  获取商户评价列表
         NWBDApiAssessCreate: apiAddress + "/companyComment/create", //  添加评价
+        NWBDApiAssessUpload: apiAddress2 + "/upload/repair/comment", //  上传图片
+        NWBDApiAssessImgUrl:"https://wxcs.nuoweibd.com/statics/",    //-评价提交的图片地址前缀
+
 
         //- 关于思腾维修厂的接口
         NWBDApiSitengS: apiAddress + "/order/status/sten/getOrderStatus", //  根据订单号查询订单在偲腾ERP的状态

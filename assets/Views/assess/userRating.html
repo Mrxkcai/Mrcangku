@@ -17,7 +17,7 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="userRating.css?v=2.0.0"/>
+		<link rel="stylesheet" type="text/css" href="userRating.css?v=2.0.12"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -31,51 +31,65 @@
 
                 <!-- 评价内容 -->
                 <div class="section">
-                    <div class="bottom_line">
-                        
-                        <div class="listBlock">
-                            <div class="userBlock">
-                                <img src="../../images/head_portrait.png" class="userImg"/>
-                                <span class="userNick">龙马精神</span>
-                                <span class="userTime">2018-05-18</span>
-                            </div>
-                            <div class="userStar">
-                                <div class="starBox">
-                                    <img src="../../images/icon5.png"/>
-                                    <img src="../../images/icon5.png"/>
-                                    <img src="../../images/icon5.png"/>
-                                </div>
-                                <span class="userScore">
-                                    <i>5</i>.0
-                                </span>
+
+                        <van-list
+                            v-model="loading"
+                            :finished="finished"
+                            @load="onLoad"
+                        >
+                            <!-- <van-cell
+                            v-for="item in list"
+                            :key="item"
+                            :title="item"
+                            /> -->
+                            <div class="bottom_line" style="display: block;" v-for="item in list" :key="item.id">
                                 
-                                
-                                <div class="wordRight">
-                                    <p>
-                                        保宝车服认证店，技师技能娴熟，服务态度非常非常好，维修质量快！ 
-                                        保宝车服公众号设计合理，解决了用户的需求，下次如果我的车出现问题，
-                                        我还是要找保宝车服公众号的门店进行维修和保养。
-                                    </p>
-                                    <ul class="imgList">
-                                        <li>
-                                            <img src="../../images/default_1125_633.png"/>
-                                        </li>
-                                        <li>
-                                            <img src="../../images/default_1125_633.png"/>
-                                        </li>
-                                        <li>
-                                            <img src="../../images/default_1125_633.png"/>
-                                        </li>
-                                        <li>
-                                            <img src="../../images/default_1125_633.png"/>
-                                        </li>
-                                        <p style="clear: both;"></p>
-                                    </ul>
+                                <div class="listBlock">
+                                    <div class="userBlock">
+                                        <img src="../../images/head_portrait.png" class="userImg"/>
+                                        <span class="userNick">{{item.customerInfo}}</span>
+                                        <span class="userTime">{{item.createTime}}</span>
+                                    </div>
+                                    <div class="userStar">
+                                        <div class="starBox">
+                                            <!-- <img src="../../images/icon5.png"/> -->
+                                            <div class="rateNum" style="display: inline-block;">
+                                                <van-rate 
+                                                v-model="item.rating"
+                                                :size="14"
+                                                color="#F77B19"
+                                                disabled
+                                                disabled-color="#F77B19"
+                                                void-color="#ffffff"
+                                                    />
+                                                
+                                            </div>
+                                            <span class="userScore">
+                                                <i>{{item.rating}}</i>.0
+                                            </span>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="wordRight">
+                                            <p>
+                                                {{item.commentContent}}
+                                            </p>
+                                            <ul class="imgList">
+                                                <li v-for="list in item.images">
+                                                    <img :src="api.NWBDApiAssessImgUrl + list.imageUrl"/>
+                                                </li>
+                                                <p style="clear: both;"></p>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
+                                <p style="clear: both;"></p>
                             </div>
-                        </div>
-                        <p style="clear: both;"></p>
-                    </div>
+
+                        </van-list>
+
+                    
 
 
                     <!-- 暂无评价内容 -->
@@ -92,11 +106,12 @@
     <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+    <script src="../../js/common.js"></script>
     <script src="../../js/vue.min.js"></script>
     <script src="../../js/vant.min.js"></script>
     <script>
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="userRating.js?v=2.0.11"></script>
+    <script src="userRating.js?v=2.0.15"></script>
 </html>

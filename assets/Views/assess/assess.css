@@ -49,7 +49,7 @@ body section .rateSz span {
   font-size: .32rem;
 }
 body section .rateNum {
-  width: 2.9rem;
+  width: 3.2rem;
   margin: 0 auto;
 }
 body section .rateWord {
@@ -129,7 +129,7 @@ body section .uploadImg .uploadImgArr .uploadClose {
   display: inline-block;
   width: .4rem;
   height: .4rem;
-  background: #ccc;
+  background: rgba(0, 0, 0, 0.6);
   position: absolute;
   right: 0;
   top: 0;

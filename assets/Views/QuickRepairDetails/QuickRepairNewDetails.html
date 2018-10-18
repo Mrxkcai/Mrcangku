@@ -18,12 +18,12 @@
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 	    <!-- 引入样式 -->
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.21"/>
+		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.24"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<header>
-				<img :src="item.image_url" v-for="item,index in image_arr" @click="seeImg(index,image_arr.length)"/>
+				<img v-for="item,index in image_arr" :src="item.image_url" @click="seeImg(index,image_arr.length)"/>
 				<p style="clear: both;"></p>
 				<div class="slideRight">
 					<div class="sp2 carTuo"></div>
@@ -47,7 +47,7 @@
 							<div class="shopComm">
 								<img :src="item" v-for='item,index in marchantGrade' />
 								<span class="commonNum">（{{marchantDetails.gradeCount}}条评价）</span>
-								<div class="detailWord" @click="goUserRating()">
+								<div class="detailWord" @click="goUserRating()" style="display: none;">
 									<span>详情</span>
 									<img src="../../images/rightSan.png"/>
 								</div>
@@ -80,14 +80,14 @@
 						</div>
 					</div>
 					<!--门店技师-->
-					<div class="artificer_block">
+					<div class="artificer_block" @click="seeUser()">
 							<span class="technich_name">门店技师</span>	
 							<div class="click_right">
 								<img src="../../images/jinat.png"/>
 							</div>
 							<div class="man_list">
 								<div v-for="item,index in artificerArr" :key="index">
-									<img :src="item.head" v-lazy="item.head"/>
+									<img :src="api.NWBDApiAssessImgUrl + item.head" v-lazy="api.NWBDApiAssessImgUrl + item.head"/>
 								</div>
 								<span class="lue_cion" v-show="userNum">...</span>
 								<span class="men_num">{{userNumber}}人</span>
@@ -116,100 +116,54 @@
 					</div>
 					
 					<!--用户评价-->
-					<div class="userCommont">
+					<div class="userCommont" style="display: none;">
 						<span class="userCom">用户评价</span>
-						<div class="bottom_line">
+						<div class="lieb">
+							<div class="bottom_line" v-for="item in list" :key="item.id">
+								
+								<div class="listBlock">
+									<div class="userBlock">
+										<img src="../../images/head_portrait.png" class="userImg"/>
+										<span class="userNick">{{item.customerInfo}}</span>
+										<span class="userTime">{{item.createTime}}</span>
+									</div>
+									<div class="userStar">
+										<div class="rateNum" style="display: inline-block;">
+											<van-rate 
+											v-model="item.rating"
+											:size="14"
+											color="#F77B19"
+											disabled
+											disabled-color="#F77B19"
+											void-color="#ffffff"
+												/>
+											
+										</div>
+										<span class="userScore">
+											<i>{{item.rating}}</i>.0
+										</span>
+										
+										
+										<div class="wordRight">
+											<p>
+												{{item.commentContent}}
+											</p>
+											<ul class="imgList">
+												<li v-for="list in item.images">
+													<img :src="api.NWBDApiAssessImgUrl + list.imageUrl"/>
+												</li>
+												<p style="clear: both;"></p>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<p style="clear: both;"></p>
+							</div>
 							
-							<div class="listBlock">
-								<div class="userBlock">
-									<img src="../../images/head_portrait.png" class="userImg"/>
-									<span class="userNick">龙马精神</span>
-									<span class="userTime">2018-05-18</span>
-								</div>
-								<div class="userStar">
-									<div class="starBox">
-										<img src="../../images/icon5.png"/>
-										<img src="../../images/icon5.png"/>
-										<img src="../../images/icon5.png"/>
-									</div>
-									<span class="userScore">
-										<i>5</i>.0
-									</span>
-									
-									
-									<div class="wordRight">
-										<p>
-											保宝车服认证店，技师技能娴熟，服务态度非常非常好，维修质量快！ 
-											保宝车服公众号设计合理，解决了用户的需求，下次如果我的车出现问题，
-											我还是要找保宝车服公众号的门店进行维修和保养。
-										</p>
-										<ul class="imgList">
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<p style="clear: both;"></p>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<p style="clear: both;"></p>
 						</div>
-						<div class="bottom_line">
-							<div class="listBlock">
-								<div class="userBlock">
-									<img src="../../images/head_portrait.png" class="userImg"/>
-									<span class="userNick">龙马精神</span>
-									<span class="userTime">2018-05-18</span>
-								</div>
-								<div class="userStar">
-									<div class="starBox">
-										<img src="../../images/icon5.png"/>
-										<img src="../../images/icon5.png"/>
-										<img src="../../images/icon5.png"/>
-									</div>
-									<span class="userScore">
-										<i>5</i>.0
-									</span>
-									
-									
-									<div class="wordRight">
-										<p>
-											保宝车服认证店，技师技能娴熟，服务态度非常非常好，维修质量快！ 
-											保宝车服公众号设计合理，解决了用户的需求，下次如果我的车出现问题，
-											我还是要找保宝车服公众号的门店进行维修和保养。
-										</p>
-										<ul class="imgList">
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<li>
-												<img src="../../images/default_1125_633.png"/>
-											</li>
-											<p style="clear: both;"></p>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<p style="clear: both;"></p>
-						</div>
-						
-						<div class="seeMore" style="display: none;">
-							<span>查看全部评论(298条)</span>
+
+						<div class="seeMore" style="display: none;" @click="goUserRating()">
+							<span>查看全部评论({{totalCount}}条)</span>
 							<span>></span>
 						</div>
 					</div>
@@ -235,6 +189,7 @@
 	<script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
 	<script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
 	<script src="../../lib/jroll.2.6.1/jroll-pulldown.1.0.0.min.js"></script>
+	<script src="../../js/common.js"></script>
 	<script src="../../js/vue.min.js"></script>
 	<script src="../../js/vue-lazyload.js"></script>
 	<script src="https://webapi.amap.com/maps?v=1.4.7&key=e9d83bcf337ca24921e9af7aee928b4d"></script>
@@ -243,7 +198,7 @@
 	    document.close();
 	</script>
 	<script src="../../js/vant.min.js"></script>
-	<script src="QuickRepairNewDetails.js?v=2.0.71"></script>
+	<script src="QuickRepairNewDetails.js?v=2.0.76"></script>
 	<script>
 		//调用图片懒加载
 		Vue.use(VueLazyload, {
