@@ -1,7 +1,7 @@
 var api = (function() {
     //	var apiAddress = "http://share.baobaochefu.net/car";         //  正式地址
+    var apiAddress = "https://wxcs.nuoweibd.com/car"; //  正式需注释；
     var apiAddress1 = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5"; //  正式需注释；
-    var apiAddress = "https://wxcsht.nuoweibd.com:8443"; //  正式需注释；
     var apiAddress2 = 'https://wxcs.nuoweibd.com'
 
     var api = {
@@ -14,7 +14,7 @@ var api = (function() {
             var curWwwPath = window.document.location.href; //	完整的路径
             var pathName = window.document.location.pathname; //	域名下面的某一页面
             var pos = curWwwPath.indexOf(pathName); //	域名下面的某一页面下标的起始位置
-            var apiAddr = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5";
+            var apiAddr = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5"; //-资源前缀
 
             return apiAddr;
         },
@@ -68,6 +68,8 @@ var api = (function() {
         NWBDApiAssessCreate: apiAddress + "/companyComment/create", //  添加评价
         NWBDApiAssessUpload: apiAddress2 + "/upload/repair/comment", //  上传图片
         NWBDApiAssessImgUrl:"https://wxcs.nuoweibd.com/statics/",    //-评价提交的图片地址前缀
+        NWBDApiImgUrl:"https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5", //-普通图片前缀
+
 
 
         //- 关于思腾维修厂的接口
@@ -134,16 +136,16 @@ var api = (function() {
         });
         //document.write("<script src='" + api.getLocalhostPaht() + "/js/vue-lazyload.js?v=1.0.4' charset='utf-8'></script>");       //  懒加载js
         document.write("<script src='" + apiAddress1 + "/js/app.js?v=2.0.32' charset='utf-8'></script>"); ///bbcf-common-h5/assets
-        document.write("<script src='" + apiAddress1 + "/Views/Component/js/notives.js?v=2.1.0' charset='utf-8'></script>"); //  活动js
+        document.write("<script src='" + apiAddress1 + "/Views/Component/js/notives.js?v=2.1.10' charset='utf-8'></script>"); //  活动js
         document.write("<script src='" + apiAddress1 + "/Views/Component/js/count.js?v=2.0.8' charset='utf-8'></script>"); //  计时器js
-        document.write("<script src='" + apiAddress1 + "/Views/Component/js/guide.js?v=2.0.1' charset='utf-8'></script>"); //  指南js
+        document.write("<script src='" + apiAddress1 + "/Views/Component/js/guide.js?v=2.0.11' charset='utf-8'></script>"); //  指南js
 
 
         //  引入活动css
         $("<link>").attr({
             rel: "stylesheet",
             type: "text/css",
-            href: apiAddress1 + "/Views/Component/css/notices.css?v=2.1.5"
+            href: apiAddress1 + "/Views/Component/css/notices.css?v=2.1.6"
         }).appendTo("head");
 
         //  引入计时器css

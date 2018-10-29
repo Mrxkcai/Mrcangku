@@ -202,6 +202,7 @@
             $("#car_modelName").val('');
 
             element.text($(this).text());       //      车辆品牌型号选择一级即可不继续选择；
+            element.removeClass('colorG');
             closeAllSelectList();               //      选择一级完成后关闭选择列表
             return                              //      阻止往下执行写的return，注意修改
 

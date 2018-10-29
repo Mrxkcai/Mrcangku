@@ -17,9 +17,13 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.1"/>
+		
+		<link rel="stylesheet" type="text/css" href="assess.css?v=2.0.10"/>
+		<!--全局公用样式-->
+		<link rel="stylesheet" href="css/globle.css?v=2.0.0">
+		<script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
 	</head>
-	<body>
+	<body class="">
 		<div id="app" v-cloak>
 			<section>
 				<div class="rateScore">
@@ -56,7 +60,7 @@
 				<div class="uploadImg">
 					<p>上传图片（<span v-text="uploadImgArr.length">0</span>/4）</p> 	
 					<div>
-						<div class="uploadImgArr">
+						<!-- <div class="uploadImgArr">
 							<div class="smallBox" v-for="item,index in uploadImgArr">
 								<img :src="url + item.imageUrl" alt="图片">
 								<i class="uploadClose" @click="uploadClose(index)">×</i>
@@ -66,7 +70,20 @@
 						
 							<span>十</span>
 						</van-uploader>
-						<img id="imgContent" src="" alt="">
+						<img id="imgContent" src="" alt=""> -->
+
+						<div>
+							<ul id="saveImg"></ul>
+							<ul class="upload-ul clearfix">
+								<li class="upload-pick">
+									<div class="webuploader-container clearfix" id="goodsUpload"></div>
+								</li>
+							</ul>
+						
+							<!-- <p><a class="upload-btn" href="javascript:;">提交</a></p> -->
+						
+						</div>
+
 						<p style="clear: both"></p>
 					</div>
 
@@ -77,16 +94,19 @@
 				</div>
 
 			</section>
-
+			
 			<!-- 提交按钮
 				 -->
 			<div class="uploadBtn" @click="uploadSubmit">
 					提交
 			</div>
-        </div>
+		</div>
+		
+
+		
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <script src="../../js/zepto.min.js" charset='utf-8'></script>
+    <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
     <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
     <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
@@ -94,9 +114,15 @@
 	<script	src="../../js/common.js"></script>
 	<script src="../../js/vue.min.js"></script>
 	<script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+	
     <script>
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-	<script src="assess.js?v=2.0.17"></script>
+	<script src="assess.js?v=2.0.23"></script>
+	<!-- 引入组件库 -->
+	<script src="js/webuploader.min.js?v=2.0.11"></script>
+	<script src="js/diyUpload.js?v=2.0.11"></script>
+	
+	
 </html>

@@ -17,13 +17,13 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="userRating.css?v=2.0.12"/>
+		<link rel="stylesheet" type="text/css" href="userRating.css?v=2.0.13"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
             <div class="container">
                 <div class="labelBox">
-                    <span @click="allSele()"  :class="{active:label0.active}">{{label0.name}}({{label0.count}})</span>
+                    <span :class="{active:label0.active}">{{label0.name}}({{label0.count}})</span>
                     <span v-for="item,index in labelArray" :class="{active:item.active}" @click="labelSelect(index)" >{{item.name}}({{item.count}})</span>
                     <p style="clear: both"></p>
                 </div>
@@ -32,11 +32,10 @@
                 <!-- 评价内容 -->
                 <div class="section">
 
-                        <van-list
+                        <!-- <van-list
                             v-model="loading"
                             :finished="finished"
-                            @load="onLoad"
-                        >
+                        > -->
                             <!-- <van-cell
                             v-for="item in list"
                             :key="item"
@@ -87,7 +86,8 @@
                                 <p style="clear: both;"></p>
                             </div>
 
-                        </van-list>
+                            <div class="none"></div>
+                        <!-- </van-list> -->
 
                     
 
@@ -101,7 +101,7 @@
         </div>
     </body>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <script src="../../js/zepto.min.js" charset='utf-8'></script>
+    <script src="../../lib/jQuery 3.3.1/jquery-3.3.1.min.js" charset='utf-8'></script>
     <script src="../../lib/fastclick 1.0.6/fastclick.min.js" charset='utf-8'></script>
     <script src="../../lib/layer.mobile-v2.0/layer_mobile/layer.min.js" charset='utf-8'></script>
     <script src="../../lib/jroll.2.6.1/jroll.min.js" charset='utf-8'></script>
@@ -113,5 +113,5 @@
         document.write("<script src='../../js/config.js?v=" + Math.random() + "' charset='utf-8'><\/script>");
         document.close();
     </script>
-    <script src="userRating.js?v=2.0.15"></script>
+    <script src="userRating.js?v=2.0.21"></script>
 </html>

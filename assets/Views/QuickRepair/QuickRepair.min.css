@@ -574,7 +574,7 @@ input::-webkit-search-cancel-button {display: none;}
 	border-bottom-left-radius: .3rem;
 	font-size: .22rem;
 	color: #518eee;
-	padding-left: .3rem;
+	/* padding-left: .3rem; */
 	text-align: center
 }
 
@@ -594,8 +594,14 @@ input::-webkit-search-cancel-button {display: none;}
 
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation {
 	border: .02rem solid #f28928;
-	border-right: 0;
-	color: #f28928
+	/* border-right: 0; */
+	color: #f28928;
+	border-radius: .3rem;
+	background:linear-gradient(270deg,rgba(254,136,40,1) 0%,rgba(255,170,53,1) 100%);
+	box-shadow:0px 2px 4px 0px rgba(238,238,238,1);
+	color: #fff;
+	text-align: center;
+	margin-right: .3rem;
 }
 
 .container .repairer_list .repairer_list_ul .repairer_list_ul_li .repairer_info .reservation span {

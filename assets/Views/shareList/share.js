@@ -21,7 +21,7 @@ var vm = new Vue({
 					url: api.NWBDApiWeiXincreateShareCode,
 					data: {
 						uniqueCode: id,
-						source:'CUSTOMER'
+						source: 'CUSTOMER'
 						// openid: app.getItem("open_id")
 					},
 					success: function success(result) {
@@ -29,7 +29,7 @@ var vm = new Vue({
 						if (result.code === 0) {
 							that.srcUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data.ticket;
 							$('.imgCode').append('<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' + result.data.ticket + '" />');
-						}else{
+						} else {
 							app.alert(result.message);
 						}
 					},

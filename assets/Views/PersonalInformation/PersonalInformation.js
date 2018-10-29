@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
     $("body").css("height", $(window).height() + "px");
 
@@ -18,7 +20,7 @@ $(function () {
                 name: $.trim($("#name").val()),
                 openid: app.getItem("open_id")
             },
-            success: function (result) {
+            success: function success(result) {
                 if (result.status === "success" && result.code === 0) {
                     app.setItem("userInfo", result.data);
                     alert("保存成功");
@@ -28,7 +30,7 @@ $(function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }

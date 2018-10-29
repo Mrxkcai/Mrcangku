@@ -1,23 +1,21 @@
-var quickRepairDetails = function () {
+"use strict";
+
+var quickRepairDetails = function quickRepairDetails() {
     "use strict";
 
     var body = $('body');
-    $(".container").css({'min-height': $(window).height() + 'px'});
-    
+    $(".container").css({ 'min-height': $(window).height() + 'px' });
 
     //  阻止微信拉动出现背景
-    document.querySelector('body').addEventListener('touchmove', function(e) {
+    document.querySelector('body').addEventListener('touchmove', function (e) {
         if (!document.querySelector('.container').contains(e.target)) {
             e.preventDefault();
         }
     });
 
-    $('.container').on('touchmove',function(e){
+    $('.container').on('touchmove', function (e) {
         e.stopPropagation();
     });
-
-
-
 
     //当前页面保存维修厂信息
     var merchantData;
@@ -36,47 +34,42 @@ var quickRepairDetails = function () {
         url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
         type: "GET",
         dataType: 'json',
-        success: function (result) {
-               console.log(result);
+        success: function success(result) {
+            console.log(result);
             if (result.status === "success" && result.code === 0) {
                 merchantData = result.data[0];
-//				取消時間限制，下单按钮总是可点击
-//              if (merchantData.working === "0") {
-//                  $(".btn_reservation").css("background", "#ccc");
-//                  $(".btn_reservation").prop("disabled", true);
-//              }
+                //				取消時間限制，下单按钮总是可点击
+                //              if (merchantData.working === "0") {
+                //                  $(".btn_reservation").css("background", "#ccc");
+                //                  $(".btn_reservation").prop("disabled", true);
+                //              }
 
                 //Banner
                 var bannerStr = "";
                 if (merchantData.image.length > 0) {
                     var image_arr = [];
 
-                    for(var i = 0; i < merchantData.image.length;i ++){
+                    for (var i = 0; i < merchantData.image.length; i++) {
                         //  图片重新排序；
-                        if(merchantData.image[i].image_type == 1){
+                        if (merchantData.image[i].image_type == 1) {
                             image_arr[0] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 8){
+                        } else if (merchantData.image[i].image_type == 8) {
                             image_arr[1] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 9){
+                        } else if (merchantData.image[i].image_type == 9) {
                             image_arr[2] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 12){
+                        } else if (merchantData.image[i].image_type == 12) {
                             image_arr[3] = merchantData.image[i];
-                        }else if(merchantData.image[i].image_type == 10){
+                        } else if (merchantData.image[i].image_type == 10) {
                             image_arr[4] = merchantData.image[i];
-                        }else{
-
-                        }
-                            
+                        } else {}
                     }
-                    
-                    
+
                     //console.log(image_arr)
-                    for(var i = 0;i < image_arr.length;i ++){
+                    for (var i = 0; i < image_arr.length; i++) {
                         if (image_arr[i]) {
                             bannerStr += '<div class="swiper-slide"><img src="' + image_arr[i].image_url + '" /></div>';
                         }
                     };
-                    
                 } else {
                     bannerStr += '<div class="swiper-slide"><img src="../..' + api.Merchant_default_Banner + '" /></div>';
                 }
@@ -84,7 +77,7 @@ var quickRepairDetails = function () {
                 new Swiper('.swiper-container', {
                     direction: 'horizontal',
                     loop: true,
-                    pagination: {el: '.swiper-pagination'}
+                    pagination: { el: '.swiper-pagination' }
                 });
 
                 //维修厂名称和评价
@@ -117,20 +110,19 @@ var quickRepairDetails = function () {
                 $(".service_hotline_value").html('<a style="color:#6e6b6a;" href="tel:' + merchantData.service_hotline + '">' + merchantData.service_hotline + '</a>');
                 $(".businessHours_value").text(merchantData.businessHours);
                 $(".address_detail_value").html(merchantData.address_detail);
-                
+
                 //  取消定位后输出故障发生地地址;
-                if(app.getItem('address') && app.getItem('address') != null){
+                if (app.getItem('address') && app.getItem('address') != null) {
                     $(".showAddress").text(app.getItem('address'));
                     $("#address").val(app.getItem('address'));
                 };
-                
-                if(app.getItem('province') && app.getItem('city') && app.getItem('district') && app.getItem('province') != null && app.getItem('city') != null && app.getItem('district') != null){
-                    $('#ssq').val(app.getItem('province') + " " + app.getItem('city') + " " + app.getItem('district'))
+
+                if (app.getItem('province') && app.getItem('city') && app.getItem('district') && app.getItem('province') != null && app.getItem('city') != null && app.getItem('district') != null) {
+                    $('#ssq').val(app.getItem('province') + " " + app.getItem('city') + " " + app.getItem('district'));
                 }
-                
-                
+
                 //  输出故障发生地经纬度省市区
-                console.log(app.getItem('location'))
+                console.log(app.getItem('location'));
                 lat = app.getItem('location').lat;
                 lng = app.getItem('location').lng;
                 addressProvince = app.getItem('province');
@@ -140,27 +132,24 @@ var quickRepairDetails = function () {
                 //主修车型
                 var mainBrandStr = "";
                 for (var i = 0; i < merchantData.mainBrand.length; i++) {
-                    mainBrandStr += `<li>
-                    <img src="${merchantData.mainBrand[i].logo}" />
-                    <p class="ellipsis">${merchantData.mainBrand[i].brand_name ? merchantData.mainBrand[i].brand_name : ''}</p>
-                </li>`;
+                    mainBrandStr += "<li>\n                    <img src=\"" + merchantData.mainBrand[i].logo + "\" />\n                    <p class=\"ellipsis\">" + (merchantData.mainBrand[i].brand_name ? merchantData.mainBrand[i].brand_name : '') + "</p>\n                </li>";
                 }
                 $(".major_models>ul").html(mainBrandStr);
             } else {
                 app.alert(result.message);
             }
         },
-        error: function () {
+        error: function error() {
             app.alert('操作失败，请检查网络！');
         }
     });
 
     //返回维修厂列表页面
     body.on("click", ".back_span", function () {
-        window.location.href = "../QuickRepair/QuickRepair.html?sv=" +app.getQueryString("sv");
+        window.location.href = "../QuickRepair/QuickRepair.html?sv=" + app.getQueryString("sv");
     });
 
-    var openLocation = function () {
+    var openLocation = function openLocation() {
         var lat = merchantData.lat;
         var lng = merchantData.lng;
         if (!lat || !lng) {
@@ -175,7 +164,7 @@ var quickRepairDetails = function () {
                         address: merchantData.address_detail,
                         scale: 28,
                         infoUrl: '',
-                        fail() {
+                        fail: function fail() {
                             alert("打开地图失败，请检查手机权限");
                         }
                     });
@@ -192,7 +181,7 @@ var quickRepairDetails = function () {
                 address: merchantData.address_detail,
                 scale: 28,
                 infoUrl: '',
-                fail() {
+                fail: function fail() {
                     alert("打开地图失败，请检查手机权限");
                 }
             });
@@ -215,20 +204,20 @@ var quickRepairDetails = function () {
     var carDataLength = 0;
     carList_ul.html('');
     //更新车辆列表
-    var update_carList_ul = function () {
+    var update_carList_ul = function update_carList_ul() {
         app.verificationUserInfo();
         $.ajax({
             url: api.NWBDApiGetCarListByCustomer + "?userId=" + app.getItem("userInfo").id + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
-            success: function (result) {
+            success: function success(result) {
                 //console.log(result.data[0].brand);
                 if (result.status === "success" && result.code === 0) {
                     carData = result.data;
                     carDataLength = carData.length;
                     var str = '';
                     for (var car = 0; car < carDataLength; car++) {
-                        str += `<li class="carList_ul_li ${result.data[car].isCommon == true ? "active" : ""}" data-carId="${result.data[car].carId}"><span class="car_logo"><img src="${result.data[car].logo}" style="width: 0.5rem;height: 0.5rem;"/></span><h3 class="ellipsis">${result.data[car].brand}</h3><p class="ellipsis">${result.data[car].car_no}</p></li>`;
+                        str += "<li class=\"carList_ul_li " + (result.data[car].isCommon == true ? "active" : "") + "\" data-carId=\"" + result.data[car].carId + "\"><span class=\"car_logo\"><img src=\"" + result.data[car].logo + "\" style=\"width: 0.5rem;height: 0.5rem;\"/></span><h3 class=\"ellipsis\">" + result.data[car].brand + "</h3><p class=\"ellipsis\">" + result.data[car].car_no + "</p></li>";
                         if (result.data[car].isCommon == true) {
                             carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkedCar"><p>' + result.data[car].brand + '</p><p>' + result.data[car].car_no + '</p></div>');
                             $("#carList_carInfo_Id").val(result.data[car].carId);
@@ -240,7 +229,7 @@ var quickRepairDetails = function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.alert('操作失败，请检查网络！');
             }
         });
@@ -322,25 +311,21 @@ var quickRepairDetails = function () {
             app.alert('请选择预约地址');
             return;
         }
-        
 
         var data = {
-                car_id: carList_carInfo_Id,
-                customerJson: JSON.stringify(customerJson),
-                company_id: app.getItem("merchant_id"),
-                company_name: merchantData.name,
-                lat: lat,
-                lng: lng,
-                address: $("#address").val(),
-                addressProvince: addressProvince,
-                addressCity: addressCity,
-                addressCounty: addressCounty,
-                openid: app.getItem("open_id")
-            }
-        app.setItem('info',JSON.stringify(data));
-        
-       
-
+            car_id: carList_carInfo_Id,
+            customerJson: JSON.stringify(customerJson),
+            company_id: app.getItem("merchant_id"),
+            company_name: merchantData.name,
+            lat: lat,
+            lng: lng,
+            address: $("#address").val(),
+            addressProvince: addressProvince,
+            addressCity: addressCity,
+            addressCounty: addressCounty,
+            openid: app.getItem("open_id")
+        };
+        app.setItem('info', JSON.stringify(data));
 
         app.loading();
         $.ajax({
@@ -360,16 +345,16 @@ var quickRepairDetails = function () {
                 openid: app.getItem("open_id")
             },
             dataType: 'json',
-            success: function (result) {
-            	console.log(result)
-                if (result.status === "success" && result.code === 0 && result.code!== 2) {
+            success: function success(result) {
+                console.log(result);
+                if (result.status === "success" && result.code === 0 && result.code !== 2) {
                     app.closeLoading();
                     //	新增预约维修界面
                     //return
 
                     window.location.href = "../YuyueRepair/reservationRepair.html";
                     //	存储订单id；
-                    localStorage.setItem("orderId",result.data.order_id)
+                    localStorage.setItem("orderId", result.data.order_id);
                     $("#carList_carInfo_Id").val("0");
                     carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
                     $(".carList_ul_li").removeClass("active");
@@ -378,19 +363,13 @@ var quickRepairDetails = function () {
 
                     localStorage.removeItem('status');
                     localStorage.removeItem('num');
-
-                  
-                    
-                   
-                    
-                    
                 } else {
                     alert(result.message);
                     app.closeLoading();
                 }
             },
-            error: function (res) {
-                console.log(res)
+            error: function error(res) {
+                console.log(res);
                 app.alert('操作失败，请检查网络！');
                 app.closeLoading();
             }
@@ -398,75 +377,61 @@ var quickRepairDetails = function () {
     });
 
     var winHeight = $(window).height();
-//  $(window).resize(function () {
-//      var thisHeight = $(this).height();
-//      if (winHeight - thisHeight >= 50) {
-//          $(".btn_reservation").hide();
-//      } else {
-//          $(".btn_reservation").show();
-//      }
-//  });
+    //  $(window).resize(function () {
+    //      var thisHeight = $(this).height();
+    //      if (winHeight - thisHeight >= 50) {
+    //          $(".btn_reservation").hide();
+    //      } else {
+    //          $(".btn_reservation").show();
+    //      }
+    //  });
 
 
     //  新增优惠券方法
-    var red_bag = function(res){
+    var red_bag = function red_bag(res) {
         //console.log(res)
         var priceAll = 0;
-        for(var i = 0; i < res.length;i ++){
-            priceAll += Number(res[i].price)
+        for (var i = 0; i < res.length; i++) {
+            priceAll += Number(res[i].price);
         }
-        var ct = app.getTime(res[0].beginDate,4);
-        var et = app.getTime(res[0].endDate,4);
+        var ct = app.getTime(res[0].beginDate, 4);
+        var et = app.getTime(res[0].endDate, 4);
         var kg = false;
-        
-        var index = layer.open({
-                content:
-                `<div class="d-voucher">
-                    <p class="get-voucher" style="opacity:0;"><span>¥</span>${priceAll}</p>
-                    <p style="font-size:1rem;color:rgba(249,250,169,1);padding-top:.1rem;">${priceAll} <span style="font-size:.7rem;color:rgba(255,218,116,1);">元</span></p>
-                    <p>有效期：<br /> ${ct}-${et}</p>
-                    <p>* 代金券已帮您保存至“个人中心-优惠券”列表中，可前往查看。</p>
-                    <p>* ${res[0].introduction}</p>
 
-                    <button class="btn-get"></button>
-                    <div class="btn_see">查看详情 >></div>
-                </div>
-                `,
-                style:"padding:none!important;background:none;box-shadow:none;width:6.94rem",
-                shadeClose: false,
+        var index = layer.open({
+            content: "<div class=\"d-voucher\">\n                    <p class=\"get-voucher\" style=\"opacity:0;\"><span>\xA5</span>" + priceAll + "</p>\n                    <p style=\"font-size:1rem;color:rgba(249,250,169,1);padding-top:.1rem;\">" + priceAll + " <span style=\"font-size:.7rem;color:rgba(255,218,116,1);\">\u5143</span></p>\n                    <p>\u6709\u6548\u671F\uFF1A<br /> " + ct + "-" + et + "</p>\n                    <p>* \u4EE3\u91D1\u5238\u5DF2\u5E2E\u60A8\u4FDD\u5B58\u81F3\u201C\u4E2A\u4EBA\u4E2D\u5FC3-\u4F18\u60E0\u5238\u201D\u5217\u8868\u4E2D\uFF0C\u53EF\u524D\u5F80\u67E5\u770B\u3002</p>\n                    <p>* " + res[0].introduction + "</p>\n\n                    <button class=\"btn-get\"></button>\n                    <div class=\"btn_see\">\u67E5\u770B\u8BE6\u60C5 >></div>\n                </div>\n                ",
+            style: "padding:none!important;background:none;box-shadow:none;width:6.94rem",
+            shadeClose: false
         });
 
         $('.layui-m-layercont').addClass('new');
         $('.layui-m-layercont').addClass('layui-m-layercont_self'); //  调整layer样式；
 
         //  查看详情按钮；
-        $('.btn_see').on('click',function(){
-            window.location.href = '../Voucher/voucher.html'
+        $('.btn_see').on('click', function () {
+            window.location.href = '../Voucher/voucher.html';
         });
 
-
-        $('.btn-get').on('click',function(){
+        $('.btn-get').on('click', function () {
             $('.layui-m-layercont').removeClass('new');
             $('.layui-m-layercont').removeClass('layui-m-layercont_self');
             layer.close(index);
 
-
             //	新增预约维修界面
             window.location.href = "../YuyueRepair/reservationRepair.html";
             //	存储订单id；
-            localStorage.setItem("orderId",result.data.order_id)
+            localStorage.setItem("orderId", result.data.order_id);
             $("#carList_carInfo_Id").val("0");
             carList_a.html('<span class="carList_selectCar" data-iconfont="e900"></span><div class="carList_checkCar"> <p class="carList_selectCar">请您选择</p></div>');
             $(".carList_ul_li").removeClass("active");
             carList_a.find("span:first-child").attr("data-iconfont", "e901").text("");
             carList_ul.fadeOut(200);
-             
-            
+
             localStorage.removeItem('status');
             localStorage.removeItem('num');
         });
 
-        return  kg;    //     测试阻止--------------------
+        return kg; //     测试阻止--------------------
     };
 
     app.closeLoading();

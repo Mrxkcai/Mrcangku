@@ -1,11 +1,13 @@
-var order = function () {
+"use strict";
+
+var order = function order() {
     "use strict";
 
     var body = $('body');
 
-    $(".current_order").css("height", ($(window).height() - $("header").outerHeight(true)) + "px");
-    $(".completed_order").css("height", ($(window).height() - $("header").outerHeight(true)) + "px");
-    $(".cancelled_order").css("height", ($(window).height() - $("header").outerHeight(true)) + "px");
+    $(".current_order").css("height", $(window).height() - $("header").outerHeight(true) + "px");
+    $(".completed_order").css("height", $(window).height() - $("header").outerHeight(true) + "px");
+    $(".cancelled_order").css("height", $(window).height() - $("header").outerHeight(true) + "px");
 
     var pageSize = 10;
 
@@ -14,7 +16,7 @@ var order = function () {
     var current_order_jroll_y = 0;
     current_order_jroll = new JRoll($(".current_order")[0]);
     current_order_jroll.pulldown({
-        refresh: function (complete) {
+        refresh: function refresh(complete) {
             current_order_pageNum = 1;
             current_order_jroll_y = 0;
             complete();
@@ -34,7 +36,7 @@ var order = function () {
     var completed_order_jroll_y = 0;
     completed_order_jroll = new JRoll($(".completed_order")[0]);
     completed_order_jroll.pulldown({
-        refresh: function (complete) {
+        refresh: function refresh(complete) {
             completed_order_pageNum = 1;
             completed_order_jroll_y = 0;
             complete();
@@ -54,7 +56,7 @@ var order = function () {
     var cancelled_order_jroll_y = 0;
     cancelled_order_jroll = new JRoll($(".cancelled_order")[0]);
     cancelled_order_jroll.pulldown({
-        refresh: function (complete) {
+        refresh: function refresh(complete) {
             cancelled_order_pageNum = 1;
             cancelled_order_jroll_y = 0;
             complete();
@@ -69,7 +71,7 @@ var order = function () {
         }
     });
 
-    var getStatusStr = function (status) {
+    var getStatusStr = function getStatusStr(status) {
         switch (status) {
             case 1:
                 return "维修中";
@@ -83,55 +85,26 @@ var order = function () {
                 return "待付款";
         }
     };
-    var createData = function (data, dataLength, type) {
-        console.log(data)
+    var createData = function createData(data, dataLength, type) {
+        console.log(data);
         var str = "";
         for (var i = 0; i < dataLength; i++) {
-            str += `
-            <li>
-                <h3>
-                    <span class="order_li_h3_left">维修单</span>
-                    <span class="order_li_h3_center">${new Date(data[i].create_time).toLocaleString()}</span>
-                    <span class="order_li_h3_right">订单状态 : ${getStatusStr(data[i].status)}</span>
-                </h3>
-                <div class="head_bottom"></div>
-                <div class="middle_content">
-                <p class="order_li_brands">${data[i].brand_name}</p>
-                    <span class="order_li_carNo">${data[i].car_number}</span>
-                    <span class="order_li_maintenanceType ellipsis">维修类型 : ${data[i].repair_content}</span>
-                    <span class="order_li_repairer ellipsis">维修厂 : ${data[i].companyName}</span>
-                </div>
-                <div class="bottom_btn">
-                    <a class="bottom_btn_left" href="tel:4000-016-369">联系客服</a>
-                    <a class="bottom_btn_right bottom_btn_mid" href="tel:${data[i].service_hotline}">联系维修厂</a>
-                    <a class="bottom_btn_right" href="../CarProgress/ProgressMess.html" onclick="app.setItem('orderNo','${data[i].id}')">维修详情</a>
-                </div>`;
+            str += "\n            <li>\n                <h3>\n                    <span class=\"order_li_h3_left\">\u7EF4\u4FEE\u5355</span>\n                    <span class=\"order_li_h3_center\">" + new Date(data[i].create_time).toLocaleString() + "</span>\n                    <span class=\"order_li_h3_right\">\u8BA2\u5355\u72B6\u6001 : " + getStatusStr(data[i].status) + "</span>\n                </h3>\n                <div class=\"head_bottom\"></div>\n                <div class=\"middle_content\">\n                <p class=\"order_li_brands\">" + data[i].brand_name + "</p>\n                    <span class=\"order_li_carNo\">" + data[i].car_number + "</span>\n                    <span class=\"order_li_maintenanceType ellipsis\">\u7EF4\u4FEE\u7C7B\u578B : " + data[i].repair_content + "</span>\n                    <span class=\"order_li_repairer ellipsis\">\u7EF4\u4FEE\u5382 : " + data[i].companyName + "</span>\n                </div>\n                <div class=\"bottom_btn\">\n                    <a class=\"bottom_btn_left\" href=\"tel:4000-016-369\">\u8054\u7CFB\u5BA2\u670D</a>\n                    <a class=\"bottom_btn_right bottom_btn_mid\" href=\"tel:" + data[i].service_hotline + "\">\u8054\u7CFB\u7EF4\u4FEE\u5382</a>\n                    <a class=\"bottom_btn_right\" href=\"../CarProgress/ProgressMess.html\" onclick=\"app.setItem('orderNo','" + data[i].id + "')\">\u7EF4\u4FEE\u8BE6\u60C5</a>\n                </div>";
             if (type === 1 && data[i].status === 5) {
-                str += `<div class="order_operating">
-                            <p>应付款</p>
-                            <p class="money"><small>￥</small>${data[i].price}</p>
-                            <button id="btn_pay" data-id="${data[i].id}" data-price="${data[i].price}">在线支付</button>
-                        </div>`;
+                str += "<div class=\"order_operating\">\n                            <p>\u5E94\u4ED8\u6B3E</p>\n                            <p class=\"money\"><small>\uFFE5</small>" + data[i].price + "</p>\n                            <button id=\"btn_pay\" data-id=\"" + data[i].id + "\" data-price=\"" + data[i].price + "\">\u5728\u7EBF\u652F\u4ED8</button>\n                        </div>";
             }
             if (type === 2 && status === 2 && !data[i].comment_id) {
-                str += `<div class="order_operating">
-                            <p>实付款</p>
-                            <p class="money"><small>￥</small>${data[i].price}</p>
-                            <button id="btn_evaluation" data-id="${data[i].id}">去评价</button>
-                        </div>`;
+                str += "<div class=\"order_operating\">\n                            <p>\u5B9E\u4ED8\u6B3E</p>\n                            <p class=\"money\"><small>\uFFE5</small>" + data[i].price + "</p>\n                            <button id=\"btn_evaluation\" data-id=\"" + data[i].id + "\">\u53BB\u8BC4\u4EF7</button>\n                        </div>";
             }
             if (!data[i].price && data[i].expect_price) {
-                str += `<div class="order_operating">
-                            <p class="ellipsis">预估维修价格</p>
-                            <p class="money"><small>￥</small>${data[i].expect_price}</p>
-                        </div>`;
+                str += "<div class=\"order_operating\">\n                            <p class=\"ellipsis\">\u9884\u4F30\u7EF4\u4FEE\u4EF7\u683C</p>\n                            <p class=\"money\"><small>\uFFE5</small>" + data[i].expect_price + "</p>\n                        </div>";
             }
-            str += `</li>`;
+            str += "</li>";
         }
         return str;
     };
     //加载订单列表
-    var getPageData = function (ordertype, datatype) {
+    var getPageData = function getPageData(ordertype, datatype) {
         app.verificationUserInfo();
         var type = 1;
         var pageNum = 1;
@@ -160,7 +133,7 @@ var order = function () {
                 pageSize: pageSize,
                 openid: app.getItem("open_id")
             },
-            success: function (result) {
+            success: function success(result) {
                 // console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     var data = result.data;
@@ -199,7 +172,7 @@ var order = function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }
@@ -207,7 +180,7 @@ var order = function () {
     };
 
     //支付
-    var detectPay = function (outTradeNo) {
+    var detectPay = function detectPay(outTradeNo) {
         app.loading();
         $.ajax({
             url: api.NWBDApiOrderQuery + "?r=" + Math.random(),
@@ -217,11 +190,11 @@ var order = function () {
                 openid: app.getItem("open_id")
             },
             dataType: 'json',
-            success: function (result) {
+            success: function success(result) {
                 if (result.status === "success" && result.code === 0) {
                     if (result.data === "SUCCESS") {
                         alert("付款成功");
-                        window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + ((new Date()).getTime()) : window.location.href + '&t=' + ((new Date()).getTime());
+                        window.location.href = window.location.href.indexOf("?") === -1 ? window.location.href + '?t=' + new Date().getTime() : window.location.href + '&t=' + new Date().getTime();
                     } else {
                         alert("支付失败，如已付款，请联系客服");
                         app.closeLoading();
@@ -231,7 +204,7 @@ var order = function () {
                     app.closeLoading();
                 }
             },
-            error: function () {
+            error: function error() {
                 alert("网络不可用，如已付款，请联系客服");
                 app.closeLoading();
             }
@@ -250,7 +223,7 @@ var order = function () {
                 money: self.attr("data-price")
             },
             dataType: 'json',
-            success: function (result) {
+            success: function success(result) {
                 if (result.status === "success" && result.code === 0) {
                     wx.chooseWXPay({
                         nonceStr: result.data.nonceStr,
@@ -258,17 +231,17 @@ var order = function () {
                         signType: 'MD5',
                         paySign: result.data.sign,
                         timestamp: result.data.timeStamp,
-                        success: function (result) {
+                        success: function success(result) {
                             app.closeLoading();
                             if (result.errMsg === "chooseWXPay:ok") {
                                 layer.open({
                                     content: '支付结果？',
                                     btn: ['支付成功', '支付遇到问题'],
-                                    yes: function (index) {
+                                    yes: function yes(index) {
                                         layer.close(index);
                                         detectPay(self.attr("data-id"));
                                     },
-                                    no: function () {
+                                    no: function no() {
                                         detectPay(self.attr("data-id"));
                                     }
                                 });
@@ -277,11 +250,11 @@ var order = function () {
                                 app.closeLoading();
                             }
                         },
-                        cancel: function () {
+                        cancel: function cancel() {
                             alert("支付已取消");
                             app.closeLoading();
                         },
-                        fail: function () {
+                        fail: function fail() {
                             alert("支付失败，如已付款，请联系客服");
                             app.closeLoading();
                         }
@@ -291,7 +264,7 @@ var order = function () {
                     app.closeLoading();
                 }
             },
-            error: function () {
+            error: function error() {
                 alert('操作失败，请检查网络！');
                 app.closeLoading();
             }
@@ -313,7 +286,6 @@ var order = function () {
         $('.' + $(this).attr("data-className")).children("ul").html("");
         getPageData($(this).attr("data-className"), "update");
     });
-    
 
     //首次进入页面
     $("header>ul>li:first-child").click();

@@ -1,5 +1,8 @@
+"use strict";
+
 (function ($, app) {
     "use strict";
+
     FastClick.attach(window.document.body);
     Date.prototype.toLocaleString = function () {
         return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 " + this.getHours() + ":" + this.getMinutes() + ":" + (this.getSeconds() <= 9 ? "0" + this.getSeconds() : this.getSeconds());
@@ -27,7 +30,7 @@
             style: 'background:rgba(0,0,0,.4); color:#fff; border:none;font-size:0.28rem;',
             time: 1.5,
             skin: 'msg',
-            type:1
+            type: 1
         });
     };
     app.loading = function () {
@@ -35,9 +38,7 @@
             type: 2,
             anim: "up",
             shadeClose: false,
-            success: function () {
-
-            }
+            success: function success() {}
         });
     };
     app.closeLoading = function () {
@@ -52,7 +53,7 @@
     };
 
     app.f_close = function () {
-        if (typeof(WeixinJSBridge) != "undefined") {
+        if (typeof WeixinJSBridge != "undefined") {
             WeixinJSBridge.call('closeWindow');
         } else {
             window.opener = null;
@@ -77,7 +78,7 @@
                 // }else if(locat.indexOf('adverList') > 0){
                 //     window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + api.appid + "&redirect_uri=" + api.callbackUrl + "/Views/Haif/adverList.html&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
                 // }else{}
-                
+
             }
         }
     };
@@ -88,74 +89,70 @@
         options = options || {};
         return $.extend(app.options, options);
     };
-    
-    
 
     //	查询订单剩余时间
     app.checkTime = function () {
         var data = {
-            userId:app.getItem('userInfo').id,		//	app.getItem('open_id')
-            pageNum:1,
-            pageSize:1,
-            seconds:api.pzTime,
+            userId: app.getItem('userInfo').id, //	app.getItem('open_id')
+            pageNum: 1,
+            pageSize: 1,
+            seconds: api.pzTime,
             openid: app.getItem("open_id")
         };
         var tt;
         $.ajax({
             url: api.NWBDApiWeiXinpushOrder,
             type: "POST",
-            data:data,
+            data: data,
             dataType: 'json',
-            async:false,			//	同步的使用
-            success:function(result){
+            async: false, //	同步的使用
+            success: function success(result) {
                 // console.log(result)
-                if(result.status == 'success' && result.code == 0){
-                    
-                    if(result.data.length > 0){
+                if (result.status == 'success' && result.code == 0) {
+
+                    if (result.data.length > 0) {
                         var countd = result.data[0].orderInfo.countdown;
                         tt = api.pzTime - countd;
-                        localStorage.setItem('status',1);
-                    }else{
+                        localStorage.setItem('status', 1);
+                    } else {
                         localStorage.removeItem('status');
-                        return
+                        return;
                     }
                 }
             },
-            error:function(){
-                
-            }
+            error: function error() {}
         });
-        
+
         return tt;
     };
-    
+
     //	时间戳转化
-    app.getTime = function(createTime,a){
-        var date = new Date(createTime)
-        var Y, M, D, h, m, s
-        Y = date.getFullYear() + '年'
-        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月'
-        D = app.tranformTow(date.getDate())  + '日 '
-        h = app.tranformTow(date.getHours()) + ':'
-        m = app.tranformTow(date.getMinutes())
-        s = app.tranformTow(date.getSeconds())
-        
-        if(a == 1){
-            return Y + M + D
-        }else if(a == 2){
-            return Y + M + D + h + m 
-        }else if(a == 3){
-            return Y + M + D + h + m  + ':' + s
-        }else if(a == 4){
-            return date.getFullYear() + '.' + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '.' + app.tranformTow(date.getDate())
+    app.getTime = function (createTime, a) {
+        var date = new Date(createTime);
+        var Y, M, D, h, m, s;
+        Y = date.getFullYear() + '年';
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+        D = app.tranformTow(date.getDate()) + '日 ';
+        h = app.tranformTow(date.getHours()) + ':';
+        m = app.tranformTow(date.getMinutes());
+        s = app.tranformTow(date.getSeconds());
+
+        if (a == 1) {
+            return Y + M + D;
+        } else if (a == 2) {
+            return Y + M + D + h + m;
+        } else if (a == 3) {
+            return Y + M + D + h + m + ':' + s;
+        } else if (a == 4) {
+            return date.getFullYear() + '.' + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '.' + app.tranformTow(date.getDate());
         }
     };
-    
+
     //	时间戳中个位数转化十位数
-    app.tranformTow = function (number){
-        return number < 10 ? '0'+number:number
+    app.tranformTow = function (number) {
+        return number < 10 ? '0' + number : number;
     };
-    
+
     app.layerAlert = function (str) {
         layer.open({
             content: str,
@@ -164,19 +161,20 @@
             skin: 'msg'
         });
     };
-    
-    app.formatDuring = function(value) {
+
+    app.formatDuring = function (value) {
         //	返回分钟
-        var secondTime = parseInt(value);// 秒
-        var minuteTime = 0;// 分
-        var hourTime = 0;// 小时
-        if(secondTime > 59) {//如果秒数大于60，将秒数转换成整数
+        var secondTime = parseInt(value); // 秒
+        var minuteTime = 0; // 分
+        var hourTime = 0; // 小时
+        if (secondTime > 59) {
+            //如果秒数大于60，将秒数转换成整数
             //获取分钟，除以60取整数，得到整数分钟
             minuteTime = parseInt(secondTime / 60);
             //获取秒数，秒数取佘，得到整数秒数
             secondTime = parseInt(secondTime % 60);
             //如果分钟大于60，将分钟转换成小时
-            if(minuteTime > 60) {
+            if (minuteTime > 60) {
                 //获取小时，获取分钟除以60，得到整数小时
                 hourTime = parseInt(minuteTime / 60);
                 //获取小时后取佘的分，获取分钟除以60取佘的分
@@ -184,23 +182,19 @@
             }
         }
         var result = "" + parseInt(secondTime);
-        if(result<10){
+        if (result < 10) {
             result = '0' + parseInt(secondTime);
         }
-        
-        if(minuteTime < 10) {
+
+        if (minuteTime < 10) {
             minuteTime = "0" + parseInt(minuteTime);
         }
-        
-       var objtime = {
-            min:minuteTime,
-            sec:result
-       }
 
-        return  objtime;
- };
+        var objtime = {
+            min: minuteTime,
+            sec: result
+        };
 
-
-
-}
-)($, window.app = {});
+        return objtime;
+    };
+})($, window.app = {});

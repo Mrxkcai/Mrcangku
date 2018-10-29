@@ -18,7 +18,7 @@
     </script>
     
     <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3" />
-    <link rel="stylesheet" type="text/css" href="Haif.css?v=2.1.0" />
+    <link rel="stylesheet" type="text/css" href="Haif.css?v=2.1.11" />
 </head>
 
 <body>
@@ -35,7 +35,12 @@
         <div class="con1" style="position: relative;">
             <p style="position: relative; height: 0.4rem;"></p>
             <p class="p2" style="position: relative;">
-                <input type="text" name="" placeholder="请输入手机号" maxlength="11" v-model="phone" />
+                <input type="text" name="" placeholder="请输入手机号" maxlength="11" v-model="phone" @keyup="testTel()" />
+            </p>
+            <p class="p-1" style="position: relative;" v-show="imgCodeShow">
+                <input type="text" placeholder="请输入图形验证码" maxlength="4" v-model="imgCode" />
+                <img src="" alt="图形验证码" id="imgCode" @click="tapImgCode()" >
+                <p style="clear: both"></p>
             </p>
             <p class="p3" style="position: relative;">
                 <input type="text" name="" placeholder="请输入验证码" maxlength="6" v-model="code" />
@@ -96,7 +101,9 @@
             pass:'', 
             userId:'',
             type:'',
-            sourceId:''
+            sourceId:'',
+            imgCode:'',
+            imgCodeShow:false
         },
         methods: {
             init() {
@@ -112,8 +119,8 @@
                 };
 
 
-                //  -判断用户类型   
-                // if(getUrlParam('userType')){    
+                //  -判断用户类型     
+                if(getUrlParam('userType')){
                     if(getUrlParam('userType') == 0){
                         that.type = 'USER';
                     }else if(getUrlParam('userType') == 1){
@@ -121,11 +128,8 @@
                     }else if(getUrlParam('userType') == 2){
                         that.type = 'WX_USER';
                     }else{};
-                // }else{
-                //     //-非app
-                //     that.type = 'WX_USER';
-
-                // };
+                };
+                
 
                 // -判断来源
                 if(getUrlParam('source')){
@@ -136,24 +140,6 @@
 
                 
                 console.log(that.userId)
-                if(getUrlParam('d')){
-                    var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                    if(isAndroid == true){
-                        //-调用安卓方法
-                        // anF.anF(
-                        //     "我的收益",
-                        //     'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'
-                        // );
-                    }else if(isiOS == true){
-                        // (function iosF(){
-                        //     window.webkit.messageHandlers.iosF.postMessage({title:'我的收益',content:'https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Cashhis.html'});
-                        // }());
-
-                        
-                    };
-                };
                     
 
                 // that.fun('233',4);
@@ -170,7 +156,15 @@
                 }else if(that.phone.length > 0 && !/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
                     that.fun('手机号格式不正确');
                     return;
-                }else if(that.code == ''){
+                }else if(that.imgCode.length == 0){
+                    that.fun('请输入图形验证码');
+                    return;
+                }else if(that.imgCode.length != 4){
+                    $('#imgCode').attr('src','https://app.haiercash.com:6688/app/appserver/msg/getCaptchaCode?mobile=' + that.phone)
+                    that.fun('请输入正确的图形验证码');
+                    return;
+                }
+                else if(that.code == ''){
                     that.fun('请输入验证码');
                     return;
                 }else if (that.code.length > 0 && that.code.length < 6){
@@ -183,28 +177,41 @@
                     that.fun('密码由6-20位字母和数字组成');
                     return;
                 }else{
-                    $.ajax({
-                        url:api.NWBDApiHairReg,
-                        type:'POST',
-                        data:{
+                    var data;
+                    if(!getUrlParam('userType')){
+                        data = {
+                            mobile:that.phone,
+                            verifyNo:that.code,
+                            password:that.pass,
+                            sourceId:that.sourceId,
+                            captchaCode:that.imgCode
+                        }
+                    }else{
+                        data = {
                             userId:that.userId,
                             type:that.type,
                             mobile:that.phone,
                             verifyNo:that.code,
                             password:that.pass,
-                            sourceId:that.sourceId
-                        },
+                            sourceId:that.sourceId,
+                            captchaCode:that.imgCode
+                        };
+                    };
+                    
+
+                    $.ajax({
+                        url:api.NWBDApiHairReg,
+                        type:'POST',
+                        data:data,
                         // dataType:"jsonp",
                         success:function(res){
                             console.log(res)
                             if(res.code == 0 && res.status == 'success'){
                                 if(getUrlParam('d')){
                                     //-app进入
-                                    // that.fun(res.message,3);
                                     window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
                                 }else{
                                     //-公众号进入
-                                    // that.fun(res.message,4);
                                     window.location.href = "https://app.haiercash.com:6688/hf/#!/download/20180627/download.html"
                                 };
                             }else if(res.code == 2){
@@ -239,16 +246,37 @@
             getCode(){
                 var that = this;
                 var btn_code = $('.a-send');
+                if(that.imgCode.length == 0){
+                    that.fun('请输入图形验证码');
+                    return false;
+                }else if(that.imgCode.length != 4){
+                    $('#imgCode').attr('src','https://app.haiercash.com:6688/app/appserver/msg/getCaptchaCode?mobile=' + that.phone)
+                    that.fun('请输入正确的图形验证码');
+                    
+                    return false;
+                };
                 if(/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
-                    $.ajax({
-                        url:api.NWBDApiHairCode,
-                        type:'GET',
-                        data:{
+                    var data;
+                    if(!getUrlParam('userType')){
+                        data = {
+                            mobile:that.phone,
+                            sourceId:that.sourceId,
+                            captchaCode:that.imgCode
+                        }
+                    }else{
+                        data = {
                             userId:that.userId,
                             type:that.type,
                             mobile:that.phone,
-                            sourceId:that.sourceId
-                        },
+                            sourceId:that.sourceId,
+                            captchaCode:that.imgCode
+                        };
+                    };
+                    
+                    $.ajax({
+                        url:api.NWBDApiHairCode,
+                        type:'GET',
+                        data:data,
                         // dataType:"jsonp",
                         success:function(res){
                             console.log(res)
@@ -417,6 +445,20 @@
                     $('.layui-m-layerchild h3').remove();
                 }
                 
+            },
+            testTel:function(){
+                var that = this;
+                if(/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(that.phone)){
+                    that.imgCodeShow = true;
+                    $('#imgCode').attr('src','https://app.haiercash.com:6688/app/appserver/msg/getCaptchaCode?mobile=' + that.phone)
+                }else{
+                    that.imgCodeShow = false;
+                };
+            },
+            //-点击图片验证码
+            tapImgCode:function(){
+                var that = this;
+                $('#imgCode').attr('src','https://app.haiercash.com:6688/app/appserver/msg/getCaptchaCode?mobile=' + that.phone)
             }
         },
         mounted() {

@@ -1,4 +1,6 @@
-$(function() {
+'use strict';
+
+$(function () {
     //  -fastclick 用法
     FastClick.attach(document.body);
 
@@ -18,7 +20,7 @@ $(function() {
             show: false
         },
         methods: {
-            init() {
+            init: function init() {
                 //-页面高度
                 $('#app').css({
                     'min-height': $(window).height()
@@ -26,11 +28,11 @@ $(function() {
                 $('.sec2').removeClass('high');
                 var that = this;
                 if (getUrlParam('userid')) {
-                    that.userId = getUrlParam('userid')
+                    that.userId = getUrlParam('userid');
                 } else if (!getUrlParam('userid') && !app.getItem("userInfo")) {
                     that.userId = '';
                 } else if (!getUrlParam('userid') && app.getItem("userInfo")) {
-                    that.userId = app.getItem("userInfo").id
+                    that.userId = app.getItem("userInfo").id;
                 } else {}
 
                 that.fun1(0);
@@ -44,10 +46,10 @@ $(function() {
                 //     that.userId = app.getItem("userInfo").id
                 // };
 
-
             },
+
             //-切换
-            qh(n) {
+            qh: function qh(n) {
                 var that = this;
                 $('.par1>div').eq(n).addClass('Ac').siblings('div').removeClass('Ac');
                 that.list = [];
@@ -61,10 +63,10 @@ $(function() {
                     that.btnS = true;
                     $('.sec2').removeClass('high');
                 };
-
             },
+
             //-提现
-            btn2() {
+            btn2: function btn2() {
                 var that = this;
                 if (getUrlParam('userType') == 2) {
                     //-公众号进入的
@@ -81,8 +83,8 @@ $(function() {
                             // userId:'cd92936c-c60a-4f86-b989-7a2e6f7c2759',
                             // userType:0
                         },
-                        success: function(res) {
-                            console.log(res)
+                        success: function success(res) {
+                            console.log(res);
                             if (res.status == 'success' && res.code == 0) {
                                 //-刷新页面
                                 $('.btn2').hide();
@@ -92,31 +94,28 @@ $(function() {
                                 // app.alert(res.message)
                             }
                         },
-                        error: function() {
+                        error: function error() {
                             // app.alert('网络故障，请检查网络');
                         }
                     });
-
                 };
-
             },
+
             //存放数据
-            fun1(n) {
+            fun1: function fun1(n) {
                 var that = this;
-
             },
-            close_() {
+            close_: function close_() {
                 var that = this;
-                that.show = false
+                that.show = false;
             }
         },
-        mounted() {
+        mounted: function mounted() {
             var that = this;
             that.init();
             // that.btn2();
         }
     });
-
 
     var body = $('body');
 
@@ -124,13 +123,12 @@ $(function() {
     $(".sec2").css("height", $('.u0').height() + "px");
     var userid;
     if (getUrlParam('userid')) {
-        userid = getUrlParam('userid')
+        userid = getUrlParam('userid');
     } else if (!getUrlParam('userid') && !app.getItem("userInfo")) {
         userid = '';
     } else if (!getUrlParam('userid') && app.getItem("userInfo")) {
-        userid = app.getItem("userInfo").id
+        userid = app.getItem("userInfo").id;
     } else {}
-
 
     //-实力化对象
     var voucher_list_num = 1;
@@ -141,14 +139,14 @@ $(function() {
     var arr;
 
     //- tab切换
-    $('.new_div').on('click', function() {
+    $('.new_div').on('click', function () {
         var index = $(this).index();
         if (index == 0) {
-            t = "USABLE"
+            t = "USABLE";
         } else if (index == 1) {
-            t = "WITHDRAW"
+            t = "WITHDRAW";
         } else {
-            t = "FINISHED"
+            t = "FINISHED";
         };
         ijroll.refresh();
         ijroll.scrollTo(0, 0);
@@ -163,12 +161,11 @@ $(function() {
             pagesize = 8;
             getPageData("update");
         } else {};
-
     });
 
     ijroll = new JRoll($('.sec2')[0]);
     ijroll.pulldown({
-        refresh: function(complete) {
+        refresh: function refresh(complete) {
             voucher_list_num = 1;
             ijroll_y = 0;
             complete();
@@ -178,7 +175,7 @@ $(function() {
     });
 
     ijroll.scrollTo(0, ijroll_y);
-    ijroll.on('touchEnd', function() {
+    ijroll.on('touchEnd', function () {
         if (ijroll.maxScrollY >= ijroll.y + 5) {
             ijroll_y = ijroll.maxScrollY;
             //  加载列表方法
@@ -187,72 +184,28 @@ $(function() {
     });
 
     // 
-    var createData = function(data, datatype) {
+    var createData = function createData(data, datatype) {
         var str = "";
         for (var i = 0; i < data.length; i++) {
             if (data[i].commissionType == "SHARE") {
-                str += `
-                <li>
-                    <div class="leftImg shares">
-                    </div> 
-                    <div class="rightDiv"> 
-                        <p>分享奖励</p>
-                        <div class="p1">
-                            <p>${data[i].createDate}</p>
-                        </div>
-                        <div class="p2">
-                                + ${data[i].commissionAmount}
-                        </div>
-                    </div>
-                </li>
-            `;
+                str += '\n                <li>\n                    <div class="leftImg shares">\n                    </div> \n                    <div class="rightDiv"> \n                        <p>\u5206\u4EAB\u5956\u52B1</p>\n                        <div class="p1">\n                            <p>' + data[i].createDate + '</p>\n                        </div>\n                        <div class="p2">\n                                + ' + data[i].commissionAmount + '\n                        </div>\n                    </div>\n                </li>\n            ';
             } else if (data[i].commissionType == "SHARE_REGISTRY") {
-                str += `
-                <li>
-                    <div class="leftImg shares_r">
-                    </div>
-                    <div class="rightDiv">
-                         <p>好友助力奖励</p> 
-                         <div class="p1 p3">
-                            <p>${data[i].commissionResource}</p>
-                            <p>${data[i].createDate}</p>
-                        </div>
-                        <div class="p2">
-                                + ${data[i].commissionAmount}
-                        </div>
-                    </div>
-                </li>
-            `;
+                str += '\n                <li>\n                    <div class="leftImg shares_r">\n                    </div>\n                    <div class="rightDiv">\n                         <p>\u597D\u53CB\u52A9\u529B\u5956\u52B1</p> \n                         <div class="p1 p3">\n                            <p>' + data[i].commissionResource + '</p>\n                            <p>' + data[i].createDate + '</p>\n                        </div>\n                        <div class="p2">\n                                + ' + data[i].commissionAmount + '\n                        </div>\n                    </div>\n                </li>\n            ';
             } else if (data[i].commissionType == "haier") {
-                str += `
-                    <li>
-                        <div class="leftImg haier">
-                        </div>
-                        <div class="rightDiv">
-                             <p>注册奖励</p> 
-                             <div class="p1 p3">
-                                <p>${data[i].commissionResource}</p>
-                                <p>${data[i].createDate}</p>
-                            </div>
-                            <div class="p2">
-                                    + ${data[i].commissionAmount}
-                            </div>
-                        </div>
-                    </li>
-                `;
+                str += '\n                    <li>\n                        <div class="leftImg haier">\n                        </div>\n                        <div class="rightDiv">\n                             <p>\u6CE8\u518C\u5956\u52B1</p> \n                             <div class="p1 p3">\n                                <p>' + data[i].commissionResource + '</p>\n                                <p>' + data[i].createDate + '</p>\n                            </div>\n                            <div class="p2">\n                                    + ' + data[i].commissionAmount + '\n                            </div>\n                        </div>\n                    </li>\n                ';
             }
         };
         return str;
     };
 
     var storage = window.localStorage;
-    var getPageData = function(datatype) {
+    var getPageData = function getPageData(datatype) {
         var pageNum = 1;
         pageNum = voucher_list_num;
 
         if (pageNum == -1) {
             if ($('.sec2 ul li').length >= pagesize) {
-                $('.voucher_list ul').append('<p class="no_more">没有更多了~</p>')
+                $('.voucher_list ul').append('<p class="no_more">没有更多了~</p>');
             };
             return;
         };
@@ -268,16 +221,16 @@ $(function() {
                 openid: app.getItem("open_id")
             },
             async: true,
-            success(res) {
+            success: function success(res) {
                 var dataList = res.data.pageable.list;
-                console.log(dataList.createDate)
+                console.log(dataList.createDate);
                 if (dataList.length == 0) {
                     $('.btn2').hide();
                     vm.b3 = true;
                 } else {
                     for (var i = 0; i < dataList.length; i++) {
                         // dataList[i].createDate = getTime(dataList[i].createDate, 5);
-                        dataList[i].createDate.replace(/\-/g, '/')
+                        dataList[i].createDate.replace(/\-/g, '/');
                         if (dataList[i].commissionType != "SHARE") {
                             dataList[i].commissionResource = dataList[i].commissionResource.substr(0, 3) + "****" + dataList[i].commissionResource.substr(7);
                         }
@@ -328,101 +281,95 @@ $(function() {
                     };
                     ijroll.refresh();
                 } else {
-                    app.alert(res.message)
+                    app.alert(res.message);
                 };
             },
-            error: function() {
+
+            error: function error() {
                 // app.alert('网络故障，请检查网络');
             }
         });
     };
     // 提现
-    $('#btn2').click(function() {
+    $('#btn2').click(function () {
         // 判断是否是否注册嗨付
         $.ajax({
-                url: url.addre + '/h5/thirdparty/haier/isRegister',
-                type: 'POST',
-                data: {
-                    mobile: app.getItem('userInfo').mobile
-                },
-            })
-            .done(function(res) {
-                if (res.data == false) {
-                    $('.drawCash-dialog').addClass('show');
-                    if ($('.drawCash-dialog-bd h1').length <= 0) {
-                        var items = '<h1>' + storage.total + '<span>' + '元' + '</span>' + '</h1>';
-                        $('.drawCash-dialog-bd').prepend(items);
-                    }
-                } else {
-                    bank();
+            url: url.addre + '/h5/thirdparty/haier/isRegister',
+            type: 'POST',
+            data: {
+                mobile: app.getItem('userInfo').mobile
+            }
+        }).done(function (res) {
+            if (res.data == false) {
+                $('.drawCash-dialog').addClass('show');
+                if ($('.drawCash-dialog-bd h1').length <= 0) {
+                    var items = '<h1>' + storage.total + '<span>' + '元' + '</span>' + '</h1>';
+                    $('.drawCash-dialog-bd').prepend(items);
                 }
-
-            })
-            .fail(function() {
-                console.log("error");
-            })
+            } else {
+                bank();
+            }
+        }).fail(function () {
+            console.log("error");
+        });
 
         $(this).hide();
         $(this).next().show();
     });
 
-    $('.ui-dialog-close').click(function(event) {
+    $('.ui-dialog-close').click(function (event) {
         $('.drawCash-dialog').removeClass('show');
         $('.btn3').hide();
         $('.btn2').show();
     });
 
     // 跳转嗨付注册页
-    body.on('click', '.tx', function(event) {
+    body.on('click', '.tx', function (event) {
         event.preventDefault();
         document.write("<script src='https://s22.cnzz.com/z_stat.php?id=1274913728&web_id=1274913728' language='JavaScript'><\/script>");
         window.location.href = "https://wxcs.nuoweibd.com/statics/wxcs.nuoweibd.com/h5/Views/Haif/Haif.html?userType=2&source=501";
     });
 
-
     // 点击提现
-    $('.zjtx').click(function(event) {
+    $('.zjtx').click(function (event) {
         $.ajax({
-                url: api.NWBDApiWeiXinShareBank,
-                type: 'GET',
-                data: {
-                    userId: app.getItem('userInfo').id,
-                    openid: app.getItem("open_id")
-                },
-            })
-            .done(function(res) {
-                if (res.status == "success") {
-                    // 弹层，提现成功
-                    if (res.data.accountNo != "" && res.data.accountNo != null) {
-                        $.ajax({
-                                url: url.addre + '/third/commission/cash',
-                                type: 'POST',
-                                data: {
-                                    userId: app.getItem('userInfo').id,
-                                    userType: 2
-                                },
-                            })
-                            .done(function(res) {
-                                if (res.status == "success") {
-                                    layer.alert('提现审核中');
-                                }
-                            })
-                            .fail(function() {
-                                console.log("error");
-                            })
-                    } else {
-                        //弹层，填写银行信息，提现
-                        $('.ui-dialog2').addClass('show')
-                    }
+            url: api.NWBDApiWeiXinShareBank,
+            type: 'GET',
+            data: {
+                userId: app.getItem('userInfo').id,
+                openid: app.getItem("open_id")
+            }
+        }).done(function (res) {
+            if (res.status == "success") {
+                // 弹层，提现成功
+                if (res.data.accountNo != "" && res.data.accountNo != null) {
+                    $.ajax({
+                        url: url.addre + '/third/commission/cash',
+                        type: 'POST',
+                        data: {
+                            userId: app.getItem('userInfo').id,
+                            userType: 2
+                        }
+                    }).done(function (res) {
+                        if (res.status == "success") {
+                            layer.alert('提现审核中');
+                        }
+                    }).fail(function () {
+                        console.log("error");
+                    });
+                } else {
+                    //弹层，填写银行信息，提现
+                    $('.ui-dialog2').addClass('show');
                 }
-            })
+            }
+        });
         $('.drawCash-dialog').removeClass('show');
     });
     var f1;
     var f2;
     var f3;
     // 表单验证
-    $('.ui-input').blur(function(event) {
+    $('.ui-input').blur(function (event) {
         event.stopPropagation();
         var nameVal = $.trim(this.value);
         var regName = /[~#^$@%&!*()<>:;'"{}【】  ]/;
@@ -438,7 +385,6 @@ $(function() {
             } else {
                 f1 = true;
             }
-
         } else if ($(this).is('#name')) {
             if (nameVal == "" || regName.test(nameVal) || nameVal.length < 2) {
                 layer.msg('请输入正确名称', {
@@ -470,7 +416,8 @@ $(function() {
 
                 var first15Num = nameVal.substr(0, nameVal.length - 1); //前15或18位
                 var newArr = new Array();
-                for (var i = first15Num.length - 1; i > -1; i--) { //前15或18位倒序存进数组
+                for (var i = first15Num.length - 1; i > -1; i--) {
+                    //前15或18位倒序存进数组
                     newArr.push(first15Num.substr(i, 1));
                 }
                 var arrJiShu = new Array(); //奇数位*2的积 <9
@@ -478,11 +425,9 @@ $(function() {
 
                 var arrOuShu = new Array(); //偶数位数组
                 for (var j = 0; j < newArr.length; j++) {
-                    if ((j + 1) % 2 == 1) { //奇数位
-                        if (parseInt(newArr[j]) * 2 < 9)
-                            arrJiShu.push(parseInt(newArr[j]) * 2);
-                        else
-                            arrJiShu2.push(parseInt(newArr[j]) * 2);
+                    if ((j + 1) % 2 == 1) {
+                        //奇数位
+                        if (parseInt(newArr[j]) * 2 < 9) arrJiShu.push(parseInt(newArr[j]) * 2);else arrJiShu2.push(parseInt(newArr[j]) * 2);
                     } else //偶数位
                         arrOuShu.push(newArr[j]);
                 }
@@ -528,50 +473,45 @@ $(function() {
                 }
             }
         }
-
     });
-    $('#save').click(function(event) {
+    $('#save').click(function (event) {
         event.stopPropagation();
         if (f1 & f2 & f3) {
             $.ajax({
-                    url: api.NWBDApiWeiXinShareBank,
+                url: api.NWBDApiWeiXinShareBank,
+                type: 'POST',
+                data: {
+                    userId: app.getItem('userInfo').id,
+                    accountNo: $("#banknum").val(),
+                    accountName: $("#name").val(),
+                    accountBank: $('#bankname').val(),
+                    openid: app.getItem("open_id")
+                }
+            }).done(function (res) {
+                $('#save').addClass('disabled');
+                $('.ui-input').attr('disabled', 'disabled');
+                $('.ui-dialog2').removeClass('show');
+                // 提现
+                $.ajax({
+                    url: url.addre + '/third/commission/cash',
                     type: 'POST',
                     data: {
                         userId: app.getItem('userInfo').id,
-                        accountNo: $("#banknum").val(),
-                        accountName: $("#name").val(),
-                        accountBank: $('#bankname').val(),
-                        openid: app.getItem("open_id")
-                    },
-                })
-                .done(function(res) {
-                    $('#save').addClass('disabled');
-                    $('.ui-input').attr('disabled', 'disabled');
-                    $('.ui-dialog2').removeClass('show')
-                    // 提现
-                    $.ajax({
-                            url: url.addre + '/third/commission/cash',
-                            type: 'POST',
-                            data: {
-                                userId: app.getItem('userInfo').id,
-                                userType: 2
-                            },
-                        })
-                        .done(function(res) {
-                            if (res.status == "success") {
-                                layer.msg('绑卡成功,提现审核中', {
-                                    time: 1000 //2秒关闭
-                                });
-                                $('.new_div:eq(1)').trigger('click');
-                            }
-                        })
-                        .fail(function() {
-                            console.log("error");
+                        userType: 2
+                    }
+                }).done(function (res) {
+                    if (res.status == "success") {
+                        layer.msg('绑卡成功,提现审核中', {
+                            time: 1000 //2秒关闭
                         });
-                })
-                .fail(function() {
+                        $('.new_div:eq(1)').trigger('click');
+                    }
+                }).fail(function () {
                     console.log("error");
                 });
+            }).fail(function () {
+                console.log("error");
+            });
         } else {
             layer.msg('请输入完整内容', {
                 time: 1000 //2秒关闭
@@ -580,13 +520,13 @@ $(function() {
     });
 
     // 关闭遮罩层
-    $('.ui-dialog2').click(function(event) {
+    $('.ui-dialog2').click(function (event) {
         /* Act on the event */
         $(this).removeClass('show');
     });
-    $('.ui-dialog2 .ui-dialog-cnt').click(function(event) {
+    $('.ui-dialog2 .ui-dialog-cnt').click(function (event) {
         /* Act on the event */
         event.stopPropagation();
     });
     getPageData("update");
-})
+});

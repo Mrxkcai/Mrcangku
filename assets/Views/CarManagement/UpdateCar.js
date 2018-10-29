@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
     "use strict";
 
@@ -12,7 +14,7 @@ $(function () {
             url: api.NWBDApiGetCarInfoByID + "?car_id=" + app.getQueryString("update_carId") + "&openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
-            success: function (result) {
+            success: function success(result) {
                 // console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     $("#carId").val(app.getQueryString("update_carId"));
@@ -45,17 +47,14 @@ $(function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }
         });
     }
 
-    var provinces = ["陕", "沪", "浙", "苏", "粤", "鲁", "晋", "冀",
-        "豫", "川", "渝", "辽", "吉", "黑", "皖", "鄂",
-        "津", "贵", "云", "桂", "琼", "青", "新", "藏",
-        "蒙", "宁", "甘", "京", "闽", "赣", "湘", "挂", "学", "警", "港", "澳"];
+    var provinces = ["陕", "沪", "浙", "苏", "粤", "鲁", "晋", "冀", "豫", "川", "渝", "辽", "吉", "黑", "皖", "鄂", "津", "贵", "云", "桂", "琼", "青", "新", "藏", "蒙", "宁", "甘", "京", "闽", "赣", "湘", "挂", "学", "警", "港", "澳"];
 
     var keyNums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"];
 
@@ -68,7 +67,7 @@ $(function () {
     body.on("click", ".ul_pro li.li_clean", function () {
         $("#carNo").val("");
     });
-    var controlKeyboard = function (carNoEl, thisEl) {
+    var controlKeyboard = function controlKeyboard(carNoEl, thisEl) {
         if (carNoEl.val().length < 7) {
             carNoEl.val(carNoEl.val() + thisEl.text());
         } else if (carNoEl.val().length === 7) {
@@ -89,7 +88,7 @@ $(function () {
         controlKeyboard(carNoEl, $(this));
     });
     //显示省份键盘
-    var showProvince = function () {
+    var showProvince = function showProvince() {
         $("#pro").html("");
         var ss = "<ul class='clearfix ul_pro'>";
         for (var i = 0; i < provinces.length; i++) {
@@ -117,11 +116,11 @@ $(function () {
         controlKeyboard(carNoEl, $(this));
     });
     //显示数字和字母键盘
-    var showKeybord = function () {
+    var showKeybord = function showKeybord() {
         $("#pro").html("");
         var sss = "<ul class='clearfix ul_keybord'>";
         for (var i = 0; i < keyNums.length; i++) {
-            sss += '<li class="li_Keybord" ><span>' + keyNums[i] + '</span></li>'
+            sss += '<li class="li_Keybord" ><span>' + keyNums[i] + '</span></li>';
         }
         sss += "<li class='li_close'><span>close</span></li><li class='li_del'><span>del</span></li><li class='li_SwitchingProvince'><span>汉字</span></li></ul>";
         $("#pro").html(sss);
@@ -156,7 +155,7 @@ $(function () {
             url: api.NWBDApiGetInsuranceCompanyList + "?openid=" + app.getItem("open_id") + "&r=" + Math.random(),
             type: "GET",
             dataType: 'json',
-            success: function (result) {
+            success: function success(result) {
                 if (result.status === "success" && result.code === 0) {
                     var insuranceData = result.data;
                     var insuranceDataLength = insuranceData.length;
@@ -166,7 +165,7 @@ $(function () {
                     }
                     insuranceStr += "</ul>";
                     commom_page_content.html(insuranceStr);
-                    commom_page_content.css("height", ($(window).height() - $(".commom_page_close").outerHeight(true)) + "px");
+                    commom_page_content.css("height", $(window).height() - $(".commom_page_close").outerHeight(true) + "px");
                     new JRoll(commom_page_content[0]);
                     app.closeLoading();
                     common_page.init();
@@ -175,7 +174,7 @@ $(function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }
@@ -186,7 +185,7 @@ $(function () {
         $("#car_insuranceId").val($(this).attr("data-id"));
         $("#car_insuranceName").val($(this).text());
         $(".car_showCarinsuranceName").text($(this).text());
-        $(".commom_page").stop().animate({"left": "100%"}, 200, "linear");
+        $(".commom_page").stop().animate({ "left": "100%" }, 200, "linear");
     });
 
     //保存车辆信息
@@ -262,7 +261,7 @@ $(function () {
             type = 1;
         }
         // console.log(carJson)
-        
+
         app.loading();
         $.ajax({
             url: api.NWBDApiCarAdd + "?r=" + Math.random(),
@@ -274,38 +273,37 @@ $(function () {
                 type: type,
                 openid: app.getItem("open_id")
             },
-            success: function (result) {
+            success: function success(result) {
                 console.log(result);
                 if (result.status === "success" && result.code === 0) {
                     app.closeLoading();
                     app.alert("保存成功");
                     // return
                     if (fromType === "update" || fromType === "add") {
-                        if(getUrlParam('e')){
-                            setTimeout(function(){
+                        if (getUrlParam('e')) {
+                            setTimeout(function () {
                                 window.location.href = "ListCar.html?e=1";
-                            },2000)
-                        }else{
-                            setTimeout(function(){
+                            }, 2000);
+                        } else {
+                            setTimeout(function () {
                                 window.location.href = "ListCar.html";
-                            },2000)
+                            }, 2000);
                         }
-                        
-                    } else if (fromType === "QuickRepairDetails") {
-                       
-                        setTimeout(function(){
-                            window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
-                        },2000)
+                    } else if (fromType === "QuickRepairNewDetails") {
+
+                        setTimeout(function () {
+                            window.location.href = "../QuickRepairDetails/QuickRepairNewDetails.html";
+                        }, 2000);
                     } else {
-                        
-                        if(getUrlParam('e')){
-                            setTimeout(function(){
+
+                        if (getUrlParam('e')) {
+                            setTimeout(function () {
                                 window.location.href = "ListCar.html?e=1";
-                            },2000)
-                        }else{
-                            setTimeout(function(){
+                            }, 2000);
+                        } else {
+                            setTimeout(function () {
                                 window.location.href = "ListCar.html";
-                            },2000)
+                            }, 2000);
                         }
                     }
                 } else {
@@ -313,7 +311,7 @@ $(function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }

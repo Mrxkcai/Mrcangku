@@ -362,6 +362,6 @@ var quickRepair = function () {
         //     return;
         // }
         app.setItem("merchant_id", $(this).attr("data-id"));
-        window.location.href = "../QuickRepairDetails/QuickRepairDetails.html";
+        window.location.href = "../QuickRepairDetails/QuickRepairNewDetails.html";
     });
 };

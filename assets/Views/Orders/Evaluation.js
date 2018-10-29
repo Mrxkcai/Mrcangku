@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
     "use strict";
 
@@ -64,7 +66,7 @@ $(function () {
                 },
                 order_id: order_id
             },
-            success: function (result) {
+            success: function success(result) {
                 // console.log(JSON.stringify(result));
                 if (result.status === "success" && result.code === 0) {
                     alert("评论成功");
@@ -74,7 +76,7 @@ $(function () {
                     app.alert(result.message);
                 }
             },
-            error: function () {
+            error: function error() {
                 app.closeLoading();
                 app.alert('操作失败，请检查网络！');
             }

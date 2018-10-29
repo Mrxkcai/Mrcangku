@@ -18,7 +18,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 	    <!-- 引入样式 -->
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.24"/>
+		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.25"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
@@ -47,7 +47,7 @@
 							<div class="shopComm">
 								<img :src="item" v-for='item,index in marchantGrade' />
 								<span class="commonNum">（{{marchantDetails.gradeCount}}条评价）</span>
-								<div class="detailWord" @click="goUserRating()" style="display: none;">
+								<div class="detailWord" @click="goUserRating()" style="display: block;">
 									<span>详情</span>
 									<img src="../../images/rightSan.png"/>
 								</div>
@@ -198,7 +198,7 @@
 	    document.close();
 	</script>
 	<script src="../../js/vant.min.js"></script>
-	<script src="QuickRepairNewDetails.js?v=2.0.76"></script>
+	<script src="QuickRepairNewDetails.js?v=2.0.78"></script>
 	<script>
 		//调用图片懒加载
 		Vue.use(VueLazyload, {

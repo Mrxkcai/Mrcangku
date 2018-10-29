@@ -502,6 +502,7 @@ header img:nth-child(n+2){
 	margin-right: .12rem;
 }
 .bottom_line{
+	margin-top: .1rem;
 	border-bottom: 1px solid #ddd;
 	padding-bottom: .3rem;
 }
