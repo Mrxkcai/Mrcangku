@@ -27,11 +27,6 @@
 						
 					<header>
 							<van-list>
-								<!-- <van-cell
-								v-for="item in list"
-								:key="item"
-								:title="item"
-								/> -->
 								<img v-for="item,index in image_arr" :src="item.image_url" @click="seeImg(index,image_arr.length)"/>
 								<p style="clear: both;"></p>
 							</van-list>
