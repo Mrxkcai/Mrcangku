@@ -10,11 +10,11 @@ body .springDe {
   background-position: 7.7rem 5.76rem;
 }
 body .normalAc {
-  background: #F77B19;
-  border: 1px solid #F77B19;
+  background: #F77B19!important;
+  border: 1px solid #F77B19!important;
 }
 body .colorAc {
-  color: #333;
+  color: #333!important;
 }
 body header {
   display: flex;
@@ -420,6 +420,25 @@ body section .repairHis .itemMess div {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+body section .repairHis .weixiuArr {
+  height: .4rem;
+}
+body section .repairHis .weixiuArr i {
+  font-style: normal;
+  font-size: .28rem;
+  display: inline-block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+body section .repairHis .weixiuArr i:nth-child(1) {
+  left: 0;
+  color: #999;
+}
+body section .repairHis .weixiuArr i:nth-child(2) {
+  right: 0;
+  color: #333;
 }
 body section #aa {
   width: 100%;

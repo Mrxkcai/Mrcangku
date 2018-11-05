@@ -18,43 +18,20 @@
         <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
         <link rel="stylesheet" href="../../css/carBrands.min.css?v=2.0.0"/>
         <link rel="stylesheet" href="../../css/common_page.min.css?v=2.0.0"/>
-        <link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.13"/>
+        <link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.16"/>
         <style>
             .bottomP{padding-bottom:1.8rem; }
         </style>
 	</head>
 	<body>
 		<div id="app">
-            <!-- 联系人-姓名-电话-地点模块 -->
-            <div class="lxdd">
-                <ul>
-                    <li>
-                        <span>|</span>
-                        <span>联系人信息</span>
-                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
-                    </li>
-                    <li>
-                        <span>姓名</span>
-                        <input type="text" placeholder="请输入您的姓名" id="name" />
-                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
-                    </li>
-                    <li>
-                        <span>联系电话</span>
-                        <input type="text" placeholder="请输入您的电话" id="mobile" />
-                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
-                    </li>
-                    <li class="chooseArea">
-                        <span>故障发生地点</span>
-                        <div class="choo"></div>
-                    </li>
-                </ul>
-            </div>
+            
 
             <!-- 车辆信息模块 -->
             <div class="carCompon">
                 <ul>
                     <li>
-                        <span>|</span>
+                        <span class="carIcon"></span>
                         <span>车辆信息</span>
                         <span class="chooseCar goAddCar">选择车辆</span>
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
@@ -79,7 +56,7 @@
                         <input type="hidden" id="car_seriesName"/>
                         <input type="hidden" id="car_modelId"/>
                         <input type="hidden" id="car_modelName"/>   
-                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                        <!-- <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p> -->
                     </li>
                     <li class="chooseSafe" style="display: none;">
                         <span>保险公司</span>
@@ -88,6 +65,42 @@
                         <input type="hidden" id="car_insuranceId"/>
                         <input type="hidden" id="car_insuranceName"/>
                         <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- 联系人-姓名-电话-地点模块 -->
+            <div class="lxdd">
+                <ul>
+                    <li>
+                        <span class="personalIcon"></span>
+                        <span>个人信息</span>
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>姓名</span>
+                        <input type="text" placeholder="请输入您的姓名" id="name" />
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                    </li>
+                    <li>
+                        <span>联系电话</span>
+                        <span class="selectDown"></span>
+                        <span class="removeAll" @click="removeAll()"></span>
+                        <input type="number" placeholder="请输入您的电话" id="mobile" maxlength="11" @keyup="testTel()"/>
+                        
+                        <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                        <div>
+                            <span>短信验证码</span>
+                            <input type="text" placeholder="请输入验证码" id="messCode" maxlength="4" />
+                            <button class="getCodeBtn getCodeBtnGray" @click="getCodeBtn()">获取验证码</button>
+                            <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                        </div>
+                    </li>
+                    
+                    <li class="chooseArea">
+                        <span>故障发生地点</span>
+                        <div class="choo"></div>
                     </li>
                 </ul>
             </div>
@@ -154,6 +167,6 @@
     </script>
     <script src="../../js/carBrands.js?v=2.0.20" charset='utf-8'></script>
     <script src="../../js/common_page.js?v=2.0.0" charset='utf-8'></script>
-    <script src="editQuickMess.js?v=2.0.34"></script>
+    <script src="editQuickMess.js?v=2.0.36"></script>
 </html>
     

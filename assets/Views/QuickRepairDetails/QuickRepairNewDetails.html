@@ -18,18 +18,33 @@
 		<link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
 	    <!-- 引入样式 -->
 		<link rel="stylesheet" href="../../css/vant.css">
-		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.25"/>
+		<link rel="stylesheet" type="text/css" href="QuickRepairNewDetails.css?v=2.0.27"/>
 	</head>
 	<body>
 		<div id="app" v-cloak>
-			<header>
-				<img v-for="item,index in image_arr" :src="item.image_url" @click="seeImg(index,image_arr.length)"/>
-				<p style="clear: both;"></p>
-				<div class="slideRight">
-					<div class="sp2 carTuo"></div>
-					拖车服务
+			<div style="position: fixed;width: 100%;height: 100%;">
+				<div style="width: 100%;" class="parentDiv">
+						
+					<header>
+							<van-list>
+								<!-- <van-cell
+								v-for="item in list"
+								:key="item"
+								:title="item"
+								/> -->
+								<img v-for="item,index in image_arr" :src="item.image_url" @click="seeImg(index,image_arr.length)"/>
+								<p style="clear: both;"></p>
+							</van-list>
+						
+						<div class="slideRight">
+							<div class="sp2 carTuo"></div>
+							拖车服务
+						</div>
+					</header>
 				</div>
-			</header>
+				
+			</div>
+			
 			
 			<!--维修厂信息模块-->
 			<div class="info_time2" v-show="up" @click="upImg"><img src="../../images/icon_up.png"/></div>
@@ -198,7 +213,7 @@
 	    document.close();
 	</script>
 	<script src="../../js/vant.min.js"></script>
-	<script src="QuickRepairNewDetails.js?v=2.0.78"></script>
+	<script src="QuickRepairNewDetails.js?v=2.0.80"></script>
 	<script>
 		//调用图片懒加载
 		Vue.use(VueLazyload, {

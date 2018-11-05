@@ -74,6 +74,7 @@ var api = (function() {
 
         //- 关于思腾维修厂的接口
         NWBDApiSitengS: apiAddress + "/order/status/sten/getOrderStatus", //  根据订单号查询订单在偲腾ERP的状态
+        NWBDApiSitengGetOrderInfo:apiAddress + "/order/status/sten/getOrderInfo",    //-根据订单号查询订单在偲腾的维修单信息
 
         //****************************** */
         NWBDApiWeiXincreateShareCode: apiAddress + "/qrCode/createOrGetQrCode", //	获取分享二维码

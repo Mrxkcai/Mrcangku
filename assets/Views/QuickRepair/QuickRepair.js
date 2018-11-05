@@ -14,7 +14,7 @@ var quickRepair = function quickRepair() {
     }
 
     //  检测是否含有openid
-    api.getopenid();
+    api.getopenid()
 
     var companyTypeId = [],
         lng = 0,
@@ -197,6 +197,9 @@ var quickRepair = function quickRepair() {
             //	下拉时没值则请求所有数据
             sessionStorage.setItem("sv", $('.search_bar').val());
             isSearch = false;
+            if (!app.getItem("open_id")) {
+                return false;
+            };
             $.ajax({
                 url: api.NWBDApiGetMerchantListByArea,
                 type: "POST",

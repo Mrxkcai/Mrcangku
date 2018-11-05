@@ -244,6 +244,7 @@ body{background:#f0efed}body .container .payment_order,body .container .evaluati
     border: 1px solid #fff;
 }
 /* 新增查看详情 */
-.bottom_btn_mid{
-    border-right: .01rem solid #e4e4e5;
+.bottom_btn_middle{
+    border-left: .01rem solid #e4e4e5!important;
+    display:block;text-align:center;height:.82rem;line-height:.82rem;flex:1;color:#aba9a7;font-size:.24rem
   }

@@ -15,12 +15,12 @@ body{
     };
     //-进行到。。。黄色圆圈
     .normalAc{
-        background: #F77B19;
-        border: 1px solid #F77B19;
+        background: #F77B19!important;
+        border: 1px solid #F77B19!important;
     };
     //-进行到。。。深色字体
     .colorAc{
-        color: #333;
+        color: #333!important;
     };
     
     @backC();
@@ -453,6 +453,27 @@ body{
                 };
                 padding: 0 .3rem;
                 margin-top: .28rem;
+            };
+
+            .weixiuArr{
+                height: .4rem;
+                i{
+                    font-style: normal;
+                    font-size: .28rem;
+                    display: inline-block;
+                    height: 100%;
+                    // line-height: .7rem;
+                    position: absolute;
+                    top: 0;
+                };
+                i:nth-child(1){
+                    left: 0;
+                    color: #999;
+                }
+                i:nth-child(2){
+                    right: 0;
+                    color: #333;
+                }
             };
         };
 

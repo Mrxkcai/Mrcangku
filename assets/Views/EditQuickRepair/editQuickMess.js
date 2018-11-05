@@ -402,6 +402,73 @@ var vm = new Vue({
 					});
 				}
 			}, 1000);
+		},
+		//-清空电话号码
+		removeAll:function(){
+			$('#mobile').val('');
+		},
+		//-获取短信验证码
+		getCodeBtn:function(){
+			var time = 60;
+			var mobile = $.trim($('#mobile').val());
+			if(!mobile){
+				app.alert("请填写手机号");
+				$('.getCodeBtn').addClass('getCodeBtnGray');
+				return;
+			}else if (!/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)) {
+				app.alert("手机号填写有误");
+				$('.getCodeBtn').addClass('getCodeBtnGray');
+				return;
+			}else{
+				var btn_code = $('.getCodeBtn');
+				$('.getCodeBtn').removeClass('getCodeBtnGray');
+				$.ajax({
+					url: api.NWBDApiVerifysend + "?r=" + Math.random(),
+					type: "POST",
+					// url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + app.getItem("merchant_id") + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
+					// type: 'get',
+					dataType: 'json',
+					data: {
+						mobile: mobile,
+						openid: app.getItem("open_id")
+					},
+					success: function (result) {
+						 console.log(JSON.stringify(result));
+						if(result.code == 0 && result.status == 'success'){
+							$('.getCodeBtn').addClass('getCodeBtnGray');
+							var time = 60;
+							btn_code.text(time);
+							btn_code.prop("disabled", true);
+							var timer = setInterval(function () {
+								time--;
+								btn_code.text(time);
+								if (time <= 0) {
+									clearInterval(timer);
+									$('.getCodeBtn').removeClass('getCodeBtnGray');
+									btn_code.text("获取验证码");
+									btn_code.prop("disabled", false);
+								}
+							}, 1000);
+						}else{
+							app.alert(result.message)
+						}
+						
+					},
+					error: function () {
+						app.alert('操作失败，请检查网络！');
+					}
+				});
+			};
+		},
+
+		//-教研手机号码输入事件
+		testTel:function(){
+			var mobile = $.trim($('#mobile').val());
+			if(!/^((17[0-9])|(14[0-9])|(13[0-9])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\d{8}$/.test(mobile)){
+				$('.getCodeBtn').addClass('getCodeBtnGray');
+			}else{
+				$('.getCodeBtn').removeClass('getCodeBtnGray');
+			};
 		}
 	},
 	mounted: function mounted() {
@@ -444,6 +511,12 @@ var editQuickMess = function editQuickMess() {
 	if (app.getItem("userInfo")) {
 		$('#name').val(app.getItem("userInfo").name);
 		$('#mobile').val(app.getItem("userInfo").mobile);
+		//-判断后去短信验证码是不是灰色
+		if($('#mobile').val().length == 0){
+			$('.getCodeBtn').addClass('getCodeBtnGray');
+		}else{
+			$('.getCodeBtn').removeClass('getCodeBtnGray');
+		};
 		lat = app.getItem('location').lat;
 		lng = app.getItem('location').lng;
 		addressProvince = app.getItem('province');

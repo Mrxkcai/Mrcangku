@@ -14,7 +14,7 @@ body{
     .lxdd{
         background:#fff;
         @wid100();
-        height: 4.56rem;
+        min-height: 4.56rem;
         margin-bottom: .18rem;
         ul{
             @wid100();
@@ -49,7 +49,7 @@ body{
                     width: 3.4rem;
                     float: right;
                     line-height: .5rem;
-                    text-align: right;
+                    text-align: left;
                     margin-right: .6rem;
                     font-size:.28rem;
                     margin-top: .23rem;
@@ -59,7 +59,7 @@ body{
                     font-family:PingFangSC-Regular;
                     font-weight:400;
                     color:rgba(204,204,204,1);
-                    text-align: right;
+                    text-align: left;
                 };
                 span{
                     @displayL();
@@ -72,25 +72,27 @@ body{
             };
             li:nth-child(3){
                 @wid100();
-                height: .96rem;
+                min-height: .96rem;
                 @displayL();
                 padding-left: .2rem;  
-                input{
+                position: relative;
+                >input{
                     height: .5rem;
-                    width: 3.4rem;
+                    width: 2.2rem;
                     float: right;
                     line-height: .5rem;
-                    text-align: right;
-                    margin-right: .6rem;
+                    text-align: left;
                     font-size:.28rem;
-                    margin-top: .23rem;
+                    position: absolute;
+                    right: 1.8rem;
+                    top: .2rem;
                 };
                 ::-webkit-input-placeholder{
                     font-size:.28rem;
                     font-family:PingFangSC-Regular;
                     font-weight:400;
                     color:rgba(204,204,204,1);
-                    text-align: right;
+                    text-align: left;
                 };
                 span{
                     @displayL();
@@ -99,7 +101,62 @@ body{
                 p{
                     width: 6.62rem;
                     float: right;
-                }
+                };
+
+                .removeAll{
+                    display: inline-block;
+                    width: .54rem;
+                    height: .54rem;
+                    background: url('../../images/removeAll.png');
+                    background-size:contain;
+                    background-repeat: no-repeat; 
+                    position: absolute;
+                    right: .9rem;
+                    top: .2rem;
+                };
+                .selectDown{
+                    display: inline-block;
+                    width: .33rem;
+                    height: 100%;
+                    background: url('../../images/downXia.png');
+                    background-size:contain;
+                    background-repeat: no-repeat; 
+                    position: absolute;
+                    right: .25rem;
+                    top: .3rem;
+                };
+                >div{
+                    position: relative;
+                    input{
+                        height: .5rem;
+                        width: 1.7rem;
+                        float: right;
+                        line-height: .5rem;
+                        text-align: left;
+                        font-size:.28rem;
+                        position: absolute;
+                        right: 2.3rem;
+                        top: .2rem;
+                    }; 
+                    .getCodeBtn{
+                        display: block;
+                        width:1.6rem;
+                        height:.62rem;
+                        background:linear-gradient(270deg,rgba(254,136,40,1) 0%,rgba(255,170,53,1) 100%);
+                        border-radius:.32rem;
+                        font-size:.24rem;
+                        font-family:PingFangSC-Medium;
+                        font-weight:500;
+                        color:rgba(255,255,255,1);
+                        line-height:.62rem;
+                        text-align: center;
+                        float: right;
+                        margin: .2rem .05rem 0 0;
+                    } ;
+                    .getCodeBtnGray{
+                        background: #dddddd;
+                    };
+                };
             };
             li:nth-child(4){
                 height: 1.39rem;
@@ -126,7 +183,19 @@ body{
                 background-repeat: no-repeat;
                 background-size: .3rem;
             };
-        }
+        };
+
+        .personalIcon{
+            width: .30rem;
+            height: .4rem;
+            background: url('../../images/personalIcon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            float: left;
+            margin: 0.42rem .1rem;
+        };
+
+
     };
     // 车两信息
     .carCompon{
@@ -139,7 +208,7 @@ body{
             width: 3.4rem;
             color: #666;
             float: right;
-            text-align: right;
+            text-align: left;
             line-height: .4rem;
             margin-right: .6rem;
             font-size:.28rem;
@@ -193,7 +262,7 @@ body{
                 width: 3.4rem;
                 float: right;
                 line-height: .5rem;
-                text-align: right;
+                text-align: left;
                 margin-right: .6rem;
                 font-size:.28rem;
                 margin-top: .18rem;
@@ -203,7 +272,7 @@ body{
                 font-family:PingFangSC-Regular;
                 font-weight:400;
                 color:rgba(204,204,204,1);
-                text-align: right;
+                text-align: left;
             };
             span{
                 @displayL();
@@ -230,7 +299,7 @@ body{
                 width: 3.4rem;
                 float: right;
                 line-height: .5rem;
-                text-align: right;
+                text-align: left;
                 margin-right: .6rem;
                 font-size:.28rem;
                 margin-top: .18rem;
@@ -240,7 +309,7 @@ body{
                 font-family:PingFangSC-Regular;
                 font-weight:400;
                 color:rgba(204,204,204,1);
-                text-align: right;
+                text-align: left;
             };
             span{
                 @displayL();
@@ -272,7 +341,7 @@ body{
                 width: 3.4rem;
                 float: right;
                 line-height: .5rem;
-                text-align: right;
+                text-align: left;
                 margin-right: .6rem;
                 font-size:.28rem;
                 margin-top: .18rem;
@@ -282,7 +351,7 @@ body{
                 font-family:PingFangSC-Regular;
                 font-weight:400;
                 color:rgba(204,204,204,1);
-                text-align: right;
+                text-align: left;
             };
             span{
                 @displayL();
@@ -303,7 +372,18 @@ body{
             background-position-y: .37rem;
             background-repeat: no-repeat;
             background-size: .3rem;
-        }
+        };
+
+        .carIcon{
+            width: .34rem;
+            height: .28rem;
+            background: url('../../images/carIcon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            float: left;
+            margin: 0.41rem .1rem;
+
+        };
 
     };
 

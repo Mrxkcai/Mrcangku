@@ -61,9 +61,10 @@ body section .rateWord {
   margin: .2rem auto 0;
 }
 body section .label {
-  max-width: 6rem;
+  width: 100%;
   margin: .32rem auto .28rem;
   min-height: .55rem;
+  padding-left: .2rem;
 }
 body section .label span {
   display: inline-block;

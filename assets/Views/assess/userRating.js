@@ -399,7 +399,7 @@ $(function () {
 				});
 			},
 			mounted: function mounted() {
-				if (app.getItem("merchant_id")) {
+				if (getUrlParam('company_id')) {
 					this.init();
 				};
 			}

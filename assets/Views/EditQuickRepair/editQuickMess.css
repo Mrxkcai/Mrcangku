@@ -13,7 +13,7 @@ body #app {
 body .lxdd {
   background: #fff;
   width: 100%;
-  height: 4.56rem;
+  min-height: 4.56rem;
   margin-bottom: .18rem;
 }
 body .lxdd ul {
@@ -51,7 +51,7 @@ body .lxdd ul li:nth-child(2) input {
   width: 3.4rem;
   float: right;
   line-height: .5rem;
-  text-align: right;
+  text-align: left;
   margin-right: .6rem;
   font-size: .28rem;
   margin-top: .23rem;
@@ -61,7 +61,7 @@ body .lxdd ul li:nth-child(2) ::-webkit-input-placeholder {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #cccccc;
-  text-align: right;
+  text-align: left;
 }
 body .lxdd ul li:nth-child(2) span {
   display: inline-block;
@@ -73,26 +73,28 @@ body .lxdd ul li:nth-child(2) p {
 }
 body .lxdd ul li:nth-child(3) {
   width: 100%;
-  height: .96rem;
+  min-height: .96rem;
   display: inline-block;
   padding-left: .2rem;
+  position: relative;
 }
-body .lxdd ul li:nth-child(3) input {
+body .lxdd ul li:nth-child(3) > input {
   height: .5rem;
-  width: 3.4rem;
+  width: 2.2rem;
   float: right;
   line-height: .5rem;
-  text-align: right;
-  margin-right: .6rem;
+  text-align: left;
   font-size: .28rem;
-  margin-top: .23rem;
+  position: absolute;
+  right: 1.8rem;
+  top: .2rem;
 }
 body .lxdd ul li:nth-child(3) ::-webkit-input-placeholder {
   font-size: .28rem;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #cccccc;
-  text-align: right;
+  text-align: left;
 }
 body .lxdd ul li:nth-child(3) span {
   display: inline-block;
@@ -101,6 +103,60 @@ body .lxdd ul li:nth-child(3) span {
 body .lxdd ul li:nth-child(3) p {
   width: 6.62rem;
   float: right;
+}
+body .lxdd ul li:nth-child(3) .removeAll {
+  display: inline-block;
+  width: .54rem;
+  height: .54rem;
+  background: url('../../images/removeAll.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: .9rem;
+  top: .2rem;
+}
+body .lxdd ul li:nth-child(3) .selectDown {
+  display: inline-block;
+  width: .33rem;
+  height: 100%;
+  background: url('../../images/downXia.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: .25rem;
+  top: .3rem;
+}
+body .lxdd ul li:nth-child(3) > div {
+  position: relative;
+}
+body .lxdd ul li:nth-child(3) > div input {
+  height: .5rem;
+  width: 1.7rem;
+  float: right;
+  line-height: .5rem;
+  text-align: left;
+  font-size: .28rem;
+  position: absolute;
+  right: 2.3rem;
+  top: .2rem;
+}
+body .lxdd ul li:nth-child(3) > div .getCodeBtn {
+  display: block;
+  width: 1.6rem;
+  height: .62rem;
+  background: linear-gradient(270deg, #fe8828 0%, #ffaa35 100%);
+  border-radius: .32rem;
+  font-size: .24rem;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: .62rem;
+  text-align: center;
+  float: right;
+  margin: .2rem .05rem 0 0;
+}
+body .lxdd ul li:nth-child(3) > div .getCodeBtnGray {
+  background: #dddddd;
 }
 body .lxdd ul li:nth-child(4) {
   height: 1.39rem;
@@ -127,6 +183,15 @@ body .lxdd ul li:nth-child(4) span {
   display: inline-block;
   line-height: .96rem;
 }
+body .lxdd .personalIcon {
+  width: .30rem;
+  height: .4rem;
+  background: url('../../images/personalIcon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+  margin: 0.42rem .1rem;
+}
 body .carCompon {
   margin-bottom: .18rem;
   background: #fff;
@@ -137,7 +202,7 @@ body .carCompon ul li a {
   width: 3.4rem;
   color: #666;
   float: right;
-  text-align: right;
+  text-align: left;
   line-height: .4rem;
   margin-right: .6rem;
   font-size: .28rem;
@@ -192,7 +257,7 @@ body .carCompon li:nth-child(2) input {
   width: 3.4rem;
   float: right;
   line-height: .5rem;
-  text-align: right;
+  text-align: left;
   margin-right: .6rem;
   font-size: .28rem;
   margin-top: .18rem;
@@ -202,7 +267,7 @@ body .carCompon li:nth-child(2) ::-webkit-input-placeholder {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #cccccc;
-  text-align: right;
+  text-align: left;
 }
 body .carCompon li:nth-child(2) span {
   display: inline-block;
@@ -234,7 +299,7 @@ body .carCompon li:nth-child(3) input {
   width: 3.4rem;
   float: right;
   line-height: .5rem;
-  text-align: right;
+  text-align: left;
   margin-right: .6rem;
   font-size: .28rem;
   margin-top: .18rem;
@@ -244,7 +309,7 @@ body .carCompon li:nth-child(3) ::-webkit-input-placeholder {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #cccccc;
-  text-align: right;
+  text-align: left;
 }
 body .carCompon li:nth-child(3) span {
   display: inline-block;
@@ -276,7 +341,7 @@ body .carCompon li:nth-child(4) input {
   width: 3.4rem;
   float: right;
   line-height: .5rem;
-  text-align: right;
+  text-align: left;
   margin-right: .6rem;
   font-size: .28rem;
   margin-top: .18rem;
@@ -286,7 +351,7 @@ body .carCompon li:nth-child(4) ::-webkit-input-placeholder {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #cccccc;
-  text-align: right;
+  text-align: left;
 }
 body .carCompon li:nth-child(4) span {
   display: inline-block;
@@ -301,6 +366,15 @@ body .carCompon li:nth-child(4) i {
 body .carCompon li:nth-child(4) p {
   width: 6.62rem;
   float: right;
+}
+body .carCompon .carIcon {
+  width: .34rem;
+  height: .28rem;
+  background: url('../../images/carIcon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+  margin: 0.41rem .1rem;
 }
 body .repairContent {
   margin-bottom: .18rem;

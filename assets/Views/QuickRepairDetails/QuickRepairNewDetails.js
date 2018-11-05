@@ -108,7 +108,8 @@ $(function () {
 				init: function init() {
 					var that = this;
 					$('.slideRight').animate({ right: "0" }, 400);
-
+					// $(".parentDiv").height($(window).height());
+					//var ijroll =  new JRoll(".parentDiv", {bounce:false, zoom:false,scrollY:true});
 					//	初次进入加载数据；
 					that.firstIn();
 				},
@@ -131,6 +132,7 @@ $(function () {
 						$('.newDetail_block').animate({ top: h3 - h4 - h5 + "px" }, 600, function () {
 							$('header').css({ 'height': $(window).height(), 'overflow-y': 'auto' });
 							$('.newDetail_block').hide();
+							
 						});
 						that.up = true;
 					}

@@ -93,30 +93,42 @@ $(function () {
                 src: '', //-维修厂logo
                 lineArr: [{
                     add: '待交接',
-                    time: '2018-1-7'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '维修中',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '待检验',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '待结算',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '待付款',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '待取车',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }, {
                     add: '维修完成',
-                    time: '2018-1-8'
+                    isActive:false,
+                    time: ''
                 }],
                 show1: true, //-维修进度
                 show2: false, //-车辆维修记录
                 wxStatus: '', //-维修状态
-                company_id: ''
+                company_id: '',
+                isShow:false,    //-是否有维修状态
+                Name:'',            //- 维修厂名字
+                tel:'',      //-    维修厂电话
+
+                data2:{}    //-维修单信息
             },
             methods: {
                 init: function init() {
@@ -134,9 +146,7 @@ $(function () {
                     //-更具维修厂id查询维修厂信息
                     that.getCompanyInfo(that.company_id);
 
-                    //-最后一个已完成
-                    //$('.lineS span:last-child').addClass('goneAc');
-
+                    
                     if (app.getItem('orderNo')) {
                         $.ajax({
                             url: api.NWBDApiSitengS,
@@ -148,27 +158,148 @@ $(function () {
                             success: function success(res) {
                                 console.log(res);
                                 if (res.data.stenOrderStatus == -1) {
-                                    that.wxStatus = '';
+                                    that.wxStatus = '暂无维修状态';
+                                    //-暂无状态
+                                    that.isShow = false
                                 } else if (res.data.stenOrderStatus == 0) {
                                     that.wxStatus = '待交接';
+                                    that.isShow = true
+                                    that.lineArr[0].time = res.data.modifyDate;
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = false;
+                                    that.lineArr[2].isActive = false;
+                                    that.lineArr[3].isActive = false;
+                                    that.lineArr[4].isActive = false;
+                                    that.lineArr[5].isActive = false;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 1) {
                                     that.wxStatus = '维修中';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = res.data.modifyDate;
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = false;
+                                    that.lineArr[3].isActive = false;
+                                    that.lineArr[4].isActive = false;
+                                    that.lineArr[5].isActive = false;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 2) {
                                     that.wxStatus = '待检验';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = res.data.modifyDate;
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = true;
+                                    that.lineArr[3].isActive = false;
+                                    that.lineArr[4].isActive = false;
+                                    that.lineArr[5].isActive = false;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 3) {
                                     that.wxStatus = '待结算';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = res.data.modifyDate;
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = true;
+                                    that.lineArr[3].isActive = true;
+                                    that.lineArr[4].isActive = false;
+                                    that.lineArr[5].isActive = false;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 4) {
                                     that.wxStatus = '待付款';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = res.data.modifyDate;
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = true;
+                                    that.lineArr[3].isActive = true;
+                                    that.lineArr[4].isActive = true;
+                                    that.lineArr[5].isActive = false;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 5) {
                                     that.wxStatus = '待取车';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = res.data.modifyDate;
+                                    that.lineArr[6].time = '';
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = true;
+                                    that.lineArr[3].isActive = true;
+                                    that.lineArr[4].isActive = true;
+                                    that.lineArr[5].isActive = true;
+                                    that.lineArr[6].isActive = false;
                                 } else if (res.data.stenOrderStatus == 6) {
                                     that.wxStatus = '已完成';
+                                    that.isShow = true
+                                    that.lineArr[0].time = '';
+                                    that.lineArr[1].time = '';
+                                    that.lineArr[2].time = '';
+                                    that.lineArr[3].time = '';
+                                    that.lineArr[4].time = '';
+                                    that.lineArr[5].time = '';
+                                    that.lineArr[6].time = res.data.modifyDate;
+
+                                    that.lineArr[0].isActive = true;
+                                    that.lineArr[1].isActive = true;
+                                    that.lineArr[2].isActive = true;
+                                    that.lineArr[3].isActive = true;
+                                    that.lineArr[4].isActive = true;
+                                    that.lineArr[5].isActive = true;
+                                    that.lineArr[6].isActive = false;
+                                    //-最后一个已完成
+                                    $('.lineS span:last-child').addClass('goneAc');
+
                                 };
                             },
                             error: function error() {
                                 app.alert('网络故障，请稍后重试');
                             }
                         });
+
+
+                        //-获取维修单信息
+                        that.getWeixiudan(app.getItem('orderNo'));
                     } else {
                         window.history.go(-1); //-返回+刷新
                     };
@@ -195,16 +326,49 @@ $(function () {
                     window.location.href = 'tel:' + tellphone;
                 },
                 getCompanyInfo: function getCompanyInfo(companyId) {
+                    var this_ = this;
                     $.ajax({
                         url: api.NWBDApiGetMerchantDetailInfo + "?merchant_id=" + companyId + "&openid=" + app.getItem("open_id") + "&userId=" + app.getItem("userInfo").id + "&r=" + Math.random(),
                         type: "GET",
                         dataType: 'json',
                         success: function success(res) {
                             console.log(res);
-                            if (res.code == 0) {};
+                            if (res.code == 0) {
+                                if(res.data[0].image.length != 0){
+                                    this_.src = res.data[0].image[0].image_url
+                                }else{
+                                    this_.src = ''
+                                };
+
+                                this_.Name = res.data[0].name;
+                                this_.tel = res.data[0].service_hotline;
+                            }else{
+                                app.alert(res.message);
+                            };
                         },
                         error: function error(res) {
                             app.alert(res.message);
+                        }
+                    });
+                },
+                getWeixiudan:function(orderId){
+                    var that = this;
+                    $.ajax({
+                        url:api.NWBDApiSitengGetOrderInfo,
+                        type:'post',
+                        data:{
+                            orderNo:orderId
+                        },
+                        success:function(res){
+                            console.log(res)
+                            if(res.code == 0){
+                                that.data2 = res.data;
+                            }else{  
+                                // app.alert(res.message)
+                            }
+                        },
+                        error:function(res){
+                            app.alert(res.message)
                         }
                     });
                 }
