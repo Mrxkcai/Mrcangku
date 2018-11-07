@@ -12,13 +12,41 @@ header{
 	width: 100%;
 	/* min-height: calc(100% + 1px);
 	position: static; */
+	
+}
+.parentClass{
+	position: fixed;
+	top: 0;
+	left: 0;
 }
 header img{
 	width: 100%;
 	height: auto;
 	display: block;
+	float: left;
 }
-
+header img:nth-child(n+2){
+	display: none;
+}
+/* 遮罩层
+ */
+ .img_zhezhao1{
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 4.2rem;
+ }
+ .img_zhezhao3{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+ }
+ .isNone{
+	 width: 100%;
+	 height: 4.2rem;
+ }
 
 
 

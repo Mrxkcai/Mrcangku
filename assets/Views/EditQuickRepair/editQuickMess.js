@@ -347,6 +347,7 @@ var vm = new Vue({
 	el: '#app',
 	data: {
 		isBox: false,
+		isDown:false,
 		countBlock: {
 			min: '00',
 			sec: '00',
@@ -459,6 +460,11 @@ var vm = new Vue({
 					}
 				});
 			};
+		},
+
+		//-店家下啦
+		clickDown:function(){
+			this.isDown = !this.isDown;
 		},
 
 		//-教研手机号码输入事件

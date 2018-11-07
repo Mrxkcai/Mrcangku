@@ -334,14 +334,19 @@ $(function () {
                         success: function success(res) {
                             console.log(res);
                             if (res.code == 0) {
-                                if(res.data[0].image.length != 0){
-                                    this_.src = res.data[0].image[0].image_url
-                                }else{
-                                    this_.src = ''
-                                };
+                                if(res.data[0]){
+                                    if(res.data[0].image.length != 0){
+                                        this_.src = res.data[0].image[0].image_url
+                                    }else{
+                                        this_.src = ''
+                                    };
 
-                                this_.Name = res.data[0].name;
-                                this_.tel = res.data[0].service_hotline;
+                                    this_.Name = res.data[0].name;
+                                    this_.tel = res.data[0].service_hotline;
+                                };
+                                
+
+                                
                             }else{
                                 app.alert(res.message);
                             };

@@ -179,7 +179,8 @@ $(function () {
 
 							//-判断有没有评价内容
 							if (res.data.all == 0) {
-								this_.ratingActive = true;
+								//-	重复了
+								// this_.ratingActive = true;
 							};
 						},
 						error: function error() {}

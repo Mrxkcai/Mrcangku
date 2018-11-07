@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/base.min.css?v=2.0.3"/>
         <link rel="stylesheet" href="../../css/carBrands.min.css?v=2.0.0"/>
         <link rel="stylesheet" href="../../css/common_page.min.css?v=2.0.0"/>
-        <link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.16"/>
+        <link rel="stylesheet" type="text/css" href="editQuickMess.css?v=2.0.17"/>
         <style>
             .bottomP{padding-bottom:1.8rem; }
         </style>
@@ -85,7 +85,7 @@
                     </li>
                     <li>
                         <span>联系电话</span>
-                        <span class="selectDown"></span>
+                        <span class="selectDown" @click="clickDown"></span>
                         <span class="removeAll" @click="removeAll()"></span>
                         <input type="number" placeholder="请输入您的电话" id="mobile" maxlength="11" @keyup="testTel()"/>
                         
@@ -95,6 +95,12 @@
                             <input type="text" placeholder="请输入验证码" id="messCode" maxlength="4" />
                             <button class="getCodeBtn getCodeBtnGray" @click="getCodeBtn()">获取验证码</button>
                             <p style="height: 1px;border:none;border-top:1px solid rgba(232,232,232,1);" ></p>
+                        </div>
+
+
+                        <!-- 下啦电话菜单 -->
+                        <div class="dropDown" v-show="isDown">
+                             
                         </div>
                     </li>
                     
@@ -167,6 +173,6 @@
     </script>
     <script src="../../js/carBrands.js?v=2.0.20" charset='utf-8'></script>
     <script src="../../js/common_page.js?v=2.0.0" charset='utf-8'></script>
-    <script src="editQuickMess.js?v=2.0.36"></script>
+    <script src="editQuickMess.js?v=2.0.37"></script>
 </html>
     

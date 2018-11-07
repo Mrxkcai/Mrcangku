@@ -102,18 +102,22 @@ $(function () {
 				image_arr: [], //	图片重新排序
 				imagesNew: [], //	图片数组
 				list: [],
-				totalCount: 0
+				totalCount: 0,
+				showLead1:false,		//-引导
+				showLead2:false,		//-引导
+				isNone:false			//-默认图片
 			},
 			methods: {
 				init: function init() {
 					var that = this;
 					$('.slideRight').animate({ right: "0" }, 400);
-					// $(".parentDiv").height($(window).height());
-					//var ijroll =  new JRoll(".parentDiv", {bounce:false, zoom:false,scrollY:true});
+					$(".wrapper").height($(window).height());
+					
 					//	初次进入加载数据；
 					that.firstIn();
 				},
 				seeImg: function seeImg(index, length) {
+					console.log(length)
 					var that = this;
 					if (length == 1) {
 						return;
@@ -121,7 +125,19 @@ $(function () {
 					if (index === 0) {
 						$('.newDetail_block').addClass('moveActive');
 						that.showBtn = false;
-						// $('header img').show();
+
+						if(sessionStorage.getItem('lead2') || that.image_arr.length < 1){
+							that.showLead2 = false
+						}else{
+							that.showLead2 = true
+							$('.img_zhezhao2').addClass('img_zhezhao3');
+							$('.img_zhezhao2').css({'height':$(window).height()});
+						};
+						
+
+						$('header img').show();
+						$('.parentDiv').removeClass('parentClass');
+
 						$('.info_time2').addClass('infoActive');
 						var h = $('.newDetail_block').height(),
 						    h2 = $('.info_time').height(),
@@ -130,7 +146,7 @@ $(function () {
 						    h5 = $('.info_time').height() - 60;
 						// $('.newDetail_block').animate({ top: 4.2 * length - 1.26 + "rem" }, 400);
 						$('.newDetail_block').animate({ top: h3 - h4 - h5 + "px" }, 600, function () {
-							$('header').css({ 'height': $(window).height(), 'overflow-y': 'auto' });
+							// $('header').css({ 'height': $(window).height(), 'overflow-y': 'auto' });
 							$('.newDetail_block').hide();
 							
 						});
@@ -141,13 +157,12 @@ $(function () {
 					var that = this;
 					$('.newDetail_block').show();
 					$('header').animate({ scrollTop: '0px' }, 600);
-
-					$('.newDetail_block').animate({ top: "3.54rem" }, 600, function () {
+					$('.parentDiv').addClass('parentClass');
+					$('.newDetail_block').stop().animate({ top: "3.54rem" }, 600, function () {
 						that.showBtn = true;
 						$('.info_time2').removeClass('infoActive');
-						$('header').css({ 'overflow-y': 'hidden' });
+						$('header img:nth-child(n+2)').hide();
 					});
-					// $('header img:nth-child(n+2)').hide();
 					that.up = false;
 				},
 				firstIn: function firstIn() {
@@ -166,6 +181,8 @@ $(function () {
 					//	输出存储的车服门店定位距离；
 					var send_juli = app.getItem("send_juli");
 					$(".send_juli").text(send_juli);
+
+					
 
 					$.ajax({
 						type: 'get',
@@ -195,7 +212,9 @@ $(function () {
 										that_.userNum = false;
 									}
 									if (that_.marchantDetails.image.length == 0) {
-										$('header').append('<img src="../../images/default_1125_633.png" />');
+										that_.isNone = true
+									}else{
+										that_.isNone = false
 									};
 
 									for (var i = 0; i < that_.marchantDetails.image.length; i++) {
@@ -225,6 +244,19 @@ $(function () {
 									} else {
 										that_.userNum = false;
 									}
+
+									//-判断引导
+									if(sessionStorage.getItem('lead') || that_.image_arr.length <= 1){
+										that_.showLead1 = false
+									}else{
+										that_.showLead1 = true
+									};
+
+									if(sessionStorage.getItem('lead2') || that_.image_arr.length < 1){
+										that_.showLead2 = false
+									}else{
+										that_.showLead2 = true
+									};
 
 									//	判断休息状态；
 									if (that_.marchantDetails.working != '') {
@@ -363,6 +395,18 @@ $(function () {
 				//-可拨打电话
 				telphoto: function telphoto(tellphone) {
 					window.location.href = 'tel:' + tellphone;
+				},
+				//-引导点击
+				lead1:function(){
+					this.seeImg(0,2);
+					sessionStorage.setItem('lead',1)
+					this.showLead1 = false
+				},
+				//-引导点击
+				lead2:function(){
+					
+					sessionStorage.setItem('lead2',1)
+					this.showLead2 = false
 				},
 
 				//-产生订单
